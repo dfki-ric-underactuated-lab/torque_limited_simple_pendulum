@@ -2,7 +2,7 @@ import sys
 import os
 from pathlib import Path
 import asyncio
-import pandas as pd
+#import pandas as pd
 
 import argparse
 from argparse import RawTextHelpFormatter
@@ -15,22 +15,16 @@ from utilities import utils, profiler, plots
 #from simulation import tlsp
 ####################################################################################################
 
-can_port = 'can0'
-motor_id = 0x01
-
-####################################################################################################
-
 CSV_FILE = "swingup_300Hz.csv"                                          # defining input files
 URDF_FILE = "simple_pendulum.urdf"
 
 WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[2])             # setting the workspace
-print("Workspace is set to:", WORK_DIR)
 sys.path.append(f'{WORK_DIR}/sw/python')                                # adding the parent folder to your system path
 
 OUTPUT_FOLDER, args, unknown = utils.syntax_parser(WORK_DIR)            # run the syntax parser
 
 ####################################################################################################
-if __name__ == "__main__":                          
+if __name__ == "__main__":                      
     # read data
     CSV_PATH, URDF_PATH, data, n = utils.read(WORK_DIR, CSV_FILE, URDF_FILE)
 
@@ -53,7 +47,7 @@ if __name__ == "__main__":
         start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time = asyncio.run(control_loop.qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in, meas_pos, meas_vel, meas_tau, meas_time, gr, rad2outputrev))
     
     if (args.pd and args.ak80_6):
-        start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time = control_loop.ak80_6(CSV_FILE, data, can_port, motor_id, Kp, Kd, n, dt, des_pos, des_vel, des_tau, meas_pos, meas_vel, meas_tau, meas_time)
+        start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time = control_loop.ak80_6(CSV_FILE, Kp, Kd, n, dt, des_pos, des_vel, des_tau, meas_pos, meas_vel, meas_tau, meas_time)
    
     # performance profiler
     profiler.performance(n, dt, des_time, meas_time, start, end, meas_dt)

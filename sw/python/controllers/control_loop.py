@@ -2,8 +2,8 @@ import sys
 import time
 import asyncio
 
-import socket
-from bitstring import BitArray
+#import socket
+#from bitstring import BitArray
 
 import moteus                                       # mjbots moteus driver                                                  
 from utilities import canmotorlib                   # t-motors AK80-6 driver                                                  
@@ -62,13 +62,14 @@ async def qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in, meas_pos
 
     return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time
 
-def ak80_6(CSV_FILE, data, can_port, motor_id, Kp, Kd, n, dt, des_pos, des_vel, des_tau, meas_pos, meas_vel, meas_tau, meas_time):
-    # Motor ID
+def ak80_6(CSV_FILE, Kp, Kd, n, dt, des_pos, des_vel, des_tau, meas_pos, meas_vel, meas_tau, meas_time):
     motor_id = 0x01
     can_port = 'can0'
+
     motor_controller = CanMotorController(can_port, motor_id)
     motor_controller.enable_motor()
     pos, vel, effort = motor_controller.send_deg_command(0, 0, 0, 0, 0)
+    print()
     print("After enabling motor, pos: ", pos, ", vel: ", vel, ", effort: ", effort)
 
     # ensure that the actuator starts from the zero positon
@@ -83,6 +84,7 @@ def ak80_6(CSV_FILE, data, can_port, motor_id, Kp, Kd, n, dt, des_pos, des_vel, 
     meas_dt = 0.0
     exec_time = 0.0
 
+    print()
     print("Executing trajectory:", CSV_FILE)
     start = time.time()
 
@@ -101,7 +103,6 @@ def ak80_6(CSV_FILE, data, can_port, motor_id, Kp, Kd, n, dt, des_pos, des_vel, 
         meas_tau[i] = tau
         meas_time[i] = t
         i += 1
-        t = t + dt
 
         exec_time = time.time() - start_loop
         if exec_time > dt:
@@ -114,5 +115,9 @@ def ak80_6(CSV_FILE, data, can_port, motor_id, Kp, Kd, n, dt, des_pos, des_vel, 
             pass
         meas_dt = time.time() - start_loop
     end = time.time()
+
+    # Disable the motor
+    motor_controller.send_rad_command(0, 0, 0, 0, 0)
+    motor_controller.disable_motor()
 
     return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time
