@@ -1,0 +1,11 @@
+Double Pendulum Swing up Methods
+ 
+- Trajectory Stabilization
+- Reinforcement Learning
+- LQR (Linear Quadratic Regulator)
+- MPC (Model Predictive Control)
+- Partial Feedback Linearization
+- DDP Swing up (Dynamic Differential Programming)
+
+- Check Rotation Axis
+- Describe Electronics and wiring
