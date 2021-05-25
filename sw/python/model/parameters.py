@@ -2,9 +2,10 @@
 def actuator():
     motor_id = 0x03
     gr = 1                          # the gear ratio
-    kp = 50                         # proportional gains
-    kd = 4                          # derivative gains
-    return motor_id, gr, kp, kd
+    Kp = 50                         # proportional gains
+    Kd = 4                          # derivative gains
+    return motor_id, gr, Kp, Kd
 
 
-def robot():
+def robot(URDF_FILE):
+    joints = 2

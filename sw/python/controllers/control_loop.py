@@ -1,10 +1,15 @@
+import sys
 import time
 import asyncio
 
-import moteus                                                       # mjbots moteus driver
-from canmotorlib import CanMotorController                          # t-motors AK80-6 driver
+import socket
+from bitstring import BitArray
 
-def control_qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in, meas_pos, meas_vel, meas_tau, meas_time, gr, rad2outputrev):
+import moteus                                       # mjbots moteus driver                                                  
+from utilities import canmotorlib                   # t-motors AK80-6 driver                                                  
+from utilities.canmotorlib import CanMotorController                
+                    
+async def qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in, meas_pos, meas_vel, meas_tau, meas_time, gr, rad2outputrev):
     c1 = moteus.Controller(id=1)                                    # define the interface to the "Controller" class in moteus.py
     await c1.set_stop()                                             # in case the controller had faulted previously, the stop command clears all fault states
     print("Motor enabled.")
@@ -57,7 +62,10 @@ def control_qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in, meas_p
 
     return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time
 
-def control_ak80_6(CSV_FILE, can_port, motor_id, kp, kd, n, dt, des_pos, des_vel, des_tau, meas_pos, meas_vel, meas_tau, meas_time):
+def ak80_6(CSV_FILE, data, can_port, motor_id, Kp, Kd, n, dt, des_pos, des_vel, des_tau, meas_pos, meas_vel, meas_tau, meas_time):
+    # Motor ID
+    motor_id = 0x01
+    can_port = 'can0'
     motor_controller = CanMotorController(can_port, motor_id)
     motor_controller.enable_motor()
     pos, vel, effort = motor_controller.send_deg_command(0, 0, 0, 0, 0)
@@ -83,7 +91,7 @@ def control_ak80_6(CSV_FILE, can_port, motor_id, kp, kd, n, dt, des_pos, des_vel
         t += meas_dt                                                                             # add the real_dt to the previous time step
 
         # pd control
-        pos, vel, tau = motor_controller.send_rad_command(des_pos[i], des_vel[i], kp, kd, 0)
+        pos, vel, tau = motor_controller.send_rad_command(des_pos[i], des_vel[i], Kp, Kd, 0)
         # torque control
         #pos, vel, tau = motor_controller.send_rad_command(des_pos[i], des_vel[i], kp, kd, des_tau[i]) 
 

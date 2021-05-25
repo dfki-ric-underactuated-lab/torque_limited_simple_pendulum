@@ -1,4 +1,4 @@
 
-__all__ = ["data_handler", "profiler", "plots" ]
+__all__ = ["utils", "profiler", "plots", "canmotorlib"]
 
 

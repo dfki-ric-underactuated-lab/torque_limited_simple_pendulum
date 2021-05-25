@@ -10,27 +10,29 @@ def syntax_parser(WORK_DIR):
     parser = argparse.ArgumentParser(
         description="Simulation of a torque limited simple pendulum powered by a quasi-direct drive", formatter_class=RawTextHelpFormatter)
     parser.add_argument("--pd", action='store_true',
-                        help="Use position and velocity control mode")
+                        help="Use position and velocity control mode", required=False)
     parser.add_argument("--tau", action='store_true',
                         help="Use torque control mode")
     parser.add_argument("--lqr", action='store_true',
-                        help="Use a Linear Quadratic Regulator for control")
+                        help="Use a Linear Quadratic Regulator for control", required=False)
     parser.add_argument("--ddp", action='store_true',
-                        help="Use Differential Dynamic Programming for control")
+                        help="Use Differential Dynamic Programming for control", required=False)
     parser.add_argument("--simulate", action='store_true',
-                        help="Runs a physical simulation of the pendulum plant, instead of controlling the real system.")
+                        help="Runs a physical simulation of the pendulum plant, instead of controlling the real system.",  required=False)
+    parser.add_argument("--qdd100", action='store_true',
+                        help="Use Differential Dynamic Programming for control",  required=False)
+    parser.add_argument("--ak80_6", action='store_true',
+                        help="Use Differential Dynamic Programming for control", required=False)
     parser.add_argument("--save", action='store_true',
-                        help="Save results to the results folder (../results)")
+                        help="Save results to the results folder (../results)", required=False)
 
     # Execute the parse_args method
     args, unknown = parser.parse_known_args()    
 
     folder_name = ""
-    if args.position_control:
-        folder_name = "position_control"
-    if args.velocity_control:
-        folder_name = "velocity_control" 
-    if args.torque_control:
+    if args.pd:
+        folder_name = "pd_control"
+    if args.tau:
         folder_name = "torque_control"
     if args.lqr:
         folder_name = "lqr"
@@ -39,12 +41,13 @@ def syntax_parser(WORK_DIR):
 
     TIMESTAMP = datetime.now().strftime(                # get timestamp              
         "%Y%m%d-%I%M%S-%p")
-    OUTPUT_FOLDER = WORK_DIR + f'/results/{TIMESTAMP}_' + folder_name
+    OUTPUT_FOLDER = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + folder_name
+
     return OUTPUT_FOLDER, args, unknown
 
 def read(WORK_DIR, CSV_FILE, URDF_FILE):
-    CSV_PATH = WORK_DIR + "/data/trajectories/" + CSV_FILE
-    URDF_PATH = WORK_DIR + "/data/" + URDF_FILE
+    CSV_PATH = str(WORK_DIR) + "/data/trajectories/" + CSV_FILE
+    URDF_PATH = str(WORK_DIR) + "/data/" + URDF_FILE
     data = pd.read_csv(CSV_PATH)
     n = len(data)
     return CSV_PATH, URDF_PATH, data, n
@@ -55,7 +58,7 @@ def prepare(data, n, gr):
     des_vel = data["vel"]                                                               # desired velocity in radian/s
     des_tau = data["torque"]                                                            # desired torque in Nm
     des_time = data["time"]                                                             # desired torque in s
-    meas_pos,  meas_vel, meas_tau, meas_time  = np.zeros(n)                             # create empty numpy array, where measured data can be stored
+    meas_pos, meas_vel, meas_tau, meas_time  = (np.zeros(n),) * 4                       # create 4 empty numpy array, where measured data can be stored
     
     dt = (data["time"][n-1] - data["time"][0])/n                                        # avg desired dt
 

@@ -33,6 +33,6 @@ def swingup(OUTPUT_FOLDER, des_pos, des_vel, des_tau, des_time, meas_pos, meas_v
     plt.title("Torque (Nm) vs Time (s)")
     plt.legend(['Measured Torque', 'Estimated Torque'])
     plt.draw()
-    plt.savefig(OUTPUT_FOLDER + '/swingup_tau.pdf'))
+    plt.savefig(OUTPUT_FOLDER + '/swingup_tau.pdf')
     plt.show()
     return
