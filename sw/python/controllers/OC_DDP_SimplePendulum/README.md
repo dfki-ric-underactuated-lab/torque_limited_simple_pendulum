@@ -16,5 +16,7 @@ State regulation
 
 # Dependencies:
 Crocoddyl [https://github.com/loco-3d/crocoddyl]
+
 Pinocchio [https://github.com/stack-of-tasks/pinocchio]
+
 For the display, Gepetto [https://github.com/Gepetto/gepetto-viewer]
