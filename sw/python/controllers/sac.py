@@ -1,5 +1,5 @@
 # imports
-from utilities.abstract_methods import controller
+from utilities.abstract_controller import AbstractController
 from stable_baselines import SAC
 import numpy as np
 import yaml
@@ -9,7 +9,7 @@ model_path = '../../data/models/sac_model.zip'
 params_path = '../../data/models/sac_params.yaml'
 
 
-class SacController(controller):
+class SacController(AbstractController):
     def __init__(self, model_path=model_path, params_path=params_path):
 
         self.model = SAC.load(model_path)

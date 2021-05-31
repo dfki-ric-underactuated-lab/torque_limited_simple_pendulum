@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 
 
-class controller(ABC):
+class AbstractController(ABC):
     @abstractmethod
     def get_control_output(self, meas_pos, meas_vel, meas_tau, meas_time, i):
         des_pos = None
