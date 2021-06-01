@@ -15,11 +15,11 @@ setup(
 
         # reinforcement learning
         'stable_baselines'
-    ]
+    ],
     classifiers=[
           'Development Status :: 0.1.0 - Alpha',
           'Environment :: Console',
-          'Intended Audience :: Academic Usage,
+          'Intended Audience :: Academic Usage',
           'Programming Language :: Python',
           ],
 )
