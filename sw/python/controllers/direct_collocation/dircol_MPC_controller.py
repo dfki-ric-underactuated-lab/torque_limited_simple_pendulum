@@ -1,7 +1,8 @@
+from utilities.abstract_controller import AbstractController
 from controllers.direct_collocation.direct_collocation import DirectCollocationCalculator
 
 
-class DirectCollocationMPC():
+class DirectCollocationMPC(AbstractController):
     def __init__(self, mass=1.0, length=0.5, damping=0.1,
                  gravity=9.81, torque_limit=2.0):
         self.dircal = DirectCollocationCalculator()

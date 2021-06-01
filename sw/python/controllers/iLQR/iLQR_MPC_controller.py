@@ -1,6 +1,7 @@
 import numpy as np
 from functools import partial
 
+from utilities.abstract_controller import AbstractController
 from controllers.iLQR.iLQR import iLQR_Calculator
 from controllers.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
                                       pendulum_discrete_dynamics_rungekutta, \
@@ -12,7 +13,7 @@ from controllers.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
                                       pendulum3_swingup_final_cost
 
 
-class iLQRMPCController():
+class iLQRMPCController(AbstractController):
     def __init__(self,
                  mass=0.5,
                  length=0.5,

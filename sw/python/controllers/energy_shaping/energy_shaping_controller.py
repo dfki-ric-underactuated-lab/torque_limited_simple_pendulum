@@ -1,5 +1,6 @@
 import numpy as np
 
+from utilities.abstract_controller import AbstractController
 from controllers.LQR.lqr_controller import LQRController
 
 
@@ -17,7 +18,7 @@ def pendulum_calc_total_energy(theta, theta_dot, mass, length, gravity):
     return kin + pot
 
 
-class EnergyShapingController():
+class EnergyShapingController(AbstractController):
     def __init__(self, mass=1.0, length=0.5, damping=0.1, gravity=9.81, k=1.0):
         self.m = mass
         self.l = length
@@ -52,7 +53,7 @@ class EnergyShapingController():
         return des_pos, des_vel, u
 
 
-class EnergyShapingAndLQRController():
+class EnergyShapingAndLQRController(AbstractController):
     def __init__(self, mass=1.0, length=0.5, damping=0.1,
                  gravity=9.81, torque_limit=np.inf):
         self.m = mass

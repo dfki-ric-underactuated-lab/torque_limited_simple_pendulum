@@ -1,9 +1,10 @@
 import numpy as np
 
+from utilities.abstract_controller import AbstractController
 from controllers.LQR.lqr_controller import LQRController
 
 
-class OpenLoopController():
+class OpenLoopController(AbstractController):
     def __init__(self, csv_path=""):
 
         trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
@@ -27,7 +28,7 @@ class OpenLoopController():
         return self.pos, self.vel, self.u
 
 
-class OpenLoopAndLQRController():
+class OpenLoopAndLQRController(AbstractController):
     def __init__(self, csv_path="", mass=1.0, length=0.5,
                  damping=0.1, gravity=9.81, torque_limit=np.inf):
 
