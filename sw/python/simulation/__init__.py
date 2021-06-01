@@ -12,4 +12,4 @@ if __name__ == "__main__":
     # get model parameters 
 
     # get the simple pendulum model
-    if args.simulate:
+    #if args.simulate:
