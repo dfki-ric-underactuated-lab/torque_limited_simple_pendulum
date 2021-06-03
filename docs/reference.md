@@ -4,8 +4,8 @@
 </div>
 
 
-### Equations of Motion of the Pendulum
--------------------------------------------------------------------- 
+### Equations of Motions
+
 
 ```math
 \tau = m l^2 \ddot{\theta} + mgl sin(\theta) + B \dot{\theta}  
@@ -19,6 +19,7 @@ where:
 * $`\ddot{\theta}`$: angular acceleration
 * $`B`$: damping
 <br/>
+
 ### Total Energy of the Pendulum
 -------------------------------------------------------------------- 
 
@@ -35,6 +36,7 @@ U = - mgl\cos(\theta)
 E = K + U
 ```
 <br/>
+
 ### Physical Parameters of the Pendulum
 -------------------------------------------------------------------- 
 
@@ -46,6 +48,7 @@ E = K + U
 * Radius of 0.5 Kg weight = 0.045 m 
 
 <br/>
+
 ### Physical Parameters of the Actuator
 -------------------------------------------------------------------- 
 
@@ -59,12 +62,13 @@ E = K + U
 * Max. torque to weight ratio = 24 $`Nm/kg`$ (after the gearbox) 
 * Max. velocity = 38.2 $`rad/s`$ = 365 $`rpm`$ (after the gearbox)
 
+-------------------------------------------------------------------- 
 <div align="center">
-<img width="400" src="../hw/ak80-6.jpg">  
+<img width="600" src="../hw/ak80-6_img.jpg">  
 </div>  
 
 ### Motor Constants  
-
+-------------------------------------------------------------------- 
  (before the gearbox)  
 
 - Motor constant km = 0.2206 $`Nm/ \sqrt{W}`$
