@@ -19,22 +19,22 @@ The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps un
 
 ### CAN Bus wiring
 -------------------------------------------------------------------- 
+Along the CAN bus proper grounding and isolation is required. It is important to not connect the ground pins between different actuators on the CAN bus connector, because this would cause a critical ground loop. The ground pin should only be used to connect to systems with a ground isolated from the power ground. Additionally, isolation between the main pc and the actuators improves the signal quality. When daisy-chaining multiple actuators, only the CAN-High and CAN-Low pins between the drives must be connected. At the end of the chain a 120 $\Omega$ resistor between CAN-H and CAN-L is used to absorb the signals. This prevents them from being reflected at the wire ends. The CAN protocol is differential, hence no additional ground reference is needed. The diagram below displays the wiring of the CAN bus.  
+  
 <br/>
-
 <div align="center">
-<img width="400" src="../hw/can_bus.png">  
+<img width="600" src="../hw/can_bus.png">  
 </div>    
 <br/> 
-<br/>
 
 ###  Configuration: R-Link Config Tool
 -------------------------------------------------------------------- 
 
-- Silabs: [CP210x Universal Windows Driver](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)  
-- CH341: [Sparkfun - How to install CH340 drivers](https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all)  
-- User manual & configuration tool: [store-en.tmotor.com](https://store-en.tmotor.com/goods.php?id=1085)
+- **Silabs:** [CP210x Universal Windows Driver](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)  
+- **CH341:** [Sparkfun - How to install CH340 drivers](https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all)  
+- **User manual & configuration tool:** [store-en.tmotor.com](https://store-en.tmotor.com/goods.php?id=1085)
 
-Before starting to use the R-Link device make sure you have downloaded the `CP210x Universal Windows Driver` from silabs. If this isn't working properly follow the instructions at sparkfun on how to install ch340 drivers. You have to download the `CH 341SER (EXE)` file from the sparkfun webpage. Notice that you first have to select **uninstall** in the CH341 driver menu to uninstall old drivers before you are able to install the new driver. The configuration tool software for the R-LINK module can be downloaded on the T-Motors website.  
+Before starting to use the R-Link device make sure you have downloaded the `CP210x Universal Windows Driver` from silabs. If this isn't working properly follow the instructions at sparkfun on how to install ch340 drivers. You have to download the `CH 341SER (EXE)` file from the sparkfun webpage. Notice that you first have to select uninstall in the CH341 driver menu to uninstall old drivers before you are able to install the new driver. The configuration tool software for the R-LINK module can be downloaded on the T-Motors website.  
 
 
 1. Wire the R-LINK module as shown in figure 1. A USB to micro USB cable connects a pc with the R-LINK module and the 5pin cable goes between the R-LINK module and the Motor.
@@ -43,11 +43,11 @@ Before starting to use the R-Link device make sure you have downloaded the `CP21
 
 3. Start the R-Link Config Tool application (only runs on Windows).  
 
-4. Select serial port: **USB-Serial_CH340,wch,cp** along with an appropriate baud rate (both 921600 and 115200 Bd should work). If the serial port option USB-Serial_CH340,wch,cp does not show up, your pc can’t establish a connection to the R-LINK module due to remaining driver issues.  
+4. Select serial port: USB-Serial_CH340,wch,cp along with an appropriate baud rate (both 921600 and 115200 Bd should work). If the serial port option USB-Serial_CH340,wch,cp does not show up, your pc can’t establish a connection to the R-LINK module due to remaining driver issues.  
 
 3. Choose the desired motor settings on the left side of the config tool GUI. Enter the correct CAN ID of the motor under `MotorSelectEnter`. A label on the motor shows the ID.
 
-	* Velocity: **5 rad/s** is a relatively slow speed of revolution, hence it offers a good starting point.
+	* Velocity: 5 rad/s is a relatively slow speed of revolution, hence it offers a good starting point.
 	* Torque: be careful setting a fixed torque, because the friction inside the motor decreases with the speed of revolution. Therefore a fixed torque commonly leads to either no movement at all or accelerates the motor continuously.  
    <br/> 
 
@@ -137,7 +137,7 @@ All functions return current position, velocity, torque in SI units except for `
 
 
 
- ### Further Tutorials
+ ### Tutorials
  --------------------------------------------------------------------
 
 - T-MOTOR: [https://www.youtube.com/watch?v=hbqQCgebaF8](https://www.youtube.com/watch?v=hbqQCgebaF8)  
