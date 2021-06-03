@@ -50,8 +50,8 @@ LICENSE: All files contained in this repository, unless otherwise noted, are
 available under an (...) License:
 
 
-See the simple pendulum in action here:
-[]]
+See the simple pendulum in action here: [torque limited swing up](/hw/simple_pendulum_swingup.mp4)
+
 
 
 ## Documentation 
