@@ -13,6 +13,8 @@ setup(
         'pandas',
         'argparse',
 
+        pip3 install bitstring sockets numpy pandas
+
         # reinforcement learning
         'stable_baselines'
     ],
