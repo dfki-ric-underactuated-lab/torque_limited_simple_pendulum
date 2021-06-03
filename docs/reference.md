@@ -83,6 +83,9 @@ E = K + U
 - Inductance phase to phase = 57 $`\pm`$ 10 $`\mu H`$
 - Rotor inertia Ir = 0.000060719 $`kg \, m^2`$
 
+### Motor Controller (same as MIT Mini-Cheetah)
+-------------------------------------------------------------------- 
+- [Ben Katz: Documentation](https://docs.google.com/document/d/1dzNVzblz6mqB3eZVEMyi2MtSngALHdgpTaDJIW_BpS4/edit)
 
 
 
