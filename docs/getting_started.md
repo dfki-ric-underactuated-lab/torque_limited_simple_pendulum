@@ -19,13 +19,13 @@ The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps un
 
 ### CAN Bus wiring
 -------------------------------------------------------------------- 
+Along the CAN bus proper grounding and isolation is required. It is important to not connect the ground pins between different actuators on the CAN bus connector, because this would cause a critical ground loop. The ground pin should only be used to connect to systems with a ground isolated from the power ground. Additionally, isolation between the main pc and the actuators improves the signal quality. When daisy-chaining multiple actuators, only the CAN-High and CAN-Low pins between the drives must be connected. At the end of the chain a 120 $\Omega$ resistor between CAN-H and CAN-L is used to absorb the signals. This prevents them from being reflected at the wire ends. The CAN protocol is differential, hence no additional ground reference is needed. The diagram below displays the wiring of the CAN bus.  
+  
 <br/>
-
 <div align="center">
-<img width="400" src="../hw/can_bus.png">  
+<img width="600" src="../hw/can_bus.png">  
 </div>    
 <br/> 
-<br/>
 
 ###  Configuration: R-Link Config Tool
 -------------------------------------------------------------------- 
