@@ -61,9 +61,11 @@ See the simple pendulum in action here: [torque limited swing up](/hw/simple_pen
 
 ## Safety Notes #
 
-DO NOT run the given code to the motors while they are attached to the leg. This code is meant to show a given code flow and test the motors, board, and program setup. Clamp the motors down and run the code on them externally. 
+* Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
 
-Depending on how the leg is assembled, you may need to adjust the lengths used in the code. More instructions re inside the general definitions section of the program.
+* Stay away from the plane in which pendulum is swinging. 
+
+* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
 
 Enjoy!
 -----------------------------------------------------------------------------------------------------------------------------
