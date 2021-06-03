@@ -50,26 +50,27 @@ E = K + U
 <br/>
 
 ### Physical Parameters of the Actuator
--------------------------------------------------------------------- 
-
+--------------------------------------------------------------------  
 
 * Voltage = 24 $`V`$
 * Current = rated 12 $`A`$, peak 24 $`A`$
-* Torque = rated 6 $`Nm`$, peak 12 $`Nm`$ (after the gearbox)
-* Gearbox reduction ratio N = 6 : 1
+* Torque = rated 6 $`Nm`$, peak 12 $`Nm`$ (after the transmission)
+* Transmission N = 6 : 1
 * Weight = 485 $`g`$
 * Dimensions = ⌀ 98 $`mm`$ x 38,5 $`mm`$
-* Max. torque to weight ratio = 24 $`Nm/kg`$ (after the gearbox) 
-* Max. velocity = 38.2 $`rad/s`$ = 365 $`rpm`$ (after the gearbox)
+* Max. torque to weight ratio = 24 $`Nm/kg`$ (after the transmission) 
+* Max. velocity = 38.2 $`rad/s`$ = 365 $`rpm`$ (after the transmission)
 
 -------------------------------------------------------------------- 
+The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft.  
+
 <div align="center">
 <img width="600" src="../hw/ak80-6_img.jpg">  
 </div>  
 
 ### Motor Constants  
 -------------------------------------------------------------------- 
- (before the gearbox)  
+ (before the transmission)  
 
 - Motor constant km = 0.2206 $`Nm/ \sqrt{W}`$
 - Electric constant ke= 0.009524 $`V/rpm`$ 
