@@ -4,7 +4,7 @@
 </div>
 
 
-### Test setup
+# Test setup
 
 The wiring diagram below shows how the simple pendulum testbench is set up. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator (AK80-6 from T-Motor). The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main pc doesn't have a PCI CAN card. Two different devices are used in our setup: the R-LINK module from T-Motor and the PCAN-USB adapter from PEAK systems. The former has CAN and UART connectors at the output, but only works with Windows. The latter only features CAN connection, but works with Linux. The UART connector of the R-LINK module is usefull to configure and calibrate the AK80-6.   
 
@@ -17,8 +17,7 @@ The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps un
 **Fig. 1:** actuator = AK80-6, controller board = CubeMars_AK_V1.1, power supply = EA-PS 9032-40, capacitor = 10x 2.7V-400F cells connected in series, USB-CAN interfaces = R-LINK module and PCAN-USB adapter.  
 
 
-### CAN Bus wiring
--------------------------------------------------------------------- 
+## CAN Bus wiring
 Along the CAN bus proper grounding and isolation is required. It is important to not connect ground pins on the CAN bus connectors between different actuators, since this would cause a critical ground loop. The ground pin should only be used to connect to systems with a ground isolated from the power ground. Additionally, isolation between the main pc and the actuators improves the signal quality. When daisy-chaining multiple actuators, only the CAN-High and CAN-Low pins between the drives must be connected. At the end of the chain a 120 Ohm resistor between CAN-H and CAN-L is used to absorb the signals. It prevents the signals from being reflected at the wire ends. The CAN protocol is differential, hence no additional ground reference is needed. The diagram below displays the wiring of the CAN bus.  
   
 <br/>
@@ -27,8 +26,7 @@ Along the CAN bus proper grounding and isolation is required. It is important to
 </div>    
 <br/> 
 
-###  Configuration: R-Link Config Tool
--------------------------------------------------------------------- 
+##  Configuration: R-Link Config Tool
 
 - **Silabs:** [CP210x Universal Windows Driver](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)  
 - **CH341:** [Sparkfun - How to install CH340 drivers](https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all)  
@@ -70,13 +68,157 @@ Before starting to use the R-Link device make sure you have downloaded the `CP21
 
  </div>
   
- ### Debugging
---------------------------------------------------------------------
-
+ ## Debugging
 Error messages that showed up during the configuration procedure, such as `UVLO` (VM undervoltage lockout) and `OTW` (Thermal warning and shutdown), could be interpreted with the help of the datasheet for the DRV8353M 100-V Three-Phase Smart Gate Driver from Texas Instruments:
 
 **Datasheet:** [DRV8353M](https://www.ti.com/lit/ds/symlink/drv8353m.pdf) (on the first Page under: 1. Features)   
-<br/>  
+<br/> 
+
+# Python Code Requirements 
+
+### Installing Python 3.7
+-------------------------------------------------------------------- 
+In order to run the python code within the repository you will need `Python >=3.7, <4` along with the package installer `pip3`. 
+  
+**Step 1)** First, you might want to see if you already have a suitable version installed. This command shows which Python 3 version is currently set as default:
+
+```
+python3 --version
+```
+
+If the default Python 3 version does not match the requirements you can list all python versions that are installed under /usr by typing
+
+```
+ls /usr/bin/python*
+```
+
+**Step 2)** If any suitable version is listed (otherwise directly jump to Step 5), we need to check whether there are any Python alternatives configured. Therefore, execute the command below in the terminal.
+
+```
+sudo update-alternatives --list python
+```
+  
+**Step 3)** If there are no matching python alternatives configured, you can add an existing Python version to our alternatives. For example, if version /usr/bin/python3.7 exists on the system, you can add it to your alternatives via
+
+```
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
+```
+
+**Step 4)** After adding python 3.7 to you alternatives you can display it and verfify wether it is set as default with this command
+
+```
+sudo update-alternatives --config python
+```
+
+Enter the selection number, on the prompt that appears on the terminal, to set python 3.7 as your default version. You have successfully set Python 3 to your default python version and can now jump directly to Step 8.
+
+**Step 5)** In case you haven't encountered a suitable python version on your system you can just install it with apt. Start by updating the packages list and installing the prerequisites:
+
+```
+sudo apt update
+sudo apt install software-properties-common
+```
+
+**Step 6)** Next, add the deadsnakes PPA to your sources list:
+
+```
+sudo add-apt-repository ppa:deadsnakes/ppa
+```
+
+When prompted press `Enter` to continue:
+
+```
+Press [ENTER] to continue or Ctrl-c to cancel adding it.
+```
+
+**Step 7)** Once the repository is enabled, install Python 3.7 with
+
+```
+sudo apt install python3.7
+```
+
+**Step 8)** At this point, Python 3.7 is installed on your Ubuntu system and ready to be used. You can verify it by typing:
+
+```
+python3.7 --version
+```
+
+### Installing pip3
+-------------------------------------------------------------------- 
+Once you have  `Python >=3.7, <4` installed update the package list using the following command:
+
+```
+sudo apt update
+```
+
+and install pip3 via
+
+```
+sudo apt install python3-pip
+```
+
+If you like, you can verify the installation by checking the pip version:
+
+```
+pip3 --version
+```
+
+# Creating a Virtual Environment 
+The easiest and recommended way to configure your own custom Python environment is via `Virtualenv`. 
+
+**Step 1)** Use pip3 to simply install virtualenv:  
+
+```
+pip3 install virtualenv
+```
+
+**Step 2)** You'll need the full path to your python and to your virtualenv installation, so run the following to view both paths:
+
+```
+which virtualenv
+outputs e.g. /home/username/opt/python-3.7.2/bin/virtualenv
+
+which python3
+outputs e.g.  /home/username/opt/python-3.7.2/bin/python
+```
+
+**Step 3)** Navigate to the directory, where you want to create the new virtual environment. In our case this will be at ~/torque_limited_simple_pendulum/sw/python. Create the virtual environment, while specifing the desired python version. 
+
+```
+virtualenv -p /home/username/opt/python-3.7.2/bin/python3 venv
+```
+
+This command creates a virtualenv named 'venv' and uses the -p flag to specify the full path to the Python3 version you just installed. You may see the following error when installing:
+
+```
+setuptools pip failed with error code 1` error
+```
+
+If so, run the following:
+
+```
+pip3 install --upgrade setuptools
+```
+
+Try again and you should be able to install without an error.
+
+**Step 4)** Activate the new virtual environment with the command
+
+```
+source venv/bin/activate
+```
+
+The name of the current virtual environment `(venc)` appears to the left of the prompt, indicating that you are now working inside a virtual environment.
+
+**Step 5)** When finished working in the virtual environment, you can deactivate it by running the following:
+
+```
+deactivate
+```
+
+
+
+
 
 ### Python Motor Driver for Mini Cheetah Actuator: T-Motor AK80-6
 --------------------------------------------------------------------
