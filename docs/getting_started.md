@@ -86,7 +86,7 @@ In order to run the python code within the repository you will need `Python >=3.
 python3 --version
 ```
 
-If the default Python 3 version does not match the requirements you can list all python versions that are installed under /usr by typing
+If the default Python 3 version does not match the requirements you can list all python versions that are installed on your system under /usr by typing
 
 ```
 ls /usr/bin/python*
@@ -98,7 +98,7 @@ ls /usr/bin/python*
 sudo update-alternatives --list python
 ```
   
-**Step 3)** If there are no matching python alternatives configured, you can add an existing Python version to our alternatives. For example, if version /usr/bin/python3.7 exists on the system, you can add it to your alternatives via
+**Step 3)** If there are no matching python alternatives configured, you can add the desired Python version to our alternatives. For example, if version /usr/bin/python3.7 exists on the system, you can add it to your alternatives via
 
 ```
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
@@ -182,7 +182,7 @@ which python3
 outputs e.g.  /home/username/opt/python-3.7.2/bin/python
 ```
 
-**Step 3)** Navigate to the directory, where you want to create the new virtual environment. In our case this will be at ~/torque_limited_simple_pendulum/sw/python. Create the virtual environment, while specifing the desired python version. 
+**Step 3)** Navigate to the directory, where you want to create the new virtual environment. In our case this will be at `~/torque_limited_simple_pendulum/sw/python`. Create the virtual environment, while specifing the desired python version. 
 
 ```
 virtualenv -p /home/username/opt/python-3.7.2/bin/python3 venv
@@ -208,16 +208,29 @@ Try again and you should be able to install without an error.
 source venv/bin/activate
 ```
 
-The name of the current virtual environment `(venc)` appears to the left of the prompt, indicating that you are now working inside a virtual environment.
+The name of the current virtual environment `(venv)` appears to the left of the prompt, indicating that you are now working inside a virtual environment.
 
-**Step 5)** When finished working in the virtual environment, you can deactivate it by running the following:
+
+# Installing Python Packages
+Now that you’re in your virtual environment you can install all required packages from the existing requirements.txt file via:
+
+```
+python3 -m pip install -r requirements.txt
+```
+
+(Note: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`)
+
+When finished working in the virtual environment, you can deactivate it by running the following:
 
 ```
 deactivate
 ```
 
+In case that you don't need the virtual environment anymore, you can deactivate it and remove it together with all previously installed packages:
 
-
+```
+sudo rm -rf venv
+```
 
 
 ### Python Motor Driver for Mini Cheetah Actuator: T-Motor AK80-6
