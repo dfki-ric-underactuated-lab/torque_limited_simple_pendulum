@@ -9,6 +9,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 <div align="center">
 <img width="300" src="../hw/simple_pendulum_CAD.png">
+<img width="300" src="../hw/pendulum_swingup_animation.gif">
 </div>
 
 See the simple pendulum in action here: [torque limited swing up](/hw/simple_pendulum_swingup.mp4)
