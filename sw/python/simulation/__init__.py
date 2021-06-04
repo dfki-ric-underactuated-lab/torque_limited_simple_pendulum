@@ -1,6 +1,7 @@
 
 __all__ = ["tlsp"]
 
+from simulation import * 
 
 if __name__ == "__main__":                          
     # read data

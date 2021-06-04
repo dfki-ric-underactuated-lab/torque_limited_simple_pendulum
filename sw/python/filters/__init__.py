@@ -1,6 +1,7 @@
 
 __all__ = ["fft", "sg"]
 
+from filters import *
 
 # cut data
     if args.clean:

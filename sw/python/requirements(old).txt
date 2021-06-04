@@ -1,0 +1,30 @@
+# general
+pyyaml
+numpy
+pandas
+argparse
+Sys
+Os
+Pathlib
+Asyncio
+Matplotlib
+Time
+moteus
+Math
+Scipy
+Abc
+Socket
+Struct
+Bitstring
+cProfile
+Datetime
+
+Pydrake?
+Crocoddyl?
+Pinocchio?
+
+Functools
+
+
+# reinforcement learning
+stable_baselines
