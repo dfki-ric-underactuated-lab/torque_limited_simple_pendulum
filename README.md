@@ -3,6 +3,21 @@
 #  Simple Pendulum
 </div>
 
+## Introduction #
+
+The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a torque limited simple pendulum built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the offline and online control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
+
+See the simple pendulum in action here: [torque limited swing up](/hw/simple_pendulum_swingup.mp4)
+
+
+## Documentation 
+
+* [Testbench Setup](docs/testbench_setup.md)
+* [Getting Started](docs/getting_started.md)
+* [Usage](docs/usage.md)
+* [Reference](docs/reference.md)
+
+
 ## Structure #
 
 <table>
@@ -42,24 +57,6 @@
     </tr>
 </table>
 
-## Introduction #
-
-The project is an open-source, low-cost, robust, and modular kit to get started with dynamic robots. The kit targets lowering the barrier for studying dynamic robots and legged locomotion in real systems. Controlling dynamic motions in real robots present unique challenges to the software and hardware which are often overlooked in conventional robotics courses. This project describes the topics which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
-
-LICENSE: All files contained in this repository, unless otherwise noted, are
-available under an (...) License:
-
-
-See the simple pendulum in action here: [torque limited swing up](/hw/simple_pendulum_swingup.mp4)
-
-
-
-## Documentation 
-
-* [Testbench Setup](docs/testbench_setup.md)
-* [Getting Started](docs/getting_started.md)
-* [Usage](docs/usage.md)
-* [Reference](docs/reference.md)
 
 ## Safety Notes #
 
@@ -69,5 +66,17 @@ See the simple pendulum in action here: [torque limited swing up](/hw/simple_pen
 
 * Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
 
-Enjoy!
+## Contributors #
+
+* [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
+* [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html)
+* [Daniel Harnack](https://robotik.dfki-bremen.de/en/about-us/staff/daha03.html)
+* [Jonathan Babel](https://robotik.dfki-bremen.de/en/about-us/staff/joba02.html)
+* [Heiner Peters](https://robotik.dfki-bremen.de/en/about-us/staff/hepe02.html)
+* [Shubham Vyas](https://robotik.dfki-bremen.de/en/about-us/staff/shvy01/)
+* [Melya Boukheddimi](https://robotik.dfki-bremen.de/en/about-us/staff/mebo01/)
+* [Mihaela Popescu](https://robotik.dfki-bremen.de/en/about-us/staff/mipo02/)
+
+Feel free to contact us if you have questions about the test bench. Enjoy!
+
 -----------------------------------------------------------------------------------------------------------------------------
