@@ -56,7 +56,9 @@ See the simple pendulum in action here: [torque limited swing up](/hw/simple_pen
 
 ## Documentation 
 
+* [Testbench Setup](docs/testbench_setup.md)
 * [Getting Started](docs/getting_started.md)
+* [Usage](docs/usage.md)
 * [Reference](docs/reference.md)
 
 ## Safety Notes #
