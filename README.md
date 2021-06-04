@@ -1,6 +1,6 @@
 <div align="center">
 
-#  Simple Pendulum
+#  Torque Limited Simple Pendulum
 </div>
 
 ## Introduction #
