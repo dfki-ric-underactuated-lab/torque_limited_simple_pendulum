@@ -36,7 +36,7 @@ class EnergyShapingController(AbstractController):
                                                          gravity=self.g)
 
     def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0, i=0):
+                           meas_tau=0, meas_time=0):
         pos = meas_pos[0]
         vel = meas_vel[0]
         total_energy = pendulum_calc_total_energy(theta=pos,
@@ -46,7 +46,7 @@ class EnergyShapingController(AbstractController):
                                                   gravity=self.g)
         u = -self.k*vel*(total_energy - self.desired_energy) + self.b*vel
         # since this is a pure torque controller,
-        # set pos_des and vel_des to None
+        # set des_pos and des_vel to None
         des_pos = None
         des_vel = None
 
@@ -77,7 +77,7 @@ class EnergyShapingAndLQRController(AbstractController):
         self.energy_shaping_controller.set_goal(x)
 
     def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0, i=0):
+                           meas_tau=0, meas_time=0):
         des_pos, des_vel, u = self.lqr_controller.get_control_output(meas_pos,
                                                                      meas_vel)
         if u is not None:
