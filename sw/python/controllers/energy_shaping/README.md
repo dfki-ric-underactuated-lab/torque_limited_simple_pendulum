@@ -69,13 +69,12 @@ where x is the desired goal state. This function sets the desired energy for the
 
 The control output \(\mathbf{u}(\mathbf{x})\) can be obtained with the API of the abstract controller class: 
 
-    EnergyShapingController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time, i)
+    EnergyShapingController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time)
         inputs:
             meas_pos: float, position of the pendulum
             meas_vel: float, velocity of the pendulum
             meas_tau: not used
             meas_time: not used
-            i: not used
         returns:
             None, None, u
 

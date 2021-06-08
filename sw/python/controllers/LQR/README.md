@@ -10,7 +10,7 @@ Versatility: Stabilization only
 
 ## Theory #
 
-Alinear quadratic regulator (LQR) can be used to stabilize the pendulum at the unstable fixpoint. For a linear system of the form
+A linear quadratic regulator (LQR) can be used to stabilize the pendulum at the unstable fixpoint. For a linear system of the form
 $$
 \begin{equation}
 \dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}
@@ -53,17 +53,14 @@ The controller needs pendulum parameters as input during initialization:
             gravity: float, default: 9.81
             torque_limit: float, default: np.inf
 
-The control output \(\mathbf{u}(\mathbf{x})\) can be obtained with the API of the abstract controller class (i.e. the function LQRController.get_control_output).
+The control output \(\mathbf{u}(\mathbf{x})\) can be obtained with the API of the abstract controller class:
 
-The control output \(\mathbf{u}(\mathbf{x})\) can be obtained with the API of the abstract controller class: 
-
-    LQRController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time, i)
+    LQRController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time)
         inputs:
             meas_pos: float, position of the pendulum
             meas_vel: float, velocity of the pendulum
             meas_tau: not used
             meas_time: not used
-            i: not used
         returns:
             None, None, u
 
