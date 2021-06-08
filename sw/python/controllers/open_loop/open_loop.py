@@ -5,7 +5,7 @@ from controllers.LQR.lqr_controller import LQRController
 
 
 class OpenLoopController(AbstractController):
-    def __init__(self, csv_path=""):
+    def __init__(self, csv_path):
 
         trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
         self.pos_traj = trajectory.T[1].T
@@ -19,11 +19,11 @@ class OpenLoopController(AbstractController):
         pass
 
     def get_control_output(self, meas_pos=0, meas_vel=0,
-                           meas_tau=0, meas_time=0, i=0):
-        if i < len(self.u_traj):
-            self.pos = self.u_traj[i]
-            self.vel = self.u_traj[i]
-            self.u = self.u_traj[i]
+                           meas_tau=0, meas_time=0):
+        if self.counter < len(self.u_traj):
+            self.pos = self.u_traj[self.counter]
+            self.vel = self.u_traj[self.counter]
+            self.u = self.u_traj[self.counter]
             self.counter += 1
         return self.pos, self.vel, self.u
 
