@@ -25,7 +25,7 @@ class LQRController(AbstractController):
         pass
 
     def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0, i=0):
+                           meas_tau=0, meas_time=0):
         th = meas_pos[0] + np.pi
         th = (th + np.pi) % (2*np.pi) - np.pi
         y = np.asarray([th, meas_vel[0]])
@@ -36,7 +36,7 @@ class LQRController(AbstractController):
             u = None
 
         # since this is a pure torque controller,
-        # set pos_des and vel_des to None
+        # set des_pos and des_pos to None
         des_pos = None
         des_vel = None
 
