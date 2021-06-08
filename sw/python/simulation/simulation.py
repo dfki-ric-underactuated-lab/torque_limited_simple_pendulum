@@ -11,15 +11,13 @@ class Simulator:
 
         self.x = np.zeros(2*self.plant.dof)  # position, velocity
         self.t = 0.0  # time
-        self.step_counter = 0
 
     def set_state(self, time, x, step=0):
         self.x = x
         self.t = time
-        self.step_counter = step
 
     def get_state(self):
-        return self.t, self.x, self.step_counter
+        return self.t, self.x
 
     def reset_data_recorder(self):
         self.t_values = []
@@ -52,7 +50,6 @@ class Simulator:
             raise NotImplementedError(
                    f'Sorry, the integrator {integrator} is not implemented.')
         self.t += dt
-        self.step_counter += 1
         self.record_data(self.t, self.x.copy(), tau)
 
     def simulate(self, t0, x0, tf, dt, controller=None,
@@ -66,8 +63,7 @@ class Simulator:
                                         meas_pos=self.x[:self.plant.dof],
                                         meas_vel=self.x[self.plant.dof:],
                                         meas_tau=np.zeros(self.plant.dof),
-                                        meas_time=self.t,
-                                        i=self.step_counter)
+                                        meas_time=self.t)
             else:
                 tau = np.zeros(self.plant.n_actuators)
             self.step(tau, dt, integrator=integrator)
@@ -102,8 +98,7 @@ class Simulator:
                                     meas_pos=self.x[:self.plant.dof],
                                     meas_vel=self.x[self.plant.dof:],
                                     meas_tau=np.zeros(self.plant.dof),
-                                    meas_time=self.t,
-                                    i=self.step_counter)
+                                    meas_time=self.t)
         else:
             tau = np.zeros(self.plant.n_actuators)
         self.step(tau, dt, integrator=integrator)
