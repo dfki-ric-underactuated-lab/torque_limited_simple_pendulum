@@ -3,11 +3,12 @@
 #  Simple Pendulum
 </div>
 
+<br>
 
 # Requirements - Python Code  
 
 ## Installing Python 3.7
-In order to run the python code within the repository you will need `Python >=3.7, <4` along with the package installer `pip3`. 
+In order to run the python code within the repository you will need `Python >=3.7, <4` along with the package installer `pip3`, if you are already using Python 3.7 and pip3 jump to step `Installing Drake for Python`. 
   
 **Step 1)** First, you might want to see if you already have a suitable version installed. This command shows which Python 3 version is currently set as default:
 
@@ -71,6 +72,7 @@ sudo apt install python3.7
 ```
 python3.7 --version
 ```
+<br>
 
 ## Installing pip3
 Once you have  `Python >=3.7, <4` installed update the package list using the following command:
@@ -90,9 +92,58 @@ If you like, you can verify the installation by checking the pip version:
 ```
 pip3 --version
 ```
+<br>
 
+## Installing Drake for Python
+Drake is not installable via pip at present. It is available as a binary package and the latest image can be pulled from Docker Hub simply with: `docker pull robotlocomotion/drake:latest`. 
+  
+
+**Check here for more detailed instructions:** https://drake.mit.edu/python_bindings.html 
+
+--------------------------------------------------------------------------------------------------------------
+
+**Warning:**  
+{- By following the instructions you will install Drake permanently on your system. This may cause incompatiblity issues with preexisting Python packages. Drake for instance is incompatible with the Python environment supplied by Anaconda. Please uninstall Anaconda or remove the Anaconda bin directory from the PATH before building or using the Drake Python bindings. Before attempting the installation, please review the supported configurations to know what versions of Python are supported for your platform: -}  https://drake.mit.edu/developers.html#supported-configurations
+  
+--------------------------------------------------------------------------------------------------------------
+
+**Step 1)** Download and extract an available binary package. As an example, here is how to download and extract one of the latest releases to /opt (where `<platform>` could be bionic, focal, or mac):
+
+```
+curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-<platform>.tar.gz
+rm -rf /opt/drake
+tar -xvzf drake.tar.gz -C /opt
+```
+
+**Step 2)** Ensure that you have the system dependencies:
+
+```
+# You may need `sudo` here.
+/opt/drake/share/drake/setup/install_prereqs
+```
+
+**Step 3)** Configure your `PYTHONPATH` properly: 
+
+```
+# Ubuntu 18.04 (Bionic):
+export PYTHONPATH=/opt/drake/lib/python3.6/site-packages:${PYTHONPATH}
+
+# Ubuntu 20.04 (Focal):
+export PYTHONPATH=/opt/drake/lib/python3.8/site-packages:${PYTHONPATH}
+```
+
+**Step 4)** To check whether the installation was successful you can import `pydrake`:
+
+```
+python3 -c 'import pydrake; print(pydrake.__file__)'
+```
+
+If this command returns the directory of your pydrake installation, you are now able to import pydrake modules to your python code with e.g. `from pydrake.solvers.mathematicalprogram import Solve`. A comprehensive list of all available pydrake modules is provided by the `Python API documentation`: https://drake.mit.edu/pydrake/index.html
+  
+<br>    
+    
 ## Creating a Virtual Environment 
-The easiest and recommended way to configure your own custom Python environment is via `Virtualenv`. 
+In order to clutter your system as little as possible all further packages will be installed inside a virtual environment, which can be easily removed at any time. The recommended way to configure your own custom Python environment is via `Virtualenv`. 
 
 **Step 1)** Use pip3 to simply install virtualenv:  
 
@@ -113,7 +164,7 @@ outputs e.g.  /home/username/opt/python-3.7.2/bin/python
 **Step 3)** Navigate to the directory, where you want to create the new virtual environment. In our case this will be at `~/torque_limited_simple_pendulum/sw/python`. Create the virtual environment, while specifing the desired python version. 
 
 ```
-virtualenv -p /home/username/opt/python-3.7.2/bin/python3 venv
+virtualenv -p /home/username/opt/python-3.7.2/bin/python3 venv 
 ```
 
 This command creates a virtualenv named 'venv' and uses the -p flag to specify the full path to the Python3 version you just installed. You may see the following error when installing:
@@ -149,15 +200,20 @@ In case that you don't need the virtual environment anymore, you can deactivate 
 ```
 sudo rm -rf venv
 ```
+<br>
 
 ## Installing Python Packages
-Now that you’re in your virtual environment you can install all required packages from the existing requirements.txt file via:
+From within your virtual environment you can install all packages required to run the examples from a existing `requirements.txt` file via:
 
 ```
 python3 -m pip install -r requirements.txt
 ```
 
 (Note: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`)
+
+This was the final installation step. Your system is now prepared to run all code snippets from this repo. 
+
+**Have fun exploring all kind of different simple pendulum controllers!**
 
 
 
