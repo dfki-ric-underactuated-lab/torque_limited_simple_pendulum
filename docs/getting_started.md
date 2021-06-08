@@ -138,16 +138,6 @@ source venv/bin/activate
 
 The name of the current virtual environment `(venv)` appears to the left of the prompt, indicating that you are now working inside a virtual environment.
 
-
-## Installing Python Packages
-Now that you’re in your virtual environment you can install all required packages from the existing requirements.txt file via:
-
-```
-python3 -m pip install -r requirements.txt
-```
-
-(Note: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`)
-
 When finished working in the virtual environment, you can deactivate it by running the following:
 
 ```
@@ -159,6 +149,17 @@ In case that you don't need the virtual environment anymore, you can deactivate 
 ```
 sudo rm -rf venv
 ```
+
+## Installing Python Packages
+Now that you’re in your virtual environment you can install all required packages from the existing requirements.txt file via:
+
+```
+python3 -m pip install -r requirements.txt
+```
+
+(Note: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`)
+
+
 
 
 
