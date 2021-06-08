@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 from pydrake.solvers.mathematicalprogram import Solve
 from pydrake.systems.trajectory_optimization import DirectCollocation
 from pydrake.trajectories import PiecewisePolynomial
