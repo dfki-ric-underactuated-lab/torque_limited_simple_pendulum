@@ -3,16 +3,17 @@
 #  Torque Limited Simple Pendulum
 </div>
 
-## Introduction #
-
-The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
-
 <div align="center">
 <img width="250" src="../hw/simple_pendulum_CAD.png">
 <img width="500" src="../hw/pendulum_swingup_animation.gif">
 </div>
 
-See the simple pendulum in action here: [torque limited swing up](/hw/simple_pendulum_swingup.mp4)
+## Introduction #
+
+The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
+
+
+See the simple pendulum in action: [torque limited swing up](/hw/simple_pendulum_swingup.mp4)
 
 
 ## Documentation 
@@ -70,6 +71,24 @@ See the simple pendulum in action here: [torque limited swing up](/hw/simple_pen
 * Stay away from the plane in which pendulum is swinging. 
 
 * Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
+
+## Implemented Controllers for the Swing Up #
+**Closed Loop**
+* Proportional-Derivative Controller (PD): precomputed trajectory, not optimal
+* Iterative Linear Quadratic Regulator (iLQR): online computed trajectory, not optimal
+* Linear Quadratic Regulator (LQR): stabilization only, optimal
+
+**Model Predictive Control (MPC)**
+* Direct Collocation: precomputed trajectory, optimal
+* Energy Shaping: precomputed trajectory, not optimal
+
+**Dynamic Differential Programming (DDP)**
+* FDDP: online computed trajectory, optimal
+* BOXFDDP: online computed trajectory, optimal
+
+**Reinforcement Learning (RL)**
+* Soft Actor Critic (SAC): offline trained model, optimal
+
 
 ## Contributors #
 
