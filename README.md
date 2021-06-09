@@ -63,15 +63,6 @@ See the simple pendulum in action: [torque limited swing up](/hw/simple_pendulum
     </tr>
 </table>
 
-
-## Safety Notes #
-
-* Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
-
-* Stay away from the plane in which pendulum is swinging. 
-
-* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
-
 ## Implemented Controllers for the Swing Up #
 **Closed Loop**
 * Proportional-Derivative Controller (PD): precomputed trajectory, not optimal
@@ -89,6 +80,13 @@ See the simple pendulum in action: [torque limited swing up](/hw/simple_pendulum
 **Reinforcement Learning (RL)**
 * Soft Actor Critic (SAC): offline trained model, optimal
 
+## Safety Notes #
+
+* Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
+
+* Stay away from the plane in which pendulum is swinging. 
+
+* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
 
 ## Contributors #
 
