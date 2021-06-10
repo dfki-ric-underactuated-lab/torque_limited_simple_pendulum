@@ -64,14 +64,17 @@ See the simple pendulum in action: [torque limited swing up](/hw/simple_pendulum
 </table>
 
 ## Implemented Controllers for the Swing Up #
+**Trajectory Optimization**
+* Direct Collocation: precomputed trajectory, optimal
+* [Iterative Linear Quadratic Regulator (iLQR)](sw/python/trajectory_optimization/iLQR/README.md): offline computed trajectory, optimal
+
 **Closed Loop**
 * Proportional-Derivative Controller (PD): precomputed trajectory, not optimal
-* Iterative Linear Quadratic Regulator (iLQR): online computed trajectory, not optimal
-* Linear Quadratic Regulator (LQR): stabilization only, optimal
+* [Linear Quadratic Regulator (LQR)](sw/python/controllers/LQR/README.md): stabilization only, optimal
+* [Energy Shaping](sw/python/controllers/energy_shaping/README.md): online computation, not optimal
 
 **Model Predictive Control (MPC)**
-* Direct Collocation: precomputed trajectory, optimal
-* Energy Shaping: precomputed trajectory, not optimal
+* Iterative Linear Quadratic Regulator (iLQR): online computed trajectory, optimal
 
 **Dynamic Differential Programming (DDP)**
 * FDDP: online computed trajectory, optimal
