@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from controllers.direct_collocation.direct_collocation import DirectCollocationCalculator
+from trajectory_optimization.direct_collocation.direct_collocation import DirectCollocationCalculator
 
 # pendulum parameters
 mass = 0.57288

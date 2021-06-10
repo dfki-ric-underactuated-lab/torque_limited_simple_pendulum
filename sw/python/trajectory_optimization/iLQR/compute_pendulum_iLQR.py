@@ -2,11 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from functools import partial
 
-from controllers.iLQR.iLQR import iLQR_Calculator
-from controllers.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
-                                      pendulum_discrete_dynamics_rungekutta, \
-                                      pendulum_swingup_stage_cost, \
-                                      pendulum_swingup_final_cost
+import sys
+sys.path.append("../..")
+from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
+from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
+                                                  pendulum_discrete_dynamics_rungekutta, \
+                                                  pendulum_swingup_stage_cost, \
+                                                  pendulum_swingup_final_cost
 
 
 # pendulum parameters

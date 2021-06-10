@@ -2,15 +2,15 @@ import numpy as np
 from functools import partial
 
 from utilities.abstract_controller import AbstractController
-from controllers.iLQR.iLQR import iLQR_Calculator
-from controllers.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
-                                      pendulum_discrete_dynamics_rungekutta, \
-                                      pendulum_swingup_stage_cost, \
-                                      pendulum_swingup_final_cost, \
-                                      pendulum3_discrete_dynamics_euler, \
-                                      pendulum3_discrete_dynamics_rungekutta, \
-                                      pendulum3_swingup_stage_cost, \
-                                      pendulum3_swingup_final_cost
+from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
+from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
+                                                  pendulum_discrete_dynamics_rungekutta, \
+                                                  pendulum_swingup_stage_cost, \
+                                                  pendulum_swingup_final_cost, \
+                                                  pendulum3_discrete_dynamics_euler, \
+                                                  pendulum3_discrete_dynamics_rungekutta, \
+                                                  pendulum3_swingup_stage_cost, \
+                                                  pendulum3_swingup_final_cost
 
 
 class iLQRMPCController(AbstractController):
