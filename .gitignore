@@ -1,4 +1,5 @@
 #Python 
 *.pyc
 *.idea
-__pycache_
+*.vscode/
+__pycache__/
