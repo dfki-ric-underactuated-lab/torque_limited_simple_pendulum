@@ -8,7 +8,6 @@ def lqr(A, B, Q, R):
     """Solve the continuous time lqr controller.
     dx/dt = A x + B u
     cost = integral x.T*Q*x + u.T*R*u
-
     ref: Bertsekas, p.151
     """
 

@@ -11,30 +11,37 @@ Versatility: Stabilization only
 ## Theory #
 
 A linear quadratic regulator (LQR) can be used to stabilize the pendulum at the unstable fixpoint. For a linear system of the form
-$$
+
+```math
 \begin{equation}
 \dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}
 \end{equation}
-$$
+```
 
 and a infinite horizon cost function in quadratic form:
-$$
+
+```math
 \begin{equation}
 J = \int_0^{\infty} \left( \mathbf{x}^T \mathbf{Q}\mathbf{x} + \mathbf{u}^T \mathbf{R} \mathbf{u} \right)\text{d}t, \quad \mathbf{Q} = \mathbf{Q} \succeq 0, \, \mathbf{R} = \mathbf{R} \succeq 0
 \end{equation}
-$$
+```
+
 the (provably) optimal controller is
-$$
+
+```math
 \begin{equation}
 u(\mathbf{x}) = -\mathbf{R}^{-1}\mathbf{B}^{T}\mathbf{S} \mathbf{x} = -\mathbf{K} \mathbf{x}
 \end{equation}
-$$
-where \( \mathbf{S}\) has to fulfill the algebraic Riccati equation
-$$
+```
+
+where $`\mathbf{S}`$ has to fulfill the algebraic Riccati equation
+
+```math
 \begin{equation}
 \mathbf{SA} + \mathbf{A}^{T}\mathbf{S} - \mathbf{SBR}^{-1}\mathbf{B}\mathbf{S} + \mathbf{Q} = 0.
 \end{equation}
-$$
+```
+
 There are many solvers for the algebraic Riccati equation. In this library the solver from the scipy package is used.
 
 ## Requirements #
@@ -53,7 +60,7 @@ The controller needs pendulum parameters as input during initialization:
             gravity: float, default: 9.81
             torque_limit: float, default: np.inf
 
-The control output \(\mathbf{u}(\mathbf{x})\) can be obtained with the API of the abstract controller class:
+The control output $`\mathbf{u}(\mathbf{x})`$ can be obtained with the API of the abstract controller class:
 
     LQRController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time)
         inputs:
