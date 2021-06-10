@@ -10,34 +10,35 @@ Versatility: Swingup only
 
 ## Theory #
 
-The energy of a simple pendulum in state \(x = [\theta, \dot{\theta}]\) is given by:
+The energy of a simple pendulum in state $`x = [\theta, \dot{\theta}]`$ is given by:
 
-$$
+```math
 \begin{equation}
 E(\theta, \dot{\theta}) = \frac{1}{2}ml^2\dot{\theta}^2 - mgl\cos(\theta)
 \end{equation}
-$$
+```
 
 where the first term is the kinetic energy of the system and the second term is the potential energy.
-In the standing upright position ( \(x = [\pi, 0]\) ) the whole energy of the pendulum is potential energy and the kinetic energy is zero. As that is the goal state of a swingup motion, the desired energy can be defined as the energy of that state:
+In the standing upright position ( $`x = [\pi, 0]`$ ) the whole energy of the pendulum is potential energy and the kinetic energy is zero. As that is the goal state of a swingup motion, the desired energy can be defined as the energy of that state:
 
-$$
+```math
 \begin{equation}
 E_{des} = mgl
 \end{equation}
-$$
+```
 
 The idea behind energy-shaping control is simple:
 
-- If \( E < E_{des} \), the controller adds energy to the system by outputting torque in the direction of motion.
-- If \( E > E_{des} \), the controller subtracts energy from the system by outputting torque in the opposite direction of the direction of motion.
+- If $` E < E_{des} `$, the controller adds energy to the system by outputting torque in the direction of motion.
+- If $` E > E_{des} `$, the controller subtracts energy from the system by outputting torque in the opposite direction of the direction of motion.
 
 Consequently, the control function reads:
-$$
+
+```math
 \begin{equation}
 u(\theta, \dot{\theta}) = -k \dot{\theta} \left( E(\theta, \dot{\theta}) - E_{des} \right), \quad k > 0
 \end{equation}
-$$
+```
 
 This controller is applicable in the whole state space of the pendulum, i.e. it will always push the system towards the upright position. Note however, that the controller does not stabilize the upright position! If the pendulum overshoots the unstable fixpoint, the controller will make the pendulum turn another round.
 
@@ -67,7 +68,7 @@ Before using the controller, the function EnergyShapingController.set_goal must 
 
 where x is the desired goal state. This function sets the desired energy for the output calculation.
 
-The control output \(\mathbf{u}(\mathbf{x})\) can be obtained with the API of the abstract controller class: 
+The control output $`\mathbf{u}(\mathbf{x})`$ can be obtained with the API of the abstract controller class:
 
     EnergyShapingController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time)
         inputs:
@@ -84,7 +85,7 @@ get_control_output returns None for the desired position and desired velocity (t
 
 Start a simulation with energy-shaping control for pendulum swingup and lqr control stabilization at the unstable fixpoint:
 
-    python sim_energyshaping.py
+    python sim_energy_shaping.py
 
 
 ## Comments
