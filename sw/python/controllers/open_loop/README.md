@@ -53,7 +53,7 @@ The function returns the desired position, dsired velocity and a torque as speci
 ## Usage #
 
 Before using this controller, first a trajectory has to be defined
-and stored to csv file in a suitable format.
+and stored to csv file in a suitable format. Examples for open_controllers usage can be found in trajectory_optimization/iLQR and trajectory_optimizaiton/direct_collocation.
 
 ## Comments
 
