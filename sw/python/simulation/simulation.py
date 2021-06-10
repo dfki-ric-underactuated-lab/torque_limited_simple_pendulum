@@ -7,32 +7,81 @@ import time
 
 class Simulator:
     def __init__(self, plant):
+        """
+        Simulator class, can simulate and animate the pendulum
+        Initialization parameters:
+            - plant: plant object
+                     (e.g. PendulumPlant from models.pendulum_plant.py)
+        """
         self.plant = plant
 
         self.x = np.zeros(2*self.plant.dof)  # position, velocity
         self.t = 0.0  # time
 
-    def set_state(self, time, x, step=0):
+    def set_state(self, time, x):
+        """
+        set the state of the pendulum plant
+        input:
+            - time: float, time, unit: s
+            - x: type as self.plant expects a state,
+                 state of the pendulum plant
+        """
         self.x = x
         self.t = time
 
     def get_state(self):
+        """
+        Get current state of the plant
+        returns:
+            - time,     float, unit: s
+            - plant state,    type as self.plant expects a state
+        """
         return self.t, self.x
 
     def reset_data_recorder(self):
+        """
+        Reset the internal data recorder of the simulator
+        """
         self.t_values = []
         self.x_values = []
         self.tau_values = []
 
     def record_data(self, time, x, tau):
+        """
+        Records data in the internal data recorder
+        input:
+            - time: float, unit: s
+            - x:    type as self.plant expects a state
+            - tau:  type as self.plant expects an actuation
+        """
         self.t_values.append(time)
         self.x_values.append(x)
         self.tau_values.append(tau)
 
     def euler_integrator(self, t, y, dt, tau):
+        """
+        Euler integrator for the simulated plant
+        input:
+            - t: float, time, unit: s
+            - y: type as self.plant expects a state
+            - dt: float, time step, unit: s
+            - tau:  type as self.plant expects an actuation
+        returns:
+            - the Euler integrand
+        """
         return self.plant.rhs(t, y, tau)
 
     def runge_integrator(self, t, y, dt, tau):
+        """
+        Runge-Kutta integrator for the simulated plant
+        input:
+            - t: float, time, unit: s
+            - y: type as self.plant expects a state
+            - dt: float, time step, unit: s
+            - tau:  type as self.plant expects an actuation
+        returns:
+            - the Runge-Kutta integrand
+        """
         k1 = self.plant.rhs(t, y, tau)
         k2 = self.plant.rhs(t + 0.5 * dt, y + 0.5 * dt * k1, tau)
         k3 = self.plant.rhs(t + 0.5 * dt, y + 0.5 * dt * k2, tau)
@@ -40,8 +89,14 @@ class Simulator:
         return (k1 + 2 * (k2 + k3) + k4) / 6.0
 
     def step(self, tau, dt, integrator="runge_kutta"):
-        tau = np.clip(tau, -np.asarray(self.plant.torque_limit),
-                      np.asarray(self.plant.torque_limit))
+        """
+        Performs a single step of the plant.
+        input:
+            - tau:  type as self.plant expects an actuation
+            - dt:   float, time step, unit: s
+            - integrator: string, "euler" for euler integrator,
+                                  "runge_kutta" for Runge-Kutta integrator
+        """
         if integrator == "runge_kutta":
             self.x += dt * self.runge_integrator(self.t, self.x, dt, tau)
         elif integrator == "euler":
@@ -54,6 +109,23 @@ class Simulator:
 
     def simulate(self, t0, x0, tf, dt, controller=None,
                  integrator="runge_kutta"):
+        """
+        Simulates the plant over a period of time.
+        input:
+            - t0: float, start time, unit s
+            - x0: type as self.plant expects a state,
+                  start state
+            - tf: float, final time, unit: s
+            - controller: A controller object of the type of the
+                          AbstractController in utilities.abstract_controller.py
+                          If None, a free pendulum is simulated.
+            - integrator: string, "euler" for euler integrator,
+                                  "runge_kutta" for Runge-Kutta integrator
+        returns:
+            - a list of time values
+            - a list of states
+            - a list of torques
+        """
         self.set_state(t0, x0, 0)
         self.reset_data_recorder()
 
@@ -149,12 +221,35 @@ class Simulator:
 
     def simulate_and_animate(self, t0, x0, tf, dt, controller=None,
                              integrator="runge_kutta", phase_plot=False,
-                             save_video=False, video_name="pendulum_swingup"):
+                             save_video=False, video_name="video"):
+
         """
-        Simulation and animation of the pendulum motion
-        The animation is only implemented for 2d serial chains
+        Simulation and animation of the plant motion.
+        The animation is only implemented for 2d serial chains.
+        input:
+        Simulates the plant over a period of time.
+        input:
+            - t0: float, start time, unit s
+            - x0: type as self.plant expects a state,
+                  start state
+            - tf: float, final time, unit: s
+            - controller: A controller object of the type of the
+                          AbstractController in utilities.abstract_controller.py
+                          If None, a free pendulum is simulated.
+            - integrator: string, "euler" for euler integrator,
+                                  "runge_kutta" for Runge-Kutta integrator
+            - phase_plot: bool, whether to show a plot of the phase space
+                          together with the animation
+            - save_video: bool, whether to save the animation as mp4 video
+            - video_name: string, if save_video, the name of the file
+                          where the video will be stored
+        returns:
+            - a list of time values
+            - a list of states
+            - a list of torques
         """
-        self.set_state(t0, x0, 0)
+
+        self.set_state(t0, x0)
         self.reset_data_recorder()
 
         fig = plt.figure(figsize=(20, 20))
