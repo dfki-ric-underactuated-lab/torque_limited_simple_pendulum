@@ -37,7 +37,7 @@ The iLQR calculator has to be initialized with the dimension of the state space 
 
     iLQR = iLQR_Calculator(n_x=2, n_u=1)
 
-For the pendulum n_x=2 (positions and velocity) and n_u=1. Next the dynamics and const funciton have to be set in the calculator by using:
+For the pendulum n_x=2 (positions and velocity) and n_u=1. Next the dynamics and cost function have to be set in the calculator by using:
 
     iLQR.set_discrete_dynamics(dynamics)
     iLQR.set_stage_cost(stage_cost)
