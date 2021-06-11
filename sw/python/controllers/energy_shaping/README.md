@@ -6,7 +6,7 @@ State/action space contraints: No
 
 Optimal: No
 
-Versatility: Swingup only
+Versatility: Swingup only, additional stabilization needed at the upright unstable fixed point via LQR controller
 
 ## Theory #
 
