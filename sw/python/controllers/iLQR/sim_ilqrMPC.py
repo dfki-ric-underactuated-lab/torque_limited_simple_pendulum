@@ -55,7 +55,7 @@ controller = iLQRMPCController(mass=mass,
                                dynamics="runge_kutta",
                                n_x=n_x)
 
-controller.set_goal(goal, N=50)
+controller.set_goal(goal)
 # controller.load_initial_guess(filepath="Pendulum_data/trajectory.csv")
 controller.compute_initial_guess()
 

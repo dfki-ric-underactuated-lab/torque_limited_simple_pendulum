@@ -130,7 +130,7 @@ class iLQRMPCController(AbstractController):
         self.u_traj = self.u_trj[:self.N]
         print("Computing initial guess done")
 
-    def set_goal(self, x, N=None):
+    def set_goal(self, x):
         if self.n_x == 2:
             s_cost_func = pendulum_swingup_stage_cost
             f_cost_func = pendulum_swingup_final_cost
