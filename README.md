@@ -86,7 +86,7 @@ See the simple pendulum in action: [torque limited swing up](/docs/simple_pendul
 
 * Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
 
-* Stay away from the plane in which pendulum is swinging. 
+* Stay away from the plane in which pendulum is swinging. It is recommended to have a safety net surrounding the pendulum in case the pendulum flies away.
 
 * Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
 
