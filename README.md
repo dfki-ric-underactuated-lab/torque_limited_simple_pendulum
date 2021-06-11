@@ -74,7 +74,7 @@ See the simple pendulum in action: [torque limited swing up](/hw/simple_pendulum
 * [Energy Shaping](sw/python/controllers/energy_shaping/README.md): online computation, not optimal
 
 **Model Predictive Control (MPC)**
-* Iterative Linear Quadratic Regulator (iLQR): online computed trajectory, optimal
+* [Iterative Linear Quadratic Regulator (iLQR)](sw/python/controllers/iLQR/README.md): online computed trajectory, optimal
 
 **Dynamic Differential Programming (DDP)**
 * FDDP: offline computed trajectory, optimal
