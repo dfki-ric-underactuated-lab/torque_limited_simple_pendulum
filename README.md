@@ -77,8 +77,8 @@ See the simple pendulum in action: [torque limited swing up](/hw/simple_pendulum
 * Iterative Linear Quadratic Regulator (iLQR): online computed trajectory, optimal
 
 **Dynamic Differential Programming (DDP)**
-* FDDP: online computed trajectory, optimal
-* BOXFDDP: online computed trajectory, optimal
+* FDDP: offline computed trajectory, optimal
+* BOXFDDP: offline computed trajectory, optimal
 
 **Reinforcement Learning (RL)**
 * Soft Actor Critic (SAC): offline trained model, optimal
