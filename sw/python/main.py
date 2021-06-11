@@ -3,7 +3,7 @@ import os
 import asyncio
 import argparse
 from argparse import RawTextHelpFormatter
-from motor_driver.canmotorlib import CanMotorController
+from  import CanMotorController
 from pathlib import Path
 #import pandas as pd
 
