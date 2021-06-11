@@ -63,7 +63,7 @@ Before using the controller a goal has to be set via
 
     controller.set_goal(goal=[np.pi, 0])
 
-which initializes the const funciton derivatives inside the controller for the specified goal.
+which initializes the cost function derivatives inside the controller for the specified goal.
 
 It is possible to either load an initial guess for the trajectory from a csv file by using
 
