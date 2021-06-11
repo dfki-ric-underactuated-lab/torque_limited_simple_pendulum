@@ -165,7 +165,7 @@ class iLQRMPCController(AbstractController):
         self.iLQR.init_derivatives()
 
     def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0, i=0):
+                           meas_tau=0, meas_time=0):
 
         if isinstance(meas_pos, (list, tuple, np.ndarray)):
             pos = meas_pos[0]
