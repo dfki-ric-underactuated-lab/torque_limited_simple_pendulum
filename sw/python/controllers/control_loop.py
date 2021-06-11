@@ -2,12 +2,12 @@ import sys
 import time
 import asyncio
 
+# mjbots moteus driver  
+import moteus
+# t-motors AK80-6 driver                                                                                        
+from motor_driver.canmotorlib import CanMotorController                                                 
 #import socket
-#from bitstring import BitArray
-
-import moteus                                       # mjbots moteus driver                                                  
-from utilities import canmotorlib                   # t-motors AK80-6 driver                                                  
-from utilities.canmotorlib import CanMotorController                
+#from bitstring import BitArray            
                     
 async def qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in, meas_pos, meas_vel, meas_tau, meas_time, gr, rad2outputrev):
     c1 = moteus.Controller(id=1)                                    # define the interface to the "Controller" class in moteus.py
