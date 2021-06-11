@@ -1,4 +1,4 @@
-# SwingUp the Simple Penduulum using direct Optimal Control based on the FDDP algorithm:
+# SwingUp the Simple Penduulum using direct Optimal Control based on the FDDP and BoxDDP algorithm:
 
 In this package, the single pendulum swing-up is performed using the direct optimal control based on the FDDP algorithm (N.Mansard, 2019).
 
@@ -7,7 +7,7 @@ For online use on hardware, it is highly recommended to use BOXFddp to protect t
 
 The urdf model is modified to fit a pinocchio model.
 
-# Cost modelS used:
+# Cost models used:
 
  * The costs functions for the **Running model** is written as :
 
