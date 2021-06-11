@@ -13,7 +13,7 @@
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
 
 
-See the simple pendulum in action: [torque limited swing up](/hw/simple_pendulum_swingup.mp4)
+See the simple pendulum in action: [torque limited swing up](/docs/simple_pendulum_swingup.mp4)
 
 
 ## Documentation 
