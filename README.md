@@ -13,10 +13,10 @@
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
 
 **Trajectory Optimization**
-* Direct Collocation: precomputed trajectory, optimal
+* [Direct Collocation](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/tree/master/sw/python/trajectory_optimization/direct_collocation): precomputed trajectory, optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/trajectory_optimization/iLQR/README.md): offline computed trajectory, optimal
-* Feasability driven Differential Dynamic Programming (FDDP): offline computed trajectory, optimal
-* BoxFDDP: offline computed trajectory, optimal
+* [Feasability driven Differential Dynamic Programming (FDDP)](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/controllers/OC_DDP_SimplePendulum/README.md): offline computed trajectory, optimal
+* [BoxFDDP](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/controllers/OC_DDP_SimplePendulum/README.md): offline computed trajectory, optimal
 
 **Open Loop**
 * Proportional-Derivative (PD): precomputed trajectory, not optimal
@@ -102,5 +102,8 @@ See the simple pendulum in action: [torque limited swing up](/docs/simple_pendul
 * [Mihaela Popescu](https://robotik.dfki-bremen.de/en/about-us/staff/mipo02/)
 
 Feel free to contact us if you have questions about the test bench. Enjoy!
+
+## Citation #
+
 
 -----------------------------------------------------------------------------------------------------------------------------
