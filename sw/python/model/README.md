@@ -8,20 +8,20 @@ The equations of motion of a pendulum are
 
 ```math
 \begin{equation}
-I*\ddot{\theta} + b\dot{\theta} + c_f sign(\dot[theta}) + mgl \sin(\theta) = \tau
+I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\theta) = \tau
 \end{equation}
 ```
+
 where
 
-    - $`\theta, \dot{\theta}, \ddot{\theta}`$ are the angular displacement, the angular velocity and agular acceleration of the pendulum. $`\theta=0`$ means the pendulum is at its stable fixpoint (i.e. hanging down).
-
-    - $`I`$ is the inertia of the pendulum. For a point mass: $I=m*l^2`$
-    - $`m`$ mass of the pendulum
-    - $`l`$ length of the pendulum
-    - $`b`$ damping friction coefficient
-    - $`c_f`$ coulomb friciton coefficient
-    - $`g`$ gravity (positive direction points down)
-    - $`\tau`$ torque applied by the motor
+- $`\theta`$, $`\dot{\theta}`$, $`\ddot{\theta}`$ are the angular displacement, angular velocity and angular acceleration of the pendulum. $`\theta=0`$ means the pendulum is at its stable fixpoint (i.e. hanging down).
+- $`I`$ is the inertia of the pendulum. For a point mass: $`I=ml^2`$
+- $`m`$ mass of the pendulum
+- $`l`$ length of the pendulum
+- $`b`$ damping friction coefficient
+- $`c_f`$ coulomb friciton coefficient
+- $`g`$ gravity (positive direction points down)
+- $`\tau`$ torque applied by the motor
 
 
 
@@ -65,13 +65,13 @@ For inverse kinematics:
 
     tau = pendulum.inverse_kinematics(state, accn)
 
-where again state is the state of the pendulum $`[\theta, \dot{theta=]`$ and accn the acceleration. The function return the motor torque $`\tau`$ that would be neccessary to produce the desired acceleration at the specified state.
+where again state is the state of the pendulum $`[\theta, \dot{\theta}]`$ and accn the acceleration. The function return the motor torque $`\tau`$ that would be neccessary to produce the desired acceleration at the specified state.
 
 Finally, the function
 
     res = pendulum.rhs(t, state, tau)
 
-returns the integrand of the equaitons of motion, i.e. the object that can be calculated with a time step to obtain the forward evolution of the system. The API of the funciton is written to match the API requested inside the simulator class.
+returns the integrand of the equaitons of motion, i.e. the object that can be calculated with a time step to obtain the forward evolution of the system. The API of the function is written to match the API requested inside the simulator class.
 t is the time which is not used in the pendulum dynamics (the dynamics do not change with time). state again is the pendulum state and tau the motor torque. res is a numpy array with shape np.shape(res)=(2,) and res = $`[\dot{\theta}, \ddot{\theta}]`$.
 
 
