@@ -1,4 +1,4 @@
-# SwingUp the Simple Penduulum using direct Optimal Control based on the FDDP and BoxDDP algorithm:
+# SwingUp the Simple Pendulum using direct Optimal Control based on the FDDP and BoxDDP algorithm:
 
 In this package, the single pendulum swing-up is performed using the direct optimal control based on the FDDP algorithm (N.Mansard, 2019).
 
