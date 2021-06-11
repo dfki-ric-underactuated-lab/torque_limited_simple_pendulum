@@ -79,7 +79,7 @@ Error messages that showed up during the configuration procedure, such as `UVLO`
 A proportional-derivative controller, which is based on the MIT Mini-Cheetah Motor, is implemented on the motor controller board. The control block diagram of this closed loop controller is shown below. It can bee seen that the control method is flexible, as pure position, speed, feedforward torque control or any combination of those is possible.
 
 <div align="center">
-<img width="600" src="../hw/pd_controller.png">  
+<img width="600" src="pd_controller.png">  
 </div>   
 
 
