@@ -1,4 +1,4 @@
 
-__all__ = ["parameters", "pendulum_plant"]
+__all__ = ["pendulum_plant"]
 
-from model import *
+#from model import *

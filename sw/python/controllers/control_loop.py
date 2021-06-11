@@ -63,7 +63,7 @@ async def qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in, meas_pos
     return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time
 
 def ak80_6(CSV_FILE, Kp, Kd, n, dt, des_pos, des_vel, des_tau, meas_pos, meas_vel, meas_tau, meas_time):
-    motor_id = 0x01
+    motor_id = 0x02
     can_port = 'can0'
 
     motor_controller = CanMotorController(can_port, motor_id)

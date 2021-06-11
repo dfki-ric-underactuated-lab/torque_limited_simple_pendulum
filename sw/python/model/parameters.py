@@ -9,8 +9,8 @@ class environment:
 
 
 # define environments
-earth = environment()
-earth.g = -9.81                                 # [m/s^2]
+earth = environment(-9.81)
+#earth.g = -9.81                                 # [m/s^2]
 
 
 ################################################

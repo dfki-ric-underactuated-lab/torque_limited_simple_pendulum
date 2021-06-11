@@ -1,10 +1,10 @@
 import sys
 import time
 import numpy as np
-from canmotorlib import CanMotorController
+from motor_driver.canmotorlib import CanMotorController
 
 # Motor ID
-motor_id = 0x01
+motor_id = 0x02
 
 if len(sys.argv) != 2:
     print('Provide CAN device name (can0, slcan0 etc.)')
