@@ -1,4 +1,4 @@
-#  LQR Control #
+#  iLQR Model Predictive Control #
 
 Type: Model Predictive Control
 
