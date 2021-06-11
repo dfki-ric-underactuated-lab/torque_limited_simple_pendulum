@@ -83,6 +83,8 @@ See the simple pendulum in action: [torque limited swing up](/hw/simple_pendulum
 **Reinforcement Learning (RL)**
 * Soft Actor Critic (SAC): offline trained model, optimal
 
+The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
+
 ## Safety Notes #
 
 * Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
