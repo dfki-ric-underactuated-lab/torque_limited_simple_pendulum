@@ -126,7 +126,7 @@ class Simulator:
             - a list of states
             - a list of torques
         """
-        self.set_state(t0, x0, 0)
+        self.set_state(t0, x0)
         self.reset_data_recorder()
 
         while (self.t <= tf):
