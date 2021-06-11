@@ -10,7 +10,7 @@ Versatility: Swingup and stabilization
 
 ## Theory #
 
-The iterative linear quadratic regularizer (iLQR) is an extension of the LQR controller. The LQR controller linearizes the dynamics at a given state and and assumes that these linear dynamics are valid at every other system state as well. In contrast to that, the iLQR optimizaition method has the ability take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs.
+The iterative linear quadratic regularizer (iLQR) is an extension of the LQR controller. The LQR controller linearizes the dynamics at a given state and and assumes that these linear dynamics are valid at every other system state as well. In contrast to that, the iLQR optimizaition method has the ability to take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs.
 
 The algorithm can be described as:
 
@@ -37,7 +37,7 @@ The iLQR calculator has to be initialized with the dimension of the state space 
 
     iLQR = iLQR_Calculator(n_x=2, n_u=1)
 
-For the pendulum n_x=2 (positions and velocity) and n_u=1. Next the dynamics and const funciton have to be set in the calculator by using:
+For the pendulum n_x=2 (positions and velocity) and n_u=1. Next the dynamics and cost function have to be set in the calculator by using:
 
     iLQR.set_discrete_dynamics(dynamics)
     iLQR.set_stage_cost(stage_cost)
