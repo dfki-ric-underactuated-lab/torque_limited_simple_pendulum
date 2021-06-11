@@ -10,7 +10,7 @@ Versatility: Swingup and stabilization
 
 ## Theory #
 
-The iterative linear quadratic regularizer (iLQR) is an extension of the LQR controller. The LQR controller linearizes the dynamics at a given state and and assumes that these linear dynamics are valid at every other system state as well. In contrast to that, the iLQR optimizaition method has the ability take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs.
+The iterative linear quadratic regularizer (iLQR) is an extension of the LQR controller. The LQR controller linearizes the dynamics at a given state and and assumes that these linear dynamics are valid at every other system state as well. In contrast to that, the iLQR optimizaition method has the ability to take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs.
 
 The algorithm can be described as:
 
