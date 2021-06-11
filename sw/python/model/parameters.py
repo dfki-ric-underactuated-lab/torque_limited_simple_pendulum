@@ -10,7 +10,7 @@ class environment:
 
 # define environments
 earth = environment()
-earth.g = -9.81                                 # [m/s**2]
+earth.g = -9.81                                 # [m/s^2]
 
 
 ################################################
@@ -56,26 +56,26 @@ class joint:
         self.ry = ry
         self.rz = rz
         self.fc = fc                            # Coulomb friction
-        self.fv = fv                            # Viskose friction
+        self.fv = fv                            # Viscous friction
         self.b = b                              # Damping
 
 
 # define joints
-joint_001 = joint()
-joint_001.num = 1
-joint_001.type = "revolute"
-joint_001.dof = 1
-joint_001.dof_t = 0
-joint_001.dof_r = 1
-joint_001.tx = 0
-joint_001.ty = 0
-joint_001.tz = 0
-joint_001.rx = 0
-joint_001.ry = 0
-joint_001.rz = 1
-joint_001.fc = 1.3                              # add unit
-joint_001.fv = 0                                # add unit
-joint_001.b = 0.218                             # add unit
+joint_01 = joint()
+joint_01.num = 1
+joint_01.type = "revolute"
+joint_01.dof = 1
+joint_01.dof_t = 0
+joint_01.dof_r = 1
+joint_01.tx = 0
+joint_01.ty = 0
+joint_01.tz = 0
+joint_01.rx = 0
+joint_01.ry = 0
+joint_01.rz = 1
+joint_01.fc = 1.3                               # N
+joint_01.fv = 0                                 # N
+joint_01.b = 0.218                              # add unit
 
 
 ################################################
@@ -92,20 +92,20 @@ class link:
         self.length_com = (mass_p*length        # From preceding joint to CoM
                     + 0.5*mass_l*length)/(mass_p
                     + mass_l)
-        self.inertia = (mass_l*length**2)/3     # inertia considering the CoM
-                    + mass_p*length**2
-        #self.inertia = (m_p+m_l)*l**2          # inertia assuming a point mass
+        self.inertia = ((mass_l*length**2)/3    # Inertia considering the CoM
+                    + mass_p*length**2)
+        #self.inertia = (m_p+m_l)*l**2          # Inertia assuming a point mass
                                                 # at the end of the rod
 
 
 # define links
-link_001 = link()
-link_001.num = 1
-link_001.mass = 0.6755                          # [kg]
-link_001.mass_p = 0.5                           # [kg]
-link_001.mass_l = link_001.mass                 # [kg]
-                    - link_001.mass_p
-link_001.length = 0.5                           # [m]
+link_01 = link()
+link_01.num = 1
+link_01.mass = 0.6755                           # [kg]
+link_01.mass_p = 0.5                            # [kg]
+link_01.mass_l = (link_01.mass                  # [kg]
+                  - link_01.mass_p)
+link_01.length = 0.5                            # [m]
 
 
 ################################################
@@ -115,63 +115,78 @@ class actuator:
     def __init__(self, can_id, poles, wiring,
                  r, v_max, a_max, a_rated, mass,
                  tau_max, tau_rated, vel_max,
-                 gr, inertia, resist, induct,
-                 kp, kd, k_m, k_v, v_per_hz,):
+                 gr, backlash, inertia, resist, 
+                 kp, kd, k_m, k_v, induct,
+                 v_per_hz,):
         self.can_id = can_id
         self.mass = mass
         self.v_max = v_max                      # Max. voltage
         self.a_max = a_max                      # Max. current
         self.a_rated = a_rated
+        self.gr = gr                            # Gear ratio
+        self.backlash = backlash                
         self.tau_max = tau_max                  # Max. torque
         self.tau_rated = tau_rated
         self.vel_max = vel_max                  # Max. velocity at 24V
-        self.gr = gr                            # Gear ratio
         self.poles = poles                      # Number of poles
-        self.wiring = wiring                    # Motor wiring
-        self.inertia = inertia                  # Rotor inertia
+        self.wiring = wiring                    # Motor wiring (delta, star...)
         self.resist = resist                    # Resistance (phase to phase)
         self.induct = induct                    # Inductancee (phase to phase)
         self.v_per_hz = v_per_hz                # Voltage per hz
-
-        # motor constants
-        self.k_m = k_m                          # motor constant
-        self.k_v = k_v                          # velocity / backEMF constant
-        self.k_e = 1/k_v                        # elctrical constant
-        self.k_t = k_m*math.sqrt(r)             # torque constant
-
+        self.inertia = inertia                  # Rotor inertia
+        # Motor constants
+        self.k_m = k_m                          # Motor constant
+        self.k_v = k_v                          # Velocity / backEMF constant
+        self.k_e = 1/k_v                        # Elctrical constant
+        self.k_t = k_m*math.sqrt(resist)        # Torque constant
         # Controller variables
-        #self.kd = kd                            # Proportional gain
-        #self.kp = kp                            # Derivative gain
-
+        self.kd = kd                            # Proportional gain
+        self.kp = kp                            # Derivative gain
 
 # define actuators
-qdd100_001 = actuator()
-qdd100_001.can_id = 1
-qdd100_001.mass = 0.485                         # [kg]
-qdd100_001.poles = 42
-qdd100_001.gr = 1/6
-qdd100_001.v_max = 24                           # Volts
-qdd100_001.a_max = 24                           # Ampere
-qdd100_001.a_rated = 12                         # Ampere
-qdd100_001.tau_max = 12                         # Nm    (after transmission)
-qdd100_001.tau_rated = 6                        # Nm    (after transmission)
-qdd100_001.vel_max = 38.2                       # rad/s (after transmission)
+ak80_6_01 = actuator()                          # From t-motor
+ak80_6_01.can_id = '0x01'
+ak80_6_01.mass = 0.485                          # [kg]
+ak80_6_01.v_max = 24                            # Volts
+ak80_6_01.a_max = 24                            # [A]
+ak80_6_01.a_rated = 12                          # [A]
+ak80_6_01.gr = 1/6
+ak80_6_01 = 0.15                                # Degree  
+ak80_6_01.tau_max = 12                          # Nm    (after transmission)
+ak80_6_01.tau_rated = 6                         # Nm    (after transmission)
+ak80_6_01.vel_max = 38.2                        # rad/s (after transmission)
+ak80_6_01.inertia = 60.719e-6                   # [kg*m^2]
+ak80_6_01.poles = 42
+ak80_6_01.wiring = "delta"
+ak80_6_01.resist = 170e-3                       # Ohm
+ak80_6_01.induct = 57e-6                        # Henry
+ak80_6_01.v_per_hz = None                      
+ak80_6_01.k_v = 100                             # rpm/V
+ak80_6_01.k_m = 0.2206                          # Nm/sqrt(W) 
+ak80_6_01.kp = 50                              
+ak80_6_01.kd = 4                             
 
-qdd100_001.v_per_hz = None
-qdd100_001.r = r                                                #
-qdd100_001.kd = kd                              # Proportional gain
-qdd100_001.kp = kp                              # Derivative gain
-
-ak80_6_001 = actuator()
-
-
-
-def actuator():
-    actuator = 'ak80_6'
-    motor_id = '0x03'
-    N = 6                                       # the gear ratio
-    Kp = 50                                     # proportional gain
-    Kd = 4                                      # derivative gain
-    k_t =
-    k_v =                                       # velocity constant
-    return motor_id, gr, Kp, Kd
+qdd100_01 = actuator()                          # From mjbots
+qdd100_01.can_id = '0x01'
+qdd100_01.mass = 0.485                          # [kg]
+qdd100_01.v_max = 44                            # Volts
+qdd100_01.a_max = 12                            # [A]
+qdd100_01.a_rated = 6                           # [A]
+qdd100_01.gr = 1/6
+qdd100_01.backlash = 0.1                        # Degree
+qdd100_01.tau_max = 16                          # Nm    (after transmission)
+qdd100_01.tau_rated = 6                         # Nm    (after transmission)
+qdd100_01.vel_max = 64.6                        # rad/s (after transmission)
+qdd100_01.inertia = None                        # [kg*m^2]
+qdd100_01.poles = 42
+qdd100_01.wiring = None
+qdd100_01.resist = 64e-3                        # Ohm     
+qdd100_01.induct = 48.6e-06                     # Henry                     
+qdd100_01.v_per_hz = 0.2269                    
+# k_v = 0.5 * 60 / motor.v_per_hz
+qdd100_01.k_v = 132.18                          # rpm/V
+# k_t = 0.78 * 60 / (2 * pi * k_v) = 0.056  
+# k_m = k_t / sqrt(resist) = 0.2227
+qdd100_01.k_m = 0.2227                          # Nm/sqrt(W)
+qdd100_01.kp = 100                              
+qdd100_01.kd = 2                               
