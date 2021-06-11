@@ -5,7 +5,7 @@
 
 <div align="center">
 <img width="250" src="../hw/simple_pendulum_CAD.png">
-<img width="500" src="../hw/pendulum_swingup_animation.gif">
+<img width="500" src="../docs/pendulum_swingup_animation.gif">
 </div>
 
 ## Introduction #
