@@ -37,14 +37,23 @@ class EnergyShapingController(AbstractController):
 
     def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
-        pos = meas_pos[0]
-        vel = meas_vel[0]
+
+        if isinstance(meas_pos, (list, tuple, np.ndarray)):
+            pos = meas_pos[0]
+        else:
+            pos = meas_pos
+
+        if isinstance(meas_vel, (list, tuple, np.ndarray)):
+            vel = meas_vel[0]
+        else:
+            vel = meas_vel
         total_energy = pendulum_calc_total_energy(theta=pos,
                                                   theta_dot=vel,
                                                   mass=self.m,
                                                   length=self.l,
                                                   gravity=self.g)
         u = -self.k*vel*(total_energy - self.desired_energy) + self.b*vel
+
         # since this is a pure torque controller,
         # set des_pos and des_vel to None
         des_pos = None

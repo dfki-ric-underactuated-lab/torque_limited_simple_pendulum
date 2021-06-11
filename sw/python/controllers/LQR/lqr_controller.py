@@ -26,9 +26,20 @@ class LQRController(AbstractController):
 
     def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
-        th = meas_pos[0] + np.pi
+
+        if isinstance(meas_pos, (list, tuple, np.ndarray)):
+            pos = meas_pos[0]
+        else:
+            pos = meas_pos
+
+        if isinstance(meas_vel, (list, tuple, np.ndarray)):
+            vel = meas_vel[0]
+        else:
+            vel = meas_vel
+
+        th = pos + np.pi
         th = (th + np.pi) % (2*np.pi) - np.pi
-        y = np.asarray([th, meas_vel[0]])
+        y = np.asarray([th, vel])
 
         u = np.asarray(-self.K.dot(y))[0][1]
 

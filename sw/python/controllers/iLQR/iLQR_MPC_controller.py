@@ -166,12 +166,23 @@ class iLQRMPCController(AbstractController):
 
     def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0, i=0):
+
+        if isinstance(meas_pos, (list, tuple, np.ndarray)):
+            pos = meas_pos[0]
+        else:
+            pos = meas_pos
+
+        if isinstance(meas_vel, (list, tuple, np.ndarray)):
+            vel = meas_vel[0]
+        else:
+            vel = meas_vel
+
         if self.n_x == 2:
-            state = np.array([meas_pos[0], meas_vel[0]])
+            state = np.array([pos, vel])
         if self.n_x == 3:
-            state = np.asarray([np.cos(meas_pos[0]),
-                                np.sin(meas_pos[0]),
-                                meas_vel[0]])
+            state = np.asarray([np.cos(pos),
+                                np.sin(pos),
+                                vel])
         self.iLQR.set_start(state)
         (self.x_trj, self.u_trj,
          cost_trace, regu_trace,
@@ -182,6 +193,7 @@ class iLQRMPCController(AbstractController):
                                           max_iter=self.max_iter,
                                           regu_init=100,
                                           break_cost_redu=self.break_cost_redu)
+
         # since this is a pure torque controller,
         # set pos_des and vel_des to None
         des_pos = None
