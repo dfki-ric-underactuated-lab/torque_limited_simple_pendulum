@@ -1,0 +1,29 @@
+<package>
+  <description brief="Torque Limited Simple Pendulum">
+  The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a torque limited simple pendulum built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the offline and online control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
+  </description>
+  <author>Shivesh Kumar/shivesh.kumar@dfki.de</author>
+  <maintainer>Shivesh Kumar/shivesh.kumar@dfki.de</maintainer>
+  <license>BSD</license>
+  <url>https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum</url>
+  <logo>https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/hw/simple_pendulum_CAD.png</logo>
+  <depend package="mini-cheetah-motor-driver-socketcan" />
+  <depend package="numpy" />
+  <depend package="pandas" />  
+  <depend package="matplotlib" />  
+  <keywords>
+    <keyword>optimal control</keyword>
+    <keyword>reinforcement learning</keyword>
+    <keyword>underactuation</keyword>
+    <keyword>dynamics</keyword>
+    <keyword>pendulum</keyword>
+  </keywords>
+<stage>0</stage>
+<use>single project</use>
+<activity>active</activity>
+<classifiers>
+    <classifier>c++</classifier>
+    <classifier>python</classifier>
+    <classifier>ubuntu</classifier>
+  </classifiers>
+</package>
