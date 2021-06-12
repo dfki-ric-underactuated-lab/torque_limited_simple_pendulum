@@ -25,38 +25,6 @@ import example_robot_data
 # import the driver file in order to control the pundulum
 from canmotorlib import CanMotorController
 
-
-#********************************************************************************************************************************
-
-# for controlling the robot using the driver 
-'''
-
-# Motor ID
-motor_id = 0x01
-
-if len(sys.argv) != 2:
-    print('Provide CAN device name (can0, slcan0 etc.)')
-    sys.exit(0)
-
-print("Using Socket {} for can communucation".format(sys.argv[1],))
-# print(type((sys.argv[1],)))
-
-motor_controller = CanMotorController(sys.argv[1], motor_id)
-
-pos, vel, curr = motor_controller.enable_motor()
-
-# time.sleep(1)
-
-while abs(np.rad2deg(pos)) > 0.5:
-    pos, vel, curr = motor_controller.set_zero_position()
-    print("Position: {}, Velocity: {}, Torque: {}".format(np.rad2deg(pos), np.rad2deg(vel), curr))
-
-# time.sleep(1)
-
-#********************************************************************************************************************************
-
-
-'''
 # call the gepetto viewer server
 gvs = subprocess.Popen(["./gepetto-viewer.sh","&"]) 
 print('Loading the viewer ...')
