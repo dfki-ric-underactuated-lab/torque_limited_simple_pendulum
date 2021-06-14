@@ -1,6 +1,12 @@
+# Other imports
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Set path for local imports
+import site
+site.addsitedir('../..')
+
+# Local imports
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
 from controllers.LQR.lqr_controller import LQRController
@@ -35,14 +41,13 @@ controller.set_goal([np.pi, 0])
 dt = 0.01
 t_final = 3.0
 
-T, X, U = sim.simulate_and_animate(t0=0.0,
-                                   x0=[3.1, 0.0],
-                                   tf=t_final,
-                                   dt=dt,
-                                   controller=controller,
-                                   integrator="runge_kutta",
-                                   phase_plot=False,
-                                   save_video=False)
+T, X, U = sim.simulate(t0=0.0,
+                       x0=[3.1, 0.0],
+                       tf=t_final,
+                       dt=dt,
+                       controller=controller,
+                       integrator="runge_kutta"
+                       )
 
 fig, ax = plt.subplots(3, 1, figsize=(18, 6), sharex="all")
 

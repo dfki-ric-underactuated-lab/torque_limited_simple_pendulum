@@ -1,6 +1,12 @@
+# Other imports
 import numpy as np
 from functools import partial
 
+# Set path for local imports
+import site
+site.addsitedir('../..')
+
+# Local imports
 from utilities.abstract_controller import AbstractController
 from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
 from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \

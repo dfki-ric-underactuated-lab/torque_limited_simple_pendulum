@@ -1,5 +1,11 @@
+# Other imports
 import numpy as np
 
+# Set path for local imports
+import site
+site.addsitedir('../..')
+
+# Local imports
 from utilities.abstract_controller import AbstractController
 from controllers.LQR.lqr_controller import LQRController
 

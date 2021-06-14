@@ -1,6 +1,12 @@
+# Other imports
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Set path for local imports
+import site
+site.addsitedir('../..')
+
+# Local imports
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
 from controllers.energy_shaping.energy_shaping_controller import EnergyShapingController, \
@@ -36,14 +42,12 @@ t_final = 5.0
 
 sim = Simulator(plant=pendulum)
 
-T, X, U = sim.simulate_and_animate(t0=0.0,
-                                   x0=[0.01, 0.0],
-                                   tf=t_final,
-                                   dt=dt,
-                                   controller=controller,
-                                   integrator="runge_kutta",
-                                   phase_plot=True,
-                                   save_video=False)
+T, X, U = sim.simulate(t0=0.0,
+                       x0=[0.01, 0.0],
+                       tf=t_final,
+                       dt=dt,
+                       controller=controller,
+                       integrator="runge_kutta")
 
 fig, ax = plt.subplots(3, 1, figsize=(18, 6), sharex="all")
 
