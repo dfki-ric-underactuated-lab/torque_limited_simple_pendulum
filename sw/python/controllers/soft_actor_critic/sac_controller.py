@@ -1,5 +1,5 @@
 # imports
-#from utilities.abstract_controller import AbstractController
+from utilities.abstract_controller import AbstractController
 from stable_baselines import SAC
 import numpy as np
 import yaml
@@ -16,7 +16,7 @@ class SacController(AbstractController):
         with open(params_path, 'r') as fle:
             self.params = yaml.safe_load(fle)
 
-    def get_control_output(self, meas_pos, meas_vel, meas_tau, meas_time, i):
+    def get_control_output(self, meas_pos, meas_vel, meas_tau):
         observation = np.array([meas_pos, meas_vel])
         des_tau, _states = self.model.predict(observation)
         

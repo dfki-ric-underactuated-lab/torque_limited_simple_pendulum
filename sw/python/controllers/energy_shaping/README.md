@@ -2,7 +2,7 @@
 
 Type: Closed loop control
 
-State/action space contraints: No
+State/action space constraints: No
 
 Optimal: No
 
