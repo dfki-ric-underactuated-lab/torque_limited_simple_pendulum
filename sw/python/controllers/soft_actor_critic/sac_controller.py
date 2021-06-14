@@ -1,12 +1,20 @@
-# imports
-from utilities.abstract_controller import AbstractController
+# Other imporst
 from stable_baselines import SAC
 import numpy as np
 import yaml
+import os
+from pathlib import Path
+
+# Set path for local imports
+import site
+site.addsitedir('../..')
+
+# Local imports
+from utilities.abstract_controller import AbstractController
 
 # default parameters, can be changed
-model_path = '../../data/models/sac_model.zip'
-params_path = '../../data/models/sac_params.yaml'
+model_path = os.path.join(Path(__file__).parents[4], 'data/models/sac_model.zip')
+params_path = os.path.join(Path(__file__).parents[4], 'data/models/sac_parameters.yaml')
 
 
 class SacController(AbstractController):
@@ -16,9 +24,10 @@ class SacController(AbstractController):
         with open(params_path, 'r') as fle:
             self.params = yaml.safe_load(fle)
 
-    def get_control_output(self, meas_pos, meas_vel, meas_tau):
-        observation = np.array([meas_pos, meas_vel])
+    def get_control_output(self, meas_pos, meas_vel, meas_tau, meas_time):
+        observation = np.squeeze(np.array([meas_pos, meas_vel]))
         des_tau, _states = self.model.predict(observation)
+        des_tau *= float(self.params['torque_limit'])
         
         # since this is a pure torque controller, set pos_des and vel_des to None
         des_pos = None

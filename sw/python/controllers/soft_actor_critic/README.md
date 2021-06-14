@@ -4,7 +4,7 @@ Type: Closed loop, learning based, model free
 
 State/action space constraints: None
 
-Optimal: No
+Optimal: Yes
 
 Versatility: Swing-up and stabilization
 

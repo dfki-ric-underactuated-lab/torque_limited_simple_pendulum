@@ -167,10 +167,10 @@ class Simulator:
         integrator = par_dict["integrator"]
         if controller is not None:
             _, _, tau = controller.get_control_output(
-                                    meas_pos=self.x[:self.plant.dof],
-                                    meas_vel=self.x[self.plant.dof:],
-                                    meas_tau=np.zeros(self.plant.dof),
-                                    meas_time=self.t)
+                meas_pos=self.x[:self.plant.dof],
+                meas_vel=self.x[self.plant.dof:],
+                meas_tau=np.zeros(self.plant.dof),
+                meas_time=self.t)
         else:
             tau = np.zeros(self.plant.n_actuators)
         self.step(tau, dt, integrator=integrator)
