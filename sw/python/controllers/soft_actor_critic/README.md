@@ -66,6 +66,11 @@ Todo
 Once a model is trained, or using the provided pretrained model, the model 
 can be tested in simulation with the sim_sac.py script:
 
+    python sim_sac.py
+
+## Comments # 
+Todo: comments on training convergence stability
+
 
 
 
