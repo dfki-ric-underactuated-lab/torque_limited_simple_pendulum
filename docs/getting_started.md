@@ -31,7 +31,7 @@ Check your Python version with:
 python3 --version
 ```
 
-If you are already using suitable Python 3.7 version jump directly to step `Creating a Virtual Environment` otherwise continue here and first install a virtual environment for python 
+If you are already using suitable Python 3.7 version jump directly to step `Creating a Virtual Environment` otherwise continue here and first install a virtual environment for python. 
 
 <br>
 
@@ -54,9 +54,10 @@ curl https://pyenv.run | bash
 ```
 
 **Step 3)** Configure your shell's environment for Pyenv  
-Note: The below instructions are designed for common shell setups. If you have an uncommon setup and they don't work for you, use the linked guidance to figure out what you need to do in your specific case: https://github.com/pyenv/pyenv#advanced-configuration
-
-**Note:** Before editing your `.bashrc` and `.profile` files it is a good idea to **make a copy** of both files in case something goes wrong. Add pyenv to your `.bashrc` file from the terminal:
+  
+**Note:** The below instructions are designed for common shell setups. If you have an uncommon setup and they don't work for you, use the linked guidance to figure out what you need to do in your specific case: https://github.com/pyenv/pyenv#advanced-configuration 
+  
+Before editing your `.bashrc` and `.profile` files it is a good idea to **make a copy** of both files in case something goes wrong. Add pyenv to your `.bashrc` file from the terminal:
 
 ```
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
