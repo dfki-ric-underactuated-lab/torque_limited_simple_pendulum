@@ -114,12 +114,6 @@ Double check your work:
 pyenv versions
 ```
 
-You also need to configure your ~/.bash_profile:
-
-```
-echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
-```
-
 To use Python 3.x only for this specific project change directory to the cloned git repo and type:
 
 ```
@@ -145,16 +139,16 @@ echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 exec "$SHELL"
 ```
 
-**Step 4)** Navigate to the directory, where you want to create the new virtual environment. In our case this will be at `~/torque_limited_simple_pendulum/sw/python`. E.g. to create the virtual environment with Python 3.7.5 named 'venv' run
+**Step 4)** To create a new virtual environment, e.g. named simple-pendulum with Python 3.7.5 run
 
 ```
-pyenv virtualenv 3.7.5 venv
+pyenv virtualenv 3.7.5 simple-pendulum
 ```
 
 **Step 4)** Activate the new virtual environment with the command
 
 ```
-pyenv activate venv
+pyenv activate simple-pendulum
 ```
 
 The name of the current virtual environment `(venv)` appears to the left of the prompt, indicating that you are now working inside a virtual environment. When finished working in the virtual environment, you can deactivate it by running the following:
@@ -166,7 +160,7 @@ pyenv deactivate
 In case that you don't need the virtual environment anymore, you can deactivate it and remove it together with all previously installed packages:
 
 ```
-pyenv uninstall venv
+pyenv uninstall simple-pendulum
 
 ```
 
@@ -193,7 +187,7 @@ pip3 --version
 <br>
 
 ## E) Installing Python Packages
-From within your virtual environment you can install all packages required to run the examples from a existing `requirements.txt` file via:
+Navigate inside your cloned git repo to `cd ~/torque_limited_simple_pendulum/sw/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now install all required packages from the `requirements.txt` file via
 
 ```
 python3 -m pip install -r requirements.txt
@@ -201,11 +195,7 @@ python3 -m pip install -r requirements.txt
 
 (Note: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`)
 
-This was the final installation step. Your system is now prepared to run all code snippets from this repo. 
-
-<br>
-
-**Have fun exploring all kind of different simple pendulum controllers!**
+This was the final installation step. Your system is now prepared to run all code snippets from this repo. Have fun exploring all kind of different simple pendulum controllers!
 
 <br>
 
