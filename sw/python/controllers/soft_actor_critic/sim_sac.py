@@ -1,6 +1,8 @@
 # Other Imports
 import numpy as np
 import matplotlib
+import argparse
+import os
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
@@ -13,6 +15,10 @@ from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
 from controllers.soft_actor_critic.sac_controller import SacController
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--model_path', default=None)
+parser.add_argument('--params_path', default=None)
+args = parser.parse_args()
 
 mass = 0.57288
 length = 0.5
@@ -23,7 +29,13 @@ torque_limit = 10.0
 inertia = mass*length*length
 
 # get the controller
-controller = SacController()
+if args.model_path is None:
+    controller = SacController()
+else:
+    model_path = os.path.join(os.getcwd(), args.model_path)
+    params_path = os.path.join(os.getcwd(), args.params_path)
+    controller = SacController(model_path=args.model_path,
+                               params_path=args.params_path)
 
 # get the simulator
 torque_limit = controller.params['torque_limit']
