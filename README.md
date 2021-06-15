@@ -16,7 +16,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 * [Direct Collocation](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/tree/master/sw/python/trajectory_optimization/direct_collocation): precomputed trajectory, optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/trajectory_optimization/iLQR/README.md): offline computed trajectory, optimal
 * [Feasability driven Differential Dynamic Programming (FDDP)](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/controllers/OC_DDP_SimplePendulum/README.md): offline computed trajectory, optimal
-* [BoxFDDP](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/controllers/OC_DDP_SimplePendulum/README.md): offline computed trajectory, optimal
+* [BoxFDDP](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
 
 **Open Loop**
 * Proportional-Derivative (PD): precomputed trajectory, not optimal
