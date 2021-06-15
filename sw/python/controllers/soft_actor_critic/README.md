@@ -64,7 +64,7 @@ the resulting best model and log files will be saved in:
     /training/best_model
     /training/tb_logs
 
-<span style="color:red"> Attention </span>: when training is started, 
+:warning: **Attention**: when training is started, 
 these directories will be deleted. So if you want to keep a trained 
 model, move the saved files somewhere else.
 
