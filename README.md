@@ -25,7 +25,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 **Closed Loop**
 * [Linear Quadratic Regulator (LQR)](sw/python/controllers/LQR/README.md): stabilization only, optimal
-* [Energy Shaping](sw/python/controllers/energy_shaping/README.md): online computation, not optimal
+* [Energy Shaping](sw/python/controllers/energy_shaping/README.md): swingup only, not optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/controllers/iLQR/README.md): online computed trajectory, optimal, model predictive controller
 * [Soft Actor Critic (SAC)](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/controllers/soft_actor_critic/README.md): offline trained model, optimal, reinforcement learning
 
