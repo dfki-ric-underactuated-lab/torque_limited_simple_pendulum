@@ -56,23 +56,28 @@ curl https://pyenv.run | bash
 **Step 3)** Configure your shell's environment for Pyenv  
 Note: The below instructions are designed for common shell setups. If you have an uncommon setup and they don't work for you, use the linked guidance to figure out what you need to do in your specific case: https://github.com/pyenv/pyenv#advanced-configuration
 
+**Note:** Before editing your `.bashrc` and `.profile` files it is a good idea to **make a copy** of both files in case something goes wrong. Add pyenv to your `.bashrc` file from the terminal:
+
 ```
-echo -e 'if shopt -q login_shell; then' \
-      '\n  export PYENV_ROOT="$HOME/.pyenv"' \
-      '\n  export PATH="$PYENV_ROOT/bin:$PATH"' \
-      '\n eval "$(pyenv init --path)"' \
-      '\nfi' >> ~/.bashrc
-echo -e 'if [ -z "$BASH_VERSION" ]; then'\
-      '\n  export PYENV_ROOT="$HOME/.pyenv"'\
-      '\n  export PATH="$PYENV_ROOT/bin:$PATH"'\
-      '\n  eval "$(pyenv init --path)"'\
-      '\nfi' >>~/.profile
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 ```
 
-**Step 4)** Source `.profile` and restart your shell so the path changes take effect:
+Add these lines to the beginning of your `.profile` file (**not from terminal**):
+```
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+```
+and this line to the very end of your `.profile` file (**not from terminal**):
+
+```
+eval "$(pyenv init --path)"
+```
+
+**Step 4)** Source `.profile` and `.bashrc`, then restart your shell so the path changes take effect:
 
 ```
 source ~/.profile
+source ~/.bashrc
 ```
 
 ```
@@ -179,15 +184,18 @@ and install pip3 via
 sudo apt install python3-pip
 ```
 
-If you like, you can verify the installation by checking the pip version:
+If you like, you can update pip and verify your the installation by:
 
+```
+pip install --upgrade pip
+```
 ```
 pip3 --version
 ```
 <br>
 
 ## E) Installing Python Packages
-Navigate inside your cloned git repo to `cd ~/torque_limited_simple_pendulum/sw/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now install all required packages from the `requirements.txt` file via
+Navigate inside your cloned git repo to `/torque_limited_simple_pendulum/sw/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now install all required packages from the `requirements.txt` file via
 
 ```
 python3 -m pip install -r requirements.txt
