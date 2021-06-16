@@ -7,10 +7,6 @@
   <license>BSD</license>
   <url>https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum</url>
   <logo>https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/hw/simple_pendulum_CAD.png</logo>
-  <depend package="mini-cheetah-motor-driver-socketcan" />
-  <depend package="numpy" />
-  <depend package="pandas" />  
-  <depend package="matplotlib" />  
   <keywords>
     <keyword>optimal control</keyword>
     <keyword>reinforcement learning</keyword>
