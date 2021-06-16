@@ -26,6 +26,8 @@ Along the CAN bus proper grounding and isolation is required. It is important to
 </div>    
 <br/> 
 
+**Fig. 1:** CPU = main pc, CAN XCVR = CAN transceiver, AC = actuator = AK80-6
+
 ##  Configuration: R-Link Config Tool
 
 - **Silabs:** [CP210x Universal Windows Driver](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)  
