@@ -13,7 +13,7 @@ site.addsitedir('../..')
 # Local imports
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
-from controllers.soft_actor_critic.sac_controller import SacController
+from controllers.sac.sac_controller import SacController
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_path', default=None)

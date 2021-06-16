@@ -3,42 +3,46 @@ import math
 ################################################
 # Environmental parameters
 ################################################
-class environment:
-    def __init__(self, g):
-        self.g = g                              # Gravity constant
+class Environment:
+    def __init__(self, gravity):
+        self.gravity = gravity                  # Gravity constant
 
 
 # define environments
-earth = environment(-9.81)
-#earth.g = -9.81                                 # [m/s^2]
+earth = Environment()
+earth.gravity = 9.81                            # [m/s^2]
 
 
 ################################################
 # Robot parameters
 ################################################
-class robot:
-    def __init__(self, base, mass, joints,
-                 links, dof):
+class Robot:
+    def __init__(self, base, origin, mass, n_joints,
+                 n_links, n_actuators, dof):
         self.base = base                        # Fixed, floating, ....
+        self.origin = origin
         self.mass = mass                        # Overall mass
-        self.joints = joints                    # Number of joints
-        self.links = links                      # Number of links
+        self.n_joints = n_joints                # Number of joints
+        self.n_actuators = n_actuators          # Number of links
+        self.n_links = n_links                  # Number of links
         self.dof = dof                          # Degrees of freedom
 
 
 # define robots
-sp = robot()                                    # Simple Pendulum
+sp = Robot()                                    # Simple Pendulum
 sp.base = "fixed"
+sp.origin = [0, 0]
 sp.mass = None
-sp.joints = 1
-sp.links = 1
+sp.n_joints = 1
+sp.n_links = 1
+sp.n_actuators = 1
 sp.dof = 1
 
 
 ################################################
 # Joint parameters
 ################################################
-class joint:
+class Joints:
     def __init__(self, num, type, dof, dof_t,
                  dof_r, tx, ty, tz, rx, ry, rz,
                  fc, fv, b):
@@ -61,7 +65,7 @@ class joint:
 
 
 # define joints
-joint_01 = joint()
+joint_01 = Joints()
 joint_01.num = 1
 joint_01.type = "revolute"
 joint_01.dof = 1
@@ -75,13 +79,13 @@ joint_01.ry = 0
 joint_01.rz = 1
 joint_01.fc = 1.3                               # N
 joint_01.fv = 0                                 # N
-joint_01.b = 0.218                              # add unit
+joint_01.b = 0.1                                # add unit
 
 
 ################################################
 # Link parameters
 ################################################
-class link:
+class Links:
     def __init__(self, num, mass, mass_p,
                  mass_l, length):
         self.num = num                          # Number within kinematic chain
@@ -99,7 +103,7 @@ class link:
 
 
 # define links
-link_01 = link()
+link_01 = Links()
 link_01.num = 1
 link_01.mass = 0.6755                           # [kg]
 link_01.mass_p = 0.5                            # [kg]
@@ -111,7 +115,7 @@ link_01.length = 0.5                            # [m]
 ################################################
 # Motor parameters
 ################################################
-class actuator:
+class Actuators:
     def __init__(self, can_id, poles, wiring,
                  r, v_max, a_max, a_rated, mass,
                  tau_max, tau_rated, vel_max,
@@ -144,14 +148,14 @@ class actuator:
         self.kp = kp                            # Derivative gain
 
 # define actuators
-ak80_6_01 = actuator()                          # From t-motor
+ak80_6_01 = Actuators()                          # From t-motor
 ak80_6_01.can_id = '0x01'
 ak80_6_01.mass = 0.485                          # [kg]
 ak80_6_01.v_max = 24                            # Volts
 ak80_6_01.a_max = 24                            # [A]
 ak80_6_01.a_rated = 12                          # [A]
 ak80_6_01.gr = 1/6
-ak80_6_01 = 0.15                                # Degree  
+ak80_6_01.backlash = 0.15                       # Degree  
 ak80_6_01.tau_max = 12                          # Nm    (after transmission)
 ak80_6_01.tau_rated = 6                         # Nm    (after transmission)
 ak80_6_01.vel_max = 38.2                        # rad/s (after transmission)
@@ -166,7 +170,7 @@ ak80_6_01.k_m = 0.2206                          # Nm/sqrt(W)
 ak80_6_01.kp = 50                              
 ak80_6_01.kd = 4                             
 
-qdd100_01 = actuator()                          # From mjbots
+qdd100_01 = Actuators()                          # From mjbots
 qdd100_01.can_id = '0x01'
 qdd100_01.mass = 0.485                          # [kg]
 qdd100_01.v_max = 44                            # Volts

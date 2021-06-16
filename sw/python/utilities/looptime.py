@@ -1,4 +1,4 @@
-def performance(n, dt, des_time, meas_time, start, end, meas_dt):
+def profiler(n, dt, des_time, meas_time, start, end, meas_dt):
     # validate avg dt of the control loop with (start time - end time) / numSteps
     meas_avg_dt = (end - start)/n
 
