@@ -34,50 +34,52 @@ NOTE: The controllers are considered optimal if a cost function in terms of the 
 See the simple pendulum in action: [torque limited swing up](/docs/simple_pendulum_swingup.mp4)
 
 
-## Documentation 
+## Documentation
 
+* [Reference](docs/reference.md)
 * [Testbench Setup](docs/testbench_setup.md)
 * [Getting Started](docs/getting_started.md)
 * [Usage](docs/usage.md)
-* [Reference](docs/reference.md)
 
 
-## Structure #
+
+## Folder Structure #
 
 <table>
 	<tr>
         <td><ul>
-                <li>data/
+                <li><b>data/</b>
                 <ul>
-                    <li>models</li>
-                    <li>robot</li>
-                    <li>trajectories/</li>
+                    <li><b>models/</b> (Machine Learning Models)</li>
+                    <li><b>robot/</b> (URDF files)</li>
+                    <li><b>trajectories/</b> (CSV files with position, velocity and torque data)</li>
                 </ul>
-                <li>docs/</li>
-                <li>hw/
+                <li><b>docs/</b> (Project Documentation)
                 <ul>
-                    <li>CAD/</li>
+                    <li>Reference</li>
+                    <li>Testbench Setup</li>
+                    <li>Getting Started</li>
+                    <li>Usage</li>
                 </ul>
-                <li>results/</li>
-                <li>sw/
+                <li><b>hw/</b> (Hardware Description)
                 <ul>
-                    <li>cpp/
+                    <li><b>CAD/</b></li>
+                </ul>
+                <li><b>results/</b> (Place to store your outputs)</li>
+                <li><b>sw/</b> (Software)
+                <ul>
+                    <li><b>cpp/</b> (C++ code for realtime control)
+                    <li><b>python/</b> (Python code for everything else)
                     <ul>
-                        <li>controllers/</li>
-                    </ul>
-                    <li>python/
-                    <ul>
-                        <li>controllers/</li>
-                        <li>filters/</li>
-                        <li>model/</li>
-                        <li>simulation/</li>
-                        <li>trajectory_optimization/</li>
-                        <li>utilities/</li>
+                        <li><b>controllers/</b></li>
+                        <li><b>filters/</b></li>
+                        <li><b>model/</b></li>
+                        <li><b>simulation/</b></li>
+                        <li><b>trajectory_optimization/</b></li>
+                        <li><b>utilities/</b></li>
                 </ul>
                 </ul>
-            </ul></td>    
-		<td> <br>  <br>- Machine Learning models <br> - URDF file <br> - CSV files with position, velocity and torque data <br>- Documentation <br> - Hardware (mechanics & electronics) <br> <br> <br> - Place to store your outputs  <br> - Software <br> - C++ code for realtime control <br> <br> - Python code for everything else <br>  <br>  <br>  <br>  <br>  <br> <br> <br> &emsp;  &emsp;  &emsp;  &emsp;  &emsp;  &emsp;
-           </td>
+            </ul>
     </tr>
 </table>
 
