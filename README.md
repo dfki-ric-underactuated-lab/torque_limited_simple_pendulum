@@ -93,9 +93,9 @@ See the simple pendulum in action: [torque limited swing up](/docs/simple_pendul
 ## Contributors #
 
 * [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
-* [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html)
+* [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html) (Software Maintainer)
+* [Jonathan Babel](https://robotik.dfki-bremen.de/en/about-us/staff/joba02.html) (Hardware Maintainer)
 * [Daniel Harnack](https://robotik.dfki-bremen.de/en/about-us/staff/daha03.html)
-* [Jonathan Babel](https://robotik.dfki-bremen.de/en/about-us/staff/joba02.html)
 * [Heiner Peters](https://robotik.dfki-bremen.de/en/about-us/staff/hepe02.html)
 * [Shubham Vyas](https://robotik.dfki-bremen.de/en/about-us/staff/shvy01/)
 * [Melya Boukheddimi](https://robotik.dfki-bremen.de/en/about-us/staff/mebo01/)
