@@ -14,7 +14,7 @@ The iterative linear quadratic regularizer (iLQR) is an extension of the LQR con
 
 The algorithm can be described as:
 
-1. Set an initial state $`x_0`$ and an initial control sequence $`mathbf{U} = [u_0, u_1, ..., u_{N-1}]`$, where $`N`$ is the number of steps that will optimized over (the time horizon).
+1. Set an initial state $`x_0`$ and an initial control sequence $`\mathbf{U} = [u_0, u_1, ..., u_{N-1}]`$, where $`N`$ is the number of steps that will optimized over (the time horizon).
 2. Rollout the trajectory by applying the control sequence iteratively to the initial state.
 
 The following steps are repeated until convergence:
@@ -61,7 +61,7 @@ Similarily, state_cost and final_cost are functions of the form:
         ...
         return cost
 
-Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in pendulum.py. With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver.
+Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in [pendulum.py](./pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](./compute_pendulum_iLQR.py) in l.48 - l.56 for the dynamics and l.59 - l.83 for the cost functions.
 
 Next: initialize the derivatives and the start state in the iLQR solver:
 
@@ -78,13 +78,13 @@ Finally, a trajectory can now be calculated with
                                                               regu_init=100,
                                                               break_cost_redu=1e-6)
 
-The run_ilqr function needs as inputs
+The run_ilqr function has the inputs
 
-    - the number of timesteps to plan into the future (N)
-    - an initial guess for the control sequence (optional)
-    - initial guess for the state space trajectory (optional)
-    - a maximum number of iterations of foward and backward passes to compute
-    - a break cost at which the computation stops early
+    - N: The number of timesteps to plan into the future
+    - init_u_trj: Initial guess for the control sequence (optional)
+    - init_u_trj: Initial guess for the state space trajectory (optional)
+    - max_iter: Maximum number of iterations of forward and backward passes to compute
+    - break_cost_redu: Break cost at which the computation stops early
 
 Besides the state space trajectory x_trj and the control trajectory u_trj the calculation also returns the traces of the cost, regularization factor, the ratio of the cost reduction and the expected cost reduction and the cost reduction.
 
