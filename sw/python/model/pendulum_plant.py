@@ -79,7 +79,7 @@ class PendulumPlant:
             - float, angle of the pendulum, unit: rad
         """
 
-        pos = np.arctan2(ee_pos[1], ee_pos[0])
+        pos = np.arctan2(ee_pos[0]/self.l, ee_pos[1]/(-1.0*self.l))
         return pos
 
     def forward_dynamics(self, state, tau):
@@ -90,7 +90,7 @@ class PendulumPlant:
             - state: array like, len(state)=2
                      The state of the pendulum [angle, angular velocity]
                      floats, units: rad, rad/s
-            - tau: float, motor torque, unit: Nm
+            - tau:   float, motor torque, unit: Nm
         returns:
             - float, angular acceleration, unit: rad/s^2
         """
@@ -100,8 +100,26 @@ class PendulumPlant:
 
         accn = (torque - self.m * self.g * self.l * np.sin(state[0]) -
                 self.b * state[1] -
-                np.sign(state[1])*self.coulomb_fric) / self.inertia
+                np.sign(state[1]) * self.coulomb_fric) / self.inertia
         return accn
+
+    def inverse_dynamics(self, state, accn):
+
+        """
+        Computes inverse dynamics
+        input:
+            - state: array like, len(state)=2
+                     The state of the pendulum [angle, angular velocity]
+                     floats, units: rad, rad/s
+            - accn:  float, angular acceleration, unit: rad/s^2
+        returns:
+            - float, motor torque, unit: Nm
+        """
+
+        tau = accn * self.inertia + \
+            self.m * self.g * self.l * np.sin(state[0]) + \
+            self.b*state[1] + np.sign(state[1]) * self.coulomb_fric
+        return tau
 
     def rhs(self, t, state, tau):
 
