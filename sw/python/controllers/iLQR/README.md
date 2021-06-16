@@ -68,7 +68,7 @@ It is possible to either load an initial guess for the trajectory from a csv fil
 
     controller.load_initial_guess(filepath="../../../../data/trajectories/iLQR/trajectory.csv"
 
-for example a trajectory that has been found with the offline trajectory optimization iLQR.
+for example a trajectory that has been found with the offline trajectory optimization [iLQR](../../trajectory_optimization/iLQR/README.md).
 Alternatively, it is possible to compute a new initial guess with
 
     controller.compute_initial_guess(N=50)
