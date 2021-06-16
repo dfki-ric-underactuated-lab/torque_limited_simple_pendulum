@@ -27,9 +27,9 @@ The project is an open-source and low-cost kit to get started with underactuated
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/controllers/iLQR/README.md): online computed trajectory, optimal, model predictive controller
 * [Soft Actor Critic (SAC)](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/controllers/soft_actor_critic/README.md): offline trained model, optimal, reinforcement learning
 
-NOTE: The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
+**NOTE:** The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
 
-See the simple pendulum in action: [torque limited swing up](/docs/simple_pendulum_swingup.mp4)
+**See a video the simple pendulum in action:** [torque limited swing up](/docs/simple_pendulum_swingup.mp4)
 
 ## Folder Structure #
 
