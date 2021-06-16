@@ -4,12 +4,10 @@
 </div>
 
 <div align="center">
-<img width="250" src="../hw/simple_pendulum_CAD.png">
-<img width="500" src="../docs/pendulum_swingup_animation.gif">
+<img width="300" src="../hw/simple_pendulum_CAD.png">
 </div>
 
 ## Introduction #
-
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
 
 **Trajectory Optimization**
@@ -33,17 +31,9 @@ NOTE: The controllers are considered optimal if a cost function in terms of the 
 
 See the simple pendulum in action: [torque limited swing up](/docs/simple_pendulum_swingup.mp4)
 
-
-## Documentation
-
-* [Reference](docs/reference.md)
-* [Testbench Setup](docs/testbench_setup.md)
-* [Getting Started](docs/getting_started.md)
-* [Usage](docs/usage.md)
-
-
-
 ## Folder Structure #
+
+<img align="right" img width="700" src="../docs/pendulum_swingup_animation.gif" />
 
 <table>
 	<tr>
@@ -83,6 +73,12 @@ See the simple pendulum in action: [torque limited swing up](/docs/simple_pendul
     </tr>
 </table>
 
+## Documentation
+
+* [Reference](docs/reference.md)
+* [Testbench Setup](docs/testbench_setup.md)
+* [Getting Started](docs/getting_started.md)
+* [Usage](docs/usage.md)
 
 ## Safety Notes #
 
