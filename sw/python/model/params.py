@@ -1,22 +1,21 @@
 import math
 
-################################################
-# Environmental parameters
-################################################
 class Environment:
+    """
+    Environmental parameters
+    """
     def __init__(self, gravity):
         self.gravity = gravity                  # Gravity constant
-
 
 # define environments
 earth = Environment()
 earth.gravity = 9.81                            # [m/s^2]
 
 
-################################################
-# Robot parameters
-################################################
 class Robot:
+    """
+    Robot parameters
+    """
     def __init__(self, base, origin, mass, n_joints,
                  n_links, n_actuators, dof):
         self.base = base                        # Fixed, floating, ....
@@ -39,10 +38,10 @@ sp.n_actuators = 1
 sp.dof = 1
 
 
-################################################
-# Joint parameters
-################################################
 class Joints:
+    """
+    Joint parameters
+    """
     def __init__(self, num, type, dof, dof_t,
                  dof_r, tx, ty, tz, rx, ry, rz,
                  fc, fv, b):
@@ -63,7 +62,6 @@ class Joints:
         self.fv = fv                            # Viscous friction
         self.b = b                              # Damping
 
-
 # define joints
 joint_01 = Joints()
 joint_01.num = 1
@@ -82,10 +80,10 @@ joint_01.fv = 0                                 # N
 joint_01.b = 0.1                                # add unit
 
 
-################################################
-# Link parameters
-################################################
 class Links:
+    """
+    Link parameters
+    """
     def __init__(self, num, mass, mass_p,
                  mass_l, length):
         self.num = num                          # Number within kinematic chain
@@ -112,10 +110,10 @@ link_01.mass_l = (link_01.mass                  # [kg]
 link_01.length = 0.5                            # [m]
 
 
-################################################
-# Motor parameters
-################################################
 class Actuators:
+    """
+    Motor parameters
+    """
     def __init__(self, can_id, poles, wiring,
                  r, v_max, a_max, a_rated, mass,
                  tau_max, tau_rated, vel_max,
