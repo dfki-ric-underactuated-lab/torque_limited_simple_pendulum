@@ -63,12 +63,12 @@ Before editing your `.bashrc` and `.profile` files it is a good idea to **make a
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 ```
 
-Add these lines to the beginning of your `.profile` file (**not from terminal**):
+Add these lines at the beginning of your `.profile` file (**not from terminal**):
 ```
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 ```
-and this line to the very end of your `.profile` file (**not from terminal**):
+and this line at the very end of your `.profile` file (**not from terminal**):
 
 ```
 eval "$(pyenv init --path)"
