@@ -7,7 +7,7 @@ site.addsitedir('../..')
 
 # Local imports
 from utilities.abstract import AbstractController
-from controllers.lqr.lqr_controller import LQRController
+from controllers.LQR.lqr_controller import LQRController
 
 
 class OpenLoopController(AbstractController):

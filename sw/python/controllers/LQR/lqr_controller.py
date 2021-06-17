@@ -7,7 +7,7 @@ site.addsitedir('../..')
 
 # Local imports
 from controllers.LQR.lqr import lqr
-from utilities.abstract_controller import AbstractController
+from utilities.abstract import AbstractController
 
 
 class LQRController(AbstractController):
@@ -47,7 +47,7 @@ class LQRController(AbstractController):
         th = (th + np.pi) % (2*np.pi) - np.pi
         y = np.asarray([th, vel])
 
-        u = np.asarray(-self.K.dot(y))[0][1]
+        u = np.asarray(-self.K.dot(y))[1]
 
         if np.abs(u) > self.torque_limit:
             u = None

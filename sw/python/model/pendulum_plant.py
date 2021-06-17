@@ -1,4 +1,5 @@
 import numpy as np
+import yaml
 
 
 class PendulumPlant:
@@ -48,6 +49,23 @@ class PendulumPlant:
         self.n_actuators = 1
         self.base = [0, 0]
         self.n_links = 1
+        self.workspace_range = [[-1.2*self.l, 1.2*self.l],
+                                [-1.2*self.l, 1.2*self.l]]
+
+    def load_params_from_file(self, filepath):
+        with open(filepath, 'r') as yaml_file:
+            params = yaml.safe_load(yaml_file)
+        self.m = params["mass"]
+        self.l = params["length"]
+        self.b = params["damping"]
+        self.g = params["gravity"]
+        self.coulomb_fric = params["coulomb_fric"]
+        self.inertia = params["inertia"]
+        self.torque_limit = params["torque_limit"]
+        self.dof = params["dof"]
+        self.n_actuators = params["n_actuators"]
+        self.base = params["base"]
+        self.n_links = params["n_links"]
         self.workspace_range = [[-1.2*self.l, 1.2*self.l],
                                 [-1.2*self.l, 1.2*self.l]]
 

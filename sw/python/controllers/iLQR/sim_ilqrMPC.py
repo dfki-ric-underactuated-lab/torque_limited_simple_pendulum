@@ -30,7 +30,7 @@ pendulum = PendulumPlant(mass=mass,
 
 sim = Simulator(plant=pendulum)
 
-n_x = 2
+n_x = 3
 
 dt = 0.02
 t_final = 10.0
@@ -46,18 +46,19 @@ controller = iLQRMPCController(mass=mass,
                                damping=damping,
                                coulomb_friction=coulomb_fric,
                                gravity=gravity,
+                               inertia=inertia,
                                x0=x0,
                                dt=dt,
                                N=50,  # horizon size
                                max_iter=1,
                                break_cost_redu=1e-1,
-                               sCu=30.0,
-                               sCp=0.001,
-                               sCv=0.001,
-                               sCen=0.0,
-                               fCp=100.0,
+                               sCu=1.0,
+                               sCp=10.0,
+                               sCv=1.0,
+                               sCen=1.0,
+                               fCp=10.0,
                                fCv=1.0,
-                               fCen=100.0,
+                               fCen=80.0,
                                dynamics="runge_kutta",
                                n_x=n_x)
 
@@ -65,12 +66,12 @@ controller.set_goal(goal)
 # controller.load_initial_guess(filepath="../../../../data/trajectories/iLQR/trajectory.csv")
 controller.compute_initial_guess()
 
-T, X, U = sim.simulate(t0=0.0,
-                       x0=x0_sim,
-                       tf=t_final,
-                       dt=dt,
-                       controller=controller,
-                       integrator="runge_kutta")
+T, X, U = sim.simulate_and_animate(t0=0.0,
+                                   x0=x0_sim,
+                                   tf=t_final,
+                                   dt=dt,
+                                   controller=controller,
+                                   integrator="runge_kutta")
 
 fig, ax = plt.subplots(3, 1, figsize=(18, 6), sharex="all")
 

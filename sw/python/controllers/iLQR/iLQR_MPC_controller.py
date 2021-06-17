@@ -7,7 +7,7 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from utilities.abstract_controller import AbstractController
+from utilities.abstract import AbstractController
 from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
 from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
                                                   pendulum_discrete_dynamics_rungekutta, \
@@ -26,6 +26,7 @@ class iLQRMPCController(AbstractController):
                  damping=0.15,
                  coulomb_friction=0.0,
                  gravity=9.81,
+                 inertia=0.125,
                  x0=np.array([0.0, 0.0]),
                  dt=0.01,
                  N=50,
@@ -79,16 +80,19 @@ class iLQRMPCController(AbstractController):
                       l=length,
                       b=damping,
                       cf=coulomb_friction,
-                      g=gravity)
+                      g=gravity,
+                      inertia=inertia)
         self.iLQR.set_discrete_dynamics(dyn)
 
         self.iLQR.set_start(x0)
 
-    def load_initial_guess(self, filepath="Pendulum_data/trajectory.csv"):
+    def load_initial_guess(self, filepath="Pendulum_data/trajectory.csv",
+                           verbose=True):
         '''
         load initial guess trajectory from file
         '''
-        print("Loading initial guess from ", filepath)
+        if verbose:
+            print("Loading initial guess from ", filepath)
         if self.n_x == 2:
             trajectory = np.loadtxt(filepath, skiprows=1, delimiter=",")
             self.u_trj = trajectory.T[3].T[:self.N]
@@ -115,11 +119,12 @@ class iLQRMPCController(AbstractController):
         if x_trj is not None:
             self.x_trj = x_trj[:self.N]
 
-    def compute_initial_guess(self, N=None):
+    def compute_initial_guess(self, N=None, verbose=True):
         '''
         compute initial guess
         '''
-        print("Computing initial guess")
+        if verbose:
+            print("Computing initial guess")
         if N is None:
             N = self.N
 
@@ -134,7 +139,8 @@ class iLQRMPCController(AbstractController):
                                           break_cost_redu=1e-6)
         self.x_traj = self.x_trj[:self.N]
         self.u_traj = self.u_trj[:self.N]
-        print("Computing initial guess done")
+        if verbose:
+            print("Computing initial guess done")
 
     def set_goal(self, x):
         if self.n_x == 2:
@@ -177,6 +183,8 @@ class iLQRMPCController(AbstractController):
             pos = meas_pos[0]
         else:
             pos = meas_pos
+
+        pos = pos % (2*np.pi)
 
         if isinstance(meas_vel, (list, tuple, np.ndarray)):
             vel = meas_vel[0]

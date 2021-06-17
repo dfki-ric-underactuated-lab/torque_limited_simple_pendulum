@@ -6,7 +6,7 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from utilities.abstract_controller import AbstractController
+from utilities.abstract import AbstractController
 from controllers.LQR.lqr_controller import LQRController
 
 
