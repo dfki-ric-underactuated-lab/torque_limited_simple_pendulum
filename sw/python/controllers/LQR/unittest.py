@@ -9,7 +9,7 @@ from controllers.LQR.lqr_controller import LQRController
 class Test(unittest.TestCase):
 
 
-    epsilon = 0.2
+    epsilon = 0.01
 
     def test_0_LQR_stabilization(self):
         mass = 0.57288
