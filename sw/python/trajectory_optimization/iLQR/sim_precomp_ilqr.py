@@ -26,7 +26,7 @@ pendulum = PendulumPlant(mass=mass,
 
 sim = Simulator(plant=pendulum)
 
-csv_path = "../../../../data/trajectories/iLQR/trajectory.csv"
+csv_path = "../../../../data/trajectories/ilqr/trajectory.csv"
 
 controller = OpenLoopController(csv_path=csv_path)
 

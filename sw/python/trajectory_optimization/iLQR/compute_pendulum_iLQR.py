@@ -4,8 +4,8 @@ from functools import partial
 
 import sys
 sys.path.append("../..")
-from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
-from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
+from trajectory_optimization.ilqr.iLQR import iLQR_Calculator
+from trajectory_optimization.ilqr.pendulum import pendulum_discrete_dynamics_euler, \
                                                   pendulum_discrete_dynamics_rungekutta, \
                                                   pendulum_swingup_stage_cost, \
                                                   pendulum_swingup_final_cost, \
@@ -35,7 +35,7 @@ if n_x == 3:
     x0 = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
     goal = np.array([np.cos(goal[0]), np.sin(goal[0]), goal[1]])
 
-# iLQR parameters
+# ilqr parameters
 N = 1000
 max_iter = 100
 regu_init = 100
@@ -125,7 +125,7 @@ iLQR.set_start(x0)
 time = np.linspace(0, N-1, N)*dt
 csv_data = np.vstack((time, x_trj.T[0], x_trj.T[1],
                       np.append(u_trj.T[0], 0.0))).T
-np.savetxt("../../../../data/trajectories/iLQR/trajectory.csv",
+np.savetxt("../../../../data/trajectories/ilqr/trajectory.csv",
            csv_data, delimiter=',', header="time,pos,vel,torque", comments="")
 
 # plot results

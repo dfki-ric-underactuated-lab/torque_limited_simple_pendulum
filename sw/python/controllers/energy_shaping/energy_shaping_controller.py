@@ -10,6 +10,7 @@ from utilities.abstract import AbstractController
 from controllers.LQR.lqr_controller import LQRController
 
 
+
 def pendulum_calc_kinetic_energy(theta_dot, mass, length):
     return 0.5*mass*(length*theta_dot)**2.0
 
@@ -97,9 +98,9 @@ class EnergyShapingAndLQRController(AbstractController):
         des_pos, des_vel, u = self.lqr_controller.get_control_output(meas_pos,
                                                                      meas_vel)
         if u is not None:
-            if self.active_controller != "LQR":
-                self.active_controller = "LQR"
-                print("Switching to LQR control")
+            if self.active_controller != "lqr":
+                self.active_controller = "lqr"
+                print("Switching to lqr control")
         else:
             if self.active_controller != "EnergyShaping":
                 self.active_controller = "EnergyShaping"

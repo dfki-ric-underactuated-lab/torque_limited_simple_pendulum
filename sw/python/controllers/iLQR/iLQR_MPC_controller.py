@@ -62,7 +62,7 @@ class iLQRMPCController(AbstractController):
         self.break_cost_redu = break_cost_redu
         self.max_iter = max_iter
 
-        # Setup dynamics function in iLQR calculator
+        # Setup dynamics function in ilqr calculator
         self.iLQR = iLQR_Calculator(n_x=n_x, n_u=1)
         if n_x == 2:
             if dynamics == "euler":

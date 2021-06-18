@@ -53,9 +53,22 @@ def SyntaxParser(WORK_DIR):
     if args.ddp:
         folder_name = "energy"
 
+    # Parsing result folder names
+    folder_name = ""
+    if args.pd:
+        folder_name = "pd_control"
+    if args.tau:
+        folder_name = "torque_control"
+    if args.lqr:
+        folder_name = "lqr"
+    if args.lqr:
+        folder_name = "ilqr"
+    if args.ddp:
+        folder_name = "ddp"
+    if args.ddp:
+        folder_name = "energy"
 
-    TIMESTAMP = datetime.now().strftime(                # get timestamp              
-        "%Y%m%d-%I%M%S-%p")
-    OUTPUT_FOLDER = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + folder_name
+    timestamp = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
+    output_folder = str(WORK_DIR) + f'/results/{timestamp}_' + folder_name
 
     return OUTPUT_FOLDER, args, unknown

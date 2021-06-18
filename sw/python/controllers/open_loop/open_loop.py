@@ -55,9 +55,9 @@ class OpenLoopAndLQRController(AbstractController):
         des_pos, des_vel, u = (self.lqr_controller.
                                get_control_output(meas_pos, meas_vel))
         if u is not None:
-            if self.active_controller != "LQR":
-                self.active_controller = "LQR"
-                print("Switching to LQR control")
+            if self.active_controller != "lqr":
+                self.active_controller = "lqr"
+                print("Switching to lqr control")
         else:
             if self.active_controller != "OpenLoop":
                 self.active_controller = "OpenLoop"

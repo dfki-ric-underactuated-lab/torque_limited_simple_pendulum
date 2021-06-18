@@ -75,10 +75,7 @@ async def qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in,
     return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time
 
 
-def ak80_6(CSV_FILE, Kp, Kd, n, dt,
-           des_pos, des_vel, u
-            des_pos, des_vel, des_tau, meas_pos,
-           meas_vel, meas_tau, meas_time):
+def ak80_6(controller, kp, kd, n, dt):
     motor_id = 0x02
     can_port = 'can0'
 
@@ -87,38 +84,61 @@ def ak80_6(CSV_FILE, Kp, Kd, n, dt,
     meas_tau = np.zeros(n)
     meas_time = np.zeros(n)
 
+    des_pos_list = np.zeros(n)
+    des_vel_list = np.zeros(n)
+    des_tau_list = np.zeros(n)
+    des_time_list = np.zeros(n)
+
     motor_controller = CanMotorController(can_port, motor_id)
     motor_controller.enable_motor()
-    pos, vel, effort = motor_controller.send_deg_command(0, 0, 0, 0, 0)
+    pos, vel, tau = motor_controller.send_deg_command(0, 0, 0, 0, 0)
     print()
     print("After enabling motor, pos: ", pos, ", vel: ", vel,
-          ", effort: ", effort)
+          ", tau: ", tau)
 
     # ensure that the actuator starts from the zero positon
-    while abs(pos) > 1 or abs(vel) > 1 or abs(effort) > 0.1:
+    while abs(pos) > 1 or abs(vel) > 1 or abs(tau) > 0.1:
         motor_controller.set_zero_position()
-        pos, vel, effort = motor_controller.send_deg_command(0, 0, 0, 0, 0)
+        pos, vel, tau = motor_controller.send_deg_command(0, 0, 0, 0, 0)
         print("Motor position after setting zero position: ", pos,
-              ", vel: ", vel, ", effort: ", effort)
+              ", vel: ", vel, ", tau: ", tau)
 
     # defining running index variables
     i = 0
     t = 0.0
+    vel_filter = vel
+    vel_filter_list = []
     meas_dt = 0.0
     exec_time = 0.0
 
     print()
-    print("Executing trajectory:", CSV_FILE)
+    print("Executing Energy Shaping.")
     start = time.time()
 
     while i < n:
         start_loop = time.time()
         t += meas_dt                # add the real_dt to the previous time step
 
+        des_pos, des_vel, des_tau = controller.get_control_output(pos,
+                                                                  vel,
+                                                                  tau)
+
+        if des_tau > 4.0:
+             des_tau = 4.0
+        if des_tau < -4.0:
+             des_tau = -4.0
+
+        #if des_pos is None:
+        des_pos = 0
+        #     kp = 0
+
+        #if des_vel is None:
+        des_vel = 0
+        #     kd = 0
+
         # pd control
-        pos, vel, tau = motor_controller.send_rad_command(des_pos[i],
-                                                          des_vel[i], Kp,
-                                                          Kd, 0)
+        pos, vel, tau = motor_controller.send_rad_command(des_pos, des_vel,
+                                                          kp, kd, des_tau)
         # torque control
         # pos, vel, tau = motor_controller.send_rad_command(des_pos[i],
         # des_vel[i], kp, kd, des_tau[i])
@@ -128,7 +148,20 @@ def ak80_6(CSV_FILE, Kp, Kd, n, dt,
         meas_vel[i] = vel
         meas_tau[i] = tau
         meas_time[i] = t
+
+        des_pos_list[i] = des_pos
+        des_vel_list[i] = des_vel
+        des_tau_list[i] = des_tau
+        des_time_list[i] = dt * i
         i += 1
+
+        # low pass filter
+        #vel_filter_list.append(vel)
+        #if len(vel_filter_list) > 10:
+        #    del vel_filter_list[0]
+
+        vel_filter = np.mean(vel_filter_list)
+        vel_filter = np.mean(meas_vel[max(0, i-50):i])
 
         exec_time = time.time() - start_loop
         if exec_time > dt:
@@ -146,4 +179,5 @@ def ak80_6(CSV_FILE, Kp, Kd, n, dt,
     motor_controller.send_rad_command(0, 0, 0, 0, 0)
     motor_controller.disable_motor()
 
-    return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time
+    return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time, \
+           des_pos_list, des_vel_list, des_tau_list, des_time_list

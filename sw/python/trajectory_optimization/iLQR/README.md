@@ -61,7 +61,7 @@ Similarily, state_cost and final_cost are functions of the form:
         ...
         return cost
 
-Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in [pendulum.py](./pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](./compute_pendulum_iLQR.py) in l.48 - l.56 for the dynamics and l.59 - l.83 for the cost functions.
+Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in [pendulum.py](pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](compute_pendulum_iLQR.py) in l.48 - l.56 for the dynamics and l.59 - l.83 for the cost functions.
 
 Next: initialize the derivatives and the start state in the iLQR solver:
 

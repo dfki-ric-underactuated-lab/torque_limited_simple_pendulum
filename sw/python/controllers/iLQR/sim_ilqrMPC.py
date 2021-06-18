@@ -63,7 +63,7 @@ controller = iLQRMPCController(mass=mass,
                                n_x=n_x)
 
 controller.set_goal(goal)
-# controller.load_initial_guess(filepath="../../../../data/trajectories/iLQR/trajectory.csv")
+# controller.load_initial_guess(filepath="../../../../data/trajectories/ilqr/trajectory.csv")
 controller.compute_initial_guess()
 
 T, X, U = sim.simulate_and_animate(t0=0.0,
@@ -90,5 +90,5 @@ plt.show()
 # Save Trajectory to a csv file to be sent to the motor.
 
 # csv_data = np.vstack((T, np.asarray(X).T[0], np.asarray(X).T[1], U)).T
-# np.savetxt("data/iLQR/MPC_trajectory.csv", csv_data, delimiter=',',
+# np.savetxt("data/ilqr/MPC_trajectory.csv", csv_data, delimiter=',',
 #            header="time,pos,vel,torque", comments="")

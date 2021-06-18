@@ -10,7 +10,7 @@ Versatility: Swingup and stabilization
 
 ## Theory #
 
-This controller uses the trajectory optimization from the iLQR algorithm (see [iLQR](../../trajectory_optimization/iLQR/README.md)) in an MPC setting. This means that this controller recomputes an optimal trajectory (including the optimal sequence of control inputs) at every time step. The first control input of this solution is returned as control input for the current state. As the optimization happens every timestep the iLQR algorithm is only executed with one forward and one backward pass. As initial trajectory the solution of the previous timestep is parsed to the iLQR solver.
+This controller uses the trajectory optimization from the iLQR algorithm (see [iLQR](../../trajectory_optimization/ilqr/README.md)) in an MPC setting. This means that this controller recomputes an optimal trajectory (including the optimal sequence of control inputs) at every time step. The first control input of this solution is returned as control input for the current state. As the optimization happens every timestep the iLQR algorithm is only executed with one forward and one backward pass. As initial trajectory the solution of the previous timestep is parsed to the iLQR solver.
 
 ## Requirements #
 
