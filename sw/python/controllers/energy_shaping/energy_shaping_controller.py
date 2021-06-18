@@ -58,7 +58,7 @@ class EnergyShapingController(AbstractController):
                                                   mass=self.m,
                                                   length=self.l,
                                                   gravity=self.g)
-        u = -self.k*vel*(total_energy - self.desired_energy) + self.b*vel
+        u = -self.k*vel*(total_energy - self.desired_energy) + self.k*self.b*vel
 
         # since this is a pure torque controller,
         # set des_pos and des_vel to None
@@ -70,7 +70,7 @@ class EnergyShapingController(AbstractController):
 
 class EnergyShapingAndLQRController(AbstractController):
     def __init__(self, mass=1.0, length=0.5, damping=0.1,
-                 gravity=9.81, torque_limit=np.inf):
+                 gravity=9.81, torque_limit=np.inf, k=1.0):
         self.m = mass
         self.l = length
         self.b = damping
@@ -79,7 +79,8 @@ class EnergyShapingAndLQRController(AbstractController):
         self.energy_shaping_controller = EnergyShapingController(mass,
                                                                  length,
                                                                  damping,
-                                                                 gravity)
+                                                                 gravity,
+                                                                 k=k)
         self.lqr_controller = LQRController(mass,
                                             length,
                                             damping,

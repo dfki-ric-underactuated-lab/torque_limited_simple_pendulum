@@ -45,9 +45,10 @@ class LQRController(AbstractController):
 
         th = pos + np.pi
         th = (th + np.pi) % (2*np.pi) - np.pi
+
         y = np.asarray([th, vel])
 
-        u = np.asarray(-self.K.dot(y))[1]
+        u = np.asarray(-self.K.dot(y))[0][1]
 
         if np.abs(u) > self.torque_limit:
             u = None

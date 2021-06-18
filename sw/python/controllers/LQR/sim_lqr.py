@@ -41,13 +41,13 @@ controller.set_goal([np.pi, 0])
 dt = 0.01
 t_final = 3.0
 
-T, X, U = sim.simulate(t0=0.0,
-                       x0=[3.1, 0.0],
-                       tf=t_final,
-                       dt=dt,
-                       controller=controller,
-                       integrator="runge_kutta"
-                       )
+T, X, U = sim.simulate_and_animate(t0=0.0,
+                                   x0=[3.1, 0.0],
+                                   tf=t_final,
+                                   dt=dt,
+                                   controller=controller,
+                                   integrator="runge_kutta"
+                                   )
 
 fig, ax = plt.subplots(3, 1, figsize=(18, 6), sharex="all")
 
