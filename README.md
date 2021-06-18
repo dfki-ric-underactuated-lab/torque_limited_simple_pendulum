@@ -33,7 +33,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 ## Folder Structure #
 
-<img align="right" img width="700" src="../docs/pendulum_swingup_animation.gif" />
+<img align="right" img width="500" src="../docs/pendulum_swingup_animation.gif" />
 
 <table>
 	<tr>
