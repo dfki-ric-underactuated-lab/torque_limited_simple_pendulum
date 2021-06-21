@@ -7,7 +7,7 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from utilities.abstract import AbstractController
+from controllers.abstract_controller import AbstractController
 from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
 from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
                                                   pendulum_discrete_dynamics_rungekutta, \
@@ -21,6 +21,7 @@ from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_eul
 
 class iLQRMPCController(AbstractController):
     def __init__(self,
+                 # parameter,
                  mass=0.5,
                  length=0.5,
                  damping=0.15,
@@ -29,7 +30,7 @@ class iLQRMPCController(AbstractController):
                  inertia=0.125,
                  x0=np.array([0.0, 0.0]),
                  dt=0.01,
-                 N=50,
+                 n=50,
                  max_iter=1,
                  break_cost_redu=1e-6,
                  sCu=10.0,
@@ -42,13 +43,18 @@ class iLQRMPCController(AbstractController):
                  dynamics="runge_kutta",
                  n_x=3):
 
+        # self.gravity = parameter[0]
+        # self.length = parameter[4]
+        # self.mass = parameter[10]
+        # self.damping = parameter[12]
+        # self.coulomb_friction = parameter[13]
         self.mass = mass
         self.length = length
         self.damping = damping
         self.coulomb_friction = coulomb_friction
         self.gravity = gravity
 
-        self.N = N
+        self.N = n
         self.n_x = n_x
 
         self.sCu = sCu

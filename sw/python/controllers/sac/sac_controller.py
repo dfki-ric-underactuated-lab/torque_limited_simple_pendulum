@@ -10,7 +10,7 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from utilities.abstract import AbstractController
+from controllers.abstract_controller import AbstractController
 
 # default parameters, can be changed
 model_path = os.path.join(Path(__file__).parents[4], 'data/models/sac_model.zip')

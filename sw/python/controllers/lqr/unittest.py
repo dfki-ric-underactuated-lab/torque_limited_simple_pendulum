@@ -3,7 +3,7 @@ import numpy as np
 
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
-from controllers.LQR.lqr_controller import LQRController
+from controllers.lqr.lqr_controller import LQRController
 
 
 class Test(unittest.TestCase):
@@ -56,7 +56,7 @@ class Test(unittest.TestCase):
         if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
             if np.abs(X[-1][1]) > self.epsilon:
                 stabilization_success = False
-                print("LQR Controller did not stabilize",
+                print("lqr Controller did not stabilize",
                       "final state: ", X[-1])
 
         self.assertTrue(stabilization_success)

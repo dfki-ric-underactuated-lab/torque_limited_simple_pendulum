@@ -1,142 +1,97 @@
-import sys
+# Global imports
 import time
 import numpy as np
-import asyncio
-
-# mjbots moteus driver  
-import moteus
-# t-motors AK80-6 driver                                                                                        
-from motor_driver.canmotorlib import CanMotorController                                                 
-# import socket
-# from bitstring import BitArray
-                    
-async def qdd100(CSV_FILE, n, dt, des_pos_out, des_vel_out, des_tau_in,
-                 meas_pos, meas_vel, meas_tau, meas_time, gr, rad2outputrev):
-
-    # define interface to "Controller" class in moteus.py
-    c1 = moteus.Controller(id=1)
-
-    # in case the controller had faulted previously,
-    # the stop command clears all fault states
-    await c1.set_stop()
-    print("Motor enabled.")
-
-    # defining running index variables
-    i = 0
-    t = 0.0
-    meas_dt = 0.0
-    exec_time = 0.0
-
-    print("Executing trajectory:", CSV_FILE)
-    start = time.time()
-
-    while i < n:
-        start_loop = time.time()
-        t += meas_dt                    # add the real_dt to previous time step
-
-        # read out the current data in each time step from the trajectory lists
-        pos = des_pos_out[i]
-        vel = des_vel_out[i]
-        tau = des_tau_in[i]
-
-        # position control
-        state1 = await c1.set_position(position=pos, velocity=None, kp_scale=1,
-                                       kd_scale=None, stop_position=None,
-                                       feedforward_torque=None,
-                                       maximum_torque=1.0,
-                                       watchdog_timeout=None, query=True)
-
-        # store measured sensor data of pos, vel and torque in each time step
-        meas_pos[i] = state1.values[moteus.Register.POSITION]/rad2outputrev
-        meas_vel[i] = state1.values[moteus.Register.VELOCITY]/rad2outputrev
-        meas_tau[i] = state1.values[moteus.Register.TORQUE]*gr
-        meas_time[i] = t
-        i += 1
-
-        exec_time = time.time() - start_loop
-        if exec_time > dt:
-            print("Control loop is too slow!")
-            print("Control frequency:", 1/exec_time, "Hz")
-            print("Desired frequency:", 1/dt, "Hz")
-            print()
-
-        while (time.time() - start_loop < dt):
-            pass
-        meas_dt = time.time() - start_loop
-    end = time.time()
-
-    # Disabling the motor
-    await c1.set_position(position=None, velocity=None, kp_scale=0, kd_scale=0,
-                          stop_position=None, feedforward_torque=0,
-                          maximum_torque=0, watchdog_timeout=None, query=True)
-    await c1.set_stop()
-    print("Motor disabled.")
-
-    return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time
+# package for t-motors AK80-6
+from motor_driver.canmotorlib import CanMotorController
 
 
-def ak80_6(CSV_FILE, Kp, Kd, n, dt,
-           des_pos, des_vel, u
-            des_pos, des_vel, des_tau, meas_pos,
-           meas_vel, meas_tau, meas_time):
+def ak80_6(control_method, name, attribute, kp, kd, n, dt):
     motor_id = 0x02
     can_port = 'can0'
 
-    meas_pos = np.zeros(n)
-    meas_vel = np.zeros(n)
-    meas_tau = np.zeros(n)
-    meas_time = np.zeros(n)
-
+    # connect to motor controller board
     motor_controller = CanMotorController(can_port, motor_id)
     motor_controller.enable_motor()
-    pos, vel, effort = motor_controller.send_deg_command(0, 0, 0, 0, 0)
+
+    # initiate actuator from zero position
+    meas_pos, meas_vel, meas_tau = motor_controller.send_deg_command(0, 0, 0,
+                                                                     0, 0)
     print()
-    print("After enabling motor, pos: ", pos, ", vel: ", vel,
-          ", effort: ", effort)
-
-    # ensure that the actuator starts from the zero positon
-    while abs(pos) > 1 or abs(vel) > 1 or abs(effort) > 0.1:
+    print("After enabling motor, pos: ", meas_pos, ", vel: ", meas_vel,
+          ", tau: ", meas_tau)
+    while abs(meas_pos) > 1 or abs(meas_vel) > 1 or abs(meas_tau) > 0.1:
         motor_controller.set_zero_position()
-        pos, vel, effort = motor_controller.send_deg_command(0, 0, 0, 0, 0)
-        print("Motor position after setting zero position: ", pos,
-              ", vel: ", vel, ", effort: ", effort)
+        meas_pos, meas_vel, meas_tau = motor_controller.send_deg_command(0, 0,
+                                                                         0, 0,
+                                                                         0)
+        print("Motor position after setting zero position: ", meas_pos,
+              ", vel: ", meas_vel, ", tau: ", meas_tau)
+        print()
+        print("Executing ", name)
 
-    # defining running index variables
+    # defining runtime variables
     i = 0
     t = 0.0
     meas_dt = 0.0
     exec_time = 0.0
-
-    print()
-    print("Executing trajectory:", CSV_FILE)
     start = time.time()
 
     while i < n:
         start_loop = time.time()
-        t += meas_dt                # add the real_dt to the previous time step
+        t += meas_dt
 
-        # pd control
-        pos, vel, tau = motor_controller.send_rad_command(des_pos[i],
-                                                          des_vel[i], Kp,
-                                                          Kd, 0)
-        # torque control
-        # pos, vel, tau = motor_controller.send_rad_command(des_pos[i],
-        # des_vel[i], kp, kd, des_tau[i])
+        if attribute is "open loop":
+            # get control input
+            des_pos, des_vel, des_tau = control_method.get_control_output()
 
-    # store measured sensor data of pos, vel and torque in each time step
-        meas_pos[i] = pos
-        meas_vel[i] = vel
-        meas_tau[i] = tau
-        meas_time[i] = t
+            # send control input
+            meas_pos, meas_vel, meas_tau = motor_controller.send_rad_command(
+            des_pos, des_vel, kp, kd, des_tau)
+
+            # record data
+            meas_pos_list[i] = meas_pos
+            meas_vel_list[i] = meas_vel
+            meas_tau_list[i] = meas_tau
+            meas_time_list[i] = t
+
+        if attribute is "closed loop":
+            # get control input
+            des_pos, des_vel, des_tau = control_method.get_control_output(
+                meas_pos, meas_vel, meas_tau)
+
+            # clip max.torque for safety
+            if des_tau > 4.0:
+                des_tau = 4.0
+            if des_tau < -4.0:
+                des_tau = -4.0
+
+            # send control input
+            meas_pos, meas_vel, meas_tau = motor_controller.send_rad_command(
+            des_pos, des_vel, kp, kd, des_tau)
+
+            # record data
+            meas_pos_list[i] = meas_pos
+            meas_vel_list[i] = meas_vel
+            meas_tau_list[i] = meas_tau
+            meas_time_list[i] = t
+            des_pos_list[i] = des_pos
+            des_vel_list[i] = des_vel
+            des_tau_list[i] = des_tau
+            des_time_list[i] = dt * i
+
+            # filter noise velocity measurements
+            vel_filtered = np.mean(meas_vel[max(0, i-50):i])
+
+        else:
+            print("Missing control loop attribute.")
+
         i += 1
-
         exec_time = time.time() - start_loop
         if exec_time > dt:
             print("Control loop is too slow!")
             print("Control frequency:", 1/exec_time, "Hz")
             print("Desired frequency:", 1/dt, "Hz")
             print()
-
         while time.time() - start_loop < dt:
             pass
         meas_dt = time.time() - start_loop
@@ -146,4 +101,5 @@ def ak80_6(CSV_FILE, Kp, Kd, n, dt,
     motor_controller.send_rad_command(0, 0, 0, 0, 0)
     motor_controller.disable_motor()
 
-    return start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time
+    return start, end, meas_dt, des_pos_list, des_vel_list, des_tau_list, \
+           des_time_list, meas_pos_list, meas_vel_list, meas_tau_list

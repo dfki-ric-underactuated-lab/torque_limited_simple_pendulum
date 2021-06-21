@@ -3,7 +3,7 @@ import numpy as np
 
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
-from controllers.iLQR.iLQR_MPC_controller import iLQRMPCController
+from controllers.ilqr.iLQR_MPC_controller import iLQRMPCController
 
 
 class Test(unittest.TestCase):
@@ -44,7 +44,7 @@ class Test(unittest.TestCase):
                                        inertia=inertia,
                                        x0=x0,
                                        dt=dt,
-                                       N=50,  # horizon size
+                                       n=50,  # horizon size
                                        max_iter=1,
                                        break_cost_redu=1e-1,
                                        sCu=30.0,
@@ -75,7 +75,7 @@ class Test(unittest.TestCase):
         if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
             if np.abs(X[-1][1]) > self.epsilon:
                 swingup_success = False
-                print("iLQR MPC Controller did not swingup",
+                print("ilqr MPC Controller did not swingup",
                       "final state: ", X[-1])
 
         self.assertTrue(swingup_success)
@@ -116,7 +116,7 @@ class Test(unittest.TestCase):
                                        inertia=inertia,
                                        x0=x0,
                                        dt=dt,
-                                       N=50,  # horizon size
+                                       n=50,  # horizon size
                                        max_iter=1,
                                        break_cost_redu=1e-1,
                                        sCu=1.0,
@@ -147,7 +147,7 @@ class Test(unittest.TestCase):
         if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
             if np.abs(X[-1][1]) > self.epsilon:
                 swingup_success = False
-                print("iLQR MPC Controller did not swingup",
+                print("ilqr MPC Controller did not swingup",
                       "final state: ", X[-1])
 
         self.assertTrue(swingup_success)

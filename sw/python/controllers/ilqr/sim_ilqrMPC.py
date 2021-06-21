@@ -9,7 +9,7 @@ site.addsitedir('../..')
 # Local imports
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
-from controllers.iLQR.iLQR_MPC_controller import iLQRMPCController
+from controllers.ilqr.iLQR_MPC_controller import iLQRMPCController
 
 
 mass = 0.57288
@@ -49,7 +49,7 @@ controller = iLQRMPCController(mass=mass,
                                inertia=inertia,
                                x0=x0,
                                dt=dt,
-                               N=50,  # horizon size
+                               n=50,  # horizon size
                                max_iter=1,
                                break_cost_redu=1e-1,
                                sCu=1.0,

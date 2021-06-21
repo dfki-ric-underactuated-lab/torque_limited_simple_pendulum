@@ -6,8 +6,8 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from controllers.LQR.lqr import lqr
-from utilities.abstract import AbstractController
+from controllers.lqr.lqr import lqr
+from controllers.abstract_controller import AbstractController
 
 class LQRController(AbstractController):
     def __init__(self, mass=1.0, length=0.5, damping=0.1,

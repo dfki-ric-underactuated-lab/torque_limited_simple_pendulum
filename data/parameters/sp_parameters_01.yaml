@@ -5,6 +5,7 @@ n_links: 1
 length: 0.5
 n_actuators: 1
 torque_limit: 12
+gr: 6
 mass: 0.6755
 inertia: 0.139625 
 damping: 0.1 

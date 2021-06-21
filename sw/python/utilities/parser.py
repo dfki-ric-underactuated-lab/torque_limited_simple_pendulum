@@ -1,8 +1,9 @@
-from datetime import datetime
+# global imports
 import argparse
 from argparse import RawTextHelpFormatter
 
-def SyntaxParser(WORK_DIR):
+
+def syntax_parser():
     parser = argparse.ArgumentParser(
         description='''                     Control of a torque limited Simple Pendulum
 
@@ -25,37 +26,17 @@ def SyntaxParser(WORK_DIR):
     parser.add_argument("-sim", action='store_true',
                         help="simulate the simple pendulum plant, instead of "
                              "controlling the real system",  required=False)
-    parser.add_argument("-qdd100", action='store_true',
-                        help="to control the qdd100 actuators from mjbots",
-                        required=False)
-    parser.add_argument("-ak80_6", action='store_true',
-                        help="to control the AK80-6 actuators from t-motors",
-                        required=False)
     parser.add_argument("-save", action='store_true',
                         help="saves your measurements into (../results)",
                         required=False)
+    # parser.add_argument("-qdd100", action='store_true',
+    #                    help="to control the qdd100 actuators from mjbots",
+    #                    required=False)
+    # parser.add_argument("-ak80_6", action='store_true',
+    #                    help="to control the AK80-6 actuators from t-motors",
+    #                    required=False)
 
-    # Execute the parse_args method
-    args, unknown = parser.parse_known_args()    
+    # parsing
+    args, unknown = parser.parse_known_args()
 
-    # Parsing result folder names
-    folder_name = ""
-    if args.pd:
-        folder_name = "pd_control"
-    if args.tau:
-        folder_name = "torque_control"
-    if args.lqr:
-        folder_name = "lqr"
-    if args.lqr:
-        folder_name = "ilqr"
-    if args.ddp:
-        folder_name = "ddp"
-    if args.ddp:
-        folder_name = "energy"
-
-
-    TIMESTAMP = datetime.now().strftime(                # get timestamp              
-        "%Y%m%d-%I%M%S-%p")
-    OUTPUT_FOLDER = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + folder_name
-
-    return OUTPUT_FOLDER, args, unknown
+    return args, unknown

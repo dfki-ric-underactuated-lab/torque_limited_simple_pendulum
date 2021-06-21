@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
         dt = 0.01
         goal = np.array([np.pi, 0])
 
-        # iLQR parameters
+        # ilqr parameters
         N = 1000
         max_iter = 100
         regu_init = 100
@@ -110,7 +110,7 @@ class Test(unittest.TestCase):
         if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
             if np.abs(X[-1][1]) > self.epsilon:
                 stabilization_success = False
-                print("iLQR Computation (n_x=2) did not swingup",
+                print("ilqr Computation (n_x=2) did not swingup",
                       "final state: ", X[-1])
 
         self.assertTrue(stabilization_success)
@@ -134,7 +134,7 @@ class Test(unittest.TestCase):
         x0 = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
         goal = np.array([np.cos(goal[0]), np.sin(goal[0]), goal[1]])
 
-        # iLQR parameters
+        # ilqr parameters
         N = 300
         max_iter = 100
         regu_init = 100
@@ -210,7 +210,7 @@ class Test(unittest.TestCase):
         if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
             if np.abs(X[-1][1]) > self.epsilon:
                 stabilization_success = False
-                print("iLQR Computation (n_x=3) did not swingup",
+                print("ilqr Computation (n_x=3) did not swingup",
                       "final state: ", X[-1])
 
         self.assertTrue(stabilization_success)

@@ -1,4 +1,7 @@
+# Global imports
 import math
+import yaml
+
 
 class Environment:
     """
@@ -6,6 +9,7 @@ class Environment:
     """
     def __init__(self, gravity):
         self.gravity = gravity                  # Gravity constant
+
 
 # define environments
 earth = Environment()
@@ -62,8 +66,8 @@ class Joints:
         self.fv = fv                            # Viscous friction
         self.b = b                              # Damping
 
-# define joints
-joint_01 = Joints()
+
+joint_01 = Joints()                             # define joints
 joint_01.num = 1
 joint_01.type = "revolute"
 joint_01.dof = 1
@@ -96,12 +100,11 @@ class Links:
                     + mass_l)
         self.inertia = ((mass_l*length**2)/3    # Inertia considering the CoM
                     + mass_p*length**2)
-        #self.inertia = (m_p+m_l)*l**2          # Inertia assuming a point mass
-                                                # at the end of the rod
+        # self.inertia = (m_p+m_l)*l**2         # Inertia assuming a point
+                                                # mass at the end of the rod
 
 
-# define links
-link_01 = Links()
+link_01 = Links()                               # define links
 link_01.num = 1
 link_01.mass = 0.6755                           # [kg]
 link_01.mass_p = 0.5                            # [kg]
@@ -133,20 +136,20 @@ class Actuators:
         self.poles = poles                      # Number of poles
         self.wiring = wiring                    # Motor wiring (delta, star...)
         self.resist = resist                    # Resistance (phase to phase)
-        self.induct = induct                    # Inductancee (phase to phase)
+        self.induct = induct                    # Inductance (phase to phase)
         self.v_per_hz = v_per_hz                # Voltage per hz
         self.inertia = inertia                  # Rotor inertia
         # Motor constants
         self.k_m = k_m                          # Motor constant
         self.k_v = k_v                          # Velocity / backEMF constant
-        self.k_e = 1/k_v                        # Elctrical constant
+        self.k_e = 1/k_v                        # Electrical constant
         self.k_t = k_m*math.sqrt(resist)        # Torque constant
         # Controller variables
         self.kd = kd                            # Proportional gain
         self.kp = kp                            # Derivative gain
 
-# define actuators
-ak80_6_01 = Actuators()                          # From t-motor
+
+ak80_6_01 = Actuators()                         # From t-motor
 ak80_6_01.can_id = '0x01'
 ak80_6_01.mass = 0.485                          # [kg]
 ak80_6_01.v_max = 24                            # Volts
@@ -191,4 +194,25 @@ qdd100_01.k_v = 132.18                          # rpm/V
 # k_m = k_t / sqrt(resist) = 0.2227
 qdd100_01.k_m = 0.2227                          # Nm/sqrt(W)
 qdd100_01.kp = 100                              
-qdd100_01.kd = 2                               
+qdd100_01.kd = 2
+
+
+def get_params(params_path):
+    with open(params_path, 'r') as yaml_file:
+        params = yaml.safe_load(yaml_file)
+        gravity = params["gravity"]
+        mass = params["mass"]
+        inertia = params["inertia"]
+        base = params["base"]
+        dof = params["dof"]
+        n_links = params["n_links"]
+        length = params["length"]
+        n_actuators = params["n_actuators"]
+        torque_limit = params["torque_limit"]
+        gr = params["gr"]
+        damping = params["damping"]
+        coulomb_fric = params["coulomb_fric"]
+        parameters = [gravity, mass, inertia, base, dof, n_links,
+                      length, n_actuators, torque_limit, gr, damping,
+                      coulomb_fric]
+        return parameters

@@ -9,5 +9,4 @@ class AbstractController(ABC):
         des_pos = None
         des_vel = None
         des_tau = None
-
         return des_pos, des_vel, des_tau

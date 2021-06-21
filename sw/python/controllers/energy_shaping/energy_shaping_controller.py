@@ -6,9 +6,8 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from utilities.abstract import AbstractController
-from controllers.LQR.lqr_controller import LQRController
-
+from controllers.abstract_controller import AbstractController
+from controllers.lqr.lqr_controller import LQRController
 
 
 def pendulum_calc_kinetic_energy(theta_dot, mass, length):
@@ -26,13 +25,30 @@ def pendulum_calc_total_energy(theta, theta_dot, mass, length, gravity):
 
 
 class EnergyShapingController(AbstractController):
-    def __init__(self, mass=1.0, length=0.5, damping=0.1, gravity=9.81, k=1.0):
+    def __init__(self,
+                 # parameter,
+                 mass=1.0,
+                 length=0.5,
+                 damping=0.1,
+                 gravity=9.81,
+                 k=1.0,
+                 n=2000):
+
+        # self.gravity = parameter[0]
+        # self.length = parameter[4]
+        # self.mass = parameter[10]
+        # self.damping = parameter[12]
         self.m = mass
         self.l = length
         self.b = damping
         self.g = gravity
-
         self.k = k
+
+        self.des_pos_list = np.zeros(n)
+        self.des_vel_list = np.zeros(n)
+        self.des_tau_list = np.zeros(n)
+        self.des_time_list = np.zeros(n)
+        self.vel_filter_list = []
 
     def set_goal(self, x):
         self.goal = [x[0], x[1]]
@@ -42,8 +58,14 @@ class EnergyShapingController(AbstractController):
                                                          length=self.l,
                                                          gravity=self.g)
 
-    def get_control_output(self, meas_pos, meas_vel,
+    def get_control_output(self, i, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
+
+        ## filter noisy velocity measurements
+        # self.vel_filter_list.append(meas_vel)
+        # if len(self.vel_filter_list) > 10:
+        #    del self.vel_filter_list[0]
+        # vel_filtered = np.mean(self.vel_filter_list)
 
         if isinstance(meas_pos, (list, tuple, np.ndarray)):
             pos = meas_pos[0]
@@ -59,14 +81,20 @@ class EnergyShapingController(AbstractController):
                                                   mass=self.m,
                                                   length=self.l,
                                                   gravity=self.g)
-        u = -self.k*vel*(total_energy - self.desired_energy) + self.k*self.b*vel
+        des_tau = -self.k*vel*(total_energy - self.desired_energy) \
+                  + self.k*self.b*vel
 
         # since this is a pure torque controller,
         # set des_pos and des_vel to None
         des_pos = None
         des_vel = None
 
-        return des_pos, des_vel, u
+        # clip torque to 4 Nm for safety
+        if des_tau > 4.0:
+            des_tau = 4.0
+        if des_tau < -4.0:
+            des_tau = -4.0
+        return des_pos, des_vel, des_tau
 
 
 class EnergyShapingAndLQRController(AbstractController):

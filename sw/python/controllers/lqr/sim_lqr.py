@@ -9,7 +9,7 @@ site.addsitedir('../..')
 # Local imports
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
-from controllers.LQR.lqr_controller import LQRController
+from controllers.lqr.lqr_controller import LQRController
 
 
 mass = 0.57288
