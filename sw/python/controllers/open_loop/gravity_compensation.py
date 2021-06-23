@@ -1,11 +1,11 @@
 import sys
 import time
-from canmotorlib import CanMotorController
-import matplotlib.pyplot as plt
 import math
+import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import os
+# package for t-motors AK80-6
+from motor_driver.canmotorlib import CanMotorController
+
 
 def setZeroPosition(motor, initPos):
 
@@ -13,16 +13,17 @@ def setZeroPosition(motor, initPos):
 
     while abs(np.rad2deg(pos)) > 0.5:
         pos, vel, curr = motor.set_zero_position()
-        print("Position: {}, Velocity: {}, Torque: {}".format(np.rad2deg(pos), np.rad2deg(vel),
-                                                                curr))
+        print("Position: {}, Velocity: {}, Torque: {}".format(np.rad2deg(pos),
+                                                              np.rad2deg(vel),
+                                                              curr))
 
 
 # Motor ID
 motor_id = 0x01
 
-g = -9.81                           # gravitational acceleration on earth
-m = 0.546                           # mass at the end of the pendulum
-l = 0.5                             # length of the rod
+g = -9.81                               # gravitational acceleration on earth
+m = 0.546                               # mass at the end of the pendulum
+l = 0.5                                 # length of the rod
 
 # CAN port
 can_port = 'can0'
@@ -40,10 +41,10 @@ print("Enabling Motors..")
 
 pos, vel, torque = motor_controller.enable_motor()
 
-print("Shoulder Motor Status: Pos: {}, Vel: {}, Torque: {}".format(spos, vel, torque))
+print("Shoulder Motor Status: Pos: {}, Vel: {}, Torque: {}".format(pos, vel,
+                                                                   torque))
 
 #print("Setting Shoulder Motor to Zero Position...")
-
 #setZeroPosition(motor_controller, pos)
 
 print("Start")
