@@ -1,5 +1,10 @@
-def profiler(n, dt, des_time, meas_time, start, end, meas_dt):
+def profiler(data_dict, start, end, meas_dt):
     # validate avg dt of the control loop with (start time - end time) / numSteps
+    n = data_dict["n"]
+    dt = data_dict["dt"]
+    des_time = data_dict["des_time_list"]
+    meas_time = data_dict["meas_time_list"]
+
     meas_avg_dt = (end - start)/n
 
     print("Performance Profiler:")

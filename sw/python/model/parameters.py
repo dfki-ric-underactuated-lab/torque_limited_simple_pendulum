@@ -7,8 +7,8 @@ class Environment:
     """
     Environmental parameters
     """
-    def __init__(self, gravity):
-        self.gravity = gravity                  # Gravity constant
+    def __init__(self):
+        self.gravity = None                 # Gravity constant
 
 
 # define environments

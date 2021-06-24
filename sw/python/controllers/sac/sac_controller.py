@@ -22,17 +22,18 @@ class SacController(AbstractController):
     def __init__(self, model_path=model_path):
 
         self.model = SAC.load(model_path)
+        self.params = None
 
-    def get_params(self, params_path):
+    def get_params(self, params_path=params_path):
         with open(params_path, 'r') as fle:
             params = yaml.safe_load(fle)
-
+            self.params = params
         return params
 
     def prepare_data(self, params):
         dt = params['dt']
         t = params['runtime']
-        n = t/dt
+        n = int(t/dt)
 
         # create 4 empty numpy array, where measured data can be stored
         meas_pos_list = np.zeros(n)
@@ -40,17 +41,33 @@ class SacController(AbstractController):
         meas_tau_list = np.zeros(n)
         meas_time_list = np.zeros(n)
 
-        return meas_pos_list, meas_vel_list, meas_tau_list, meas_time_list, \
-               n, t
+        des_pos_list = np.zeros(n)
+        des_vel_list = np.zeros(n)
+        des_tau_list = np.zeros(n)
+        des_time_list = np.zeros(n)
+
+        data_dict = {"meas_pos_list": meas_pos_list,
+                     "meas_vel_list": meas_vel_list,
+                     "meas_tau_list": meas_tau_list,
+                     "meas_time_list": meas_time_list,
+                     "des_pos_list": des_pos_list,
+                     "des_vel_list": des_vel_list,
+                     "des_tau_list": des_tau_list,
+                     "des_time_list": des_time_list,
+                     "dt": dt,
+                     "n": n,
+                     "t": t}
+        return data_dict
 
     def get_control_output(self, meas_pos, meas_vel, meas_tau, meas_time=0):
+
         observation = np.squeeze(np.array([meas_pos, meas_vel]))
         des_tau, _states = self.model.predict(observation)
         des_tau *= float(self.params['torque_limit'])
         
         # since this is a pure torque controller, set pos_des and vel_des to None
-        des_pos = None
-        des_vel = None
+        des_pos = 0
+        des_vel = 0
         
         return des_pos, des_vel, des_tau
 

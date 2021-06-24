@@ -51,23 +51,32 @@ def cut(data_measured, data_desired):
     return data_measured, data_desired, n_cut
 
 
-def save(OUTPUT_FOLDER, des_pos, des_vel, des_tau, des_time, meas_pos,
-         meas_vel, meas_tau, meas_time):
-    os.mkdir(OUTPUT_FOLDER)
+def save(output_folder, data_dict):
+
+    des_time = data_dict["des_time_list"]
+    des_pos = data_dict["des_pos_list"]
+    des_vel = data_dict["des_vel_list"]
+    des_tau = data_dict["des_tau_list"]
+    meas_time = data_dict["meas_time_list"]
+    meas_pos = data_dict["meas_pos_list"]
+    meas_vel = data_dict["meas_vel_list"]
+    meas_tau = data_dict["meas_tau_list"]
+
+    os.makedirs(output_folder)
     measured = np.array([np.array(meas_time),
-                                  np.array(meas_pos),
-                                  np.array(meas_vel),
-                                  np.array(meas_tau)]).T
-    np.savetxt(OUTPUT_FOLDER + '/data_measured.csv', measured,
+                         np.array(meas_pos),
+                         np.array(meas_vel),
+                         np.array(meas_tau)]).T
+    np.savetxt(output_folder + '/data_measured.csv', measured,
                delimiter=',', header="time,position,velocity,torque",
                comments="")
 
     desired = np.array([np.array(des_time),
-                                 np.array(des_pos),
-                                 np.array(des_vel),
-                                 np.array(des_tau)]).T
-    np.savetxt(OUTPUT_FOLDER +'/data_desired.csv', desired,
+                        np.array(des_pos),
+                        np.array(des_vel),
+                        np.array(des_tau)]).T
+    np.savetxt(output_folder + '/data_desired.csv', desired,
                delimiter=',', header="time,position,velocity,torque",
                comments="")
-    print(f'Saving .csv data to folder {OUTPUT_FOLDER}')
+    print(f'Saving .csv data to folder {output_folder}')
 
