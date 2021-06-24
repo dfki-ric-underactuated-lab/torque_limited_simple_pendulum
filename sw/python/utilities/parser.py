@@ -10,16 +10,20 @@ def syntax_parser():
                             Underactuated LAB at DFKI Bremen
         ''', formatter_class=RawTextHelpFormatter)
     parser.add_argument("-pd", action='store_true',
-                        help="position and velocity control mode",
+                        help="proportional derivative control mode",
                         required=False)
     parser.add_argument("-tau", action='store_true',
                         help="torque control mode")
     parser.add_argument("-lqr", action='store_true',
                         help="linear quadratic regulator", required=False)
     parser.add_argument("-ilqr", action='store_true',
-                        help="linear quadratic regulator", required=False)
+                        help="iterative linear quadratic regulator",
+                        required=False)
     parser.add_argument("-energy", action='store_true',
                         help="linear quadratic regulator", required=False)
+    parser.add_argument("-sac", action='store_true',
+                        help="soft actor critic",
+                        required=False)
     parser.add_argument("-ddp", action='store_true',
                         help="differential dynamic programming",
                         required=False)

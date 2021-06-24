@@ -200,19 +200,19 @@ qdd100_01.kd = 2
 def get_params(params_path):
     with open(params_path, 'r') as yaml_file:
         params = yaml.safe_load(yaml_file)
-        gravity = params["gravity"]
-        mass = params["mass"]
-        inertia = params["inertia"]
-        base = params["base"]
-        dof = params["dof"]
-        n_links = params["n_links"]
-        length = params["length"]
-        n_actuators = params["n_actuators"]
-        torque_limit = params["torque_limit"]
-        gr = params["gr"]
-        damping = params["damping"]
-        coulomb_fric = params["coulomb_fric"]
-        parameters = [gravity, mass, inertia, base, dof, n_links,
-                      length, n_actuators, torque_limit, gr, damping,
-                      coulomb_fric]
-        return parameters
+#        gravity = params["gravity"]
+#        mass = params["mass"]
+#        inertia = params["inertia"]
+#        base = params["base"]
+#        dof = params["dof"]
+#        n_links = params["n_links"]
+#        length = params["length"]
+#        n_actuators = params["n_actuators"]
+#        torque_limit = params["torque_limit"]
+#        gr = params["gr"]
+#        damping = params["damping"]
+#        coulomb_fric = params["coulomb_fric"]
+#        parameters = [gravity, mass, inertia, base, dof, n_links,
+#                      length, n_actuators, torque_limit, gr, damping,
+#                      coulomb_fric]
+        return params

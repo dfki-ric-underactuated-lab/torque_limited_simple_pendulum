@@ -5,9 +5,14 @@ import numpy as np
 from motor_driver.canmotorlib import CanMotorController
 
 
-def ak80_6(control_method, name, attribute, kp, kd, n, dt):
+def ak80_6(control_method, name, attribute, params, prep):
     motor_id = 0x02
     can_port = 'can0'
+    dt = prep.dt
+    n = prep.n
+    kp = params['kp']
+    kd = params['kd']
+    lim_tau = params['torque_limit']
 
     # connect to motor controller board
     motor_controller = CanMotorController(can_port, motor_id)
@@ -28,56 +33,67 @@ def ak80_6(control_method, name, attribute, kp, kd, n, dt):
               ", vel: ", meas_vel, ", tau: ", meas_tau)
         print()
         print("Executing ", name)
+        print()
+        print("Desired Control Frequency = ", 1/dt, " Hz")
+        print("Torque limit: ", lim_tau)
+        print("kp = ", kp)
+        print("kd = ", kd)
 
     # defining runtime variables
     i = 0
-    t = 0.0
+    meas_time = 0.0
     meas_dt = 0.0
     exec_time = 0.0
     start = time.time()
 
     while i < n:
         start_loop = time.time()
-        t += meas_dt
+        meas_time += meas_dt
 
         if attribute is "open loop":
             # get control input
             des_pos, des_vel, des_tau = control_method.get_control_output()
 
-            # send control input
+            # clip max.torque for safety
+            if des_tau > lim_tau:
+                des_tau = lim_tau
+            if des_tau < -lim_tau:
+                des_tau = -lim_tau
+
+            # send control input to the actuator
             meas_pos, meas_vel, meas_tau = motor_controller.send_rad_command(
-            des_pos, des_vel, kp, kd, des_tau)
+                des_pos, des_vel, kp, kd, des_tau)
 
             # record data
-            meas_pos_list[i] = meas_pos
-            meas_vel_list[i] = meas_vel
-            meas_tau_list[i] = meas_tau
-            meas_time_list[i] = t
+            prep.meas_pos_list[i] = meas_pos
+            prep.meas_vel_list[i] = meas_vel
+            prep.meas_tau_list[i] = meas_tau
+            prep.meas_time_list[i] = meas_time
 
         if attribute is "closed loop":
             # get control input
             des_pos, des_vel, des_tau = control_method.get_control_output(
-                meas_pos, meas_vel, meas_tau)
+                meas_pos, meas_vel, meas_tau, meas_time)
 
             # clip max.torque for safety
-            if des_tau > 4.0:
-                des_tau = 4.0
-            if des_tau < -4.0:
-                des_tau = -4.0
+            if des_tau > lim_tau:
+                des_tau = lim_tau
+            if des_tau < -lim_tau:
+                des_tau = -lim_tau
 
             # send control input
             meas_pos, meas_vel, meas_tau = motor_controller.send_rad_command(
-            des_pos, des_vel, kp, kd, des_tau)
+                des_pos, des_vel, kp, kd, des_tau)
 
             # record data
-            meas_pos_list[i] = meas_pos
-            meas_vel_list[i] = meas_vel
-            meas_tau_list[i] = meas_tau
-            meas_time_list[i] = t
-            des_pos_list[i] = des_pos
-            des_vel_list[i] = des_vel
-            des_tau_list[i] = des_tau
-            des_time_list[i] = dt * i
+            prep.meas_pos_list[i] = meas_pos
+            prep.meas_vel_list[i] = meas_vel
+            prep.meas_tau_list[i] = meas_tau
+            prep.meas_time_list[i] = meas_time
+            prep.des_pos_list[i] = des_pos
+            prep.des_vel_list[i] = des_vel
+            prep.des_tau_list[i] = des_tau
+            prep.des_time_list[i] = dt * i
 
             # filter noise velocity measurements
             vel_filtered = np.mean(meas_vel[max(0, i-50):i])
@@ -101,5 +117,6 @@ def ak80_6(control_method, name, attribute, kp, kd, n, dt):
     motor_controller.send_rad_command(0, 0, 0, 0, 0)
     motor_controller.disable_motor()
 
-    return start, end, meas_dt, des_pos_list, des_vel_list, des_tau_list, \
-           des_time_list, meas_pos_list, meas_vel_list, meas_tau_list
+    return start, end, meas_dt, prep.des_pos_list, prep.des_vel_list, \
+        prep.des_tau_list, prep.des_time_list, prep.meas_pos_list, \
+        prep.meas_vel_list,  prep.meas_tau_list
