@@ -16,7 +16,7 @@ max_steps: 1000
 reward_type: 'soft_binary_with_repellor'
 sim_dt: 1e-2
 dt: 0.005
-runtime: 10
+runtime: 20
 integrator: 'runge_kutta'
 warm_start: False
 warm_start_path: 'data/models/sac_model.zip'
