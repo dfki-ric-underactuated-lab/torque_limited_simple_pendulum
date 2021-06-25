@@ -1,17 +1,21 @@
+# global imports
 import matplotlib.pyplot as plt
 
+# local imports
+from main import data_dict
 
-def swingup(output_folder, data_dict):
+des_time = data_dict["des_time_list"]
+des_pos = data_dict["des_pos_list"]
+des_vel = data_dict["des_vel_list"]
+des_tau = data_dict["des_tau_list"]
+meas_time = data_dict["meas_time_list"]
+meas_pos = data_dict["meas_pos_list"]
+meas_vel = data_dict["meas_vel_list"]
+meas_tau = data_dict["meas_tau_list"]
+
+
+def swingup(args, output_folder):
     print("Making data plots.")
-
-    des_time = data_dict["des_time_list"]
-    des_pos = data_dict["des_pos_list"]
-    des_vel = data_dict["des_vel_list"]
-    des_tau = data_dict["des_tau_list"]
-    meas_time = data_dict["meas_time_list"]
-    meas_pos = data_dict["meas_pos_list"]
-    meas_vel = data_dict["meas_vel_list"]
-    meas_tau = data_dict["meas_tau_list"]
 
     plt.figure()
     plt.plot(meas_time, meas_pos)
@@ -21,7 +25,8 @@ def swingup(output_folder, data_dict):
     plt.title("Position (rad) vs Time (s)")
     plt.legend(['position_measured', 'position_desired'])
     plt.draw()
-    plt.savefig(output_folder + '/swingup_pos.pdf')
+    if args.save:
+        plt.savefig(output_folder + '/swingup_pos.pdf')
     plt.show()
 
     plt.figure()
@@ -32,7 +37,8 @@ def swingup(output_folder, data_dict):
     plt.legend(['velocity_measured', 'velocity_desired'])
     plt.title("Velocity (rad/s) vs Time (s)")
     plt.draw()
-    plt.savefig(output_folder + '/swingup_vel.pdf')
+    if args.save:
+        plt.savefig(output_folder + '/swingup_vel.pdf')
     plt.show()
 
     plt.figure()
@@ -43,6 +49,7 @@ def swingup(output_folder, data_dict):
     plt.title("Torque (Nm) vs Time (s)")
     plt.legend(['Measured Torque', 'Estimated Torque'])
     plt.draw()
-    plt.savefig(output_folder + '/swingup_tau.pdf')
+    if args.save:
+        plt.savefig(output_folder + '/swingup_tau.pdf')
     plt.show()
 

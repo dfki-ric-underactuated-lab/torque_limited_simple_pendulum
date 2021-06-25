@@ -12,6 +12,6 @@ mass: 0.57288
 inertia: None 
 damping: 0.12 
 coulomb_fric: 0.1
-
-
+dt: 0.005
+runtime: 20
 

@@ -15,7 +15,7 @@ def read(params_file, urdf_file, csv_file):
 def cut(data_measured, data_desired):
     nm = len(data_measured)       # compare length of desired and measured data
     n = len(data_desired)
-    cut_s = 930, 
+    cut_s = 930,
     cut_e = 1570,
 
     # cut data at the start of the measurement
@@ -52,7 +52,6 @@ def cut(data_measured, data_desired):
 
 
 def save(output_folder, data_dict):
-
     des_time = data_dict["des_time_list"]
     des_pos = data_dict["des_pos_list"]
     des_vel = data_dict["des_vel_list"]
@@ -63,6 +62,7 @@ def save(output_folder, data_dict):
     meas_tau = data_dict["meas_tau_list"]
 
     os.makedirs(output_folder)
+
     measured = np.array([np.array(meas_time),
                          np.array(meas_pos),
                          np.array(meas_vel),

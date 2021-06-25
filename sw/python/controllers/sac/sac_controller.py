@@ -1,4 +1,4 @@
-# Other imporst
+# Other imports
 from stable_baselines import SAC
 import numpy as np
 import yaml
@@ -36,26 +36,26 @@ class SacController(AbstractController):
         n = int(t/dt)
 
         # create 4 empty numpy array, where measured data can be stored
-        meas_pos_list = np.zeros(n)
-        meas_vel_list = np.zeros(n)
-        meas_tau_list = np.zeros(n)
-        meas_time_list = np.zeros(n)
-
+        des_time_list = np.zeros(n)
         des_pos_list = np.zeros(n)
         des_vel_list = np.zeros(n)
         des_tau_list = np.zeros(n)
-        des_time_list = np.zeros(n)
 
-        data_dict = {"meas_pos_list": meas_pos_list,
-                     "meas_vel_list": meas_vel_list,
-                     "meas_tau_list": meas_tau_list,
-                     "meas_time_list": meas_time_list,
+        meas_time_list = np.zeros(n)
+        meas_pos_list = np.zeros(n)
+        meas_vel_list = np.zeros(n)
+        meas_tau_list = np.zeros(n)
+
+        data_dict = {"des_time_list": des_time_list,
                      "des_pos_list": des_pos_list,
                      "des_vel_list": des_vel_list,
                      "des_tau_list": des_tau_list,
-                     "des_time_list": des_time_list,
-                     "dt": dt,
+                     "meas_time_list": meas_time_list,
+                     "meas_pos_list": meas_pos_list,
+                     "meas_vel_list": meas_vel_list,
+                     "meas_tau_list": meas_tau_list,
                      "n": n,
+                     "dt": dt,
                      "t": t}
         return data_dict
 

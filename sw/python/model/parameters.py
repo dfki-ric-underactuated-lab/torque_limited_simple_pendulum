@@ -7,8 +7,9 @@ class Environment:
     """
     Environmental parameters
     """
-    def __init__(self):
-        self.gravity = None                 # Gravity constant
+    def __init__(self, gravity):
+        # self.gravity = None                  # Debug suggestion from Daniel
+        self.gravity = gravity                 # Gravity constant
 
 
 # define environments
@@ -22,7 +23,7 @@ class Robot:
     """
     def __init__(self, base, origin, mass, n_joints,
                  n_links, n_actuators, dof):
-        self.base = base                        # Fixed, floating, ....
+        self.base = None                        # Fixed, floating, ....
         self.origin = origin
         self.mass = mass                        # Overall mass
         self.n_joints = n_joints                # Number of joints
