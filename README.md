@@ -13,8 +13,8 @@ The project is an open-source and low-cost kit to get started with underactuated
 **Trajectory Optimization**
 * [Direct Collocation](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/tree/master/sw/python/trajectory_optimization/direct_collocation): offline computed trajectory, optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/trajectory_optimization/iLQR/README.md): offline computed trajectory, optimal
-* [Feasability driven Differential Dynamic Programming (FDDP)](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
-* [BoxFDDP](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
+* [Feasability driven Differential Dynamic Programming (FDDP)](sw/python/controllers/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
+* [BoxFDDP](sw/python/controllers/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
 
 **Open Loop**
 * Proportional-Derivative (PD): precomputed trajectory, not optimal
@@ -22,10 +22,10 @@ The project is an open-source and low-cost kit to get started with underactuated
 * Feed-forward torque Controller: precomputed trajectory, not optimal
 
 **Closed Loop**
-* [Linear Quadratic Regulator (LQR)](sw/python/controllers/LQR/README.md): stabilization only, optimal
+* [Linear Quadratic Regulator (LQR)](sw/python/controllers/lqr/README.md): stabilization only, optimal
 * [Energy Shaping](sw/python/controllers/energy_shaping/README.md): swingup only, not optimal
-* [Iterative Linear Quadratic Regulator (iLQR)](sw/python/controllers/iLQR/README.md): online computed trajectory, optimal, model predictive controller
-* [Soft Actor Critic (SAC)](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/sw/python/controllers/soft_actor_critic/README.md): offline trained model, optimal, reinforcement learning
+* [Iterative Linear Quadratic Regulator (iLQR)](sw/python/controllers/ilqr/README.md): online computed trajectory, optimal, model predictive controller
+* [Soft Actor Critic (SAC)](sw/python/controllers/sac/README.md): offline trained model, optimal, reinforcement learning
 
 **NOTE:** The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
 
