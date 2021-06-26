@@ -40,22 +40,17 @@ The project is an open-source and low-cost kit to get started with underactuated
         <td><ul>
                 <li><b>data/</b>
                 <ul>
-                    <li><b>models/</b> (Machine Learning Models)</li>
-                    <li><b>robot/</b> (URDF files)</li>
+                    <li><b>models/</b> (Machine Learning models)</li>
+                    <li><b>parameters/</b></li>
                     <li><b>trajectories/</b> (CSV files with position, velocity and torque data)</li>
+                    <li><b>urdf/</b></li>
                 </ul>
-                <li><b>docs/</b> (Project Documentation)
-                <ul>
-                    <li>Reference</li>
-                    <li>Testbench Setup</li>
-                    <li>Getting Started</li>
-                    <li>Usage</li>
-                </ul>
-                <li><b>hw/</b> (Hardware Description)
+                <li><b>docs/</b> (Documentation)
+                <li><b>hw/</b> (Hardware)
                 <ul>
                     <li><b>CAD/</b></li>
                 </ul>
-                <li><b>results/</b> (Place to store your outputs)</li>
+                <li><b>results/</b></li>
                 <li><b>sw/</b> (Software)
                 <ul>
                     <li><b>cpp/</b> (C++ code for realtime control)
