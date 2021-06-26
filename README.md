@@ -11,10 +11,10 @@
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system.
 
 **Trajectory Optimization**
-* [Direct Collocation](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/tree/master/sw/python/trajectory_optimization/direct_collocation): offline computed trajectory, optimal
+* [Direct Collocation](sw/python/trajectory_optimization/direct_collocation): offline computed trajectory, optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/trajectory_optimization/iLQR/README.md): offline computed trajectory, optimal
-* [Feasability driven Differential Dynamic Programming (FDDP)](sw/python/controllers/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
-* [BoxFDDP](sw/python/controllers/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
+* [Feasability driven Differential Dynamic Programming (FDDP)](sw/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
+* [BoxFDDP](sw/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
 
 **Open Loop**
 * Proportional-Derivative (PD): precomputed trajectory, not optimal
