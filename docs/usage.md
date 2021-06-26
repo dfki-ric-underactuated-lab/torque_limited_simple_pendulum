@@ -52,6 +52,6 @@ All functions return current position, velocity, torque in SI units except for `
 
 # Python Code Overview 
 <div align="center">
-<img width="400" src="overview.png">
+<img width="500" src="overview.png">
 </div>
 
