@@ -25,7 +25,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 * [Linear Quadratic Regulator (LQR)](sw/python/controllers/lqr/README.md): stabilization only, optimal
 * [Energy Shaping](sw/python/controllers/energy_shaping/README.md): swingup only, not optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/controllers/ilqr/README.md): online computed trajectory, optimal, model predictive controller
-* [Soft Actor Critic (SAC)](): offline trained model, optimal, reinforcement learning
+* [Soft Actor Critic (SAC)](sw/python/controllers/sac/README.md): offline trained model, optimal, reinforcement learning
 
 **NOTE:** The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
 
