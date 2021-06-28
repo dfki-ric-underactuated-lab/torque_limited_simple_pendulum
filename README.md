@@ -22,7 +22,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 * Feed-forward torque Controller: precomputed trajectory, not optimal
 
 **Closed Loop**
-* [Linear Quadratic Regulator (LQR)](sw/python/controllers/lqr/README.md): stabilization only, optimal
+* [Linear Quadratic Regulator (LQR)](): stabilization only, optimal
 * [Energy Shaping](sw/python/controllers/energy_shaping/README.md): swingup only, not optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/controllers/ilqr/README.md): online computed trajectory, optimal, model predictive controller
 * [Soft Actor Critic (SAC)](sw/python/controllers/sac/README.md): offline trained model, optimal, reinforcement learning
