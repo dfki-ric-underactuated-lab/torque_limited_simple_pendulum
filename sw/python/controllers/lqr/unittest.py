@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
         sim = Simulator(plant=pendulum)
 
         dt = 0.01
-        t_final = 3.0
+        t_final = 10.0
 
         T, X, U = sim.simulate(t0=0.0,
                                x0=[3.1, 0.0],

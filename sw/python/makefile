@@ -13,7 +13,7 @@ test_con_energy:
 	python -m unittest controllers/energy_shaping/unittest.py
 
 test_con_lqr:
-	python -m unittest controllers/LQR/unittest.py
+	python -m unittest controllers/lqr/unittest.py
 
 test_con_ilqr:
-	python -m unittest controllers/iLQR/unittest.py
+	python -m unittest controllers/ilqr/unittest.py

@@ -9,6 +9,7 @@ site.addsitedir('../..')
 from controllers.lqr.lqr import lqr
 from controllers.abstract_controller import AbstractController
 
+
 class LQRController(AbstractController):
     def __init__(self, mass=1.0, length=0.5, damping=0.1,
                  gravity=9.81, torque_limit=np.inf):
@@ -20,7 +21,7 @@ class LQRController(AbstractController):
 
         self.A = np.array([[0, 1],
                            [self.g/self.len, -self.b/self.m/self.len**2.0]])
-        self.B = np.array([[0, 0], [0, 1]])
+        self.B = np.array([[0, 0], [0, self.m/self.len**2.0]])
         self.Q = np.diag((10, 1))
         self.R = np.array([[100, 0], [0, 1]])
 
@@ -47,18 +48,10 @@ class LQRController(AbstractController):
 
         y = np.asarray([th, vel])
 
-        # u = np.asarray(-self.K.dot(y))[0][1]
+        u = np.asarray(-self.K.dot(y))[0][1]
 
-        if y.dot(np.asarray(self.S.dot(y))[0]) < 2.0: # old value:0.1
-            u = -self.K.dot(y)
-            u = np.asarray(u)[0][1]
-        else:
+        if np.abs(u) > self.torque_limit:
             u = None
-
-        # if np.abs(u) > self.torque_limit:
-        #    u = None
-#        else:
-#            u = u * 1.2
 
         # since this is a pure torque controller,
         # set des_pos and des_pos to None
