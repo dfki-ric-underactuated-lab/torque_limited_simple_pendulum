@@ -32,7 +32,7 @@ if len(sys.argv) != 2:
     print('Provide CAN device name (can0, slcan0 etc.)')
     sys.exit(0)
 
-print("Using Socket {} for can communucation".format(sys.argv[1],))
+print("Using Socket {} for can communication".format(sys.argv[1],))
 
 # Create motor controller objects
 motor_controller = CanMotorController(sys.argv[1], motor_id)

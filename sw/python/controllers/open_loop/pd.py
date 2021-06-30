@@ -1,166 +1,84 @@
-import sys
-import time
-import os
-dev_root_path = '/home/dfki.uni-bremen.de/dharnack/Development/'
-path_to_python_motor_driver = os.path.join(dev_root_path,
-                                          'python_motor_driver')
-sys.path.append(path_to_python_motor_driver)
-from python_motor_driver.canmotorlib import CanMotorController
-import matplotlib.pyplot as plt
-import math
+# Other imports
 import numpy as np
-import pandas as pd
+import yaml
+import os
+from pathlib import Path
 
-Kp = 50.0
-Kd = 1
+# Set path for local imports
+import site
+site.addsitedir('../..')
 
-# Motor ID
-motor_id = 0x03
-# if len(sys.argv) != 2:
-#      print('Provide Motor ID (e.g. 1, 2, 3)')
-#      sys.exit(0)
-# motor_id = int(sys.argv[1])
+# Local imports
+from controllers.abstract_controller import AbstractController
 
-# CAN port
-can_port = 'can0'
+# default parameters, can be changed
+# urdf_file = dfki_simple_pendulum.urdf
+# urdf_path = os.path.join(Path(__file__).parents[4], 'data/urdf/' +
+# urdf_file )
+csv_file = "swingup_300Hz.csv"
+csv_path = os.path.join(Path(__file__).parents[4], 'data/trajectories/' +
+                        csv_file)
+params_file = "sp_parameters_pd.yaml"
+params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
+                           params_file)
 
 
-motor_controller = CanMotorController(can_port, motor_id)
+class PDController(AbstractController):
+    def __init__(self):
+        self.counter = 0
+        self.u = 0
+        self.params = None
 
-motor_controller.enable_motor()
+    def get_params(self, params_path=params_path):
+        with open(params_path, 'r') as fle:
+            params = yaml.safe_load(fle)
+            self.params = params
+        return params
 
-pos, vel, effort = motor_controller.send_deg_command(0, 0, 0, 0, 0)
-print("After enabling motor, pos: ", pos, ", vel: ", vel, ", effort: ", effort)
-#
-while abs(pos) > 1 or abs(vel) > 1 or abs(effort) > 0.1:
-    motor_controller.set_zero_position()
-    pos, vel, effort = motor_controller.send_deg_command(0, 0, 0, 0, 0)
-    print("Motor position after setting zero position: ", pos, ", vel: ", vel, ", effort: ", effort)
+    def prepare_data(self):
+        # load trajectories from csv file
+        trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
+        des_time_list = trajectory.T[0].T       # desired time in s
+        des_pos_list = trajectory.T[1].T        # desired position in radian
+        des_vel_list = trajectory.T[2].T        # desired velocity in radian/s
+        des_tau_list = trajectory.T[3].T        # desired torque in Nm
 
-# Read the trajectory file for swing up control
-# data = pd.read_csv("trajectory_optimisation/traj_opt_traj.csv")
-data = pd.read_csv("controllers/reinforcement_learning/SAC/traj_opt_RL_SAC.csv")
-# data = pd.read_csv("trajectory_optimisation/traj_opt_traj_20210422-025816-PM.csv")
-# data = pd.read_csv("controllers/energy_shaping/traj_opt_traj.csv")
-# data = pd.read_csv("ssystem_identification/excitation_trajectories/tmotor-2021-01-29-09-28-14/trajectory-pos-20.csv")
+        n = len(des_time_list)
+        t = des_time_list[n-1]
+        dt = (des_time_list[n-1] - des_time_list[0])/n
 
-numSteps = len(data)
-position = np.zeros(numSteps + 500)
-velocity = np.zeros(numSteps + 500)
-torque = np.zeros(numSteps + 500)
+        # create 4 empty numpy array, where measured data can be stored
+        meas_time_list = np.zeros(n)
+        meas_pos_list = np.zeros(n)
+        meas_vel_list = np.zeros(n)
+        meas_tau_list = np.zeros(n)
 
-time_vec = np.zeros(numSteps + 500)
+        data_dict = {"des_time_list": des_time_list,
+                     "des_pos_list": des_pos_list,
+                     "des_vel_list": des_vel_list,
+                     "des_tau_list": des_tau_list,
+                     "meas_time_list": meas_time_list,
+                     "meas_pos_list": meas_pos_list,
+                     "meas_vel_list": meas_vel_list,
+                     "meas_tau_list": meas_tau_list,
+                     "n": n,
+                     "dt": dt,
+                     "t": t}
+        return data_dict
 
-# New better method: Precompute Trajectory
-print("Generating Trajectory...")
-pos_traj = data["pos"]
-vel_traj = data["vel"]
-tau_traj = data["torque"]
-dt = data["time"][1] - data["time"][0]
-print("Sending Trajectory to Motor... ")
-
-t = 0.0
-print("Start")
-realStartT = time.time()
-for i in range(numSteps):
-    stepStartT = time.time()
-    # Send pos, vel and tau_ff command and use the in-built low level controller
-    pos, vel, tau = motor_controller.send_rad_command(pos_traj[i], vel_traj[i], Kp, Kd, 0) #tau_traj[i]
-
-    position[i] = pos
-    velocity[i] = vel
-    torque[i] = tau
-    time_vec[i] = t
-
-    t = t + dt
-    while (time.time() - stepStartT < dt):
+    def set_goal(self, x):
         pass
 
-pos_final = pos_traj[numSteps - 1]
+    def get_control_output(self, des_time_list, des_pos_list, des_vel_list,
+                           des_tau_list):
+        des_pos = None
+        des_vel = None
+        des_tau = None
 
-for i in range(500):
-    stepStartT = time.time()
-    # Send pos, vel and tau_ff command and use the in-built low level controller
-    pos, vel, tau = motor_controller.send_rad_command(pos_final, 0.0, Kp, Kd, 0.0)
+        if self.counter < len(des_time_list):
+            des_pos = des_pos_list[self.counter]
+            des_vel = des_vel_list[self.counter]
+            des_tau = des_tau_list[self.counter]
+            self.counter += 1
+        return des_pos, des_vel, des_tau
 
-    pos_traj[i + numSteps] = pos_final
-    vel_traj[i + numSteps] = 0.0
-    tau_traj[i + numSteps] = 0.0
-
-    position[i + numSteps] = pos
-    velocity[i + numSteps] = vel
-    torque[i + numSteps] = tau
-    time_vec[i + numSteps] = t
-
-    t = t + dt
-    while (time.time() - stepStartT < dt):
-        pass
-
-realEndT = time.time()
-
-realdT = (realEndT - realStartT) / (numSteps + 500)
-
-print("End. New dt: {}".format(realdT))
-print("Trajectory dt: {}".format(dt))
-
-# Set Kp = Kd = 0
-motor_controller.send_deg_command(0, 0, 0, 0, 0)
-# Disable the motor
-motor_controller.disable_motor()
-
-plt.figure()
-plt.plot(time_vec, position)
-plt.plot(time_vec, pos_traj)
-plt.xlabel("Time (s)")
-plt.ylabel("Position (deg)")
-plt.title("Position (deg) vs Time (s)")
-plt.legend(['position_measured', 'position_desired'])
-plt.show()
-
-plt.figure()
-plt.plot(time_vec, velocity)
-plt.plot(time_vec, vel_traj)
-plt.xlabel("Time (s)")
-plt.ylabel("Velocity (deg/s)")
-plt.legend(['velocity_measured', 'velocity_desired'])
-plt.title("Velocity (deg/s) vs Time (s)")
-plt.show()
-
-plt.figure()
-plt.plot(time_vec, torque)
-plt.plot(time_vec, tau_traj)
-plt.xlabel("Time (s)")
-plt.ylabel("Torque (Nm)")
-plt.title("Torque (Nm) vs Time (s)")
-plt.legend(['Measured Torque', 'Estimated Torque'])
-plt.show()
-
-
-def running_mean(x, N):
-    cumsum = np.cumsum(np.insert(x, 0, 0))
-    return (cumsum[N:] - cumsum[:-N]) / float(N)
-
-
-filtered_torque = running_mean(np.array(torque), 10)
-filtered_tau_traj = running_mean(np.array(tau_traj), 10)
-
-plt.figure()
-plt.plot(time_vec[:filtered_torque.size], filtered_torque)
-plt.plot(time_vec[:filtered_torque.size], filtered_tau_traj)
-plt.xlabel("Time (s)")
-plt.ylabel("Torque (Nm)")
-plt.title("Filtered Torque (Nm) vs Time (s) with moving average filter (window = 100)")
-plt.legend(['Measured Torque', 'Estimated Torque'])
-plt.show()
-
-# measured_csv_data = np.array([np.array(time_vec),
-#                     np.array(position),
-#                     np.array(velocity),
-#                     np.array(torque)]).T
-# np.savetxt("measured_data.csv", measured_csv_data, delimiter=',', header="time,pos,vel,torque", comments="")
-
-# desired_csv_data = np.array([np.array(time_vec),
-#                     np.array(pos_traj),
-#                     np.array(vel_traj),
-#                     np.array(tau_traj)]).T
-# np.savetxt("desired_data.csv", desired_csv_data, delimiter=',', header="time,pos,vel,torque", comments="")

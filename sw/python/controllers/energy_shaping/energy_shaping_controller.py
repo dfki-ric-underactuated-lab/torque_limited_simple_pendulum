@@ -48,7 +48,6 @@ class EnergyShapingController(AbstractController):
         self.des_vel_list = np.zeros(n)
         self.des_tau_list = np.zeros(n)
         self.des_time_list = np.zeros(n)
-        self.vel_filter_list = []
 
     def set_goal(self, x):
         self.goal = [x[0], x[1]]
@@ -60,12 +59,6 @@ class EnergyShapingController(AbstractController):
 
     def get_control_output(self, i, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
-
-        ## filter noisy velocity measurements
-        # self.vel_filter_list.append(meas_vel)
-        # if len(self.vel_filter_list) > 10:
-        #    del self.vel_filter_list[0]
-        # vel_filtered = np.mean(self.vel_filter_list)
 
         if isinstance(meas_pos, (list, tuple, np.ndarray)):
             pos = meas_pos[0]
@@ -89,11 +82,6 @@ class EnergyShapingController(AbstractController):
         des_pos = None
         des_vel = None
 
-        # clip torque to 4 Nm for safety
-        if des_tau > 4.0:
-            des_tau = 4.0
-        if des_tau < -4.0:
-            des_tau = -4.0
         return des_pos, des_vel, des_tau
 
 

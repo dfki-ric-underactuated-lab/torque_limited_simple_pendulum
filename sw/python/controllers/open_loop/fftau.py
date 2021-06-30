@@ -10,16 +10,17 @@ site.addsitedir('../..')
 
 # Local imports
 from controllers.abstract_controller import AbstractController
-from controllers.lqr.lqr_controller import LQRController
 
 # default parameters, can be changed
 csv_file = "swingup_300Hz.csv"
-csv_path = os.path.join(Path(__file__).parents[4], 'data/trajectories/' + csv_file)
-params_file = "sp_parameters_pd.yaml"
-params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' + params_file)
+csv_path = os.path.join(Path(__file__).parents[4], 'data/trajectories/' +
+                        csv_file)
+params_file = "sp_parameters_fftau.yaml"
+params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
+                           params_file)
 
 
-class OpenLoopController(AbstractController):
+class FFTorqueController(AbstractController):
     def __init__(self):
         self.counter = 0
         self.u = 0
@@ -78,35 +79,3 @@ class OpenLoopController(AbstractController):
             self.counter += 1
         return des_pos, des_vel, des_tau
 
-
-class OpenLoopAndLQRController(AbstractController):
-    def __init__(self, mass=1.0, length=0.5,
-                 damping=0.1, gravity=9.81, torque_limit=np.inf):
-
-        self.open_loop_controller = OpenLoopController()
-        self.lqr_controller = LQRController(mass,
-                                            length,
-                                            damping,
-                                            gravity,
-                                            torque_limit)
-        self.active_controller = "none"
-
-    def set_goal(self, x):
-        pass
-
-    def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0, i=0):
-        des_pos, des_vel, des_tau = (self.lqr_controller.
-                                     get_control_output(meas_pos, meas_vel))
-        if des_tau is not None:
-            if self.active_controller != "lqr":
-                self.active_controller = "lqr"
-                print("Switching to lqr control")
-        else:
-            if self.active_controller != "OpenLoop":
-                self.active_controller = "OpenLoop"
-                print("Switching to csv trajectory")
-            des_pos, des_vel, des_tau = (self.open_loop_controller.
-                                         get_control_output(i=i))
-
-        return des_pos, des_vel, des_tau
