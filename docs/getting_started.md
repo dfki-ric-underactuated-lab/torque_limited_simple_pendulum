@@ -20,12 +20,12 @@ If you aren't running a suitable python version currently on your system, we rec
 ## Instructions for Ubuntu (18.04.5 and 20.04.2.0 LTS)
 The instructions provide assistance in the setup procedure, but with regards to the software [LICENSE](LICENSE) they are provided without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, arising from, out of or in connection with the software or the use or other dealings in the software. 
 
-Clone this repo from GitHub, in case you haven't done it yet:
+1) Clone this repo from GitHub, in case you haven't done it yet:
 ```
 git clone git@git.hb.dfki.de:underactuated-robotics/torque_limited_simple_pendulum.git
 ```
 
-Check your Python version with:
+2) Check your Python version with:
 
 ```
 python3 --version
@@ -55,20 +55,20 @@ curl https://pyenv.run | bash
 
 **Step 3)** Configure your shell's environment for Pyenv  
   
-**Note:** The below instructions are designed for common shell setups. If you have an uncommon setup and they don't work for you, use the linked guidance to figure out what you need to do in your specific case: https://github.com/pyenv/pyenv#advanced-configuration 
+<ins>Note:</ins> The below instructions are designed for common shell setups. If you have an uncommon setup and they don't work for you, use the linked guidance to figure out what you need to do in your specific case: https://github.com/pyenv/pyenv#advanced-configuration 
   
-Before editing your `.bashrc` and `.profile` files it is a good idea to **make a copy** of both files in case something goes wrong. Add pyenv to your `.bashrc` file from the terminal:
+Before editing your `.bashrc` and `.profile` files it is a good idea to <ins>make a copy</ins> of both files in case something goes wrong. Add pyenv to your `.bashrc` file from the terminal:
 
 ```
 echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 ```
 
-Add these lines at the beginning of your `.profile` file (**not from terminal**):
+Add these lines at the beginning of your `.profile` file (not from the terminal):
 ```
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 ```
-and this line at the very end of your `.profile` file (**not from terminal**):
+and this line at the very end of your `.profile` file (not from the terminal):
 
 ```
 eval "$(pyenv init --path)"
@@ -84,7 +84,7 @@ source ~/.bashrc
 ```
 exec $SHELL
 ```
-**Step 4)** Run `pyenv init -` in your shell, then copy and also execute the output to enable shims
+**Step 5)** Run `pyenv init -` in your shell, then copy and also execute the output to enable shims
 
 ```
 pyenv init -
@@ -93,7 +93,7 @@ pyenv init -
 Restart your login session for the changes to take effect. If you're in a GUI session, you need to fully log out and log back in. You can now begin using pyenv.
 
 
-**Optional:** Consider uprading to the latest version of Pyenv via
+<ins>Optional:</ins> Consider uprading to the latest version of Pyenv via
 
 ```
 pyenv update
@@ -151,7 +151,7 @@ exec "$SHELL"
 pyenv virtualenv 3.7.5 simple-pendulum
 ```
 
-**Step 4)** Activate the new virtual environment with the command
+**Step 5)** Activate the new virtual environment with the command
 
 ```
 pyenv activate simple-pendulum
@@ -216,8 +216,7 @@ Drake is not installable via pip at present. It is available as a binary package
 
 --------------------------------------------------------------------------------------------------------------
 
-**Warning:**  
-{- By following the instructions you will install Drake permanently on your system. This may cause incompatiblity issues with preexisting Python packages. Drake for instance is incompatible with the Python environment supplied by Anaconda. Please uninstall Anaconda or remove the Anaconda bin directory from the PATH before building or using the Drake Python bindings. Before attempting the installation, please review the supported configurations to know what versions of Python are supported for your platform: -}  https://drake.mit.edu/developers.html#supported-configurations
+:warning: **Attention**: By following the instructions you will install Drake permanently on your system. This may cause incompatiblity issues with preexisting Python packages. Drake for instance is incompatible with the Python environment supplied by Anaconda. Please uninstall Anaconda or remove the Anaconda bin directory from the PATH before building or using the Drake Python bindings. Before attempting the installation, please review the supported configurations to know what versions of Python are supported for your platform: https://drake.mit.edu/developers.html#supported-configurations
   
 --------------------------------------------------------------------------------------------------------------
 
