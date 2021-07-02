@@ -1,39 +1,38 @@
 # Global imports
 import math
 import yaml
+import numpy as np
 
 
 class Environment:
     """
     Environmental parameters
     """
-    def __init__(self, gravity):
-        # self.gravity = None                  # Debug suggestion from Daniel
-        self.gravity = gravity                 # Gravity constant
+    def __init__(self):
+        self.gravity = None                             # Gravity constant
 
 
 # define environments
 earth = Environment()
-earth.gravity = 9.81                            # [m/s^2]
+earth.gravity = 9.81                                    # [m/s^2]
 
 
 class Robot:
     """
     Robot parameters
     """
-    def __init__(self, base, origin, mass, n_joints,
-                 n_links, n_actuators, dof):
-        self.base = None                        # Fixed, floating, ....
-        self.origin = origin
-        self.mass = mass                        # Overall mass
-        self.n_joints = n_joints                # Number of joints
-        self.n_actuators = n_actuators          # Number of links
-        self.n_links = n_links                  # Number of links
-        self.dof = dof                          # Degrees of freedom
+    def __init__(self):
+        self.base = None                                # Fixed, floating, ....
+        self.origin = None
+        self.mass = None                                # Overall mass
+        self.n_joints = None                            # Number of joints
+        self.n_actuators = None                         # Number of links
+        self.n_links = None                             # Number of links
+        self.dof = None                                 # Degrees of freedom
 
 
 # define robots
-sp = Robot()                                    # Simple Pendulum
+sp = Robot()                                            # Simple Pendulum
 sp.base = "fixed"
 sp.origin = [0, 0]
 sp.mass = None
@@ -47,25 +46,23 @@ class Joints:
     """
     Joint parameters
     """
-    def __init__(self, num, type, dof, dof_t,
-                 dof_r, tx, ty, tz, rx, ry, rz,
-                 fc, fv, b):
-        self.num = num                          # Number in the kinematic chain
-        self.type = type                        # Type: prismatic, revolute,
+    def __init__(self):
+        self.num = None                         # Number in the kinematic chain
+        self.type = None                        # Type: prismatic, revolute,
                                                 # spherical, cylindrical,
                                                 # cartesian, ...
-        self.dof = dof
-        self.dof_t = dof_t                      # Translational DoF
-        self.dof_r = dof_r                      # Rotational DoF
-        self.tx = tx
-        self.ty = ty
-        self.tz = tz
-        self.rx = rx
-        self.ry = ry
-        self.rz = rz
-        self.fc = fc                            # Coulomb friction
-        self.fv = fv                            # Viscous friction
-        self.b = b                              # Damping
+        self.dof = None
+        self.dof_t = None                       # Translational DoF
+        self.dof_r = None                       # Rotational DoF
+        self.tx = None
+        self.ty = None
+        self.tz = None
+        self.rx = None
+        self.ry = None
+        self.rz = None
+        self.fc = None                          # Coulomb friction
+        self.fv = None                          # Viscous friction
+        self.b = None                           # Damping
 
 
 joint_01 = Joints()                             # define joints
@@ -89,28 +86,40 @@ class Links:
     """
     Link parameters
     """
-    def __init__(self, num, mass, mass_p,
-                 mass_l, length):
-        self.num = num                          # Number within kinematic chain
-        self.mass = mass                        # Overall mass
-        self.mass_p = mass_p                    # Point mass at link end
-        self.mass_l = mass_l                    # Link mass without point mass
-        self.length = length                    # Length between joints
-        self.length_com = (mass_p*length        # From preceding joint to CoM
-                    + 0.5*mass_l*length)/(mass_p
-                    + mass_l)
-        self.inertia = ((mass_l*length**2)/3    # Inertia considering the CoM
-                    + mass_p*length**2)
-        # self.inertia = (m_p+m_l)*l**2         # Inertia assuming a point
+    def __init__(self):
+        self.num = None                         # Number within kinematic chain
+        self.mass = None                        # Overall mass
+        self.mass_p = None                      # Point mass at link end
+        self.mass_l = None                      # Link mass without point mass
+        self.length = None                      # Length between joints
+        self.inertia = None                     # Inertia assuming a point
                                                 # mass at the end of the rod
+        self.length_CoM = None                  # From preceding joint to CoM
+        self.inertia_CoM = None                 # Inertia considering the CoM
+
+    def calc_m_l(self, mass, mass_p):
+        self.mass_l = mass - mass_p
+        return self.mass_l
+
+    def calc_length_com(self, mass_p, mass_l, length):
+        self.length_CoM = (mass_p*length + 0.5 * mass_l * length) / \
+                          (mass_p + mass_l)
+        return self.length_CoM
+
+    def calc_inertia(self, mass_p, mass_l, length):
+        self.inertia = (mass_p + mass_l) * length**2
+        return self.inertia
+
+    def calc_inertia_com(self, mass_p, mass_l, length):
+        self.inertia_CoM = (mass_l * length**2) / 3 + (mass_p * length**2)
+        return self.inertia_CoM
 
 
 link_01 = Links()                               # define links
 link_01.num = 1
 link_01.mass = 0.6755                           # [kg]
 link_01.mass_p = 0.5                            # [kg]
-link_01.mass_l = (link_01.mass                  # [kg]
-                  - link_01.mass_p)
+link_01.mass_l = 0.1755                         # [kg]
 link_01.length = 0.5                            # [m]
 
 
@@ -118,36 +127,51 @@ class Actuators:
     """
     Motor parameters
     """
-    def __init__(self, can_id, poles, wiring,
-                 r, v_max, a_max, a_rated, mass,
-                 tau_max, tau_rated, vel_max,
-                 gr, backlash, inertia, resist, 
-                 kp, kd, k_m, k_v, induct,
-                 v_per_hz,):
-        self.can_id = can_id
-        self.mass = mass
-        self.v_max = v_max                      # Max. voltage
-        self.a_max = a_max                      # Max. current
-        self.a_rated = a_rated
-        self.gr = gr                            # Gear ratio
-        self.backlash = backlash                
-        self.tau_max = tau_max                  # Max. torque
-        self.tau_rated = tau_rated
-        self.vel_max = vel_max                  # Max. velocity at 24V
-        self.poles = poles                      # Number of poles
-        self.wiring = wiring                    # Motor wiring (delta, star...)
-        self.resist = resist                    # Resistance (phase to phase)
-        self.induct = induct                    # Inductance (phase to phase)
-        self.v_per_hz = v_per_hz                # Voltage per hz
-        self.inertia = inertia                  # Rotor inertia
+    def __init__(self):
+        self.can_id = None
+        self.mass = None
+        self.v_max = None                       # Max. voltage
+        self.a_max = None                       # Max. current
+        self.a_rated = None
+        self.gr = None                          # Gear ratio
+        self.backlash = None
+        self.tau_max = None                     # Max. torque
+        self.tau_rated = None
+        self.vel_max = None                     # Max. velocity at 24V
+        self.poles = None                       # Number of poles
+        self.wiring = None                      # Motor wiring (delta, star...)
+        self.resist = None                      # Resistance (phase to phase)
+        self.induct = None                      # Inductance (phase to phase)
+        self.v_per_hz = None                    # Voltage per hz
+        self.inertia = None                     # Rotor inertia
         # Motor constants
-        self.k_m = k_m                          # Motor constant
-        self.k_v = k_v                          # Velocity / backEMF constant
-        self.k_e = 1/k_v                        # Electrical constant
-        self.k_t = k_m*math.sqrt(resist)        # Torque constant
+        self.k_m = None                         # Motor constant
+        self.k_v = None                         # Velocity / backEMF constant
+        self.k_e = None                         # Electrical constant
+        self.k_t = None                         # Torque constant
         # Controller variables
-        self.kd = kd                            # Proportional gain
-        self.kp = kp                            # Derivative gain
+        self.kd = None                          # Proportional gain
+        self.kp = None                          # Derivative gain
+
+    def calc_k_m(self, k_t, resist):
+        self.k_m = k_t / np.sqrt(resist)
+        return self.k_m
+
+    def calc_k_v(self, v_per_hz):
+        self.k_v = 0.5 * 60 / v_per_hz
+        return self.k_v
+
+    def calc_k_e(self, k_v):
+        self.k_e = 1/k_v
+        return self.k_e
+
+    def calc_k_t_from_k_m(self, k_m, resist):
+        self.k_t = k_m*math.sqrt(resist)
+        return self.k_t
+
+    def calc_k_t_from_k_v(self, k_v):
+        self.k_t = 0.78 * 60 / (2 * np.pi * k_v)
+        return self.k_t
 
 
 ak80_6_01 = Actuators()                         # From t-motor
@@ -166,13 +190,13 @@ ak80_6_01.poles = 42
 ak80_6_01.wiring = "delta"
 ak80_6_01.resist = 170e-3                       # Ohm
 ak80_6_01.induct = 57e-6                        # Henry
-ak80_6_01.v_per_hz = None                      
+ak80_6_01.v_per_hz = None                       # Vs
 ak80_6_01.k_v = 100                             # rpm/V
 ak80_6_01.k_m = 0.2206                          # Nm/sqrt(W) 
 ak80_6_01.kp = 50                              
 ak80_6_01.kd = 4                             
 
-qdd100_01 = Actuators()                          # From mjbots
+qdd100_01 = Actuators()                         # From mjbots
 qdd100_01.can_id = '0x01'
 qdd100_01.mass = 0.485                          # [kg]
 qdd100_01.v_max = 44                            # Volts
@@ -188,32 +212,14 @@ qdd100_01.poles = 42
 qdd100_01.wiring = None
 qdd100_01.resist = 64e-3                        # Ohm     
 qdd100_01.induct = 48.6e-06                     # Henry                     
-qdd100_01.v_per_hz = 0.2269                    
-# k_v = 0.5 * 60 / motor.v_per_hz
+qdd100_01.v_per_hz = 0.2269                     # Vs
 qdd100_01.k_v = 132.18                          # rpm/V
-# k_t = 0.78 * 60 / (2 * pi * k_v) = 0.056  
-# k_m = k_t / sqrt(resist) = 0.2227
 qdd100_01.k_m = 0.2227                          # Nm/sqrt(W)
 qdd100_01.kp = 100                              
 qdd100_01.kd = 2
 
 
-def get_params(params_path):
-    with open(params_path, 'r') as yaml_file:
-        params = yaml.safe_load(yaml_file)
-#        gravity = params["gravity"]
-#        mass = params["mass"]
-#        inertia = params["inertia"]
-#        base = params["base"]
-#        dof = params["dof"]
-#        n_links = params["n_links"]
-#        length = params["length"]
-#        n_actuators = params["n_actuators"]
-#        torque_limit = params["torque_limit"]
-#        gr = params["gr"]
-#        damping = params["damping"]
-#        coulomb_fric = params["coulomb_fric"]
-#        parameters = [gravity, mass, inertia, base, dof, n_links,
-#                      length, n_actuators, torque_limit, gr, damping,
-#                      coulomb_fric]
-        return params
+# def get_yaml_params(params_path):
+#    with open(params_path, 'r') as yaml_file:
+#        params = yaml.safe_load(yaml_file)
+#    return params

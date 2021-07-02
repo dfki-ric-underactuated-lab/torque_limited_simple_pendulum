@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def rm_filter(x, N):
+def data_filter(x, N):
     cumsum = np.cumsum(np.insert(x, 0, 0))
     return (cumsum[N:] - cumsum[:-N]) / float(N)
 
@@ -29,12 +29,9 @@ plt.legend(['Measured', 'Desired'])
 plt.show()
 """
 
-"""
-Online running mean filter
-"""
 
 # data_measured_list = []
-def rm_online_1(data_measured_list, data_measured, window=10):
+def data_filter_realtime_1(data_measured_list, data_measured, window=10):
     data_measured_list.append(data_measured)
     if len(data_measured_list) > window:
         del data_measured_list[0]
@@ -42,7 +39,7 @@ def rm_online_1(data_measured_list, data_measured, window=10):
     return data_filtered
 
 
-def rm_online_2(i, data_measured_list, window=10):
+def data_filter_realtime_2(i, data_measured_list, window=10):
     data_filtered = np.mean(data_measured_list[max(0, i - window):i])
     return data_filtered
 

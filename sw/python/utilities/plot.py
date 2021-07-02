@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 
 # local imports
 from main import data_dict
-from filters.running_mean import rm_filter
+from filters import running_mean as rm
+
 
 des_time = data_dict["des_time_list"]
 des_pos = data_dict["des_pos_list"]
@@ -15,7 +16,6 @@ meas_pos = data_dict["meas_pos_list"]
 meas_vel = data_dict["meas_vel_list"]
 meas_tau = data_dict["meas_tau_list"]
 vel_filt = data_dict["vel_filt_list"]
-
 
 def swingup(args, output_folder):
     print("Making data plots.")
@@ -92,9 +92,9 @@ def grav_comp(args, output_folder):
         plt.savefig(output_folder + '/grav_comp_tau.pdf')
     plt.show()
 
-    time_vec_filtered = rm_filter(np.array(meas_time), 10)
-    filtered_torque = rm_filter(np.array(meas_tau), 10)
-    filtered_desired_torque = rm_filter(np.array(des_tau), 10)
+    time_vec_filtered = rm.data_filter(np.array(meas_time), 10)
+    filtered_torque = rm.data_filter(np.array(meas_tau), 10)
+    filtered_desired_torque = rm.data_filter(np.array(des_tau), 10)
 
     plt.figure()
     plt.plot(time_vec_filtered, filtered_torque)
@@ -107,5 +107,18 @@ def grav_comp(args, output_folder):
     plt.draw()
     if args.save:
         plt.savefig(output_folder + '/grav_comp_tau_filt.pdf')
+    plt.show()
+
+
+def unified(t, pos=None, vel=None, acc=None, torque=None):
+    if pos is not None:
+        plt.plot(t, pos, label="position")
+    if vel is not None:
+        plt.plot(t, vel, label="velocity")
+    if acc is not None:
+        plt.plot(t, acc, label="acceleration")
+    if torque is not None:
+        plt.plot(t, torque, label="torque")
+    plt.legend(loc="best")
     plt.show()
 

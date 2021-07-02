@@ -97,6 +97,9 @@ def ak80_6(control_method, name, attribute, params, data_dict):
                 vel_filtered = np.mean(data_dict["meas_vel_list"][max(0, i-10):i])
             else:
                 vel_filtered = 0
+            # or instead use the time derivative of the position
+            # vel_filtered = (meas_pos - meas_pos_prev) / dt
+            # meas_pos_prev = meas_pos
 
             # record data
             data_dict["meas_pos_list"][i] = meas_pos

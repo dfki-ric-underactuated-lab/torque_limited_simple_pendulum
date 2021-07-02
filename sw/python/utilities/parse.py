@@ -3,7 +3,7 @@ import argparse
 from argparse import RawTextHelpFormatter
 
 
-def syntax_parser():
+def syntax():
     parser = argparse.ArgumentParser(
         description='''                     Control of a torque limited Simple Pendulum
 

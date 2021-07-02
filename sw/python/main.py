@@ -15,10 +15,10 @@ from controllers.sac.sac_controller import *
 # from controllers.open_loop.open_loop import *
 # from controllers.energy_shaping.energy_shaping_controller import *
 # from controllers.ilqr.iLQR_MPC_controller import *
-from utilities import parser, process_data, looptime, plot
+from utilities import parse, process_data, looptime, plot
 
 # run syntax parser
-args, unknown = parser.syntax_parser()
+args, unknown = parse.syntax()
 
 # set your workspace
 WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[2])
