@@ -10,44 +10,51 @@ def ak80_6(control_method, name, attribute, params, data_dict):
     can_port = 'can0'
     n = data_dict['n']
 
+    if attribute is "open_loop":
+        dt = data_dict['dt']
+    if attribute is "closed_loop":
+        dt = params['dt']
+    des_time_list = data_dict["des_time_list"]
+    des_pos_list = data_dict["des_pos_list"]
+    des_vel_list = data_dict["des_vel_list"]
+    des_tau_list = data_dict["des_tau_list"]
+
     # load parameters
-    dt = params['dt']
     kp = params['kp']
     kd = params['kd']
-    controller_tau_max = params['torque_limit']
+    control_tau_max = params['torque_limit']
 
     # limit torque input to max. actuator torque
-    actuator_tau_max = 12
-    if controller_tau_max > actuator_tau_max:
-        controller_tau_max = actuator_tau_max
+    motor01_tau_max = 12
+    if control_tau_max > motor01_tau_max:
+        control_tau_max = motor01_tau_max
 
     # connect to motor controller board
-    motor_controller = CanMotorController(can_port, motor_id)
-    motor_controller.enable_motor()
+    motor_01 = CanMotorController(can_port, motor_id)
+    motor_01.enable_motor()
 
+    print()
     # initiate actuator from zero position
-    meas_pos, meas_vel, meas_tau = motor_controller.send_deg_command(0, 0, 0,
-                                                                     0, 0)
+    meas_pos, meas_vel, meas_tau = motor_01.send_deg_command(0, 0, 0, 0, 0)
     print("After enabling motor, pos: ", meas_pos, ", vel: ", meas_vel,
           ", tau: ", meas_tau)
-    print()
     while abs(meas_pos) > 1 or abs(meas_vel) > 1 or abs(meas_tau) > 0.1:
-        motor_controller.set_zero_position()
-        meas_pos, meas_vel, meas_tau = motor_controller.send_deg_command(0, 0,
-                                                                         0, 0,
-                                                                         0)
+        motor_01.set_zero_position()
+        meas_pos, meas_vel, meas_tau = motor_01.send_deg_command(0, 0, 0, 0, 0)
         print("Motor position after setting zero position: ", meas_pos,
               ", vel: ", meas_vel, ", tau: ", meas_tau)
     meas_time = 0.0
     vel_filtered = 0
 
     print()
-    print("Executing ", name)
+    print("Executing", name)
     print()
-    print("Desired Control Frequency = ", 1/dt, " Hz")
-    print("Torque limit: ", controller_tau_max)
+    print("Control type = ", attribute)
+    print("Torque limit is set to: ", control_tau_max)
     print("kp = ", kp)
     print("kd = ", kd)
+    print("Desired control frequency = ", 1/dt, " Hz")
+    print()
 
     # defining runtime variables
     i = 0
@@ -60,16 +67,17 @@ def ak80_6(control_method, name, attribute, params, data_dict):
 
         if attribute is "open_loop":
             # get control input
-            des_pos, des_vel, des_tau = control_method.get_control_output()
+            des_pos, des_vel, des_tau = control_method.get_control_output(
+                des_time_list, des_pos_list, des_vel_list, des_tau_list)
 
             # clip max.torque for safety
-            if des_tau > controller_tau_max:
-                des_tau = controller_tau_max
-            if des_tau < -controller_tau_max:
-                des_tau = -controller_tau_max
+            if des_tau > control_tau_max:
+                des_tau = control_tau_max
+            if des_tau < -control_tau_max:
+                des_tau = -control_tau_max
 
             # send control input to the actuator
-            meas_pos, meas_vel, meas_tau = motor_controller.send_rad_command(
+            meas_pos, meas_vel, meas_tau = motor_01.send_rad_command(
                 des_pos, des_vel, kp, kd, des_tau)
 
             # record data
@@ -82,19 +90,27 @@ def ak80_6(control_method, name, attribute, params, data_dict):
             des_pos, des_vel, des_tau = control_method.get_control_output(
                 meas_pos, vel_filtered, meas_tau, meas_time)
 
+            if des_pos is None:
+                des_pos = 0
+                kp = 0
+            if des_vel is None:
+                des_vel = 0
+                kd = 0
+
             # clip max.torque for safety
-            if des_tau > controller_tau_max:
-                des_tau = controller_tau_max
-            if des_tau < -controller_tau_max:
-                des_tau = -controller_tau_max
+            if des_tau > control_tau_max:
+                des_tau = control_tau_max
+            if des_tau < -control_tau_max:
+                des_tau = -control_tau_max
 
             # send control input
-            meas_pos, meas_vel, meas_tau = motor_controller.send_rad_command(
+            meas_pos, meas_vel, meas_tau = motor_01.send_rad_command(
                 des_pos, des_vel, kp, kd, des_tau)
 
             # filter noise velocity measurements
             if i > 0:
-                vel_filtered = np.mean(data_dict["meas_vel_list"][max(0, i-10):i])
+                vel_filtered = np.mean(data_dict["meas_vel_list"][max(0,
+                                                                      i-10):i])
             else:
                 vel_filtered = 0
             # or instead use the time derivative of the position
@@ -111,8 +127,8 @@ def ak80_6(control_method, name, attribute, params, data_dict):
             data_dict["des_vel_list"][i] = des_vel
             data_dict["des_tau_list"][i] = des_tau
             data_dict["des_time_list"][i] = dt * i
-        else:
-            print("Missing control loop attribute.")
+        #else:
+        #   print("Missing control loop attribute.")
 
         i += 1
         exec_time = time.time() - start_loop
@@ -127,7 +143,7 @@ def ak80_6(control_method, name, attribute, params, data_dict):
     end = time.time()
 
     print("Disabling Motors...")
-    motor_controller.send_rad_command(0, 0, 0, 0, 0)
-    motor_controller.disable_motor()
+    motor_01.send_rad_command(0, 0, 0, 0, 0)
+    motor_01.disable_motor()
 
     return start, end, meas_dt, data_dict

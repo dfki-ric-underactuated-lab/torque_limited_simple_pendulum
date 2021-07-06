@@ -1,4 +1,5 @@
 # here, the abstract controller class is defined, to which all controller classes have to adhere
+import yaml
 
 from abc import ABC, abstractmethod
 
@@ -10,3 +11,5 @@ class AbstractController(ABC):
         des_vel = None
         des_tau = None
         return des_pos, des_vel, des_tau
+
+

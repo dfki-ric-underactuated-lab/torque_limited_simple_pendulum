@@ -12,6 +12,38 @@ def read(params_file, urdf_file, csv_file):
     return urdf_path, params_path, csv_path, data, n
 
 
+def prepare_data(params):
+    dt = params['dt']
+    t = params['runtime']
+    n = int(t/dt)
+
+    # create 4 empty numpy array, where measured data can be stored
+    des_time_list = np.zeros(n)
+    des_pos_list = np.zeros(n)
+    des_vel_list = np.zeros(n)
+    des_tau_list = np.zeros(n)
+
+    meas_time_list = np.zeros(n)
+    meas_pos_list = np.zeros(n)
+    meas_vel_list = np.zeros(n)
+    meas_tau_list = np.zeros(n)
+    vel_filt_list = np.zeros(n)
+
+    data_dict = {"des_time_list": des_time_list,
+                 "des_pos_list": des_pos_list,
+                 "des_vel_list": des_vel_list,
+                 "des_tau_list": des_tau_list,
+                 "meas_time_list": meas_time_list,
+                 "meas_pos_list": meas_pos_list,
+                 "meas_vel_list": meas_vel_list,
+                 "meas_tau_list": meas_tau_list,
+                 "vel_filt_list": vel_filt_list,
+                 "n": n,
+                 "dt": dt,
+                 "t": t}
+    return data_dict
+
+
 def cut(data_measured, data_desired):
     nm = len(data_measured)       # compare length of desired and measured data
     n = len(data_desired)

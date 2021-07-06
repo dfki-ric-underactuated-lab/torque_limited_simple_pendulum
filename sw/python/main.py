@@ -13,9 +13,10 @@ from controllers.open_loop.fftau import *
 from controllers.gravity_compensation.gravity_compensation import *
 from controllers.sac.sac_controller import *
 # from controllers.open_loop.open_loop import *
-# from controllers.energy_shaping.energy_shaping_controller import *
+from controllers.energy_shaping.energy_shaping_controller import *
 # from controllers.ilqr.iLQR_MPC_controller import *
 from utilities import parse, process_data, looptime, plot
+from model import parameter_import
 
 # run syntax parser
 args, unknown = parse.syntax()
@@ -52,7 +53,7 @@ if args.pd:
                                                   meas_time, gr,
                                                   rad2outputrev))
     """
-
+"""
 if args.fftau:
     control_method = FFTorqueController()
     name = "Feedforward Torque"
@@ -95,30 +96,35 @@ if args.sac:
                                                                params,
                                                                data_dict)
 
-""""
+"""
 if args.energy:
     name = "Energy Shaping"
     folder_name = "energy_shaping"
+    attribute = "closed_loop"
+
+    # prepare data
     params_file = "sp_parameters_energy.yaml"
     params_path = str(WORK_DIR) + "/data/parameters/" + params_file
-    parameters = params.get_params(params_path)
-    dt = 0.01
-    kp = 0
-    kd = 0
-    control_method = EnergyShapingController(# parameters,
-                                             mass,
-                                             length,
-                                             damping,
-                                             gravity,
-                                             0.3)
+    params = parameter_import.get_params(params_path)
+    data_dict = process_data.prepare_data(params)
+    mass = params['mass']
+    length = params['length']
+    damping = params['damping']
+    gravity = params['gravity']
+    torque_limit = params['torque_limit']
+    k = params['k']
+
+    control_method = EnergyShapingAndLQRController(mass, length, damping,
+                                                   gravity, torque_limit, k)
     control_method.set_goal([np.pi, 0])
 
     # start control loop
-    (start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time, des_pos,
-     des_vel, des_tau, des_time) = motor_control_loop.ak80_6(control_method,
-                                                             kp, kd, n, dt)
+    start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
+                                                               name, attribute,
+                                                               params,
+                                                               data_dict)
 
-
+""""
 
 if args.lqr:
     looptime.profiler(n, dt, des_time, meas_time, start, end, meas_dt)
@@ -198,4 +204,4 @@ if args.save:
     process_data.save(output_folder, data_dict)
 
 # plot data
-plot.swingup(args, output_folder)
+plot.swingup(args, output_folder, data_dict)

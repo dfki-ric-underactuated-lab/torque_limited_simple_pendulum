@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 # local imports
 from filters import running_mean as rm
 
+
 def swingup(args, output_folder, data_dict):
     print("Making data plots.")
 
@@ -15,6 +16,7 @@ def swingup(args, output_folder, data_dict):
     meas_time = data_dict["meas_time_list"]
     meas_pos = data_dict["meas_pos_list"]
     meas_vel = data_dict["meas_vel_list"]
+    meas_vel_filt = data_dict["vel_filt_list"]
     meas_tau = data_dict["meas_tau_list"]
 
     plt.figure()
@@ -31,10 +33,11 @@ def swingup(args, output_folder, data_dict):
 
     plt.figure()
     plt.plot(meas_time, meas_vel)
+    plt.plot(meas_time, meas_vel_filt)
     plt.plot(des_time, des_vel)
     plt.xlabel("Time (s)")
     plt.ylabel("Velocity (rad/s)")
-    plt.legend(['velocity_measured', 'velocity_desired'])
+    plt.legend(['velocity_measured', 'velocity_filtered', 'velocity_desired'])
     plt.title("Velocity (rad/s) vs Time (s)")
     plt.draw()
     if args.save:
@@ -47,7 +50,7 @@ def swingup(args, output_folder, data_dict):
     plt.xlabel("Time (s)")
     plt.ylabel("Torque (Nm)")
     plt.title("Torque (Nm) vs Time (s)")
-    plt.legend(['Measured Torque', 'Estimated Torque'])
+    plt.legend(['Measured Torque', 'Desired Torque'])
     plt.draw()
     if args.save:
         plt.savefig(output_folder + '/swingup_tau.pdf')

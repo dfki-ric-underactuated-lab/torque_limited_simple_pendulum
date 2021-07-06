@@ -30,6 +30,22 @@ class SacController(AbstractController):
             self.params = params
         return params
 
+    def get_control_output(self, meas_pos, meas_vel, meas_tau, meas_time=0):
+
+        observation = np.squeeze(np.array([meas_pos, meas_vel]))
+        des_tau, _states = self.model.predict(observation)
+        des_tau *= float(self.params['torque_limit'])
+        
+        # since this is a pure torque controller, set pos_des and vel_des to None
+        des_pos = None
+        des_vel = None
+        
+        return des_pos, des_vel, des_tau
+
+#    def return_all(self):
+#        return SacController()
+
+"""
     def prepare_data(self, params):
         dt = params['dt']
         t = params['runtime']
@@ -60,18 +76,4 @@ class SacController(AbstractController):
                      "dt": dt,
                      "t": t}
         return data_dict
-
-    def get_control_output(self, meas_pos, meas_vel, meas_tau, meas_time=0):
-
-        observation = np.squeeze(np.array([meas_pos, meas_vel]))
-        des_tau, _states = self.model.predict(observation)
-        des_tau *= float(self.params['torque_limit'])
-        
-        # since this is a pure torque controller, set pos_des and vel_des to None
-        des_pos = 0
-        des_vel = 0
-        
-        return des_pos, des_vel, des_tau
-
-#    def return_all(self):
-#        return SacController()
+"""

@@ -217,9 +217,3 @@ qdd100_01.k_v = 132.18                          # rpm/V
 qdd100_01.k_m = 0.2227                          # Nm/sqrt(W)
 qdd100_01.kp = 100                              
 qdd100_01.kd = 2
-
-
-# def get_yaml_params(params_path):
-#    with open(params_path, 'r') as yaml_file:
-#        params = yaml.safe_load(yaml_file)
-#    return params

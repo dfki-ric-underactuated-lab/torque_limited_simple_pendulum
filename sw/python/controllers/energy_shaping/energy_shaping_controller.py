@@ -44,10 +44,10 @@ class EnergyShapingController(AbstractController):
         self.g = gravity
         self.k = k
 
-        self.des_pos_list = np.zeros(n)
-        self.des_vel_list = np.zeros(n)
-        self.des_tau_list = np.zeros(n)
-        self.des_time_list = np.zeros(n)
+        #self.des_pos_list = np.zeros(n)
+        #self.des_vel_list = np.zeros(n)
+        #self.des_tau_list = np.zeros(n)
+        #self.des_time_list = np.zeros(n)
 
     def set_goal(self, x):
         self.goal = [x[0], x[1]]
@@ -57,7 +57,7 @@ class EnergyShapingController(AbstractController):
                                                          length=self.l,
                                                          gravity=self.g)
 
-    def get_control_output(self, i, meas_pos, meas_vel,
+    def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
 
         if isinstance(meas_pos, (list, tuple, np.ndarray)):
@@ -74,8 +74,8 @@ class EnergyShapingController(AbstractController):
                                                   mass=self.m,
                                                   length=self.l,
                                                   gravity=self.g)
-        des_tau = -self.k*vel*(total_energy - self.desired_energy) \
-                  + self.k*self.b*vel
+        des_tau = -self.k*vel*(total_energy - self.desired_energy) + \
+                   self.k*self.b*vel
 
         # since this is a pure torque controller,
         # set des_pos and des_vel to None

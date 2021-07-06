@@ -12,9 +12,11 @@ site.addsitedir('../..')
 from controllers.abstract_controller import AbstractController
 
 # default parameters, can be changed
+""""
 # urdf_file = dfki_simple_pendulum.urdf
 # urdf_path = os.path.join(Path(__file__).parents[4], 'data/urdf/' +
 # urdf_file )
+"""
 csv_file = "swingup_300Hz.csv"
 csv_path = os.path.join(Path(__file__).parents[4], 'data/trajectories/' +
                         csv_file)
@@ -45,7 +47,7 @@ class PDController(AbstractController):
 
         n = len(des_time_list)
         t = des_time_list[n-1]
-        dt = (des_time_list[n-1] - des_time_list[0])/n
+        dt = round((des_time_list[n-1] - des_time_list[0])/n, 3)
 
         # create 4 empty numpy array, where measured data can be stored
         meas_time_list = np.zeros(n)
