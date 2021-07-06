@@ -224,15 +224,14 @@ Drake is not installable via pip at present. It is available as a binary package
 
 ```
 curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-<platform>.tar.gz
-rm -rf /opt/drake
-tar -xvzf drake.tar.gz -C /opt
+sudo rm -rf /opt/drake
+sudo tar -xvzf drake.tar.gz -C /opt
 ```
 
 **Step 2)** Ensure that you have the system dependencies:
 
 ```
-# You may need `sudo` here.
-/opt/drake/share/drake/setup/install_prereqs
+sudo /opt/drake/share/drake/setup/install_prereqs
 ```
 
 **Step 3)** Configure your `PYTHONPATH` properly: 
