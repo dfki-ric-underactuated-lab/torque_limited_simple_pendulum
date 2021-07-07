@@ -14,7 +14,10 @@ from controllers.gravity_compensation.gravity_compensation import *
 from controllers.sac.sac_controller import *
 # from controllers.open_loop.open_loop import *
 from controllers.energy_shaping.energy_shaping_controller import *
-# from controllers.ilqr.iLQR_MPC_controller import *
+try:
+    from controllers.ilqr.iLQR_MPC_controller import *
+except ModuleNotFoundError:
+    pass
 from utilities import parse, process_data, looptime, plot
 from model import parameter_import
 
@@ -133,17 +136,40 @@ if args.lqr:
     if args.save:
         process_data.save(output_folder, des_pos, des_vel, des_tau, des_time,
                           meas_pos, meas_vel, meas_tau, meas_time)
-
+"""
 
 if args.ilqr:
-    name = "ilqr"
-    params_file = "sp_parameters_01.yaml"
-    n = 1000
-    n_x = 3
-    dt = 0.02
-    t_final = 10.0
-    x0 = np.array([0.0, 0.0])
-    x0_sim = x0.copy()
+    name = "Iterative Linear Quadratic Regulator"
+    folder_name = "ilqr"
+    attribute = "closed_loop"
+
+    #prepare data
+    params_file = "sp_parameters_ilqr.yaml"
+    params_path = str(WORK_DIR) + "/data/parameters/" + params_file
+    params = parameter_import.get_params(params_path)
+    data_dict = process_data.prepare_data(params)
+
+    mass = params['mass']
+    length = params['length']
+    damping = params['damping']
+    gravity = params['gravity']
+    coulomb_fric = params['coulomb_fric']
+    n_horizon = params["n_horizon"]
+    n_x = params["n_x"]
+    dt = params["dt"]
+    t_final = params["t_final"]
+    x0 = np.array(params["x0"])
+    sCu = params["sCu"]
+    sCp = params["sCp"]
+    sCv = params["sCv"]
+    sCen = params["sCen"]
+    fCp = params["fCu"]
+    fCv = params["fCv"]
+    fCen = params["fCen"]
+    dynamics = str(params["dynamics"])
+    max_iter = int(params["max_iter"])
+    break_cost_redu = params["break_cost_redu"]
+
     goal = np.array([np.pi, 0])
     if n_x == 3:
         x0 = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
@@ -157,29 +183,28 @@ if args.ilqr:
                                    gravity=gravity,
                                    x0=x0,
                                    dt=dt,
-                                   n=50,  # horizon size
-                                   max_iter=1,
-                                   break_cost_redu=1e-1,
-                                   sCu=1.5,
-                                   sCp=50.0,
-                                   sCv=1.0,
-                                   sCen=0.0,
-                                   fCp=20.0,
-                                   fCv=1.0,
-                                   fCen=0.0,
-                                   dynamics="runge_kutta",
+                                   n=n_horizon,  # horizon size
+                                   max_iter=max_iter,
+                                   break_cost_redu=break_cost_redu,
+                                   sCu=sCu,
+                                   sCp=sCp,
+                                   sCv=sCv,
+                                   sCen=sCen,
+                                   fCp=fCp,
+                                   fCv=fCv,
+                                   fCen=fCen,
+                                   dynamics=dynamics,
                                    n_x=n_x)
 
-    (start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time, des_pos,
-     des_vel, des_tau, des_time) = motor_control_loop2.ak80_6(control_method, kp,
-                                                              kd, n, dt)
+    control_method.set_goal(goal)
+    control_method.compute_initial_guess()
 
-    looptime.profiler(n, dt, des_time, meas_time, start, end, meas_dt)
-    output_folder = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + name
+    start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
+                                                               name, attribute,
+                                                               params,
+                                                               data_dict)
 
-    if args.save:
-        process_data.save(output_folder, des_pos, des_vel, des_tau, des_time,
-                          meas_pos, meas_vel, meas_tau, meas_time)
+"""
 
 if args.ddp:
     name = "ddp"
