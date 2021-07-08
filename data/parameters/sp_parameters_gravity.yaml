@@ -1,6 +1,6 @@
 gravity: 9.81
 length: 0.5
-mass: 0.546
+mass: 0.6755 # 0.546
 inertia: 0.139625
 torque_limit: 4.0
 gr: 6
