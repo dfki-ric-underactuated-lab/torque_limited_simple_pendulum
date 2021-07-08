@@ -13,3 +13,4 @@ runtime: 20
 
 #energy shaping scaling
 k: 1.0
+n: 2000

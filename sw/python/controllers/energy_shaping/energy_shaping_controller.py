@@ -6,7 +6,7 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from controllers.abstract_controller import AbstractController
+from controllers.abstract_controller import AbstractClosedLoopController
 from controllers.lqr.lqr_controller import LQRController
 
 
@@ -24,30 +24,23 @@ def pendulum_calc_total_energy(theta, theta_dot, mass, length, gravity):
     return kin + pot
 
 
-class EnergyShapingController(AbstractController):
-    def __init__(self,
+class EnergyShapingController(AbstractClosedLoopController):
+    def __init__(self, params):
                  # parameter,
-                 mass=1.0,
-                 length=0.5,
-                 damping=0.1,
-                 gravity=9.81,
-                 k=1.0,
-                 n=2000):
+                 # mass=1.0,
+                 # length=0.5,
+                 # damping=0.1,
+                 # gravity=9.81,
+                 # k=1.0,
+                 # n=2000):
 
-        # self.gravity = parameter[0]
-        # self.length = parameter[4]
-        # self.mass = parameter[10]
-        # self.damping = parameter[12]
-        self.m = mass
-        self.l = length
-        self.b = damping
-        self.g = gravity
-        self.k = k
-
-        #self.des_pos_list = np.zeros(n)
-        #self.des_vel_list = np.zeros(n)
-        #self.des_tau_list = np.zeros(n)
-        #self.des_time_list = np.zeros(n)
+        self.m = params['mass']
+        self.l = params['length']
+        self.b = params['damping']
+        self.g = params['gravity']
+        self.torque_limit = params['torque_limit']
+        self.k = params['k']
+        self.n = params['n']
 
     def set_goal(self, x):
         self.goal = [x[0], x[1]]
@@ -74,8 +67,8 @@ class EnergyShapingController(AbstractController):
                                                   mass=self.m,
                                                   length=self.l,
                                                   gravity=self.g)
-        des_tau = -self.k*vel*(total_energy - self.desired_energy) + \
-                   self.k*self.b*vel
+        des_tau = - self.k*vel*(total_energy - self.desired_energy) \
+                  + self.k*self.b*vel
 
         # since this is a pure torque controller,
         # set des_pos and des_vel to None
@@ -85,25 +78,19 @@ class EnergyShapingController(AbstractController):
         return des_pos, des_vel, des_tau
 
 
-class EnergyShapingAndLQRController(AbstractController):
-    def __init__(self, mass=1.0, length=0.5, damping=0.1,
-                 gravity=9.81, torque_limit=np.inf, k=1.0):
-        self.m = mass
-        self.l = length
-        self.b = damping
-        self.g = gravity
+class EnergyShapingAndLQRController(AbstractClosedLoopController):
+    def __init__(self, params):
 
-        self.energy_shaping_controller = EnergyShapingController(mass,
-                                                                 length,
-                                                                 damping,
-                                                                 gravity,
-                                                                 k=k)
-        self.lqr_controller = LQRController(mass,
-                                            length,
-                                            damping,
-                                            gravity,
-                                            torque_limit)
+        self.m = params['mass']
+        self.l = params['length']
+        self.b = params['damping']
+        self.g = params['gravity']
+        self.torque_limit = params['torque_limit']
+        self.k = params['k']
+        self.n = params['n']
 
+        self.energy_shaping_controller = EnergyShapingController(params)
+        self.lqr_controller = LQRController(params)
         self.active_controller = "none"
 
     def set_goal(self, x):

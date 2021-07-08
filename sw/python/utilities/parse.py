@@ -9,19 +9,7 @@ def syntax():
 
                             Underactuated LAB at DFKI Bremen
         ''', formatter_class=RawTextHelpFormatter)
-#    parser.add_argument("-sim", action='store_true',
-#                        help="simulate the simple pendulum plant, instead "
-#                             "of controlling the real system")
-    actuator = parser.add_mutually_exclusive_group(required=False)
-    actuator.add_argument("-qdd100", action='store_true',
-                          help="to control the qdd100 actuators from mjbots")
-    actuator.add_argument("-ak80_6", action='store_true',
-                          help="to control the AK80-6 actuators from t-motors")
     controller = parser.add_mutually_exclusive_group(required=True)
-    controller.add_argument("-pd", action='store_true',
-                            help="proportional derivative control mode")
-    controller.add_argument("-fftau", action='store_true',
-                            help="feedforward torque control mode")
     controller.add_argument("-gravity", action='store_true',
                             help="gravity compensation mode")
     controller.add_argument("-lqr", action='store_true',
@@ -34,6 +22,14 @@ def syntax():
                             help="soft actor critic")
     controller.add_argument("-ddp", action='store_true',
                             help="differential dynamic programming")
+    controller.add_argument("-openloop", action='store_true',
+                            help="open loop control mode, choose either -pd "
+                                 "or -ftt ")
+    openloop = parser.add_mutually_exclusive_group(required=False)
+    openloop.add_argument("-pd", action='store_true',
+                          help="proportional derivative control mode")
+    openloop.add_argument("-fft", action='store_true',
+                          help="feedforward torque control mode")
     parser.add_argument("-save", action='store_true',
                         help="saves your measurements into (../results)",
                         required=False)

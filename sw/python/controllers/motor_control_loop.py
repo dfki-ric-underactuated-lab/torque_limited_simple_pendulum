@@ -8,20 +8,17 @@ from motor_driver.canmotorlib import CanMotorController
 def ak80_6(control_method, name, attribute, params, data_dict):
     motor_id = 0x02
     can_port = 'can0'
-    n = data_dict['n']
 
-    if attribute is "open_loop":
-        dt = data_dict['dt']
-    if attribute is "closed_loop":
-        dt = params['dt']
-    des_time_list = data_dict["des_time_list"]
-    des_pos_list = data_dict["des_pos_list"]
-    des_vel_list = data_dict["des_vel_list"]
-    des_tau_list = data_dict["des_tau_list"]
+    # load dictionary entries
+    n = data_dict['n']
+    dt = data_dict['dt']
 
     # load parameters
     kp = params['kp']
     kd = params['kd']
+    if name is "Feedforward Torque":
+        kp = 0
+        kd = 0
     control_tau_max = params['torque_limit']
 
     # limit torque input to max. actuator torque
@@ -43,8 +40,6 @@ def ak80_6(control_method, name, attribute, params, data_dict):
         meas_pos, meas_vel, meas_tau = motor_01.send_deg_command(0, 0, 0, 0, 0)
         print("Motor position after setting zero position: ", meas_pos,
               ", vel: ", meas_vel, ", tau: ", meas_tau)
-    meas_time = 0.0
-    vel_filtered = 0
 
     print()
     print("Executing", name)
@@ -54,11 +49,15 @@ def ak80_6(control_method, name, attribute, params, data_dict):
     print("kp = ", kp)
     print("kd = ", kd)
     print("Desired control frequency = ", 1/dt, " Hz")
+    print("Parameters can be changed within the corresponding .yaml file "
+          "under ~/data/parameters/.")
     print()
 
     # defining runtime variables
     i = 0
     meas_dt = 0.0
+    meas_time = 0.0
+    vel_filtered = 0
     start = time.time()
 
     while i < n:
@@ -67,8 +66,7 @@ def ak80_6(control_method, name, attribute, params, data_dict):
 
         if attribute is "open_loop":
             # get control input
-            des_pos, des_vel, des_tau = control_method.get_control_output(
-                des_time_list, des_pos_list, des_vel_list, des_tau_list)
+            des_pos, des_vel, des_tau = control_method.get_control_output()
 
             # clip max.torque for safety
             if des_tau > control_tau_max:
@@ -107,13 +105,13 @@ def ak80_6(control_method, name, attribute, params, data_dict):
             meas_pos, meas_vel, meas_tau = motor_01.send_rad_command(
                 des_pos, des_vel, kp, kd, des_tau)
 
-            # filter noise velocity measurements
+            # filter noisy velocity measurements
             if i > 0:
                 vel_filtered = np.mean(data_dict["meas_vel_list"][max(0,
                                                                       i-10):i])
             else:
                 vel_filtered = 0
-            # or instead use the time derivative of the position
+            # or use the time derivative of the position instead
             # vel_filtered = (meas_pos - meas_pos_prev) / dt
             # meas_pos_prev = meas_pos
 

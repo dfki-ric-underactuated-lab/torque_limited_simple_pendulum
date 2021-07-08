@@ -10,7 +10,7 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from controllers.abstract_controller import AbstractController
+from controllers.abstract_controller import AbstractClosedLoopController
 
 # default parameters, can be changed
 model_path = os.path.join(Path(__file__).parents[4], 'data/models/sac_model.zip')
@@ -18,7 +18,7 @@ params_path = os.path.join(Path(__file__).parents[4],
                            'data/parameters/sp_parameters_sac.yaml')
 
 
-class SacController(AbstractController):
+class SacController(AbstractClosedLoopController):
     def __init__(self, model_path=model_path):
 
         self.model = SAC.load(model_path)
@@ -44,36 +44,3 @@ class SacController(AbstractController):
 
 #    def return_all(self):
 #        return SacController()
-
-"""
-    def prepare_data(self, params):
-        dt = params['dt']
-        t = params['runtime']
-        n = int(t/dt)
-
-        # create 4 empty numpy array, where measured data can be stored
-        des_time_list = np.zeros(n)
-        des_pos_list = np.zeros(n)
-        des_vel_list = np.zeros(n)
-        des_tau_list = np.zeros(n)
-
-        meas_time_list = np.zeros(n)
-        meas_pos_list = np.zeros(n)
-        meas_vel_list = np.zeros(n)
-        meas_tau_list = np.zeros(n)
-        vel_filt_list = np.zeros(n)
-
-        data_dict = {"des_time_list": des_time_list,
-                     "des_pos_list": des_pos_list,
-                     "des_vel_list": des_vel_list,
-                     "des_tau_list": des_tau_list,
-                     "meas_time_list": meas_time_list,
-                     "meas_pos_list": meas_pos_list,
-                     "meas_vel_list": meas_vel_list,
-                     "meas_tau_list": meas_tau_list,
-                     "vel_filt_list": vel_filt_list,
-                     "n": n,
-                     "dt": dt,
-                     "t": t}
-        return data_dict
-"""

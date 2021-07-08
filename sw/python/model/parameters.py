@@ -4,6 +4,12 @@ import yaml
 import numpy as np
 
 
+def get_params(params_path):
+    with open(params_path, 'r') as fle:
+        params = yaml.safe_load(fle)
+    return params
+
+
 class Environment:
     """
     Environmental parameters

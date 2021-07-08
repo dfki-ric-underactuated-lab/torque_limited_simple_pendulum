@@ -7,7 +7,7 @@ import site
 site.addsitedir('../..')
 
 # Local imports
-from controllers.abstract_controller import AbstractController
+from controllers.abstract_controller import AbstractClosedLoopController
 from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
 from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
                                                   pendulum_discrete_dynamics_rungekutta, \
@@ -19,7 +19,7 @@ from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_eul
                                                   pendulum3_swingup_final_cost
 
 
-class iLQRMPCController(AbstractController):
+class iLQRMPCController(AbstractClosedLoopController):
     def __init__(self,
                  # parameter,
                  mass=0.5,

@@ -2,24 +2,21 @@
 import sys
 import os
 import numpy as np
-# import asyncio
 from datetime import datetime
 from pathlib import Path
 
 # local imports
+from model.parameters import get_params
+from utilities import parse, plot, process_data, looptime
 from controllers import motor_control_loop
-from controllers.open_loop.pd import *
-from controllers.open_loop.fftau import *
 from controllers.gravity_compensation.gravity_compensation import *
-from controllers.sac.sac_controller import *
-# from controllers.open_loop.open_loop import *
+from controllers.open_loop.open_loop import *
 from controllers.energy_shaping.energy_shaping_controller import *
 try:
     from controllers.ilqr.iLQR_MPC_controller import *
 except ModuleNotFoundError:
     pass
-from utilities import parse, process_data, looptime, plot
-from model import parameter_import
+
 
 # run syntax parser
 args, unknown = parse.syntax()
@@ -27,127 +24,96 @@ args, unknown = parse.syntax()
 # set your workspace
 WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[2])
 print("Workspace is set to:", WORK_DIR)
-sys.path.append(f'{WORK_DIR}/sw/python')     # add parent folder to system path
+sys.path.append(f'{WORK_DIR}/sw/python')  # add parent folder to system path
 
 # get a timestamp
 TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
 
 # select control method
-if args.pd:
-    control_method = PDController()
-    name = "Proportional-Derivative Control"
-    folder_name = "pd_control"
-    attribute = "open_loop"
-    params = control_method.get_params()                       # get parameters
-    data_dict = control_method.prepare_data()                  # prepare data
+if args.openloop:
+    if args.pd:
+        name = "Proportional-Derivative Control"
+        folder_name = "pd_control"
+        attribute = "open_loop"
 
-    # start control loop for ak80_6
-    start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
-                                                               name, attribute,
-                                                               params,
-                                                               data_dict)
-    """""
-    if args.qdd100:
-        (start, end, meas_dt, meas_pos, meas_vel, meas_tau, meas_time) = \
-            asyncio.run(motor_control_loop.qdd100(CSV_FILE, n, dt,
-                                                  des_pos_out, des_vel_out,
-                                                  des_tau_in, meas_pos,
-                                                  meas_vel, meas_tau,
-                                                  meas_time, gr,
-                                                  rad2outputrev))
-    """
-"""
-if args.fftau:
-    control_method = FFTorqueController()
-    name = "Feedforward Torque"
-    folder_name = "torque_control"
-    attribute = "open_loop"
-    params = control_method.get_params()                       # get parameters
-    data_dict = control_method.prepare_data()                  # prepare data
+    if args.fft:
+        name = "Feedforward Torque"
+        folder_name = "torque_control"
+        attribute = "open_loop"
 
-    # start control loop for ak80_6
-    start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
-                                                               name, attribute,
-                                                               params,
-                                                               data_dict)
+    # get parameters
+    params_file = "sp_parameters_openloop.yaml"
+    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
+                               params_file)
+    params = get_params(params_path)
+    ## alternatively from an urdf file
+    # urdf_file = dfki_simple_pendulum.urdf
+    # urdf_path = os.path.join(Path(__file__).parents[4], 'data/urdf/' +
+    # urdf_file )
+
+    # load precomputed trajectory
+    csv_file = "swingup_300Hz.csv"
+    csv_path = os.path.join(Path(__file__).parents[4], 'data/trajectories/' +
+                            csv_file)
+    data_dict = process_data.prepare_trajectory(csv_path)
+
+    control_method = OpenLoopController(data_dict)
 
 if args.gravity:
-    control_method = GravityCompController()
-    name = "gravity Compensation"
+    name = "Gravity Compensation"
     folder_name = "gravity_compensation"
     attribute = "closed_loop"
-    params = control_method.get_params()                       # get parameters
-    data_dict = control_method.prepare_data(params)            # prepare data
 
-    # start control loop for ak80_6
-    start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
-                                                               name, attribute,
-                                                               params,
-                                                               data_dict)
+    # get parameters
+    params_file = "sp_parameters_gravity.yaml"
+    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
+                               params_file)
+    params = get_params(params_path)
+    data_dict = process_data.prepare_empty(params)
+
+    control_method = GravityCompController(params)
 
 if args.sac:
-    control_method = SacController()    # cm = control_method.return_all()
+    from controllers.sac.sac_controller import *
     name = "Soft Actor Critic"
     folder_name = "sac"
     attribute = "closed_loop"
-    params = control_method.get_params(params_path)            # get parameters
-    data_dict = control_method.prepare_data(params)              # prepare data
 
-    # start control loop for ak80_6
-    start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
-                                                               name, attribute,
-                                                               params,
-                                                               data_dict)
+    # get parameters
+    params_file = "sp_parameters_sac.yaml"
+    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
+                               params_file)
+    params = get_params(params_path)
+    data_dict = process_data.prepare_empty(params)
 
-"""
+    control_method = SacController()  # cm = control_method.return_all()
+
 if args.energy:
     name = "Energy Shaping"
     folder_name = "energy_shaping"
     attribute = "closed_loop"
 
-    # prepare data
+    # get parameters
     params_file = "sp_parameters_energy.yaml"
-    params_path = str(WORK_DIR) + "/data/parameters/" + params_file
-    params = parameter_import.get_params(params_path)
-    data_dict = process_data.prepare_data(params)
-    mass = params['mass']
-    length = params['length']
-    damping = params['damping']
-    gravity = params['gravity']
-    torque_limit = params['torque_limit']
-    k = params['k']
+    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
+                               params_file)
+    params = get_params(params_path)
+    data_dict = process_data.prepare_empty(params)
 
-    control_method = EnergyShapingAndLQRController(mass, length, damping,
-                                                   gravity, torque_limit, k)
+    control_method = EnergyShapingAndLQRController(params)
     control_method.set_goal([np.pi, 0])
-
-    # start control loop
-    start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
-                                                               name, attribute,
-                                                               params,
-                                                               data_dict)
-
-""""
-
-if args.lqr:
-    looptime.profiler(n, dt, des_time, meas_time, start, end, meas_dt)
-    output_folder = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + name
-
-    if args.save:
-        process_data.save(output_folder, des_pos, des_vel, des_tau, des_time,
-                          meas_pos, meas_vel, meas_tau, meas_time)
-"""
 
 if args.ilqr:
     name = "Iterative Linear Quadratic Regulator"
     folder_name = "ilqr"
     attribute = "closed_loop"
 
-    #prepare data
+    # get parameters
     params_file = "sp_parameters_ilqr.yaml"
-    params_path = str(WORK_DIR) + "/data/parameters/" + params_file
-    params = parameter_import.get_params(params_path)
-    data_dict = process_data.prepare_data(params)
+    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
+                               params_file)
+    params = get_params(params_path)
+    data_dict = process_data.prepare_empty(params)
 
     mass = params['mass']
     length = params['length']
@@ -199,25 +165,17 @@ if args.ilqr:
     control_method.set_goal(goal)
     control_method.compute_initial_guess()
 
-    start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
-                                                               name, attribute,
-                                                               params,
-                                                               data_dict)
 
-"""
-
+""""
 if args.ddp:
     name = "ddp"
     params_file = "sp_parameters_01.yaml"
-
-    looptime.profiler(n, dt, des_time, meas_time, start, end, meas_dt)
-    output_folder = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + name
-
-    if args.save:
-        process_data.save(output_folder, des_pos, des_vel, des_tau, des_time,
-                          meas_pos, meas_vel, meas_tau, meas_time)
-
 """
+
+# start control loop for ak80_6
+start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
+                                                           name, attribute,
+                                                           params, data_dict)
 
 # performance profiler
 looptime.profiler(data_dict, start, end, meas_dt)

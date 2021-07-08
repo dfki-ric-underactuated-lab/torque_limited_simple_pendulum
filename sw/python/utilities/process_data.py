@@ -12,7 +12,7 @@ def read(params_file, urdf_file, csv_file):
     return urdf_path, params_path, csv_path, data, n
 
 
-def prepare_data(params):
+def prepare_empty(params):
     dt = params['dt']
     t = params['runtime']
     n = int(t/dt)
@@ -38,6 +38,38 @@ def prepare_data(params):
                  "meas_vel_list": meas_vel_list,
                  "meas_tau_list": meas_tau_list,
                  "vel_filt_list": vel_filt_list,
+                 "n": n,
+                 "dt": dt,
+                 "t": t}
+    return data_dict
+
+
+def prepare_trajectory(csv_path):
+    # load trajectories from csv file
+    trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
+    des_time_list = trajectory.T[0].T                       # desired time in s
+    des_pos_list = trajectory.T[1].T               # desired position in radian
+    des_vel_list = trajectory.T[2].T             # desired velocity in radian/s
+    des_tau_list = trajectory.T[3].T                     # desired torque in Nm
+
+    n = len(des_time_list)
+    t = des_time_list[n - 1]
+    dt = round((des_time_list[n - 1] - des_time_list[0]) / n, 3)
+
+    # create 4 empty numpy array, where measured data can be stored
+    meas_time_list = np.zeros(n)
+    meas_pos_list = np.zeros(n)
+    meas_vel_list = np.zeros(n)
+    meas_tau_list = np.zeros(n)
+
+    data_dict = {"des_time_list": des_time_list,
+                 "des_pos_list": des_pos_list,
+                 "des_vel_list": des_vel_list,
+                 "des_tau_list": des_tau_list,
+                 "meas_time_list": meas_time_list,
+                 "meas_pos_list": meas_pos_list,
+                 "meas_vel_list": meas_vel_list,
+                 "meas_tau_list": meas_tau_list,
                  "n": n,
                  "dt": dt,
                  "t": t}
