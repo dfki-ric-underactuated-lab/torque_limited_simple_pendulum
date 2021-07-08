@@ -1,7 +1,7 @@
 # global imports
 import sys
 import os
-import numpy as np
+# import numpy as np
 from datetime import datetime
 from pathlib import Path
 
@@ -43,8 +43,7 @@ if args.openloop:
 
     # get parameters
     params_file = "sp_parameters_openloop.yaml"
-    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
-                               params_file)
+    params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
     ## alternatively from an urdf file
     # urdf_file = dfki_simple_pendulum.urdf
@@ -53,8 +52,7 @@ if args.openloop:
 
     # load precomputed trajectory
     csv_file = "swingup_300Hz.csv"
-    csv_path = os.path.join(Path(__file__).parents[4], 'data/trajectories/' +
-                            csv_file)
+    csv_path = os.path.join(WORK_DIR, 'data', 'trajectories', csv_file)
     data_dict = process_data.prepare_trajectory(csv_path)
 
     control_method = OpenLoopController(data_dict)
@@ -66,8 +64,7 @@ if args.gravity:
 
     # get parameters
     params_file = "sp_parameters_gravity.yaml"
-    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
-                               params_file)
+    params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
     data_dict = process_data.prepare_empty(params)
 
@@ -81,12 +78,11 @@ if args.sac:
 
     # get parameters
     params_file = "sp_parameters_sac.yaml"
-    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
-                               params_file)
+    params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
     data_dict = process_data.prepare_empty(params)
 
-    control_method = SacController()  # cm = control_method.return_all()
+    control_method = SacController(params)  # cm = control_method.return_all()
 
 if args.energy:
     name = "Energy Shaping"
@@ -95,8 +91,7 @@ if args.energy:
 
     # get parameters
     params_file = "sp_parameters_energy.yaml"
-    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
-                               params_file)
+    params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
     data_dict = process_data.prepare_empty(params)
 
@@ -110,8 +105,7 @@ if args.ilqr:
 
     # get parameters
     params_file = "sp_parameters_ilqr.yaml"
-    params_path = os.path.join(Path(__file__).parents[4], 'data/parameters/' +
-                               params_file)
+    params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
     data_dict = process_data.prepare_empty(params)
 
