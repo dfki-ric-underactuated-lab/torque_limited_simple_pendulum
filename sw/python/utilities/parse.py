@@ -20,8 +20,6 @@ def syntax():
                             help="linear quadratic regulator")
     controller.add_argument("-sac", action='store_true',
                             help="soft actor critic")
-    controller.add_argument("-ddp", action='store_true',
-                            help="differential dynamic programming")
     controller.add_argument("-openloop", action='store_true',
                             help="open loop control mode, choose either -pd "
                                  "or -ftt ")
@@ -30,6 +28,8 @@ def syntax():
                           help="proportional derivative control mode")
     openloop.add_argument("-fft", action='store_true',
                           help="feedforward torque control mode")
+    openloop.add_argument("-ddp", action='store_true',
+                          help="differential dynamic programming")
     parser.add_argument("-save", action='store_true',
                         help="saves your measurements into (../results)",
                         required=False)

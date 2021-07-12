@@ -8,7 +8,7 @@ kd: 0
 mass: 0.6755 #0.57288
 inertia: None 
 damping: 0.35
-dt: 0.00125 #0.01
+dt: 0.005 #0.00125 #0.01
 runtime: 20
 
 #energy shaping scaling

@@ -4,8 +4,8 @@ dof: 1
 n_links: 1
 length: 0.5
 n_actuators: 1
-torque_limit: 0.75
-use_symmetry: False
+torque_limit: 0.9
+use_symmetry: True
 gr: 6
 kp: 0
 kd: 0

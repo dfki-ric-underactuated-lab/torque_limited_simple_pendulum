@@ -4,7 +4,7 @@ import numpy as np
 from motor_driver.canmotorlib import CanMotorController
 
 # Motor ID
-motor_id = 0x02
+motor_id = 0x01
 can_port = 'can0'
 motor_1 = CanMotorController(can_port, motor_id)
 

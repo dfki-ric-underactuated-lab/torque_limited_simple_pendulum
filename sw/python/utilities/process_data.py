@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-def read(params_file, urdf_file, csv_file):
+def read(WORK_DIR, params_file, urdf_file, csv_file):
     csv_path = str(WORK_DIR) + "/data/trajectories/" + csv_file
     urdf_path = str(WORK_DIR) + "/data/urdf/" + urdf_file
     params_path = str(WORK_DIR) + "/data/parameters/" + params_file

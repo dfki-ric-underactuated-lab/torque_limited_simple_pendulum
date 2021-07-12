@@ -1,12 +1,12 @@
 # Global imports
 import time
 import numpy as np
-# package for t-motors AK80-6
+# driver for t-motors AK80-6
 from motor_driver.canmotorlib import CanMotorController
 
 
 def ak80_6(control_method, name, attribute, params, data_dict):
-    motor_id = 0x02
+    motor_id = 0x01
     can_port = 'can0'
 
     # load dictionary entries
@@ -16,7 +16,8 @@ def ak80_6(control_method, name, attribute, params, data_dict):
     # load parameters
     kp = params['kp']
     kd = params['kd']
-    if name is "Feedforward Torque":
+
+    if name is "Feedforward Torque" or "Differential Dynamic Programming":
         kp = 0
         kd = 0
     control_tau_max = params['torque_limit']
@@ -125,8 +126,6 @@ def ak80_6(control_method, name, attribute, params, data_dict):
             data_dict["des_vel_list"][i] = des_vel
             data_dict["des_tau_list"][i] = des_tau
             data_dict["des_time_list"][i] = dt * i
-        #else:
-        #   print("Missing control loop attribute.")
 
         i += 1
         exec_time = time.time() - start_loop

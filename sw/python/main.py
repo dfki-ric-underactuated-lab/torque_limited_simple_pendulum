@@ -1,7 +1,6 @@
 # global imports
 import sys
 import os
-# import numpy as np
 from datetime import datetime
 from pathlib import Path
 
@@ -9,8 +8,8 @@ from pathlib import Path
 from model.parameters import get_params
 from utilities import parse, plot, process_data, looptime
 from controllers import motor_control_loop
-from controllers.gravity_compensation.gravity_compensation import *
 from controllers.open_loop.open_loop import *
+from controllers.gravity_compensation.gravity_compensation import *
 from controllers.energy_shaping.energy_shaping_controller import *
 try:
     from controllers.ilqr.iLQR_MPC_controller import *
@@ -31,27 +30,31 @@ TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
 
 # select control method
 if args.openloop:
+    attribute = "open_loop"
+
     if args.pd:
         name = "Proportional-Derivative Control"
         folder_name = "pd_control"
-        attribute = "open_loop"
-
+        csv_file = "swingup_300Hz.csv"
     if args.fft:
         name = "Feedforward Torque"
         folder_name = "torque_control"
-        attribute = "open_loop"
+        csv_file = "swingup_300Hz.csv"
+    if args.ddp:
+        name = "Differential Dynamic Programming"
+        folder_name = "ddp"
+        csv_file = "swingup_OC_FDDP_offline.csv"
 
     # get parameters
     params_file = "sp_parameters_openloop.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    ## alternatively from an urdf file
+    # alternatively from an urdf file
     # urdf_file = dfki_simple_pendulum.urdf
     # urdf_path = os.path.join(Path(__file__).parents[4], 'data/urdf/' +
     # urdf_file )
 
     # load precomputed trajectory
-    csv_file = "swingup_300Hz.csv"
     csv_path = os.path.join(WORK_DIR, 'data', 'trajectories', csv_file)
     data_dict = process_data.prepare_trajectory(csv_path)
 
@@ -159,13 +162,6 @@ if args.ilqr:
     control_method.set_goal(goal)
     control_method.compute_initial_guess()
 
-
-""""
-if args.ddp:
-    name = "ddp"
-    params_file = "sp_parameters_01.yaml"
-"""
-
 # start control loop for ak80_6
 start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
                                                            name, attribute,
@@ -174,9 +170,8 @@ start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
 # performance profiler
 looptime.profiler(data_dict, start, end, meas_dt)
 
-output_folder = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + folder_name
-
 # save measurements
+output_folder = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + folder_name
 if args.save:
     process_data.save(output_folder, data_dict)
 
