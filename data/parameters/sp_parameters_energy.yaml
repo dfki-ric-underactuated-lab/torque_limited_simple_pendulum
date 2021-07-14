@@ -1,7 +1,7 @@
 gravity: 9.81
 length: 0.5
 n_actuators: 1
-torque_limit: 0.7
+torque_limit: 0.9
 gr: 6
 kp: 0
 kd: 0

@@ -37,7 +37,7 @@ class SacController(AbstractClosedLoopController):
             observation = np.squeeze(np.array([meas_pos, meas_vel]))
             des_tau, _states = self.model.predict(observation)
         des_tau *= float(self.params['torque_limit'])
-        
+
         # since this is a pure torque controller, set pos_des and vel_des to None
         des_pos = None
         des_vel = None
