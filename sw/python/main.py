@@ -126,7 +126,7 @@ if args.ilqr:
     sCp = params["sCp"]
     sCv = params["sCv"]
     sCen = params["sCen"]
-    fCp = params["fCu"]
+    fCp = params["fCp"]
     fCv = params["fCv"]
     fCen = params["fCen"]
     dynamics = str(params["dynamics"])

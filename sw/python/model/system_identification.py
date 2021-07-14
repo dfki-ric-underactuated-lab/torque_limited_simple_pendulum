@@ -152,10 +152,14 @@ if __name__ == '__main__':
 
     # function calls
     SysId = SystemIdentification(meas_time, meas_pos, meas_vel, meas_tau)
+
     t, vel_dict, acc_dict, tau_dict = SysId.filter_data()
+
     plot.sys_id_comparison(meas_time, vel_dict, tau_dict, acc_dict)
+
     param_names, term_names, p1, eq, ref_trq, est_trq = \
         SysId.analyse_plant(output_path, vel_dict, acc_dict, tau_dict)
+
     plot.sys_id_result(t, ref_trq, est_trq)
 
     # save measurements

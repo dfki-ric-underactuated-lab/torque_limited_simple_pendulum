@@ -17,7 +17,7 @@ def ak80_6(control_method, name, attribute, params, data_dict):
     kp = params['kp']
     kd = params['kd']
 
-    if name is "Feedforward Torque" or "Differential Dynamic Programming":
+    if name is "Feedforward Torque":
         kp = 0
         kd = 0
     control_tau_max = params['torque_limit']

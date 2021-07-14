@@ -16,7 +16,7 @@ def swingup(args, output_folder, data_dict):
     meas_time = data_dict["meas_time_list"]
     meas_pos = data_dict["meas_pos_list"]
     meas_vel = data_dict["meas_vel_list"]
-    meas_vel_filt = data_dict["vel_filt_list"]
+    #meas_vel_filt = data_dict["vel_filt_list"]
     meas_tau = data_dict["meas_tau_list"]
 
     plt.figure()
@@ -33,11 +33,11 @@ def swingup(args, output_folder, data_dict):
 
     plt.figure()
     plt.plot(meas_time, meas_vel)
-    plt.plot(meas_time, meas_vel_filt)
+    #plt.plot(meas_time, meas_vel_filt)
     plt.plot(des_time, des_vel)
     plt.xlabel("Time (s)")
     plt.ylabel("Velocity (rad/s)")
-    plt.legend(['velocity_measured', 'velocity_filtered', 'velocity_desired'])
+    plt.legend(['velocity_measured', 'velocity_desired']) #'velocity_filtered',
     plt.title("Velocity (rad/s) vs Time (s)")
     plt.draw()
     if args.save:
@@ -118,6 +118,7 @@ def grav_comp(args, output_folder, data_dict):
     plt.show()
 
 def sys_id_unified(meas_time=None, meas_pos=None, meas_vel=None, meas_tau=None, acc=None):
+    plt.figure()
     if meas_pos is not None:
         plt.plot(meas_time, meas_pos, label="position")
     if meas_vel is not None:
@@ -127,6 +128,8 @@ def sys_id_unified(meas_time=None, meas_pos=None, meas_vel=None, meas_tau=None, 
     if meas_tau is not None:
         plt.plot(meas_time, meas_tau, label="torque")
     plt.legend(loc="best")
+    plt.draw()
+    plt.savefig(output_folder + '/grav_comp_tau_filt.pdf')
     plt.show()
 
 def sys_id_comparison(meas_time, vel_dict, tau_dict, acc_dict):
