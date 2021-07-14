@@ -176,4 +176,4 @@ if args.save:
     process_data.save(output_folder, data_dict)
 
 # plot data
-plot.swingup(args, output_folder, data_dict)
+# plot.swingup(args, output_folder, data_dict)
