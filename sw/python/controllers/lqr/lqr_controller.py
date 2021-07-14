@@ -21,9 +21,9 @@ class LQRController(AbstractClosedLoopController):
 
         self.A = np.array([[0, 1],
                            [self.g/self.len, -self.b/self.m/self.len**2.0]])
-        self.B = np.array([[0, 0], [0, self.m/self.len**2.0]])
+        self.B = np.array([[0, self.m/self.len**2.0]]).T
         self.Q = np.diag((10, 1))
-        self.R = np.array([[100, 0], [0, 1]])
+        self.R = np.array([[1]])
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
@@ -48,7 +48,7 @@ class LQRController(AbstractClosedLoopController):
 
         y = np.asarray([th, vel])
 
-        u = np.asarray(-self.K.dot(y))[0][1]
+        u = np.asarray(-self.K.dot(y))[0][0]
 
         if np.abs(u) > self.torque_limit:
             u = None
