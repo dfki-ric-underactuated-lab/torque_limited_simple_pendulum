@@ -3,14 +3,15 @@ import numpy as np
 from functools import partial
 
 from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
-from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
-                                                  pendulum_discrete_dynamics_rungekutta, \
-                                                  pendulum_swingup_stage_cost, \
-                                                  pendulum_swingup_final_cost, \
-                                                  pendulum3_discrete_dynamics_euler, \
-                                                  pendulum3_discrete_dynamics_rungekutta, \
-                                                  pendulum3_swingup_stage_cost, \
-                                                  pendulum3_swingup_final_cost
+
+from trajectory_optimization.iLQR.pendulum import (
+                    pendulum_discrete_dynamics_rungekutta,
+                    pendulum_swingup_stage_cost,
+                    pendulum_swingup_final_cost,
+                    pendulum3_discrete_dynamics_rungekutta,
+                    pendulum3_swingup_stage_cost,
+                    pendulum3_swingup_final_cost
+                    )
 
 
 class Test(unittest.TestCase):
@@ -24,7 +25,6 @@ class Test(unittest.TestCase):
         damping = 0.15
         gravity = 9.81
         coulomb_friction = 0.0
-        torque_limit = 10.0
         inertia = mass*length*length
         n_x = 2
         n_u = 1
@@ -93,7 +93,6 @@ class Test(unittest.TestCase):
         iLQR.init_derivatives()
         iLQR.set_start(x0)
 
-
         # computation
         (X, U, cost_trace, regu_trace,
          redu_ratio_trace, redu_trace) = iLQR.run_ilqr(N=N,
@@ -122,7 +121,6 @@ class Test(unittest.TestCase):
         damping = 0.15
         gravity = 9.81
         coulomb_friction = 0.0
-        torque_limit = 10.0
         inertia = mass*length*length
         n_x = 3
         n_u = 1
@@ -164,8 +162,8 @@ class Test(unittest.TestCase):
         iLQR.set_discrete_dynamics(dyn)
 
         # set costs
-        s_cost_func = pendulum_swingup_stage_cost
-        f_cost_func = pendulum_swingup_final_cost
+        s_cost_func = pendulum3_swingup_stage_cost
+        f_cost_func = pendulum3_swingup_final_cost
         s_cost = partial(s_cost_func,
                          goal=goal,
                          Cu=sCu,
@@ -192,7 +190,6 @@ class Test(unittest.TestCase):
 
         iLQR.init_derivatives()
         iLQR.set_start(x0)
-
 
         # computation
         (X, U, cost_trace, regu_trace,
