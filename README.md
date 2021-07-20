@@ -5,6 +5,7 @@
 
 <div align="center">
 <img width="300" src="../hw/simple_pendulum_CAD.png">
+<img width="300" src="../docs/pendulum_light_painting.jpg">
 </div>
 
 ## Introduction #
