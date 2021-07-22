@@ -75,6 +75,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 * [Testbench Setup](docs/testbench_setup.md)
 * [Getting Started](docs/getting_started.md)
 * [Usage](docs/usage.md)
+* [Code Testing](docs/code_test.md)
 
 ## Safety Notes #
 
