@@ -1,12 +1,8 @@
 # Other imports
 import numpy as np
 
-# Set path for local imports
-import site
-site.addsitedir('../..')
-
 # Local imports
-from controllers.abstract_controller import AbstractClosedLoopController
+from controllers.abstract_controller import AbstractController
 from controllers.lqr.lqr_controller import LQRController
 
 
@@ -24,23 +20,19 @@ def pendulum_calc_total_energy(theta, theta_dot, mass, length, gravity):
     return kin + pot
 
 
-class EnergyShapingController(AbstractClosedLoopController):
-    def __init__(self, params):
-                 # parameter,
-                 # mass=1.0,
-                 # length=0.5,
-                 # damping=0.1,
-                 # gravity=9.81,
-                 # k=1.0,
-                 # n=2000):
+class EnergyShapingController(AbstractController):
+    def __init__(self,
+                 mass=1.0,
+                 length=0.5,
+                 damping=0.1,
+                 gravity=9.81,
+                 k=1.0):
 
-        self.m = params['mass']
-        self.l = params['length']
-        self.b = params['damping']
-        self.g = params['gravity']
-        self.torque_limit = params['torque_limit']
-        self.k = params['k']
-        self.n = params['n']
+        self.m = mass
+        self.l = length
+        self.b = damping
+        self.g = gravity
+        self.k = k
 
     def set_goal(self, x):
         self.goal = [x[0], x[1]]
@@ -67,8 +59,8 @@ class EnergyShapingController(AbstractClosedLoopController):
                                                   mass=self.m,
                                                   length=self.l,
                                                   gravity=self.g)
-        des_tau = - self.k*vel*(total_energy - self.desired_energy) \
-                  + self.k*self.b*vel
+        des_tau = -self.k*vel*(total_energy - self.desired_energy) + \
+                   self.k*self.b*vel
 
         # since this is a pure torque controller,
         # set des_pos and des_vel to None
@@ -78,36 +70,45 @@ class EnergyShapingController(AbstractClosedLoopController):
         return des_pos, des_vel, des_tau
 
 
-class EnergyShapingAndLQRController(AbstractClosedLoopController):
-    def __init__(self, params):
+class EnergyShapingAndLQRController(AbstractController):
+    def __init__(self, mass=1.0, length=0.5, damping=0.1,
+                 gravity=9.81, torque_limit=np.inf, k=1.0):
 
-        self.m = params['mass']
-        self.l = params['length']
-        self.b = params['damping']
-        self.g = params['gravity']
-        self.torque_limit = params['torque_limit']
-        self.k = params['k']
-        self.n = params['n']
+        self.m = mass
+        self.l = length
+        self.b = damping
+        self.g = gravity
 
-        self.energy_shaping_controller = EnergyShapingController(params)
-        self.lqr_controller = LQRController(params)
+        self.energy_shaping_controller = EnergyShapingController(mass,
+                                                                 length,
+                                                                 damping,
+                                                                 gravity,
+                                                                 k=k)
+        self.lqr_controller = LQRController(mass,
+                                            length,
+                                            damping,
+                                            gravity,
+                                            torque_limit)
+
         self.active_controller = "none"
 
     def set_goal(self, x):
         self.energy_shaping_controller.set_goal(x)
 
     def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0):
+                           meas_tau=0, meas_time=0, verbose=False):
         des_pos, des_vel, u = self.lqr_controller.get_control_output(meas_pos,
                                                                      meas_vel)
         if u is not None:
             if self.active_controller != "lqr":
                 self.active_controller = "lqr"
-                print("Switching to lqr control")
+                if verbose:
+                    print("Switching to lqr control")
         else:
             if self.active_controller != "EnergyShaping":
                 self.active_controller = "EnergyShaping"
-                print("Switching to energy shaping control")
+                if verbose:
+                    print("Switching to energy shaping control")
             des_pos, des_vel, u = (self.energy_shaping_controller.
                                    get_control_output(meas_pos, meas_vel))
         return des_pos, des_vel, u

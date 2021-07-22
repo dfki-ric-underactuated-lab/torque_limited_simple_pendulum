@@ -3,16 +3,22 @@ import sys
 import os
 from datetime import datetime
 from pathlib import Path
+import numpy as np
 
 # local imports
 from model.parameters import get_params
 from utilities import parse, plot, process_data, looptime
 from controllers import motor_control_loop
-from controllers.open_loop.open_loop import *
-from controllers.gravity_compensation.gravity_compensation import *
-from controllers.energy_shaping.energy_shaping_controller import *
+from controllers.open_loop.open_loop import OpenLoopController
+from controllers.gravity_compensation.gravity_compensation import GravityCompController
+from controllers.energy_shaping.energy_shaping_controller import EnergyShapingAndLQRController
 try:
-    from controllers.ilqr.iLQR_MPC_controller import *
+    from controllers.ilqr.iLQR_MPC_controller import iLQRMPCController
+except ModuleNotFoundError:
+    pass
+
+try:
+    from controllers.sac.sac_controller import SacController
 except ModuleNotFoundError:
     pass
 
@@ -74,7 +80,6 @@ if args.gravity:
     control_method = GravityCompController(params)
 
 if args.sac:
-    from controllers.sac.sac_controller import *
     name = "Soft Actor Critic"
     folder_name = "sac"
     attribute = "closed_loop"
@@ -138,26 +143,25 @@ if args.ilqr:
         x0 = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
         goal = np.array([np.cos(goal[0]), np.sin(goal[0]), goal[1]])
 
-    control_method = iLQRMPCController(# parameter,
-                                   mass=mass,
-                                   length=length,
-                                   damping=damping,
-                                   coulomb_friction=coulomb_fric,
-                                   gravity=gravity,
-                                   x0=x0,
-                                   dt=dt,
-                                   n=n_horizon,  # horizon size
-                                   max_iter=max_iter,
-                                   break_cost_redu=break_cost_redu,
-                                   sCu=sCu,
-                                   sCp=sCp,
-                                   sCv=sCv,
-                                   sCen=sCen,
-                                   fCp=fCp,
-                                   fCv=fCv,
-                                   fCen=fCen,
-                                   dynamics=dynamics,
-                                   n_x=n_x)
+    control_method = iLQRMPCController(mass=mass,
+                                       length=length,
+                                       damping=damping,
+                                       coulomb_friction=coulomb_fric,
+                                       gravity=gravity,
+                                       x0=x0,
+                                       dt=dt,
+                                       n=n_horizon,  # horizon size
+                                       max_iter=max_iter,
+                                       break_cost_redu=break_cost_redu,
+                                       sCu=sCu,
+                                       sCp=sCp,
+                                       sCv=sCv,
+                                       sCen=sCen,
+                                       fCp=fCp,
+                                       fCv=fCv,
+                                       fCen=fCen,
+                                       dynamics=dynamics,
+                                       n_x=n_x)
 
     control_method.set_goal(goal)
     control_method.compute_initial_guess()

@@ -1,23 +1,20 @@
 # Other imports
 import numpy as np
 
-# Set path for local imports
-import site
-site.addsitedir('../..')
-
 # Local imports
 from controllers.lqr.lqr import lqr
-from controllers.abstract_controller import AbstractClosedLoopController
+from controllers.abstract_controller import AbstractController
 
 
-class LQRController(AbstractClosedLoopController):
-    def __init__(self, params):
-        self.params = params
-        self.m = params["mass"]
-        self.len = params["length"]
-        self.b = params["damping"]
-        self.g = params["gravity"]
-        self.torque_limit = params["torque_limit"]
+class LQRController(AbstractController):
+    def __init__(self, mass=1.0, length=0.5, damping=0.1,
+                 gravity=9.81, torque_limit=np.inf):
+
+        self.m = mass
+        self.len = length
+        self.b = damping
+        self.g = gravity
+        self.torque_limit = torque_limit
 
         self.A = np.array([[0, 1],
                            [self.g/self.len, -self.b/self.m/self.len**2.0]])
@@ -48,7 +45,7 @@ class LQRController(AbstractClosedLoopController):
 
         y = np.asarray([th, vel])
 
-        u = np.asarray(-self.K.dot(y))[0][0]
+        u = np.asarray(-self.K.dot(y))[0]
 
         if np.abs(u) > self.torque_limit:
             u = None

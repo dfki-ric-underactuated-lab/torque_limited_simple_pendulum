@@ -3,21 +3,20 @@ import numpy as np
 
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
-from controllers.lqr.lqr_controller import LQRController
+from controllers.energy_shaping.energy_shaping_controller import EnergyShapingController
 
 
 class Test(unittest.TestCase):
 
+    epsilon = 0.2
 
-    epsilon = 0.01
-
-    def test_0_LQR_stabilization(self):
+    def test_0_energy_shaping_swingup(self):
         mass = 0.57288
         length = 0.5
-        damping = 0.15
+        damping = 0.05
         gravity = 9.81
         coulomb_fric = 0.0
-        torque_limit = 2.0
+        torque_limit = 1.0
         inertia = mass*length*length
 
         pendulum = PendulumPlant(mass=mass,
@@ -28,21 +27,16 @@ class Test(unittest.TestCase):
                                  inertia=inertia,
                                  torque_limit=torque_limit)
 
-        controller = LQRController(mass=mass,
-                                   length=length,
-                                   damping=damping,
-                                   gravity=gravity,
-                                   torque_limit=torque_limit)
-
+        controller = EnergyShapingController(mass, length, damping, gravity)
         controller.set_goal([np.pi, 0])
 
         sim = Simulator(plant=pendulum)
 
         dt = 0.01
-        t_final = 10.0
+        t_final = 5.0
 
         T, X, U = sim.simulate(t0=0.0,
-                               x0=[3.1, 0.0],
+                               x0=[0.01, 0.0],
                                tf=t_final,
                                dt=dt,
                                controller=controller,
@@ -52,11 +46,11 @@ class Test(unittest.TestCase):
         self.assertIsInstance(X, list)
         self.assertIsInstance(U, list)
 
-        stabilization_success = True
+        swingup_success = True
         if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
             if np.abs(X[-1][1]) > self.epsilon:
-                stabilization_success = False
-                print("lqr Controller did not stabilize",
+                swingup_success = False
+                print("Energy Shaping Controller did not swing up",
                       "final state: ", X[-1])
 
-        self.assertTrue(stabilization_success)
+        self.assertTrue(swingup_success)

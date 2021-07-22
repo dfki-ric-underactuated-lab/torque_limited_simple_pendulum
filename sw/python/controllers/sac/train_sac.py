@@ -5,11 +5,8 @@ import shutil
 from pathlib import Path
 from stable_baselines import SAC
 from stable_baselines.sac.policies import MlpPolicy
-from stable_baselines.common.callbacks import EvalCallback, StopTrainingOnRewardThreshold # CallbackList, CheckpointCallback,
-
-# Set path for local imports
-import site
-site.addsitedir('../..')
+from stable_baselines.common.callbacks import EvalCallback, \
+                                              StopTrainingOnRewardThreshold
 
 # local imports
 from gym_environment import SimplePendulumEnv

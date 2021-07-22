@@ -6,10 +6,6 @@ import os
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
-# Set path for local imports
-import site
-site.addsitedir('../..')
-
 # Local imports
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
@@ -57,7 +53,7 @@ pendulum = PendulumPlant(mass=mass,
 sim = Simulator(plant=pendulum)
 
 # simulate
-x0_sim = [0.0, 0.0]  #[np.random.rand()*0.01, np.random.rand()*0.01]
+x0_sim = [0.0, 0.0]  # [np.random.rand()*0.01, np.random.rand()*0.01]
 dt = torque_limit = float(controller.params['dt'])
 t_final = 10
 integrator = controller.params['integrator']

@@ -1,4 +1,4 @@
-# copied from https://www.mwm.im/lqr-controllers-with-python/
+# adapted from https://www.mwm.im/lqr-controllers-with-python/
 
 import numpy as np
 import scipy.linalg
@@ -12,11 +12,11 @@ def lqr(A, B, Q, R):
     """
 
     # first, try to solve the ricatti equation
-    X = np.matrix(scipy.linalg.solve_continuous_are(A, B, Q, R))
+    X = np.array(scipy.linalg.solve_continuous_are(A, B, Q, R))
 
     # compute the lqr gain
-    K = np.matrix(scipy.linalg.inv(R)*(B.T*X))
-    eigVals, eigVecs = scipy.linalg.eig(A-B*K)
+    K = np.array(scipy.linalg.inv(R).dot(B.T.dot(X)))
+    eigVals, eigVecs = scipy.linalg.eig(A-B.dot(K))
     return K, X, eigVals
 
 
@@ -28,9 +28,9 @@ def dlqr(A, B, Q, R):
     """
 
     # first, try to solve the ricatti equation
-    X = np.matrix(scipy.linalg.solve_discrete_are(A, B, Q, R))
+    X = np.array(scipy.linalg.solve_discrete_are(A, B, Q, R))
 
     # compute the lqr gain
-    K = np.matrix(scipy.linalg.inv(B.T*X*B+R)*(B.T*X*A))
-    eigVals, eigVecs = scipy.linalg.eig(A-B*K)
+    K = np.array(scipy.linalg.inv(B.T.dot(X.dot(B))+R).dot(B.T.dot(X.dot(A))))
+    eigVals, eigVecs = scipy.linalg.eig(A-B.dot(K))
     return K, X, eigVals

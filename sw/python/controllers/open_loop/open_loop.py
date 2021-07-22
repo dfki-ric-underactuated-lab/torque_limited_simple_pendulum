@@ -1,13 +1,9 @@
-# Set path for local imports
-import site
-site.addsitedir('../..')
-
 # Local imports
-from controllers.abstract_controller import *
+from controllers.abstract_controller import AbstractController
 from controllers.lqr.lqr_controller import LQRController
 
 
-class OpenLoopController(AbstractOpenLoopController):
+class OpenLoopController(AbstractController):
     def __init__(self, data_dict):
         self.counter = 0
         self.u = 0
@@ -20,7 +16,8 @@ class OpenLoopController(AbstractOpenLoopController):
     def set_goal(self, x):
         pass
 
-    def get_control_output(self):
+    def get_control_output(self, meas_pos=None, meas_vel=None, meas_tau=None,
+                           meas_time=None):
         des_pos = None
         des_vel = None
         des_tau = None
@@ -33,7 +30,7 @@ class OpenLoopController(AbstractOpenLoopController):
         return des_pos, des_vel, des_tau
 
 
-class OpenLoopAndLQRController(AbstractClosedLoopController):
+class OpenLoopAndLQRController(AbstractController):
     def __init__(self, params, data_dict):
         self.open_loop_controller = OpenLoopController(data_dict)
         self.lqr_controller = LQRController(params)
@@ -43,18 +40,20 @@ class OpenLoopAndLQRController(AbstractClosedLoopController):
         pass
 
     def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0, i=0):
+                           meas_tau=0, meas_time=0, verbose=False):
         des_pos, des_vel, des_tau = (self.lqr_controller.
                                      get_control_output(meas_pos, meas_vel))
         if des_tau is not None:
             if self.active_controller != "lqr":
                 self.active_controller = "lqr"
-                print("Switching to lqr control")
+                if verbose:
+                    print("Switching to lqr control")
         else:
             if self.active_controller != "OpenLoop":
                 self.active_controller = "OpenLoop"
-                print("Switching to csv trajectory")
+                if verbose:
+                    print("Switching to csv trajectory")
             des_pos, des_vel, des_tau = (self.open_loop_controller.
-                                         get_control_output(i=i))
+                                         get_control_output())
 
         return des_pos, des_vel, des_tau

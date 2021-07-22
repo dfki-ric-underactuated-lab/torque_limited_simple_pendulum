@@ -1,12 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-import sys
-sys.path.append("../..")
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
 from controllers.open_loop.open_loop import OpenLoopController
-
+from utilities.process_data import prepare_trajectory
 
 mass = 0.57288
 length = 0.5
@@ -27,8 +25,9 @@ pendulum = PendulumPlant(mass=mass,
 sim = Simulator(plant=pendulum)
 
 csv_path = "../../../../data/trajectories/ilqr/trajectory.csv"
+data_dict = prepare_trajectory(csv_path)
 
-controller = OpenLoopController(csv_path=csv_path)
+controller = OpenLoopController(data_dict)
 
 controller.set_goal([np.pi, 0])
 

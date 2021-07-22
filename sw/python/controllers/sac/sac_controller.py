@@ -1,16 +1,11 @@
 # Other imports
-from stable_baselines import SAC
-import numpy as np
-import yaml
 import os
+import numpy as np
 from pathlib import Path
-
-# Set path for local imports
-import site
-site.addsitedir('../..')
+from stable_baselines import SAC
 
 # Local imports
-from controllers.abstract_controller import AbstractClosedLoopController
+from controllers.abstract_controller import AbstractController
 
 # default parameters, can be changed
 model_path = os.path.join(Path(__file__).parents[4], 'data/models/sac_model.zip')
@@ -18,7 +13,7 @@ model_path = os.path.join(Path(__file__).parents[4], 'data/models/sac_model.zip'
 #                            'data/parameters/sp_parameters_sac.yaml')
 
 
-class SacController(AbstractClosedLoopController):
+class SacController(AbstractController):
     def __init__(self, params):
 
         self.model = SAC.load(model_path)
@@ -41,7 +36,7 @@ class SacController(AbstractClosedLoopController):
         # since this is a pure torque controller, set pos_des and vel_des to None
         des_pos = None
         des_vel = None
-        
+
         return des_pos, des_vel, des_tau
 
 #    def return_all(self):

@@ -2,17 +2,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from functools import partial
 
-import sys
-sys.path.append("../..")
-from trajectory_optimization.ilqr.iLQR import iLQR_Calculator
-from trajectory_optimization.ilqr.pendulum import pendulum_discrete_dynamics_euler, \
-                                                  pendulum_discrete_dynamics_rungekutta, \
-                                                  pendulum_swingup_stage_cost, \
-                                                  pendulum_swingup_final_cost, \
-                                                  pendulum3_discrete_dynamics_euler, \
-                                                  pendulum3_discrete_dynamics_rungekutta, \
-                                                  pendulum3_swingup_stage_cost, \
-                                                  pendulum3_swingup_final_cost
+from trajectory_optimization.ilqr.ilqr import iLQR_Calculator
+from trajectory_optimization.ilqr.pendulum import (
+                                        pendulum_discrete_dynamics_euler,
+                                        pendulum_discrete_dynamics_rungekutta,
+                                        pendulum_swingup_stage_cost,
+                                        pendulum_swingup_final_cost,
+                                        pendulum3_discrete_dynamics_euler,
+                                        pendulum3_discrete_dynamics_rungekutta,
+                                        pendulum3_swingup_stage_cost,
+                                        pendulum3_swingup_final_cost)
 
 
 # pendulum parameters
@@ -132,10 +131,16 @@ np.savetxt("../../../../data/trajectories/ilqr/trajectory.csv",
 fig, ax = plt.subplots(3, 1, figsize=(18, 6), sharex="all")
 
 if n_x == 2:
-    ax[0].plot(dt*np.linspace(0, N, np.shape(x_trj)[0]), x_trj.T[0], label="theta")
+    ax[0].plot(dt*np.linspace(0, N, np.shape(x_trj)[0]),
+               x_trj.T[0],
+               label="theta")
 if n_x == 3:
-    ax[0].plot(dt*np.linspace(0, N, np.shape(x_trj)[0]), x_trj.T[0], label="cos(theta)")
-    ax[0].plot(dt*np.linspace(0, N, np.shape(x_trj)[0]), x_trj.T[1], label="sin(theta)")
+    ax[0].plot(dt*np.linspace(0, N, np.shape(x_trj)[0]),
+               x_trj.T[0],
+               label="cos(theta)")
+    ax[0].plot(dt*np.linspace(0, N, np.shape(x_trj)[0]),
+               x_trj.T[1],
+               label="sin(theta)")
 ax[0].set_ylabel("angle [rad]")
 ax[0].legend(loc="best")
 ax[1].plot(dt*np.linspace(0, N, np.shape(x_trj)[0]),

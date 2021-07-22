@@ -17,7 +17,7 @@ def ak80_6(control_method, name, attribute, params, data_dict):
     kp = params['kp']
     kd = params['kd']
 
-    if name is "Feedforward Torque":
+    if name == "Feedforward Torque":
         kp = 0
         kd = 0
     control_tau_max = params['torque_limit']
@@ -65,7 +65,7 @@ def ak80_6(control_method, name, attribute, params, data_dict):
         start_loop = time.time()
         meas_time += meas_dt
 
-        if attribute is "open_loop":
+        if attribute == "open_loop":
             # get control input
             des_pos, des_vel, des_tau = control_method.get_control_output()
 
@@ -84,7 +84,7 @@ def ak80_6(control_method, name, attribute, params, data_dict):
             data_dict["meas_vel_list"][i] = meas_vel
             data_dict["meas_tau_list"][i] = meas_tau
             data_dict["meas_time_list"][i] = meas_time
-        if attribute is "closed_loop":
+        if attribute == "closed_loop":
             # get control input
             des_pos, des_vel, des_tau = control_method.get_control_output(
                 meas_pos, vel_filtered, meas_tau, meas_time)

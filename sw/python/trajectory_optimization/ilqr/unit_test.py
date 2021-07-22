@@ -2,9 +2,9 @@ import unittest
 import numpy as np
 from functools import partial
 
-from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
+from trajectory_optimization.ilqr.ilqr import iLQR_Calculator
 
-from trajectory_optimization.iLQR.pendulum import (
+from trajectory_optimization.ilqr.pendulum import (
                     pendulum_discrete_dynamics_rungekutta,
                     pendulum_swingup_stage_cost,
                     pendulum_swingup_final_cost,

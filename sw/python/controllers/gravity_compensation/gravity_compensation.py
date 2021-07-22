@@ -1,15 +1,11 @@
 # Other imports
 import math
 
-# Set path for local imports
-import site
-site.addsitedir('../..')
-
 # Local imports
-from controllers.abstract_controller import AbstractClosedLoopController
+from controllers.abstract_controller import AbstractController
 
 
-class GravityCompController(AbstractClosedLoopController):
+class GravityCompController(AbstractController):
     def __init__(self, params):
         self.counter = 0
         self.u = 0
@@ -26,4 +22,3 @@ class GravityCompController(AbstractClosedLoopController):
         des_vel = 0
 
         return des_pos, des_vel, des_tau
-

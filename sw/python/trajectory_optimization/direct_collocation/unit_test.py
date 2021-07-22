@@ -35,7 +35,10 @@ class Test(unittest.TestCase):
                                                                  max_dt=max_dt,
                                                                  start_state=x0,
                                                                  goal_state=goal)
-        T, X, XD, U = dircal.extract_trajectory(x_trajectory, dircol, result, N=1000)
+        T, X, XD, U = dircal.extract_trajectory(x_trajectory,
+                                                dircol,
+                                                result,
+                                                N=1000)
 
         self.assertIsInstance(T, np.ndarray)
         self.assertIsInstance(X, np.ndarray)

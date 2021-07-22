@@ -2,14 +2,10 @@
 import numpy as np
 from functools import partial
 
-# Set path for local imports
-import site
-site.addsitedir('../..')
-
 # Local imports
-from controllers.abstract_controller import AbstractClosedLoopController
-from trajectory_optimization.iLQR.iLQR import iLQR_Calculator
-from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_euler, \
+from controllers.abstract_controller import AbstractController
+from trajectory_optimization.ilqr.ilqr import iLQR_Calculator
+from trajectory_optimization.ilqr.pendulum import pendulum_discrete_dynamics_euler, \
                                                   pendulum_discrete_dynamics_rungekutta, \
                                                   pendulum_swingup_stage_cost, \
                                                   pendulum_swingup_final_cost, \
@@ -19,9 +15,8 @@ from trajectory_optimization.iLQR.pendulum import pendulum_discrete_dynamics_eul
                                                   pendulum3_swingup_final_cost
 
 
-class iLQRMPCController(AbstractClosedLoopController):
+class iLQRMPCController(AbstractController):
     def __init__(self,
-                 # parameter,
                  mass=0.5,
                  length=0.5,
                  damping=0.15,
@@ -43,11 +38,6 @@ class iLQRMPCController(AbstractClosedLoopController):
                  dynamics="runge_kutta",
                  n_x=3):
 
-        # self.gravity = parameter[0]
-        # self.length = parameter[4]
-        # self.mass = parameter[10]
-        # self.damping = parameter[12]
-        # self.coulomb_friction = parameter[13]
         self.mass = mass
         self.length = length
         self.damping = damping

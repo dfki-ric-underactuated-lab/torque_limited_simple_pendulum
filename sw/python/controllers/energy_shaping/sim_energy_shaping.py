@@ -2,10 +2,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Set path for local imports
-import site
-site.addsitedir('../..')
-
 # Local imports
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
