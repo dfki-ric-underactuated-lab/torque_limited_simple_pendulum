@@ -27,7 +27,8 @@ def pendulum_discrete_dynamics_euler(x, u, dt, m=0.57288, l=0.5, b=0.15,
 
 
 def pendulum_discrete_dynamics_rungekutta(x, u, dt, m=0.5, l=0.5,
-                                          b=0.15, cf=0.0, g=9.81, inertia=0.125):
+                                          b=0.15, cf=0.0, g=9.81,
+                                          inertia=0.125):
     k1 = pendulum_continuous_dynamics(x, u, m=m, l=l, b=b, cf=cf,
                                       g=g, inertia=inertia)
     k2 = pendulum_continuous_dynamics(x+0.5*dt*k1, u, m=m, l=l, b=b,

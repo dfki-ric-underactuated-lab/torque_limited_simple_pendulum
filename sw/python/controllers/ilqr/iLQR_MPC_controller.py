@@ -16,6 +16,10 @@ from trajectory_optimization.ilqr.pendulum import pendulum_discrete_dynamics_eul
 
 
 class iLQRMPCController(AbstractController):
+    """
+    Controller which computes a ilqr solution at every timestep and uses
+    the first control output.
+    """
     def __init__(self,
                  mass=0.5,
                  length=0.5,
@@ -37,6 +41,55 @@ class iLQRMPCController(AbstractController):
                  fCen=300.0,
                  dynamics="runge_kutta",
                  n_x=3):
+        """
+        Controller which swings up the pendulum by regulating its energy.
+
+        Parameters
+        ----------
+        mass : float, default=1.0
+            mass of the pendulum [kg]
+        length : float, default=0.5
+            length of the pendulum [m]
+        damping : float, default=0.1
+            damping factor of the pendulum [kg m/s]
+        coulomb_friction : float, default=0.0
+            coulomb_friciton term of the pendulum
+        gravity : float, default=9.81
+            gravity (positive direction points down) [m/s^2]
+        inertia : float, default=0.125
+            inertia of the pendulum
+        x0 : array-like, default=np.array([0.0, 0.0])
+            the start postion (needed for computing an initial guess)
+        dt : float, default=0.01
+            timestep of the simulation
+        n : int, default=50
+            number of timnesteps the controller optimizes ahead
+        max_iter : int, default=1
+            optimization iterations the alogrithm makes at every timestep
+        break_cost_redu : float, default=1e-6
+            cost at which the optimization breaks off early
+        sCu : float, default=10.0
+            running cost weight for the control input u
+        sCp : float, default=0.001
+            running cost weight for the position error
+        sCv : float, default=0.001
+            running cost weight for the velocity error
+        sCen : float, default=0.0
+            running cost weight for the energy error
+        fCp : float, default=1000.0
+            final cost weight for the position error
+        fCv : float, default=10.0
+            final cost weight for the velocity error
+        fCen : float, default=300.0
+            final cost weight for the energy error
+        dynamics : string, default="runge_kutta"
+            string that selects the integrator to be used for the simulation
+            options are: "euler", "runge_kutta"
+        n_x : int, default=3
+            determines how the state space of the pendulum is represented
+            n_x=2 means state = [position, velocity]
+            n_x=3 means state = [cos(position), sin(position), velocity]
+        """
 
         self.mass = mass
         self.length = length
@@ -86,6 +139,14 @@ class iLQRMPCController(AbstractController):
                            verbose=True):
         '''
         load initial guess trajectory from file
+
+        Parameters
+        ----------
+        filepath : string, default="Pendulum_data/trajectory.csv"
+            path to the csv file containing the initial guess for
+            the trajectory
+        verbose : bool, default=True
+            whether to print from where the initial guess is loaded
         '''
         if verbose:
             print("Loading initial guess from ", filepath)
@@ -109,6 +170,16 @@ class iLQRMPCController(AbstractController):
     def set_initial_guess(self, u_trj=None, x_trj=None):
         '''
         set initial guess from array like object
+
+        Parameters
+        ----------
+        u_trj : array-like, default=None
+            initial guess for control inputs u
+            ignored if u_trj==None
+        x_trj : array-like, default=None
+            initial guess for state space trajectory
+            ignored if x_trj==None
+            
         '''
         if u_trj is not None:
             self.u_trj = u_trj[:self.N]
@@ -118,6 +189,15 @@ class iLQRMPCController(AbstractController):
     def compute_initial_guess(self, N=None, verbose=True):
         '''
         compute initial guess
+
+        Parameters
+        ----------
+        N : int, default=None
+            number of timesteps to plan ahead
+            if N==None, N defaults to the number of timesteps that is also
+            used during the online optimization (n in the class __init__)
+        verbose : bool, default=True
+            whether to print when the initial guess calculation is finished
         '''
         if verbose:
             print("Computing initial guess")
@@ -139,6 +219,14 @@ class iLQRMPCController(AbstractController):
             print("Computing initial guess done")
 
     def set_goal(self, x):
+        """
+        Set a goal for the controller. Initializes the cost functions.
+
+        Parameters
+        ----------
+        x : array-like
+            goal state for the pendulum
+        """
         if self.n_x == 2:
             s_cost_func = pendulum_swingup_stage_cost
             f_cost_func = pendulum_swingup_final_cost
@@ -174,7 +262,33 @@ class iLQRMPCController(AbstractController):
 
     def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
+        """
+        The function to compute the control input for the pendulum actuator
 
+        Parameters
+        ----------
+        meas_pos : float
+            the position of the pendulum [rad]
+        meas_vel : float
+            the velocity of the pendulum [rad/s]
+        meas_tau : float, default=0
+            the meastured torque of the pendulum [Nm]
+            (not used)
+        meas_time : float, default=0
+            the collapsed time [s]
+            (not used)
+
+        Returns
+        -------
+        des_pos : float
+            the desired position of the pendulum [rad]
+            (not used, returns None)
+        des_vel : float
+            the desired velocity of the pendulum [rad/s]
+            (not used, returns None)
+        des_tau : float
+            the torque supposed to be applied by the actuator [Nm]
+        """
         if isinstance(meas_pos, (list, tuple, np.ndarray)):
             pos = meas_pos[0]
         else:

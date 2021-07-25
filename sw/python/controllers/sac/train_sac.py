@@ -9,9 +9,9 @@ from stable_baselines.common.callbacks import EvalCallback, \
                                               StopTrainingOnRewardThreshold
 
 # local imports
-from gym_environment import SimplePendulumEnv
 from model.pendulum_plant import PendulumPlant
 from simulation.simulation import Simulator
+from simulation.gym_environment import SimplePendulumEnv
 
 
 # load training parameters
@@ -60,7 +60,8 @@ agent = SAC(MlpPolicy,
             tensorboard_log=os.path.join(cwd, 'training', 'tb_logs'),
             learning_rate=params['learning_rate'])
 if params['warm_start'] is True:
-    model_load_path = os.path.join(Path(__file__).parents[4], params['warm_start_path'])
+    model_load_path = os.path.join(Path(__file__).parents[4],
+                                   params['warm_start_path'])
     agent.load_parameters(load_path_or_dict=model_load_path)
 
 # setup evaluation environment
@@ -71,7 +72,8 @@ eval_env = SimplePendulumEnv(simulator=simulator,
                              integrator=integrator)
 
 # define training callbacks
-callback_on_best = StopTrainingOnRewardThreshold(reward_threshold=1000, verbose=1)
+callback_on_best = StopTrainingOnRewardThreshold(reward_threshold=1000,
+                                                 verbose=1)
 eval_callback = EvalCallback(eval_env, callback_on_new_best=callback_on_best,
                              best_model_save_path=os.path.join(cwd, 'training', 'best_model'),
                              log_path=os.path.join(cwd, 'training', 'best_model'),

@@ -7,9 +7,27 @@ from controllers.abstract_controller import AbstractController
 
 
 class LQRController(AbstractController):
+        """
+        Controller which stabilizes the pendulum at its instable fixpoint.
+        """
     def __init__(self, mass=1.0, length=0.5, damping=0.1,
                  gravity=9.81, torque_limit=np.inf):
+        """
+        Controller which stabilizes the pendulum at its instable fixpoint.
 
+        Parameters
+        ----------
+        mass : float, default=1.0
+            mass of the pendulum [kg]
+        length : float, default=0.5
+            length of the pendulum [m]
+        damping : float, default=0.1
+            damping factor of the pendulum [kg m/s]
+        gravity : float, default=9.81
+            gravity (positive direction points down) [m/s^2]
+        torque_limit : float, default=np.inf
+            the torque_limit of the pendulum actuator
+        """
         self.m = mass
         self.len = length
         self.b = damping
@@ -29,6 +47,33 @@ class LQRController(AbstractController):
 
     def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
+        """
+        The function to compute the control input for the pendulum actuator
+
+        Parameters
+        ----------
+        meas_pos : float
+            the position of the pendulum [rad]
+        meas_vel : float
+            the velocity of the pendulum [rad/s]
+        meas_tau : float, default=0
+            the meastured torque of the pendulum [Nm]
+            (not used)
+        meas_time : float, default=0
+            the collapsed time [s]
+            (not used)
+
+        Returns
+        -------
+        des_pos : float
+            the desired position of the pendulum [rad]
+            (not used, returns None)
+        des_vel : float
+            the desired velocity of the pendulum [rad/s]
+            (not used, returns None)
+        des_tau : float
+            the torque supposed to be applied by the actuator [Nm]
+        """
 
         if isinstance(meas_pos, (list, tuple, np.ndarray)):
             pos = meas_pos[0]
