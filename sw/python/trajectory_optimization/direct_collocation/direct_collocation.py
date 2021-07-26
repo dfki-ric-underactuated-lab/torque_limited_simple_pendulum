@@ -10,12 +10,34 @@ from pydrake.examples.pendulum import PendulumPlant, PendulumState
 
 
 class DirectCollocationCalculator():
+    """
+    Class to calculate a control trajectory with direct collocation.
+    """
     def __init__(self):
+        """
+        Class to calculate a control trajectory with direct collocation.
+        """
         self.pendulum_plant = PendulumPlant()
         self.pendulum_context = self.pendulum_plant.CreateDefaultContext()
 
     def init_pendulum(self, mass=0.57288, length=0.5, damping=0.15,
                       gravity=9.81, torque_limit=2.0):
+        """
+        Initialize the pendulum parameters.
+
+        Parameters
+        ----------
+        mass : float, default=0.57288
+            mass of the pendulum [kg]
+        length : float, default=0.5
+            length of the pendulum [m]
+        damping : float, default=0.15
+            damping factor of the pendulum [kg m/s]
+        gravity : float, default=9.81
+            gravity (positive direction points down) [m/s^2]
+        torque_limit : float, default=2.0
+            the torque_limit of the pendulum actuator
+        """
         self.pendulum_params = self.pendulum_plant.get_mutable_parameters(
                                                         self.pendulum_context)
         self.pendulum_params[0] = mass
@@ -26,6 +48,33 @@ class DirectCollocationCalculator():
 
     def compute_trajectory(self, N=21, max_dt=0.5, start_state=[0.0, 0.0],
                            goal_state=[np.pi, 0.0], initial_x_trajectory=None):
+        """
+        Compute a trajectory from a start state to a goal state
+        for the pendulum.
+
+        Parameters
+        ----------
+        N : int, default=21
+            number of collocation points
+        max_dt : float, default=0.5
+            maximum allowed timestep between collocation points
+        start_state : array_like, default=[0.0, 0.0]
+            the start state of the pendulum [position, velocity]
+        goal_state : array_like, default=[np.pi, 0.0]
+            the goal state for the trajectory
+        initial_x_trajectory : array-like, default=None
+            initial guess for the state space trajectory
+            ignored if None
+
+        Returns
+        -------
+        x_trajectory : pydrake.trajectories.PiecewisePolynomial
+            trajectory in state space
+        dircol : pydrake.systems.trajectory_optimization.DirectCollocation
+            DirectCollocation pydrake object
+        result : pydrake.solvers.mathematicalprogram.MathematicalProgramResult
+            MathematicalProgramResult pydrake object
+        """
         dircol = DirectCollocation(self.pendulum_plant,
                                    self.pendulum_context,
                                    num_time_samples=N,
@@ -66,6 +115,18 @@ class DirectCollocationCalculator():
         return x_trajectory, dircol, result
 
     def plot_phase_space_trajectory(self, x_trajectory, save_to=None):
+        """
+        Plot the computed trajectory in phase space.
+
+        Parameters
+        ----------
+        x_trajectory : pydrake.trajectories.PiecewisePolynomial
+            the trajectory returned from the compute_trajectory function.
+        save_to : string, default=None
+            string pointing to the location where the figure is supposed
+            to be stored. If save_to==None, the figure is not stored but shown
+            in a window instead.
+        """
         fig, ax = plt.subplots()
 
         time = np.linspace(x_trajectory.start_time(),
@@ -84,6 +145,32 @@ class DirectCollocationCalculator():
         plt.close()
 
     def extract_trajectory(self, x_trajectory, dircol, result, N=801):
+        """
+        Extract time, position, velocity and control trajectories from
+        the outputs of the compute_trajectory function.
+
+        Parameters
+        ----------
+        x_trajectory : pydrake.trajectories.PiecewisePolynomial
+            trajectory in state space
+        dircol : pydrake.systems.trajectory_optimization.DirectCollocation
+            DirectCollocation pydrake object
+        result : pydrake.solvers.mathematicalprogram.MathematicalProgramResult
+            MathematicalProgramResult pydrake object
+        N : int, default=801
+            The number of sampling points of the returned trajectories
+
+        Returns
+        -------
+        time_traj : array_like
+            the time trajectory
+        theta : array_like
+            the position trajectory
+        theta_dot : array_like
+            the velocity trajectory
+        torque_traj : array_like
+            the control (torque) trajectory
+        """
         # Extract Time
         time = np.linspace(x_trajectory.start_time(),
                            x_trajectory.end_time(),
