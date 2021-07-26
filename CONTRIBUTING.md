@@ -19,6 +19,7 @@ If you implement an offline trajectory optimization or reinforcement learning al
 
     (a) write a controller class which makes it possible to execute your policy in simulation and on the real system. Make sure it  inherits from the [AbstractController](sw/python/controllers/abstract_controller.py) class.
 
-    (b) export your trajectory to a csv file and save it at [data/trajectories] (data/trajectories). The columns of the csv file should be: time, position, velocity, control_inputs. The first line is reserved for a header. In this format the csv file can be simulated or applied to the real system with the [open loop controller class](sw/python/controllers/open_loop/README.md)
+    (b) export your trajectory to a csv file and save it at [data/trajectories](data/trajectories). The columns of the csv file should be: time, position, velocity, control_inputs. The first line is reserved for a header. In this format the csv file can be simulated or applied to the real system with the [open loop controller class](sw/python/controllers/open_loop/README.md)
 
-to be continued.
+
+If you want to contribute software in another programming language besides python, please create a new directory in the [software folder](sw) and try to maintain a similar structure as in the python directory.

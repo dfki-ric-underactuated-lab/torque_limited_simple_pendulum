@@ -31,10 +31,11 @@ class Test(unittest.TestCase):
                              damping=damping,
                              gravity=gravity,
                              torque_limit=torque_limit)
-        x_trajectory, dircol, result = dircal.compute_trajectory(N=N,
-                                                                 max_dt=max_dt,
-                                                                 start_state=x0,
-                                                                 goal_state=goal)
+        x_trajectory, dircol, result = dircal.compute_trajectory(
+                                                         N=N,
+                                                         max_dt=max_dt,
+                                                         start_state=x0,
+                                                         goal_state=goal)
         T, X, XD, U = dircal.extract_trajectory(x_trajectory,
                                                 dircol,
                                                 result,
