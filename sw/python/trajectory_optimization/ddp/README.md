@@ -50,6 +50,13 @@ With the following cost and weight, $`T = t_{final}`$ the final time horizon.
 
 The weights $`\alpha_i`$ for this optimization problem are determined experimentally. 
 
+# Lunch the codes:
+
+* For the trajectory optimization : ipython -i problem_simple_BOXFDDP_offfline.py
+
+
+* For the unitest : ipython -m unittest uni_test.py 
+
 
 # Dependencies:
 

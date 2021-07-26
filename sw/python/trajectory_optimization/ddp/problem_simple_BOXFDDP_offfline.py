@@ -27,7 +27,7 @@ time.sleep(1)
 # *****************************************************************************
 
 # Loading the double pendulum model
-filename = "simplependul_dfki_pino_Modi.urdf"
+filename = "/torque_limited_simple_pendulum/data/urdf/simplependul_dfki_pino_Modi.urdf"
 
 # building the robot from the urdf
 robot = RobotWrapper.BuildFromURDF(filename)

@@ -15,7 +15,6 @@ The project is an open-source and low-cost kit to get started with underactuated
 * [Direct Collocation](sw/python/trajectory_optimization/direct_collocation): offline computed trajectory, optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](sw/python/trajectory_optimization/ilqr/README.md): offline computed trajectory, optimal
 * [Feasability driven Differential Dynamic Programming (FDDP)](sw/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
-* [BoxFDDP](sw/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
 
 **Open Loop**
 * Proportional-Derivative (PD): precomputed trajectory, not optimal
