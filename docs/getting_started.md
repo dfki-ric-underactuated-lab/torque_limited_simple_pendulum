@@ -3,6 +3,12 @@
 #  Simple Pendulum
 </div>
 
+# Installing this Python Package
+Once all requirements (see below) are fulfilled, you can install this python package by going to the directory [/sw/python](/sw/python) and typing:
+```
+pip install .
+```
+Note: This has to be repeated if you make changes to the code (besides the scripts).
 
 # System Requirements  
 In order to execute the python code within the repository you will need to have `Python (>=3.7, <4)` along with the package installer `pip3` on your system installed.
