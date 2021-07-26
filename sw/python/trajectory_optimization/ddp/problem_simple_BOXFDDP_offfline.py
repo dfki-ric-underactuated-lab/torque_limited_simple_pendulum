@@ -27,7 +27,7 @@ time.sleep(1)
 # *****************************************************************************
 
 # Loading the double pendulum model
-filename = "~/simplependul_dfki_pino.urdf"
+filename = "simplependul_dfki_pino_Modi.urdf"
 
 # building the robot from the urdf
 robot = RobotWrapper.BuildFromURDF(filename)
@@ -40,8 +40,6 @@ rdata = robot_model.createData()
 # adding the toques and velocities limites
 lims = rmodel.effortLimit
 
-lims = rmodel.velocityLimit
-
 # *****************************************************************************
 # definning the state ad actuation model
 state = crocoddyl.StateMultibody(robot_model)
@@ -50,15 +48,15 @@ actModel = ActuationModelDoublePendulum(state, actLink=1)
 
 
 # *****************************************************************************
+# definning the initial state
+x0 = np.array([0., 0.])
+rmodel.defaultState = x0
 # defining the final desired state =[q, dot(q)]
 stateF = np.asarray([3.14159, 0.])
 
 # *****************************************************************************
 
-# weights = np.array([1] + [0.1] * 1)
-# not used in this script but could be used to tune the
-# "crocoddyl.ActivationModelQuad" in the state and control costs by
-# remplacing (state.ndx) by your weights
+weights = np.array([1] + [0.1] * 1)
 
 # *****************************************************************************
 
@@ -71,43 +69,40 @@ terminalCostModel = crocoddyl.CostModelSum(state, actModel.nu)
 # *****************************************************************************
 
 # definning the costs for the running and the terminal model
-xRegCost = crocoddyl.CostModelState(state,
-                                    crocoddyl.ActivationModelQuad(state.ndx),
-                                    stateF,
-                                    actModel.nu)
-uRegCost = crocoddyl.CostModelControl(state,
-                                      crocoddyl.ActivationModelQuad(1),
-                                      actModel.nu)
 
 xPendCost = crocoddyl.CostModelState(state,
-                                     crocoddyl.ActivationModelQuad(state.ndx),
+                                     crocoddyl.ActivationModelWeightedQuad(weights),
                                      stateF,
                                      actModel.nu)
+
+uRegCost = crocoddyl.CostModelControl(state, 
+                                      crocoddyl.ActivationModelQuad(1),
+                                      actModel.nu)
 
 # *****************************************************************************
 
 # definning the dt, the discretization step, the time between each node
-dt = 1e-3
+dt = 4e-2
 
 # definning the number of nodes (time horizon)
-T = 4000
+T = 150
 
 # *****************************************************************************
 
 # Extract Time
-time_traj = np.linspace(0.0000, 4.0000, 4000)
-time_traj = time_traj.reshape(4000, 1).T
+time_traj = np.linspace(0.0000, 6.0000, 150)
+time_traj = time_traj.reshape(150, 1).T
 print("Time Array Shape: {}".format(time_traj.shape))
 
 # *****************************************************************************
 
 
 # adding costs for the running model
-runningCostModel.addCost("xGoal", xPendCost, 0.15)
-runningCostModel.addCost("uReg", uRegCost, 0.000010)
+runningCostModel.addCost("xGoal", xPendCost, 1e-5)
+runningCostModel.addCost("uReg", uRegCost, 1e-4)
 
 # adding costs for the terminal model
-terminalCostModel.addCost("xGoal", xPendCost, 1e10)
+terminalCostModel.addCost("xGoalTerminal", xPendCost, 1e10)
 
 # *****************************************************************************
 
@@ -120,17 +115,16 @@ runningModel = crocoddyl.IntegratedActionModelEuler(
 terminalModel = crocoddyl.IntegratedActionModelEuler(
     crocoddyl.DifferentialActionModelFreeFwdDynamics(state,
                                                      actModel,
-                                                     terminalCostModel), dt)
+                                                     terminalCostModel), 0)
 
 # *****************************************************************************
 
-# definning the initial state
-x0 = np.array([0., 0.])
+
 
 # Creating the shooting problem and the FDDP solver
 
 problem = crocoddyl.ShootingProblem(x0, [runningModel] * T, terminalModel)
-fddp = crocoddyl.SolverBoxFDDP(problem)
+fddp = crocoddyl.SolverFDDP(problem)
 
 
 # *****************************************************************************
@@ -146,26 +140,17 @@ fddp.setCallbacks([crocoddyl.CallbackLogger(),
                    crocoddyl.CallbackVerbose(),
                    crocoddyl.CallbackDisplay(display)])
 # *****************************************************************************
+
 # to test computational time
 startdtTest = time.time()
-# *****************************************************************************
-
 # Solving the problem with the FDDP solver
 fddp.solve()
+print("time taken--- %s seconds ---" % (time.time() - startdtTest))
+xT = fddp.xs[-1]
 
 # *****************************************************************************
 
-enddtTest = time.time()
-
-dt = (enddtTest - startdtTest) / 1000
-cmd_freq = 1 / dt
-print("Dt = {}".format(dt))
-print("Command Frequency: {} Hz".format(cmd_freq))
-
-# ******************************************************************************
-
 log = fddp.getCallbacks()[0]
-
 
 # ******************************************************************************
 # saving the data as a numpy files and as .csv in order to send
@@ -176,7 +161,7 @@ Q = []
 V = []
 
 
-for i in range(4000):
+for i in range(150):
     torque.extend([fddp.us[i]])
     Q.extend([fddp.xs[i][:1]])
     V.extend([fddp.xs[i][1:]])

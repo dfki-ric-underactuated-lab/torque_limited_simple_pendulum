@@ -1,9 +1,9 @@
-# SwingUp the Simple Pendulum using direct Optimal Control based on the FDDP and BoxDDP algorithm:
+# SwingUp the Simple Pendulum using direct Optimal Control based on the FDDP algorithm:
 
 In this package, the single pendulum swing-up is performed using the direct optimal control based on the FDDP algorithm (N.Mansard, 2019).
 
-The script uses FDDP and BOXFddp which allows us to enforce the system's torque and velocity limits.
-For online use on hardware, it is highly recommended to use BOXFddp to protect the system from possible high torque control.
+The script uses FDDP, BOXFddp can also be used with the same weights.
+BOXFddp allows to enforce the system's torque limits.
 
 The urdf model is modified to fit a pinocchio model.
 
@@ -21,11 +21,11 @@ With the following costs and weights, $`t_S`$ denoting the final time horizon.
 
 1. _**Torque minimization**_: Minimization of the joint torques for realistic dynamic motions.
 
-$`\Phi_{1} =  \parallel \Tau (t) \parallel ^{2}_2,   \alpha_1 = 1e-3`$
+$`\Phi_{1} =  \parallel \Tau (t) \parallel ^{2}_2,   \alpha_1 = 1e-4`$
 
 2. _**Posture regularization**_:  giving as input only the final reference posture. 
 
-$`\Phi_{2} = \parallel q(t)-q^{ref}(t_{s-1})\parallel ^{2}_2 ,   \alpha_2 = 0.000010`$
+$`\Phi_{2} = \parallel q(t)-q^{ref}(t_{s-1})\parallel ^{2}_2 ,   \alpha_2 = 1e-5`$
 
 
 
@@ -55,6 +55,10 @@ The weights $`\alpha_i`$ for this optimization problem are determined experiment
 
 Crocoddyl [https://github.com/loco-3d/crocoddyl]
 
+
 Pinocchio [https://github.com/stack-of-tasks/pinocchio]
 
+
 For the display, Gepetto [https://github.com/Gepetto/gepetto-viewer]
+
+
