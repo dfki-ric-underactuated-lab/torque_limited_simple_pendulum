@@ -29,7 +29,7 @@ args, unknown = parse.syntax()
 # set your workspace
 WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[2])
 print("Workspace is set to:", WORK_DIR)
-sys.path.append(f'{WORK_DIR}/sw/python')  # add parent folder to system path
+sys.path.append(f'{WORK_DIR}/software/python')  # add parent folder to system path
 
 # get a timestamp
 TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")

@@ -46,12 +46,12 @@ The project is an open-source and low-cost kit to get started with underactuated
                     <li><b>urdf/</b></li>
                 </ul>
                 <li><b>docs/</b> (Documentation)
-                <li><b>hw/</b> (Hardware)
+                <li><b>hardware/</b> (Hardware)
                 <ul>
                     <li><b>CAD/</b></li>
                 </ul>
                 <li><b>results/</b></li>
-                <li><b>sw/</b> (Software)
+                <li><b>software/</b> (Software)
                 <ul>
                     <li><b>cpp/</b> (C++ code for realtime control)
                     <li><b>python/</b> (Python code for everything else)

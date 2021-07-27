@@ -7,7 +7,7 @@
   <maintainer>Jonathan Babel/jonathan.babel@dfki.de</maintainer>
   <license>BSD</license>
   <url>https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum</url>
-  <logo>https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/hw/simple_pendulum_CAD.png</logo>
+  <logo>https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/hardware/simple_pendulum_CAD.png</logo>
   <keywords>
     <keyword>optimal control</keyword>
     <keyword>reinforcement learning</keyword>

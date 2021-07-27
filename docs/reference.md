@@ -69,7 +69,7 @@ l_{COM} = \frac{m_pl + 0.5 m_r l}{m_p + m_r} \, ,
 The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft.  
 
 <div align="center">
-<img width="600" src="../hw/ak80-6_img.jpg">  
+<img width="600" src="../hardware/ak80-6_img.jpg">  
 </div>  
 
 ### Motor Constants  

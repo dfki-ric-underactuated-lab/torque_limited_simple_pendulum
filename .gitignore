@@ -5,6 +5,6 @@
 **/__pycache__/
 **/venv/
 **/archive/
-sw/python/build/
+software/python/build/
 **egg-info/
-sw/python/dist/
+software/python/dist/
