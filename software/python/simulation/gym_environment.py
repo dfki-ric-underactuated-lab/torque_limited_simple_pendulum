@@ -20,18 +20,18 @@ class SimplePendulumEnv(gym.Env):
         Parameters
         ----------
         simulator : simulator object
-        max_steps : int
+        max_steps : int, default=5000
                 maximum steps the agent can take before the episode
                 is terminated
-        reward_type : string
+        reward_type : string, default='continuous'
                 the reward type selects the reward function which is used
                 options are: 'continuous', 'discrete', 'soft_binary',
                              'soft_binary_with_repellor'
-        state_target_epsilon: array-like
+        state_target_epsilon: array-like, default=[1e-2, 1e-2]
                 target epsilon for discrete reward type
-        dt : float
+        dt : float, default=1e-3
             timestep for the simulation
-        integrator : string
+        integrator : string, default='runge_kutta'
             the integrator which is used by the simulator
             options : 'euler', 'runge_kutta'
         """
@@ -156,6 +156,7 @@ class SimplePendulumEnv(gym.Env):
         -------
         reward : float
             the reward for swinging up
+
         Raises
         ------
         NotImplementedError
@@ -179,7 +180,7 @@ class SimplePendulumEnv(gym.Env):
             pos_diff_repellor = pos - 0
             reward -= np.exp(-pos_diff_repellor ** 2 / (2 * 0.25 ** 2))
         else:
-            raise NotImplemented(f'Sorry, the reward type {self.reward_type} is not implemented.')
+            raise NotImplementedError(f'Sorry, the reward type {self.reward_type} is not implemented.')
 
         return reward
 

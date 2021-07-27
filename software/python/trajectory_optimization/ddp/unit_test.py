@@ -1,16 +1,12 @@
-import sys
-
 import eigenpy
 # Matrix deprecated -> this should ensure that everything
 # is treated/converted in array
 eigenpy.switchToNumpyArray()
 
+import os
+from pathlib import Path
 import unittest
-
-import subprocess
-import time
 import numpy as np
-import sys
 
 # crocoddyl imports
 import crocoddyl
@@ -28,9 +24,11 @@ class Test(unittest.TestCase):
 
     def test_0_DDP_trajOPtimization(self):
 
-
         # Loading the double pendulum model
-        filename = "/torque_limited_simple_pendulum/data/urdf/simplependul_dfki_pino_Modi.urdf"
+
+        WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[4])
+
+        filename = os.path.join(WORK_DIR, "data/urdf/simplependul_dfki_pino_Modi.urdf")
 
         # building the robot from the urdf
         robot = RobotWrapper.BuildFromURDF(filename)
@@ -44,7 +42,7 @@ class Test(unittest.TestCase):
         lims = rmodel.effortLimit
 
         # *****************************************************************************
-        # definning the state ad actuation model
+        # defining the state and actuation model
         state = crocoddyl.StateMultibody(robot_model)
         actModel = ActuationModelDoublePendulum(state, actLink=1)
         # the actuated link is the 1
@@ -126,7 +124,7 @@ class Test(unittest.TestCase):
 
         xT = fddp.xs[-1]
 
-       # *****************************************************************************
+        # *****************************************************************************
 
         swingup_success = True
 

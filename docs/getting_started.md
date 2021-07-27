@@ -4,15 +4,15 @@
 </div>
 
 # Installing this Python Package
-Once all requirements (see below) are fulfilled, you can install this python package by going to the directory [/sw/python](/sw/python) and typing:
+Once all requirements (see below) are fulfilled, you can install this python package by going to the directory [software/python](software/python) and typing:
 ```
 pip install .
 ```
 Note: This has to be repeated if you make changes to the code (besides the scripts).
 
-# System Requirements  
+# System Requirements
 In order to execute the python code within the repository you will need to have `Python (>=3.7, <4)` along with the package installer `pip3` on your system installed.
-  
+
 - **python (>=3.7, <4)**
 - **pip3**
 
@@ -24,7 +24,7 @@ If you aren't running a suitable python version currently on your system, we rec
 <br>
 
 ## Instructions for Ubuntu (18.04.5 and 20.04.2.0 LTS)
-The instructions provide assistance in the setup procedure, but with regards to the software [LICENSE](LICENSE) they are provided without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, arising from, out of or in connection with the software or the use or other dealings in the software. 
+The instructions provide assistance in the setup procedure, but with regards to the software [LICENSE](LICENSE) they are provided without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, arising from, out of or in connection with the software or the use or other dealings in the software.
 
 1) Clone this repo from GitHub, in case you haven't done it yet:
 ```
@@ -37,13 +37,13 @@ git clone git@git.hb.dfki.de:underactuated-robotics/torque_limited_simple_pendul
 python3 --version
 ```
 
-If you are already using suitable Python 3.7 version jump directly to step `Creating a Virtual Environment` otherwise continue here and first install a virtual environment for python. 
+If you are already using suitable Python 3.7 version jump directly to step `Creating a Virtual Environment` otherwise continue here and first install a virtual environment for python.
 
 <br>
 
 ### A) Pyenv: Virtual environment for Python
 
-The following instructions are our recommendations for a sane build environment. 
+The following instructions are our recommendations for a sane build environment.
 
 **Step 1)** Make sure to have installed python's binary dependencies and build tools as per
 
@@ -59,10 +59,10 @@ libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-d
 curl https://pyenv.run | bash
 ```
 
-**Step 3)** Configure your shell's environment for Pyenv  
-  
-<ins>Note:</ins> The below instructions are designed for common shell setups. If you have an uncommon setup and they don't work for you, use the linked guidance to figure out what you need to do in your specific case: https://github.com/pyenv/pyenv#advanced-configuration 
-  
+**Step 3)** Configure your shell's environment for Pyenv
+
+<ins>Note:</ins> The below instructions are designed for common shell setups. If you have an uncommon setup and they don't work for you, use the linked guidance to figure out what you need to do in your specific case: https://github.com/pyenv/pyenv#advanced-configuration
+
 Before editing your `.bashrc` and `.profile` files it is a good idea to <ins>make a copy</ins> of both files in case something goes wrong. Add pyenv to your `.bashrc` file from the terminal:
 
 ```
@@ -133,7 +133,7 @@ pyenv local 3.x.x
 ```
 <br>
 
-## C) Creating a Virtual Environment with Pyenv 
+## C) Creating a Virtual Environment with Pyenv
 In order to clutter your system as little as possible all further packages will be installed inside a virtual environment, which can be easily removed at any time. The recommended way to configure your own custom Python environment is via `Virtualenv`.
 
 **Step 1)** Clone virtualenv from https://github.com/pyenv/pyenv-virtualenv into the pyenv-plugin directory:
@@ -202,7 +202,7 @@ pip3 --version
 <br>
 
 ## E) Installing Python Packages
-Navigate inside your cloned git repo to `/torque_limited_simple_pendulum/sw/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now install all required packages from the `requirements.txt` file via
+Navigate inside your cloned git repo to `/torque_limited_simple_pendulum/software/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now install all required packages from the `requirements.txt` file via
 
 ```
 python3 -m pip install -r requirements.txt

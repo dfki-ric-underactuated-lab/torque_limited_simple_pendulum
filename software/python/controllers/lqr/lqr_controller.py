@@ -7,9 +7,9 @@ from controllers.abstract_controller import AbstractController
 
 
 class LQRController(AbstractController):
-        """
-        Controller which stabilizes the pendulum at its instable fixpoint.
-        """
+    """
+    Controller which stabilizes the pendulum at its instable fixpoint.
+    """
     def __init__(self, mass=1.0, length=0.5, damping=0.1,
                  gravity=9.81, torque_limit=np.inf):
         """

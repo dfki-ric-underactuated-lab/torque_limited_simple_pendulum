@@ -71,7 +71,7 @@ model, move the saved files somewhere else.
 The training progress can be observed with tensorboard. When starting 
 from the root directory of the project:
 
-    $> cd sw/python/controllers/soft_actor_critic/training/
+    $> cd software/python/controllers/soft_actor_critic/training/
     $> tensorboard --logdir tb_logs
 
 The default reward function used during training is
@@ -120,7 +120,7 @@ data from these paths. For example, once a model was trained:
 
     python sim_sac.py --model_path training/best_model/best_model.zip --params_path training/parameters.yaml
 
-The paths are expected to be in relation to *sw/python/controllers/soft_actor_critic*
+The paths are expected to be in relation to *software/python/controllers/soft_actor_critic*
 
 ## Comments # 
 Todo: comments on training convergence stability
