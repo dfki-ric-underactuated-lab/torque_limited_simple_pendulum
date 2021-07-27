@@ -97,7 +97,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 Feel free to contact us if you have questions about the test bench. Enjoy!
 
-## Citation #
-
+## Acknowledgements #
+This work has been performed in the VeryHuman project funded by the German Aerospace Center (DLR) with federal funds (Grant Number: FKZ 01IW20004) from the Federal Ministry of Education and Research (BMBF) and is supported by the Underactuated Lab development funds from the state of Bremen. 
 
 -----------------------------------------------------------------------------------------------------------------------------
