@@ -4,7 +4,7 @@
 </div>
 
 <div align="center">
-<img width="300" src="../hw/simple_pendulum_CAD.png">
+<img width="300" src="../hardware/simple_pendulum_CAD.png">
 <img width="300" src="../docs/pendulum_light_painting.jpg">
 </div>
 
@@ -12,9 +12,9 @@
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque-limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
 
 **Trajectory Optimization**
-* [Direct Collocation](sw/python/trajectory_optimization/direct_collocation): offline computed trajectory, optimal
-* [Iterative Linear Quadratic Regulator (iLQR)](sw/python/trajectory_optimization/ilqr/README.md): offline computed trajectory, optimal
-* [Feasability driven Differential Dynamic Programming (FDDP)](sw/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
+* [Direct Collocation](software/python/trajectory_optimization/direct_collocation): offline computed trajectory, optimal
+* [Iterative Linear Quadratic Regulator (iLQR)](software/python/trajectory_optimization/ilqr/README.md): offline computed trajectory, optimal
+* [Feasability driven Differential Dynamic Programming (FDDP)](software/python/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
 
 **Open Loop**
 * Proportional-Derivative (PD): precomputed trajectory, not optimal
@@ -22,10 +22,10 @@ The project is an open-source and low-cost kit to get started with underactuated
 * Feed-forward torque Controller: precomputed trajectory, not optimal
 
 **Closed Loop**
-* [Linear Quadratic Regulator (LQR)](sw/python/controllers/lqr/README.md): stabilization only, optimal
-* [Energy Shaping](sw/python/controllers/energy_shaping/README.md): swingup only, not optimal
-* [Iterative Linear Quadratic Regulator (iLQR)](sw/python/controllers/ilqr/README.md): online computed trajectory, optimal, model predictive controller
-* [Soft Actor Critic (SAC)](sw/python/controllers/sac/README.md): offline trained model, optimal, reinforcement learning
+* [Linear Quadratic Regulator (LQR)](software/python/controllers/lqr/README.md): stabilization only, optimal
+* [Energy Shaping](software/python/controllers/energy_shaping/README.md): swingup only, not optimal
+* [Iterative Linear Quadratic Regulator (iLQR)](software/python/controllers/ilqr/README.md): online computed trajectory, optimal, model predictive controller
+* [Soft Actor Critic (SAC)](software/python/controllers/sac/README.md): offline trained model, optimal, reinforcement learning
 
 **NOTE:** The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
 
