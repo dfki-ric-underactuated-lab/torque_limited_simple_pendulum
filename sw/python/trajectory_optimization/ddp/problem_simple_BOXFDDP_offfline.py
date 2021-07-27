@@ -179,10 +179,6 @@ VEL = np.asarray(V)
 theta_dot = VEL[:].reshape(T, 1).T
 
 
-np.save('torque.npy', torque)
-np.save('rotations.npy', Q)
-np.save('velocity.npy', V)
-
 csv_data = np.vstack((time_traj, theta, theta_dot, torque_traj)).T
 
 np.savetxt("traj_opt_traj.csv",
