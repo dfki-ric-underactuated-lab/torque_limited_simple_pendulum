@@ -23,7 +23,7 @@ where
 - $`m`$ mass of the pendulum
 - $`l`$ length of the pendulum
 - $`b`$ damping friction coefficient
-- $`c_f`$ coulomb friciton coefficient
+- $`c_f`$ coulomb friction coefficient
 - $`g`$ gravity (positive direction points down)
 - $`\tau`$ torque applied by the motor
 
