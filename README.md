@@ -29,7 +29,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 **NOTE:** The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
 
-**See a video the simple pendulum in action:** [torque limited swing up](/docs/simple_pendulum_swingup.mp4)
+**See a video the simple pendulum in action:** [torque limited swing up (UK video still has to be linked here)](/docs/simple_pendulum_swingup.mp4)
 
 ## Folder Structure #
 
