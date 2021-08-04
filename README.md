@@ -53,8 +53,7 @@ The project is an open-source and low-cost kit to get started with underactuated
                 <li><b>results/</b></li>
                 <li><b>software/</b>
                 <ul>
-                    <li><b>cpp/</b> (C++ code for realtime control)
-                    <li><b>python/</b> (Python code for everything else)
+                    <li><b>python/</b>
                     <ul>
                         <li><b>controllers/</b></li>
                         <li><b>filters/</b></li>
