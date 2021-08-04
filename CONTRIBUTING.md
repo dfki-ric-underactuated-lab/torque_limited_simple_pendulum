@@ -23,3 +23,7 @@ If you implement an offline trajectory optimization or reinforcement learning al
 
 
 If you want to contribute software in another programming language besides python, please create a new directory in the [software folder](software) and try to maintain a similar structure as in the python directory.
+
+If you discover bugs, have feature requests, or want to improve the documentation, please open an issue at the issue tracker of the project.
+
+If you want to contribute code, please open a pull request via GitHub by forking the project, committing changes to your fork, and then opening a pull request from your forked branch to the main branch of gmr.
