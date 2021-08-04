@@ -1,6 +1,0 @@
-# general
-pyyaml
-numpy
-
-# reinforcement learning
-stable_baselines

@@ -4,76 +4,176 @@
 </div>
 
 
-# Requirements - Python Code  
-
-## Installing Python 3.7
-In order to run the python code within the repository you will need `Python >=3.7, <4` along with the package installer `pip3`. 
+# System Requirements  
+In order to execute the python code within the repository you will need to have `Python (>=3.7, <4)` along with the package installer `pip3` on your system installed.
   
-**Step 1)** First, you might want to see if you already have a suitable version installed. This command shows which Python 3 version is currently set as default:
+- **python (>=3.7, <4)**
+- **pip3**
+
+If you aren't running a suitable python version currently on your system, we recommend you to install the required python version inside of an virtual environment for python (**pyenv**) and to install all python packages necessary to use this repo afterwards inside a newly created virtual environment (**virtualenv**). The installation procedure for Ubuntu (18.04.5 and 20.04.2.0 LTS) are described in the next section. You can find instructions for MacOS and other Linux distributions, as well as information about common build problems here:
+
+- **pyenv:** https://github.com/pyenv/pyenv
+- **virtualenv:** https://github.com/pyenv/pyenv-virtualenv
+
+<br>
+
+## Instructions for Ubuntu (18.04.5 and 20.04.2.0 LTS)
+The instructions provide assistance in the setup procedure, but with regards to the software [LICENSE](LICENSE) they are provided without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, arising from, out of or in connection with the software or the use or other dealings in the software. 
+
+Clone this repo from GitHub, in case you haven't done it yet:
+```
+git clone git@git.hb.dfki.de:underactuated-robotics/torque_limited_simple_pendulum.git
+```
+
+Check your Python version with:
 
 ```
 python3 --version
 ```
 
-If the default Python 3 version does not match the requirements you can list all python versions that are installed on your system under /usr by typing
+If you are already using suitable Python 3.7 version jump directly to step `Creating a Virtual Environment` otherwise continue here and first install a virtual environment for python. 
+
+<br>
+
+### A) Pyenv: Virtual environment for Python
+
+The following instructions are our recommendations for a sane build environment. 
+
+**Step 1)** Make sure to have installed python's binary dependencies and build tools as per
 
 ```
-ls /usr/bin/python*
+sudo apt-get update; sudo apt-get install make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 ```
 
-**Step 2)** If any suitable version is listed (otherwise directly jump to Step 5), we need to check whether there are any Python alternatives configured. Therefore, execute the command below in the terminal.
+**Step 2)** Once prerequisites have been installed correctly, install Pyenv with
 
 ```
-sudo update-alternatives --list python
+curl https://pyenv.run | bash
 ```
+
+**Step 3)** Configure your shell's environment for Pyenv  
   
-**Step 3)** If there are no matching python alternatives configured, you can add the desired Python version to our alternatives. For example, if version /usr/bin/python3.7 exists on the system, you can add it to your alternatives via
+**Note:** The below instructions are designed for common shell setups. If you have an uncommon setup and they don't work for you, use the linked guidance to figure out what you need to do in your specific case: https://github.com/pyenv/pyenv#advanced-configuration 
+  
+Before editing your `.bashrc` and `.profile` files it is a good idea to **make a copy** of both files in case something goes wrong. Add pyenv to your `.bashrc` file from the terminal:
 
 ```
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 ```
 
-**Step 4)** After adding python 3.7 to you alternatives you can display it and verfify wether it is set as default with this command
+Add these lines at the beginning of your `.profile` file (**not from terminal**):
+```
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+```
+and this line at the very end of your `.profile` file (**not from terminal**):
 
 ```
-sudo update-alternatives --config python
+eval "$(pyenv init --path)"
 ```
 
-Enter the selection number, on the prompt that appears on the terminal, to set python 3.7 as your default version. You have successfully set Python 3 to your default python version and can now jump directly to Step 8.
-
-**Step 5)** In case you haven't encountered a suitable python version on your system you can just install it with apt. Start by updating the packages list and installing the prerequisites:
+**Step 4)** Source `.profile` and `.bashrc`, then restart your shell so the path changes take effect:
 
 ```
-sudo apt update
-sudo apt install software-properties-common
+source ~/.profile
+source ~/.bashrc
 ```
 
-**Step 6)** Next, add the deadsnakes PPA to your sources list:
+```
+exec $SHELL
+```
+**Step 4)** Run `pyenv init -` in your shell, then copy and also execute the output to enable shims
 
 ```
-sudo add-apt-repository ppa:deadsnakes/ppa
+pyenv init -
 ```
 
-When prompted press `Enter` to continue:
+Restart your login session for the changes to take effect. If you're in a GUI session, you need to fully log out and log back in. You can now begin using pyenv.
+
+
+**Optional:** Consider uprading to the latest version of Pyenv via
 
 ```
-Press [ENTER] to continue or Ctrl-c to cancel adding it.
+pyenv update
 ```
 
-**Step 7)** Once the repository is enabled, install Python 3.7 with
+<br>
+
+## B) Installing Python into Pyenv
+You can diplay a list of available Python versions with:
 
 ```
-sudo apt install python3.7
+pyenv install -l | grep -ow [0-9].[0-9].[0-9]
 ```
 
-**Step 8)** At this point, Python 3.7 is installed on your Ubuntu system and ready to be used. You can verify it by typing:
+Install your desired Python version using Pyenv:
 
 ```
-python3.7 --version
+pyenv install 3.x.x
 ```
 
-## Installing pip3
-Once you have  `Python >=3.7, <4` installed update the package list using the following command:
+Double check your work:
+
+```
+pyenv versions
+```
+
+To use Python 3.x only for this specific project change directory to the cloned git repo and type:
+
+```
+pyenv local 3.x.x
+```
+<br>
+
+## C) Creating a Virtual Environment with Pyenv 
+In order to clutter your system as little as possible all further packages will be installed inside a virtual environment, which can be easily removed at any time. The recommended way to configure your own custom Python environment is via `Virtualenv`.
+
+**Step 1)** Clone virtualenv from https://github.com/pyenv/pyenv-virtualenv into the pyenv-plugin directory:
+```
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+```
+
+**Step 2)** Add pyenv virtualenv-init to your shell to enable auto-activation of virtualenvs:
+```
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+```
+
+**Step 3)** Restart your shell to enable pyenv-virtualenv
+```
+exec "$SHELL"
+```
+
+**Step 4)** To create a new virtual environment, e.g. named simple-pendulum with Python 3.7.5 run
+
+```
+pyenv virtualenv 3.7.5 simple-pendulum
+```
+
+**Step 4)** Activate the new virtual environment with the command
+
+```
+pyenv activate simple-pendulum
+```
+
+The name of the current virtual environment `(venv)` appears to the left of the prompt, indicating that you are now working inside a virtual environment. When finished working in the virtual environment, you can deactivate it by running the following:
+
+```
+pyenv deactivate
+```
+
+In case that you don't need the virtual environment anymore, you can deactivate it and remove it together with all previously installed packages:
+
+```
+pyenv uninstall simple-pendulum
+
+```
+
+<br>
+
+## D) Installing pip3
+Update the package list inside your recently created virtual environment:
 
 ```
 sudo apt update
@@ -85,62 +185,18 @@ and install pip3 via
 sudo apt install python3-pip
 ```
 
-If you like, you can verify the installation by checking the pip version:
+If you like, you can update pip and verify your the installation by:
 
+```
+pip install --upgrade pip
+```
 ```
 pip3 --version
 ```
+<br>
 
-## Creating a Virtual Environment 
-The easiest and recommended way to configure your own custom Python environment is via `Virtualenv`. 
-
-**Step 1)** Use pip3 to simply install virtualenv:  
-
-```
-pip3 install virtualenv
-```
-
-**Step 2)** You'll need the full path to your python and to your virtualenv installation, so run the following to view both paths:
-
-```
-which virtualenv
-outputs e.g. /home/username/opt/python-3.7.2/bin/virtualenv
-
-which python3
-outputs e.g.  /home/username/opt/python-3.7.2/bin/python
-```
-
-**Step 3)** Navigate to the directory, where you want to create the new virtual environment. In our case this will be at `~/torque_limited_simple_pendulum/sw/python`. Create the virtual environment, while specifing the desired python version. 
-
-```
-virtualenv -p /home/username/opt/python-3.7.2/bin/python3 venv
-```
-
-This command creates a virtualenv named 'venv' and uses the -p flag to specify the full path to the Python3 version you just installed. You may see the following error when installing:
-
-```
-setuptools pip failed with error code 1` error
-```
-
-If so, run the following:
-
-```
-pip3 install --upgrade setuptools
-```
-
-Try again and you should be able to install without an error.
-
-**Step 4)** Activate the new virtual environment with the command
-
-```
-source venv/bin/activate
-```
-
-The name of the current virtual environment `(venv)` appears to the left of the prompt, indicating that you are now working inside a virtual environment.
-
-
-## Installing Python Packages
-Now that you’re in your virtual environment you can install all required packages from the existing requirements.txt file via:
+## E) Installing Python Packages
+Navigate inside your cloned git repo to `/torque_limited_simple_pendulum/sw/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now install all required packages from the `requirements.txt` file via
 
 ```
 python3 -m pip install -r requirements.txt
@@ -148,17 +204,58 @@ python3 -m pip install -r requirements.txt
 
 (Note: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`)
 
-When finished working in the virtual environment, you can deactivate it by running the following:
+This was the final installation step. Your system is now prepared to run all code snippets from this repo. Have fun exploring all kind of different simple pendulum controllers!
+
+<br>
+
+## OPTIONAL: Installing Drake for Python
+Drake is not installable via pip at present. It is available as a binary package and the latest image can be pulled from Docker Hub simply with: `docker pull robotlocomotion/drake:latest`. 
+  
+
+**Check here for more detailed instructions:** https://drake.mit.edu/python_bindings.html 
+
+--------------------------------------------------------------------------------------------------------------
+
+**Warning:**  
+{- By following the instructions you will install Drake permanently on your system. This may cause incompatiblity issues with preexisting Python packages. Drake for instance is incompatible with the Python environment supplied by Anaconda. Please uninstall Anaconda or remove the Anaconda bin directory from the PATH before building or using the Drake Python bindings. Before attempting the installation, please review the supported configurations to know what versions of Python are supported for your platform: -}  https://drake.mit.edu/developers.html#supported-configurations
+  
+--------------------------------------------------------------------------------------------------------------
+
+**Step 1)** Download and extract an available binary package. As an example, here is how to download and extract one of the latest releases to /opt (where `<platform>` could be bionic, focal, or mac):
 
 ```
-deactivate
+curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-<platform>.tar.gz
+rm -rf /opt/drake
+tar -xvzf drake.tar.gz -C /opt
 ```
 
-In case that you don't need the virtual environment anymore, you can deactivate it and remove it together with all previously installed packages:
+**Step 2)** Ensure that you have the system dependencies:
 
 ```
-sudo rm -rf venv
+# You may need `sudo` here.
+/opt/drake/share/drake/setup/install_prereqs
 ```
+
+**Step 3)** Configure your `PYTHONPATH` properly: 
+
+```
+# Ubuntu 18.04 (Bionic):
+export PYTHONPATH=/opt/drake/lib/python3.6/site-packages:${PYTHONPATH}
+
+# Ubuntu 20.04 (Focal):
+export PYTHONPATH=/opt/drake/lib/python3.8/site-packages:${PYTHONPATH}
+```
+
+**Step 4)** To check whether the installation was successful you can import `pydrake`:
+
+```
+python3 -c 'import pydrake; print(pydrake.__file__)'
+```
+
+If this command returns the directory of your pydrake installation, you are now able to import pydrake modules to your python code with e.g. `from pydrake.solvers.mathematicalprogram import Solve`. A comprehensive list of all available pydrake modules is provided by the `Python API documentation`: https://drake.mit.edu/pydrake/index.html
+  
+<br>    
+
 
 
 

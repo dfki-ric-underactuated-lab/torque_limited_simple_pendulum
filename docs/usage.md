@@ -48,3 +48,10 @@ Available Functions:
 All functions return current position, velocity, torque in SI units except for `send_deg_command`.
 
 **Performance Profiler:** Sends and received 1000 zero commands to measure the communication frequency with 1/2 motors. Be careful as the motor torque will be set to zero.
+<br/>
+
+# Python Code Overview 
+<div align="center">
+<img width="500" src="overview.png">
+</div>
+
