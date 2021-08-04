@@ -40,12 +40,16 @@ E = K + U
 ### Physical Parameters of the Pendulum
 -------------------------------------------------------------------- 
 
-* Length = 0.5 m
-* Mass of cylinder mounting = 0.05 Kg
-* Radius of cylinder mounting = 0.02 m 
-* Mass of rod = 0.08 Kg
-* Mass of 0.5 Kg weight including weight mount = 0.546 Kg
-* Radius of 0.5 Kg weight = 0.045 m 
+* Point mass: $`m_p`$= 0.546 Kg 
+* Mass of rod, mounting parts and screws: $`m_r`$ = 0.13 Kg 
+* Overall mass: $`m`$ = 0.676 Kg
+* Length to point mass: $`l`$ = 0.5 m
+* Length to COM: $`l_{COM}`$ = 0.045 m 
+
+
+```math 
+l_{COM} = \frac{m_pl + 0.5 m_r l}{m_p + m_r} \, ,
+```
 
 <br/>
 
@@ -65,7 +69,7 @@ E = K + U
 The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft.  
 
 <div align="center">
-<img width="600" src="../hw/ak80-6_img.jpg">  
+<img width="600" src="../hardware/ak80-6_img.jpg">  
 </div>  
 
 ### Motor Constants  

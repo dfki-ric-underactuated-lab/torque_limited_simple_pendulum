@@ -1,0 +1,10 @@
+#Python 
+*.pyc
+*.idea
+**/.vscode/
+**/__pycache__/
+**/venv/
+**/archive/
+software/python/build/
+**egg-info/
+software/python/dist/

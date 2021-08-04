@@ -1,0 +1,30 @@
+gravity: 9.81
+length: 0.5
+n_actuators: 1
+torque_limit: 2.5
+gr: 6
+kp: 0
+kd: 0
+mass: 0.6755 # 0.57288
+inertia: None
+damping: 0.35
+coulomb_fric: 1.3
+dt: 0.01
+runtime: 20
+
+#ilqr specific parameters
+n_horizon: 50
+n_x: 2
+dt: 0.02
+t_final: 10.0
+x0: [0.0, 0.0]
+sCu: 50.0
+sCp: 5.0
+sCv: 1.0
+sCen: 10.0
+fCp: 5.0
+fCv: 1.0
+fCen: 80.0
+dynamics: runge_kutta
+max_iter: 1
+break_cost_redu: 0.1
