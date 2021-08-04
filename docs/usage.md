@@ -55,3 +55,9 @@ All functions return current position, velocity, torque in SI units except for `
 <img width="500" src="overview.png">
 </div>
 
+# Results
+
+The results folder serves as the directory, where all results generated from the python code shall be stored. The distinct seperation between python script files and generated output files helps to keep the python package clear and tidy. We provide some example output data from the very start, so that you may see what results each script produces even before you run the code. The tools to create result files from the respective experiment data are located within the python package under `/utilities`, `plot.py`, `plot_policy.py` and `process_data.py`. 
+
+In general particular functions get called from `main.py` or another script to produce the desired output, which improves resuability of the utilities and keeps the code concise. The results of each experiment are saved in a new folder, which is automatically assigned a timestamp and an appropriate name.  
+
