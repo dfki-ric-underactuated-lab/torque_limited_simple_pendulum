@@ -30,8 +30,8 @@ export PYTHONPATH=~/path/from/home/to/underactuated-robotics/python-motor-driver
 <br/>
 
 
-# Usage
-**Testing Communication:** To enable one motor at `0x01`, set zero position and disable the motor, run: `python3 can_motorlib_test.py can0`
+## Testing Communication
+To enable one motor at `0x01`, set zero position and disable the motor, run: `python3 can_motorlib_test.py can0`
 
 **Use in Scripts:** Add the following import to your python script: `from canmotorlib import CanMotorController` after making sure this folder is available in the import path/PYTHONPATH.
 
@@ -47,11 +47,29 @@ Available Functions:
 
 All functions return current position, velocity, torque in SI units except for `send_deg_command`.
 
-**Performance Profiler:** Sends and received 1000 zero commands to measure the communication frequency with 1/2 motors. Be careful as the motor torque will be set to zero.
+**Performance Profiler:** Sends and received 1000 zero commands to measure the communication frequency with 1/2 motors. Be careful as the motor torque will be set to zero.  
+<br/>    
+  
+  
+## Usage  
+
+All implemented controllers can be called from the `main.py` file. The desired controller is selected via a required flag, e.g. if you want to execute the gravity compensation experiment the corresponding command would then be:
+
+```
+python main.py -gravity
+```
+
+Make sure you execute the command from the directory `/software/python/` otherwise you have to specify the path to `main.py` as well. If you want to autosave all data from the experiment use the optional flag `-save` together with the flag required for the controller.
+
+To get an overview of all possible arguments display help documentation via
+
+```
+python main.py -h
+```
 <br/>
 
 
-# Results
+## Results
 
 The results folder serves as the directory, where all results generated from the python code shall be stored. The distinct seperation between python script files and generated output files helps to keep the python package clear and tidy. We provide some example output data from the very start, so that you may see what results each script produces even before you run the code. The tools to create result files from the respective experiment data are located within the python package under `/utilities`, `plot.py`, `plot_policy.py` and `process_data.py`. 
 
