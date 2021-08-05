@@ -90,7 +90,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 * Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
 
-## Contributors #
+## Authors #
 
 * [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
 * [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html) (Software Maintainer)
@@ -102,6 +102,15 @@ The project is an open-source and low-cost kit to get started with underactuated
 * [Mihaela Popescu](https://robotik.dfki-bremen.de/en/about-us/staff/mipo02/)
 
 Feel free to contact us if you have questions about the test bench. Enjoy!
+
+
+## Contributing
+
+1. Fork it (<https://github.com/yourname/yourproject/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
 
 ## Acknowledgements #
 This work has been performed in the VeryHuman project funded by the German Aerospace Center (DLR) with federal funds (Grant Number: FKZ 01IW20004) from the Federal Ministry of Education and Research (BMBF) and is additionally supported with project funds from the federal state of Bremen for setting up the Underactuated Robotics Lab (Grant Number: 201-001-10-3/2021-3-2).
