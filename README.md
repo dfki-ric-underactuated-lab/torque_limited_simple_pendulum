@@ -31,6 +31,19 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 **See a video the simple pendulum in action:** [torque limited swing up (UK video still has to be linked here)](/docs/simple_pendulum_swingup.mp4)
 
+# Python Code Overview 
+<div align="center">
+<img width="500" src="../docs/overview.png">
+</div>
+
+## Documentation
+
+* [Reference](docs/reference.md)
+* [Testbench Setup](docs/testbench_setup.md)
+* [Getting Started](docs/getting_started.md)
+* [Usage](docs/usage.md)
+* [Code Testing](docs/code_test.md)
+
 ## Folder Structure #
 
 <img align="right" img width="500" src="../docs/pendulum_swingup_animation.gif" />
@@ -67,13 +80,6 @@ The project is an open-source and low-cost kit to get started with underactuated
     </tr>
 </table>
 
-## Documentation
-
-* [Reference](docs/reference.md)
-* [Testbench Setup](docs/testbench_setup.md)
-* [Getting Started](docs/getting_started.md)
-* [Usage](docs/usage.md)
-* [Code Testing](docs/code_test.md)
 
 ## Safety Notes #
 
