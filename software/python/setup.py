@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='TorqueLimitedSimplePendulum',
-    author='Underactuated LAB at DFKI Bremen',
+    author='Underactuated Lab DFKI Robotics Innovation Center Bremen',
     version='1.0.0',
     url="https://github.com/dfki-ric-underactuated-lab",
     packages=find_packages(),
