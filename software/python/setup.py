@@ -14,7 +14,8 @@ setup(
         'argparse',
 
         # reinforcement learning
-        'stable_baselines'
+        'torch'
+        'stable_baselines3'
     ],
     classifiers=[
           'Development Status :: 5 - Stable',

@@ -1,18 +1,10 @@
 # Other imports
-import os
 import numpy as np
-from pathlib import Path
-from stable_baselines import SAC
+from stable_baselines3 import SAC
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
 from simple_pendulum.model.parameters import get_params
-
-# default parameters, can be changed
-# model_path = os.path.join(Path(__file__).parents[5],
-#                           'data/models/sac_model.zip')
-# params_path = os.path.join(Path(__file__).parents[4],
-#                            'data/parameters/sp_parameters_sac.yaml')
 
 
 class SacController(AbstractController):
@@ -25,17 +17,19 @@ class SacController(AbstractController):
 
         Parameters
         ----------
-        params : dictionary
-            a dictionoray containing parameters for the controller
+        params_path : string
+            path to yaml file containing the pendulum and training parameters
+            The dictionary should contain:
             params['use_symmetry'] : bool
                 whether to use the left/right symmetry of the pendulum
             params['torque_limit'] : float
                 the torque_limit of the pendulum,
                 is used to rescale the action form the learned model
+        model_path : string
+            path to the trained model in zip format
         """
         self.model = SAC.load(model_path)
         self.params = get_params(params_path)
-
 
     def get_control_output(self, meas_pos, meas_vel, meas_tau=0, meas_time=0):
         """

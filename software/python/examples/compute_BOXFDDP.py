@@ -27,8 +27,6 @@ running_cost_state = 1e-5
 running_cost_torque = 1e-4
 final_cost_state = 1e10
 
-
-
 ddp = boxfddp_calculator(urdf_path=urdf_path,
                          enable_gui=True)
 ddp.init_pendulum(mass=mass,

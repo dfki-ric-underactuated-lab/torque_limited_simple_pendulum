@@ -17,14 +17,6 @@ parser.add_argument('--model_path', default=None)
 parser.add_argument('--params_path', default=None)
 args = parser.parse_args()
 
-mass = 0.57288
-length = 0.5
-damping = 0.15
-gravity = 9.81
-coulomb_fric = 0.0
-torque_limit = 10.0
-inertia = mass*length*length
-
 # get the controller
 if args.model_path is None:
     controller = SacController()
