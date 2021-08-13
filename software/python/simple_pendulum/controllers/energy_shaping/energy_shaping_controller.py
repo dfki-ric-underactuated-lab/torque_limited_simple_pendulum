@@ -29,6 +29,7 @@ class EnergyShapingController(AbstractController):
                  length=0.5,
                  damping=0.1,
                  gravity=9.81,
+                 torque_limit=2.0,
                  k=1.0):
         """
         Controller which swings up the pendulum by regulating its energy.
@@ -43,6 +44,8 @@ class EnergyShapingController(AbstractController):
             damping factor of the pendulum [kg m/s]
         gravity : float, default=9.81
             gravity (positive direction points down) [m/s^2]
+        torque_limit : float, default=2.0
+            torque limit of the motor [Nm]
         k : float, default=1.0
             the weight determining the output torque with respect to the
             current energy level.
@@ -51,6 +54,7 @@ class EnergyShapingController(AbstractController):
         self.l = length
         self.b = damping
         self.g = gravity
+        self.torque_limit = torque_limit
         self.k = k
 
     def set_goal(self, x):
@@ -108,13 +112,21 @@ class EnergyShapingController(AbstractController):
             vel = meas_vel[0]
         else:
             vel = meas_vel
-        total_energy = pendulum_calc_total_energy(theta=pos,
-                                                  theta_dot=vel,
-                                                  mass=self.m,
-                                                  length=self.l,
-                                                  gravity=self.g)
-        des_tau = -self.k*vel*(total_energy - self.desired_energy) + \
-                   self.k*self.b*vel
+
+        if pos == 0.0 and vel == 0.0:
+            des_tau = 0.1*self.torque_limit
+        else:
+            total_energy = pendulum_calc_total_energy(theta=pos,
+                                                      theta_dot=vel,
+                                                      mass=self.m,
+                                                      length=self.l,
+                                                      gravity=self.g)
+
+            des_tau = -self.k*vel*(total_energy - self.desired_energy) + \
+                self.b*vel
+
+        des_tau = min(des_tau, self.torque_limit)
+        des_tau = max(des_tau, -self.torque_limit)
 
         # since this is a pure torque controller,
         # set des_pos and des_vel to None
@@ -161,6 +173,7 @@ class EnergyShapingAndLQRController(AbstractController):
                                                                  length,
                                                                  damping,
                                                                  gravity,
+                                                                 torque_limit,
                                                                  k=k)
         self.lqr_controller = LQRController(mass,
                                             length,

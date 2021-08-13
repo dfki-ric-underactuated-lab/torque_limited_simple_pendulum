@@ -14,7 +14,7 @@ setup(
         'argparse',
 
         # reinforcement learning
-        'torch'
+        'torch',
         'stable_baselines3'
     ],
     classifiers=[

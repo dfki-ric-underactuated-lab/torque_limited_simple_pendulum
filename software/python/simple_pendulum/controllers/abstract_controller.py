@@ -41,6 +41,17 @@ class AbstractController(ABC):
         des_tau = None
         return des_pos, des_vel, des_tau
 
+    def init(self, x0):
+        """
+        Initialiize the controller. May not be necessary.
+
+        Parameters
+        ----------
+        x0 : array like
+            the start state of the pendulum
+        """
+        self.x0 = x0
+
     def set_goal(self, x):
         """
         Set the desired state for the controller. May not be necessary.

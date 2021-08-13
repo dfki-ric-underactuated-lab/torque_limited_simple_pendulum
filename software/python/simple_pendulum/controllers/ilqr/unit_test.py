@@ -105,8 +105,6 @@ class Test(unittest.TestCase):
         x0 = np.array([0.0, 0.0])
         x0_sim = x0.copy()
         goal = np.array([np.pi, 0])
-        x0 = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
-        goal = np.array([np.cos(goal[0]), np.sin(goal[0]), goal[1]])
 
         controller = iLQRMPCController(mass=mass,
                                        length=length,

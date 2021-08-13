@@ -33,7 +33,7 @@ class iLQR_Calculator():
         x0 : array-like
             the start state. Should have the shape of (n_x,)
         """
-        self.x0 = x0
+        self.x0 = np.asarray(x0)
 
     def set_discrete_dynamics(self, dynamics_func):
         '''

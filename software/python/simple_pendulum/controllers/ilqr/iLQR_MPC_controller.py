@@ -17,7 +17,7 @@ from simple_pendulum.trajectory_optimization.ilqr.pendulum import pendulum_discr
 
 class iLQRMPCController(AbstractController):
     """
-    Controller which computes a ilqr solution at every timestep and uses
+    Controller which computes an ilqr solution at every timestep and uses
     the first control output.
     """
     def __init__(self,
@@ -42,7 +42,8 @@ class iLQRMPCController(AbstractController):
                  dynamics="runge_kutta",
                  n_x=3):
         """
-        Controller which swings up the pendulum by regulating its energy.
+        Controller which computes an ilqr solution at every timestep and uses
+        the first control output.
 
         Parameters
         ----------
@@ -133,7 +134,19 @@ class iLQRMPCController(AbstractController):
                       inertia=inertia)
         self.iLQR.set_discrete_dynamics(dyn)
 
-        self.iLQR.set_start(x0)
+        if self.n_x == 2:
+            x = np.copy(x0)
+        elif self.n_x == 3:
+            x = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
+        self.iLQR.set_start(x)
+
+    def init(self, x0):
+        if self.n_x == 2:
+            x = np.copy(x0)
+        elif self.n_x == 3:
+            x = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
+        self.iLQR.set_start(x)
+        self.compute_initial_guess(verbose=False)
 
     def load_initial_guess(self, filepath="Pendulum_data/trajectory.csv",
                            verbose=True):
@@ -179,7 +192,6 @@ class iLQRMPCController(AbstractController):
         x_trj : array-like, default=None
             initial guess for state space trajectory
             ignored if x_trj==None
-            
         '''
         if u_trj is not None:
             self.u_trj = u_trj[:self.N]
@@ -230,12 +242,14 @@ class iLQRMPCController(AbstractController):
         if self.n_x == 2:
             s_cost_func = pendulum_swingup_stage_cost
             f_cost_func = pendulum_swingup_final_cost
+            g = np.copy(x)
         elif self.n_x == 3:
             s_cost_func = pendulum3_swingup_stage_cost
             f_cost_func = pendulum3_swingup_final_cost
+            g = np.array([np.cos(x[0]), np.sin(x[0]), x[1]])
 
         s_cost = partial(s_cost_func,
-                         goal=x,
+                         goal=g,
                          Cu=self.sCu,
                          Cp=self.sCp,
                          Cv=self.sCv,
@@ -246,7 +260,7 @@ class iLQRMPCController(AbstractController):
                          cf=self.coulomb_friction,
                          g=self.gravity)
         f_cost = partial(f_cost_func,
-                         goal=x,
+                         goal=g,
                          Cp=self.fCp,
                          Cv=self.fCv,
                          Cen=self.fCen,

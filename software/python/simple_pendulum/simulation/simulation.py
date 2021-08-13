@@ -21,6 +21,8 @@ class Simulator:
         self.x = np.zeros(2*self.plant.dof)  # position, velocity
         self.t = 0.0  # time
 
+        self.reset_data_recorder()
+
     def set_state(self, time, x):
         """
         set the state of the pendulum plant
@@ -33,8 +35,8 @@ class Simulator:
             state of the pendulum plant
         """
 
-        self.x = x
-        self.t = time
+        self.x = np.copy(x)
+        self.t = np.copy(time)
 
     def get_state(self):
         """
@@ -368,8 +370,8 @@ class Simulator:
             writer = Writer(fps=60, bitrate=1800)
             animation.save(video_name+'.mp4', writer=writer)
             print("Saving video done.")
-        self.set_state(t0, x0)
-        self.reset_data_recorder()
+        #self.set_state(t0, x0)
+        #self.reset_data_recorder()
         plt.show()
 
         return self.t_values, self.x_values, self.tau_values
