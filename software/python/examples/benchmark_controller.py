@@ -75,7 +75,7 @@ if con == "sac":
 
 elif con == "ddpg":
 
-    model_path = "log_data/ddpg_training/actor"
+    model_path = "../../../data/models/ddpg_model/actor"
     tl = 1.5
     state_rep = 3
 
