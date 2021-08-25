@@ -1,0 +1,52 @@
+
+*********************************
+Controller Speed
+Minimal dt:  0.0007293765544891357 s ( 1371.0339245829093  Hz)
+average over 1000  function calls
+*********************************
+
+
+*********************************
+Energy Consumption
+1.3319592158959495 J
+average over 100 iterations
+*********************************
+
+
+*********************************
+Swingup time
+2.7000000000000015  s
+average over 100 iterations
+0  attempts failed
+*********************************
+
+
+*********************************
+Consistency
+(Varying start state)
+100 / 100  successful
+*********************************
+
+
+*********************************
+Stability
+(Random perturbations during execution)
+100 / 100  successful
+*********************************
+
+
+*********************************
+Sensitivity
+(Modified pendulum model parameters)
+67 / 100  successful
+*********************************
+
+
+*********************************
+Reduced Torque limit
+(Reduced pendulum torque limit)
+5 / 8  successful
+Swingup successful with torque limit 1.0  Nm
+Swingup failed with torque limit 0.5  Nm
+*********************************
+
