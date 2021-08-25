@@ -33,9 +33,6 @@ t_final = 10.0
 x0 = np.array([0.0, 0.0])
 x0_sim = x0.copy()
 goal = np.array([np.pi, 0])
-if n_x == 3:
-    x0 = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
-    goal = np.array([np.cos(goal[0]), np.sin(goal[0]), goal[1]])
 
 controller = iLQRMPCController(mass=mass,
                                length=length,
@@ -43,7 +40,6 @@ controller = iLQRMPCController(mass=mass,
                                coulomb_friction=coulomb_fric,
                                gravity=gravity,
                                inertia=inertia,
-                               x0=x0,
                                dt=dt,
                                n=50,  # horizon size
                                max_iter=1,
@@ -61,8 +57,19 @@ controller = iLQRMPCController(mass=mass,
 
 controller.set_goal(goal)
 # controller.load_initial_guess(filepath="../../../data/trajectories/ilqr/trajectory.csv")
-controller.compute_initial_guess()
+#controller.compute_initial_guess()
+controller.init(x0=x0_sim)
 
+T, X, U = sim.simulate_and_animate(t0=0.0,
+                                   x0=x0_sim,
+                                   tf=t_final,
+                                   dt=dt,
+                                   controller=controller,
+                                   integrator="runge_kutta")
+
+controller.init(x0=x0_sim)
+sim.set_state(time=0.0, x=x0_sim)
+sim.reset_data_recorder()
 T, X, U = sim.simulate_and_animate(t0=0.0,
                                    x0=x0_sim,
                                    tf=t_final,

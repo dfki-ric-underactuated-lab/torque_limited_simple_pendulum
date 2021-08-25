@@ -1,4 +1,5 @@
 import os
+import numpy as np
 from stable_baselines3 import SAC
 from stable_baselines3.sac.policies import MlpPolicy
 from stable_baselines3.common.callbacks import EvalCallback, \
@@ -77,7 +78,12 @@ class sac_trainer():
                          dt=0.01,
                          integrator="runge_kutta",
                          max_steps=1000,
-                         reward_type="soft_binary_with_repellor"):
+                         reward_type="soft_binary_with_repellor",
+                         state_representation=2,
+                         validation_limit=-150,
+                         target=[np.pi, 0.0],
+                         state_target_epsilon=[1e-2, 1e-2],
+                         random_init="everywhere"):
         """
         Initialize the training environment.
         This includes the simulation parameters of the pendulum.
@@ -97,20 +103,39 @@ class sac_trainer():
             string which defines the reward function
             options are: 'continuous', 'discrete', 'soft_binary',
                          'soft_binary_with_repellor'
+        state_representation : int, default=2
+            determines how the state space of the pendulum is represented
+            state_representation=2 means state = [position, velocity]
+            state_representation=3 means state = [cos(position),
+                                                  sin(position),
+                                                  velocity]
+        target : array-like, default=[np.pi, 0.0]
+            The target state of the pendulum
+        state_target_epsilon : array-like, default=[1e-2, 1e-2]
+            In this vicinity the target counts as reached.
         """
 
         self.env = SimplePendulumEnv(simulator=self.simulator,
                                      max_steps=max_steps,
                                      reward_type=reward_type,
                                      dt=dt,
-                                     integrator=integrator)
+                                     integrator=integrator,
+                                     state_representation=state_representation,
+                                     validation_limit=validation_limit,
+                                     scale_action=True,
+                                     random_init=random_init)
 
         # setup evaluation environment
-        self.eval_env = SimplePendulumEnv(simulator=self.simulator,
-                                          max_steps=max_steps,
-                                          reward_type=reward_type,
-                                          dt=dt,
-                                          integrator=integrator)
+        self.eval_env = SimplePendulumEnv(
+                                  simulator=self.simulator,
+                                  max_steps=max_steps,
+                                  reward_type=reward_type,
+                                  dt=dt,
+                                  integrator=integrator,
+                                  state_representation=state_representation,
+                                  validation_limit=validation_limit,
+                                  scale_action=True,
+                                  random_init="False")
 
     def init_agent(self,
                    learning_rate=0.0003,

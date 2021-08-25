@@ -1,4 +1,4 @@
-#  Iterative Linear Quadrativ Reqularizer (iLQR) #
+#  Iterative Linear Quadratic Requlator (iLQR) #
 
 Type: Trajectory Optimization
 
@@ -27,7 +27,7 @@ If the cost is below a specified threshold the algorithm stops.
 
 ## Requirements #
 
-pydrake (see [getting_started](../../../../docs/getting_started.md))
+pydrake (see [getting_started](../../../../../docs/getting_started.md))
 
 ## API #
 

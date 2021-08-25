@@ -43,7 +43,7 @@ class AbstractController(ABC):
 
     def init(self, x0):
         """
-        Initialiize the controller. May not be necessary.
+        Initialize the controller. May not be necessary.
 
         Parameters
         ----------

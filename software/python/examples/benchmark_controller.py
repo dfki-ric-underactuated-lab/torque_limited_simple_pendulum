@@ -4,16 +4,20 @@ from simple_pendulum.analysis.benchmark import benchmarker
 from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingController, \
                                                                                  EnergyShapingAndLQRController
 from simple_pendulum.controllers.ilqr.iLQR_MPC_controller import iLQRMPCController
+from simple_pendulum.controllers.sac.sac_controller import SacController
+from simple_pendulum.controllers.ddpg.ddpg_controller import ddpg_controller
 
-#con = "energy_shaping"
-con = "ilqr"
+con = "energy_shaping"
+#con = "ilqr"
+#con = "sac"
+#con = "ddpg"
 
 mass = 0.57288
 length = 0.5
-damping = 0.15
+damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0
-torque_limit = 10.0
+torque_limit = 2.0
 inertia = mass*length*length
 
 # simulation parameters
@@ -60,6 +64,24 @@ if con == "ilqr":
                                    dynamics="runge_kutta",
                                    n_x=n_x)
     controller.set_goal(goal)
+
+if con == "sac":
+
+    model_path = "log_data/sac_training/best_model/best_model.zip"
+    params_path = "../../../data/parameters/sp_parameters_sac3.yaml"
+
+    controller = SacController(model_path=model_path,
+                               params_path=params_path)
+
+elif con == "ddpg":
+
+    model_path = "log_data/ddpg_training/actor"
+    tl = 1.5
+    state_rep = 3
+
+    controller = ddpg_controller(model_path=model_path,
+                                 torque_limit=tl,
+                                 state_representation=state_rep)
 
 ben = benchmarker(dt=dt,
                   max_time=max_time,

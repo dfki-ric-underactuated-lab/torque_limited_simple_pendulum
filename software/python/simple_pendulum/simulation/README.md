@@ -1,11 +1,14 @@
 #  Simulator #
 
-The simulator class can simulated and animate the pendulum motion forward in time.
+The simulator class can simulate and animate the pendulum motion forward in time.
+The gym environment can be used for reinforcement learning.
 
 ## Requirements #
 
 
 ## API #
+
+### The simulator #
 
 The simulator should by initialized with a plant (here the PendulumPlant) as follows
 
@@ -21,7 +24,7 @@ To simulate the dynamics of the plant forward in time call
                              controller=None,
                              integrator="runge_kutta")
 
-The inputs of the funciton are
+The inputs of the function are
 
 - t0: float, start time, unit: s
 - x0: start state (dimension as the plant expects it)
@@ -56,10 +59,56 @@ The additional parameters are:
 - video_name: string, name of the file where the video should be saved (only used if save_video=True)
 
 
+### The gym environment #
+
+The environment can be initialized with
+
+    pendulum = PendulumPlant()
+    sim = Simulator(plant=pendulum)
+    env = SimplePendulumEnv(simulator=sim,
+                            max_steps=5000,
+                            target=[np.pi, 0.0],
+                            state_target_epsilon=[1e-2, 1e-2],
+                            reward_type='continuous',
+                            dt=1e-3,
+                            integrator='runge_kutta',
+                            state_representation=2,
+                            validation_limit=-150,
+                            scale_action=True,
+                            random_init="False")
+
+The parameters are:
+
+-        simulator : simulator object
+-        max_steps : int, default=5000, maximum steps the agent can take before the episode is terminated
+-        target : array-like, default=[np.pi, 0.0], the target state of the pendulum
+-        state_target_epsilon: array-like, default=[1e-2, 1e-2], target epsilon for discrete reward type
+-        reward_type : string, default='continuous', the reward type selects the reward function which is used
+             options: 'continuous', 'discrete', 'soft_binary',
+                          'soft_binary_with_repellor'
+-        dt : float, default=1e-3, timestep for the simulation
+-        integrator : string, default='runge_kutta', the integrator which is used by the simulator
+             options : 'euler', 'runge_kutta'
+-        state_representation : int, default=2, determines how the state space of the pendulum is represented
+             2 means state = [position, velocity]
+             3 means state = [cos(position), sin(position), velocity]
+-        validation_limit : float, default=-150, If the reward during validation episodes surpasses this value
+             the training stops early
+-        scale_action : bool, default=True, whether to scale the output of the model with the torque limit
+             of the simulator's plant. If True the model is expected so return values in the intervall [-1, 1] as action.
+-        random_init : string, default="False",
+             A string determining the random state initialisation
+             "False" : The pendulum is set to [0, 0],
+             "start_vicinity" : The pendulum position and velocity
+                                are set in the range [-0.31, -0.31],
+             "everywhere" : The pendulum is set to a random state in the whole
+                            possible state space
 
 ## Usage #
 
-For examples of usages of the simulator class check out the simulation scripts in the controller subfolders (i.e. controllers/energy_shaping/sim_energy_shaping.py)
+For examples of usages of the simulator class check out the scripts in the [example folder](software/python/simple_pendulum/examples).
+
+The gym environment is used for example in the [ddpg training](software/python/simple_pendulum/reinforcement_learning/ddpg).
 
 ## Comments #
 

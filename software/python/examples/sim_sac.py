@@ -10,30 +10,20 @@ import matplotlib.pyplot as plt
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.controllers.sac.sac_controller import SacController
-from simple_pendulum.model.parameters import get_params
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--model_path', default=None)
-parser.add_argument('--params_path', default=None)
+parser.add_argument('--model_path',
+                    default="../../../data/models/sac_model.zip")
 args = parser.parse_args()
 
-# get the controller
-if args.model_path is None:
-    controller = SacController()
-else:
-    model_path = os.path.join(os.getcwd(), args.model_path)
-    params_path = os.path.join(os.getcwd(), args.params_path)
-    params = get_params(params_path)
-    controller = SacController(model_path=args.model_path,
-                               params_path=args.params_path)
-
 # get the simulator
-torque_limit = controller.params['torque_limit']
-mass = 0.546  # 0.546
-length = 0.45  # 0.45
-damping = 0.16
+torque_limit = 2.0
+mass = 0.57288
+length = 0.5
+damping = 0.15
 gravity = 9.81
-coulomb_fric = 0
+coulomb_fric = 0.0
 inertia = mass*length**2
 
 pendulum = PendulumPlant(mass=mass,
@@ -46,11 +36,18 @@ pendulum = PendulumPlant(mass=mass,
 
 sim = Simulator(plant=pendulum)
 
+# get the controller
+model_path = os.path.join(os.getcwd(), args.model_path)
+controller = SacController(model_path=args.model_path,
+                           torque_limit=torque_limit,
+                           use_symmetry=True,
+                           state_representation=3)
+
 # simulate
-x0_sim = [0.1, 0.1]  # [np.random.rand()*0.01, np.random.rand()*0.01]
-dt = float(controller.params['dt'])
+x0_sim = [0.0, 0.0]
+dt = 0.01
 t_final = 10
-integrator = controller.params['integrator']
+integrator = "runge_kutta"
 
 T, X, U = sim.simulate_and_animate(t0=0.0,
                                    x0=x0_sim,
@@ -72,5 +69,3 @@ ax[2].set_xlabel("time [s]")
 ax[2].set_ylabel("input torque [Nm]")
 ax[2].legend(loc="best")
 plt.show()
-
-a = None

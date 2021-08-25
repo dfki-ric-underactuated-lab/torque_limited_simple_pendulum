@@ -36,7 +36,7 @@ class Simulator:
         """
 
         self.x = np.copy(x)
-        self.t = np.copy(time)
+        self.t = np.copy(float(time))
 
     def get_state(self):
         """
@@ -75,9 +75,9 @@ class Simulator:
             torque to be recorded, unit: Nm
         """
 
-        self.t_values.append(time)
-        self.x_values.append(x)
-        self.tau_values.append(tau)
+        self.t_values.append(np.copy(time))
+        self.x_values.append(np.copy(x))
+        self.tau_values.append(np.copy(tau))
 
     def euler_integrator(self, t, y, tau):
         """

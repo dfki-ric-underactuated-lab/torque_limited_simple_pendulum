@@ -1,3 +1,4 @@
+import os
 import time
 import subprocess
 import re
@@ -69,10 +70,12 @@ def set_parameters_in_urdf(urdf_in,
 class boxfddp_calculator():
     def __init__(self,
                  urdf_path,
-                 enable_gui=False):
+                 enable_gui=False,
+                 log_dir=""):
 
+        self.log_dir = log_dir
         self.urdf_load_path = urdf_path
-        self.urdf_work_path = "temp.urdf"
+        self.urdf_work_path = os.path.join(log_dir, "temp.urdf")
 
         self.enable_gui = enable_gui
         if self.enable_gui:

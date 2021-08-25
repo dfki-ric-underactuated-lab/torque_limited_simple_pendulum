@@ -90,7 +90,9 @@ if args.sac:
     params = get_params(params_path)
     data_dict = process_data.prepare_empty(params)
 
-    control_method = SacController(params)  # cm = control_method.return_all()
+    control_method = SacController(model_path=params['model_path'],
+                                   torque_limit=params['torque_limit'],
+                                   use_symmetry=params['use_symmetry'])
 
 if args.energy:
     name = "Energy Shaping"
@@ -103,7 +105,13 @@ if args.energy:
     params = get_params(params_path)
     data_dict = process_data.prepare_empty(params)
 
-    control_method = EnergyShapingAndLQRController(params)
+    control_method = EnergyShapingAndLQRController(
+                                        mass=params['mass'],
+                                        length=params['length'],
+                                        damping=params['damping'],
+                                        gravity=params['gravity'],
+                                        torque_limit=params['torque_limit'],
+                                        k=params['k'])
     control_method.set_goal([np.pi, 0])
 
 if args.ilqr:
@@ -117,54 +125,28 @@ if args.ilqr:
     params = get_params(params_path)
     data_dict = process_data.prepare_empty(params)
 
-    mass = params['mass']
-    length = params['length']
-    damping = params['damping']
-    gravity = params['gravity']
-    coulomb_fric = params['coulomb_fric']
-    n_horizon = params["n_horizon"]
-    n_x = params["n_x"]
-    dt = params["dt"]
-    t_final = params["t_final"]
-    x0 = np.array(params["x0"])
-    sCu = params["sCu"]
-    sCp = params["sCp"]
-    sCv = params["sCv"]
-    sCen = params["sCen"]
-    fCp = params["fCp"]
-    fCv = params["fCv"]
-    fCen = params["fCen"]
-    dynamics = str(params["dynamics"])
-    max_iter = int(params["max_iter"])
-    break_cost_redu = params["break_cost_redu"]
+    control_method = iLQRMPCController(
+                                mass=params['mass'],
+                                length=params['length'],
+                                damping=params['damping'],
+                                coulomb_friction=params['coulomb_fric'],
+                                gravity=params['gravity'],
+                                dt=params['dt'],
+                                n=params['n_horizon'],
+                                max_iter=int(params['max_iter']),
+                                break_cost_redu=params['break_cost_redu'],
+                                sCu=params['sCu'],
+                                sCp=params['sCp'],
+                                sCv=params['sCv'],
+                                sCen=params['sCen'],
+                                fCp=params['fCp'],
+                                fCv=params['fCv'],
+                                fCen=params['fCen'],
+                                dynamics=str(params['dynamics']),
+                                n_x=params['n_x'])
 
-    goal = np.array([np.pi, 0])
-    if n_x == 3:
-        x0 = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
-        goal = np.array([np.cos(goal[0]), np.sin(goal[0]), goal[1]])
-
-    control_method = iLQRMPCController(mass=mass,
-                                       length=length,
-                                       damping=damping,
-                                       coulomb_friction=coulomb_fric,
-                                       gravity=gravity,
-                                       x0=x0,
-                                       dt=dt,
-                                       n=n_horizon,  # horizon size
-                                       max_iter=max_iter,
-                                       break_cost_redu=break_cost_redu,
-                                       sCu=sCu,
-                                       sCp=sCp,
-                                       sCv=sCv,
-                                       sCen=sCen,
-                                       fCp=fCp,
-                                       fCv=fCv,
-                                       fCen=fCen,
-                                       dynamics=dynamics,
-                                       n_x=n_x)
-
-    control_method.set_goal(goal)
-    control_method.compute_initial_guess()
+    control_method.set_goal(np.array([np.pi, 0]))
+    control_method.init(x0=np.array(params["x0"]))
 
 # start control loop for ak80_6
 start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,

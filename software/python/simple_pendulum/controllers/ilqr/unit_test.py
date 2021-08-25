@@ -42,7 +42,6 @@ class Test(unittest.TestCase):
                                        coulomb_friction=coulomb_fric,
                                        gravity=gravity,
                                        inertia=inertia,
-                                       x0=x0,
                                        dt=dt,
                                        n=50,  # horizon size
                                        max_iter=1,
@@ -58,7 +57,7 @@ class Test(unittest.TestCase):
                                        n_x=n_x)
 
         controller.set_goal(goal)
-        controller.compute_initial_guess(verbose=False)
+        controller.init(x0=x0)
 
         T, X, U = sim.simulate(t0=0.0,
                                x0=x0_sim,
@@ -112,7 +111,6 @@ class Test(unittest.TestCase):
                                        coulomb_friction=coulomb_fric,
                                        gravity=gravity,
                                        inertia=inertia,
-                                       x0=x0,
                                        dt=dt,
                                        n=50,  # horizon size
                                        max_iter=1,
@@ -128,7 +126,7 @@ class Test(unittest.TestCase):
                                        n_x=n_x)
 
         controller.set_goal(goal)
-        controller.compute_initial_guess(verbose=False)
+        controller.init(x0=x0)
 
         T, X, U = sim.simulate(t0=0.0,
                                x0=x0_sim,

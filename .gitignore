@@ -8,3 +8,5 @@
 software/python/build/
 **egg-info/
 software/python/dist/
+software/python/docs/
+software/python/examples/log_data/

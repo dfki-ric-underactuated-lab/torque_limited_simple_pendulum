@@ -27,7 +27,6 @@ class iLQRMPCController(AbstractController):
                  coulomb_friction=0.0,
                  gravity=9.81,
                  inertia=0.125,
-                 x0=np.array([0.0, 0.0]),
                  dt=0.01,
                  n=50,
                  max_iter=1,
@@ -59,8 +58,6 @@ class iLQRMPCController(AbstractController):
             gravity (positive direction points down) [m/s^2]
         inertia : float, default=0.125
             inertia of the pendulum
-        x0 : array-like, default=np.array([0.0, 0.0])
-            the start postion (needed for computing an initial guess)
         dt : float, default=0.01
             timestep of the simulation
         n : int, default=50
@@ -134,10 +131,11 @@ class iLQRMPCController(AbstractController):
                       inertia=inertia)
         self.iLQR.set_discrete_dynamics(dyn)
 
+        # set default start position
         if self.n_x == 2:
-            x = np.copy(x0)
+            x = np.array([0.0, 0.0])
         elif self.n_x == 3:
-            x = np.array([np.cos(x0[0]), np.sin(x0[0]), x0[1]])
+            x = np.array([1.0, 0.0, 0.0])
         self.iLQR.set_start(x)
 
     def init(self, x0):
