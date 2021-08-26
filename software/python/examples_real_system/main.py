@@ -7,7 +7,8 @@ import numpy as np
 
 # local imports
 from simple_pendulum.model.parameters import get_params
-from simple_pendulum.utilities import parse, plot, process_data, looptime
+from simple_pendulum.utilities import parse, plot, process_data
+from simple_pendulum.utilities.performance_profiler import profiler
 from simple_pendulum.controllers import motor_control_loop
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
 from simple_pendulum.controllers.gravity_compensation.gravity_compensation import GravityCompController
@@ -154,7 +155,7 @@ start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
                                                            params, data_dict)
 
 # performance profiler
-looptime.profiler(data_dict, start, end, meas_dt)
+profiler(data_dict, start, end, meas_dt)
 
 # save measurements
 output_folder = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + folder_name

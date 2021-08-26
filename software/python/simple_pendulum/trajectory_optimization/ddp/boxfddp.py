@@ -71,11 +71,14 @@ class boxfddp_calculator():
     def __init__(self,
                  urdf_path,
                  enable_gui=False,
-                 log_dir=""):
+                 log_dir="ddp_data"):
 
         self.log_dir = log_dir
         self.urdf_load_path = urdf_path
         self.urdf_work_path = os.path.join(log_dir, "temp.urdf")
+
+        if not os.path.exists(log_dir):
+            os.makedirs(log_dir)
 
         self.enable_gui = enable_gui
         if self.enable_gui:

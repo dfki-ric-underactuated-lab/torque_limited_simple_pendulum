@@ -49,7 +49,6 @@ if con == "ilqr":
                                    coulomb_friction=coulomb_fric,
                                    gravity=gravity,
                                    inertia=inertia,
-                                   x0=x0,
                                    dt=dt,
                                    n=50,  # horizon size
                                    max_iter=1,

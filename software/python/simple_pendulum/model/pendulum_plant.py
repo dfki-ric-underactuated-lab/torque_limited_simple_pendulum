@@ -209,3 +209,15 @@ class PendulumPlant:
         res[0] = state[1]
         res[1] = accn
         return res
+
+    def potential_energy(self, state):
+        Epot = self.m*self.g*self.l*(1-np.cos(state[0]))
+        return Epot
+
+    def kinetic_energy(self, state):
+        Ekin = 0.5*self.m*(self.l*state[1])**2.0
+        return Ekin
+
+    def total_energy(self, state):
+        E = self.potential_energy(state) + self.kinetic_energy(state)
+        return E

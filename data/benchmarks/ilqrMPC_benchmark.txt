@@ -8,7 +8,7 @@ average over 1000  function calls
 
 *********************************
 Energy Consumption
-0.34222623330628643 J
+7.04400399864279 J
 average over 100 iterations
 *********************************
 

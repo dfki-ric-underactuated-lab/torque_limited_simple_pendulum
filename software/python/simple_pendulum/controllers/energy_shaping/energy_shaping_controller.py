@@ -2,22 +2,9 @@
 import numpy as np
 
 # Local imports
+from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.controllers.abstract_controller import AbstractController
 from simple_pendulum.controllers.lqr.lqr_controller import LQRController
-
-
-def pendulum_calc_kinetic_energy(theta_dot, mass, length):
-    return 0.5*mass*(length*theta_dot)**2.0
-
-
-def pendulum_calc_potential_energy(theta, mass, length, gravity):
-    return mass*gravity*length*(1-np.cos(theta))
-
-
-def pendulum_calc_total_energy(theta, theta_dot, mass, length, gravity):
-    kin = pendulum_calc_kinetic_energy(theta_dot, mass, length)
-    pot = pendulum_calc_potential_energy(theta, mass, length, gravity)
-    return kin + pot
 
 
 class EnergyShapingController(AbstractController):
@@ -56,6 +43,13 @@ class EnergyShapingController(AbstractController):
         self.g = gravity
         self.torque_limit = torque_limit
         self.k = k
+        self.plant = PendulumPlant(mass=mass,
+                                   length=length,
+                                   damping=damping,
+                                   gravity=gravity,
+                                   coulomb_fric=0.0,
+                                   inertia=mass*length**2,
+                                   torque_limit=torque_limit)
 
     def set_goal(self, x):
         """
@@ -68,11 +62,7 @@ class EnergyShapingController(AbstractController):
             the goal state for the pendulum
         """
         self.goal = [x[0], x[1]]
-        self.desired_energy = pendulum_calc_total_energy(theta=x[0],
-                                                         theta_dot=x[1],
-                                                         mass=self.m,
-                                                         length=self.l,
-                                                         gravity=self.g)
+        self.desired_energy = self.plant.total_energy(x)
 
     def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
@@ -116,11 +106,7 @@ class EnergyShapingController(AbstractController):
         if pos == 0.0 and vel == 0.0:
             des_tau = 0.1*self.torque_limit
         else:
-            total_energy = pendulum_calc_total_energy(theta=pos,
-                                                      theta_dot=vel,
-                                                      mass=self.m,
-                                                      length=self.l,
-                                                      gravity=self.g)
+            total_energy = self.plant.total_energy([pos, vel])
 
             des_tau = -self.k*vel*(total_energy - self.desired_energy) + \
                 self.b*vel

@@ -5,7 +5,7 @@ The PendulumPlant class contains the kinematics and dynamics functions of the si
 ## Theory #
 
 <div align="center">
-<img width="100" src="../../../docs/pendulum.png">
+<img width="100" src="../../../../docs/pendulum.png">
 </div>
 
 The equations of motion of a pendulum are

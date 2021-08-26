@@ -143,4 +143,3 @@ def save(output_folder, data_dict):
                delimiter=',', header="time,position,velocity,torque",
                comments="")
     print(f'Saving .csv data to folder {output_folder}')
-

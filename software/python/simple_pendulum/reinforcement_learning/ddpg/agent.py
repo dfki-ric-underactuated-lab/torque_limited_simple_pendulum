@@ -111,6 +111,8 @@ class Agent:
         return batch
 
     def save_model(self, path):
+        if not os.path.exists(path):
+            os.makedirs(path)
         self.target_actor.save(os.path.join(path, "actor"))
         self.target_critic.save(os.path.join(path, "critic"))
 

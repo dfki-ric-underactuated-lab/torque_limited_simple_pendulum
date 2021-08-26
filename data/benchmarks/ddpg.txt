@@ -1,14 +1,14 @@
 
 *********************************
 Controller Speed
-Minimal dt:  0.0007293765544891357 s ( 1371.0339245829093  Hz)
+Minimal dt:  0.0007928016185760499 s ( 1261.3495943614482  Hz)
 average over 1000  function calls
 *********************************
 
 
 *********************************
 Energy Consumption
-1.3319592158959495 J
+7.617323088310591 J
 average over 100 iterations
 *********************************
 
@@ -38,7 +38,7 @@ Stability
 *********************************
 Sensitivity
 (Modified pendulum model parameters)
-67 / 100  successful
+75 / 100  successful
 *********************************
 
 

@@ -1,9 +1,10 @@
 # global imports
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
 # local imports
-from simple_pendulum.filters import running_mean as rm
+from simple_pendulum.utilities.filters import running_mean as rm
 
 
 def swingup(args, output_folder, data_dict):
@@ -16,7 +17,7 @@ def swingup(args, output_folder, data_dict):
     meas_time = data_dict["meas_time_list"]
     meas_pos = data_dict["meas_pos_list"]
     meas_vel = data_dict["meas_vel_list"]
-    #meas_vel_filt = data_dict["vel_filt_list"]
+    # meas_vel_filt = data_dict["vel_filt_list"]
     meas_tau = data_dict["meas_tau_list"]
 
     plt.figure()
@@ -33,11 +34,11 @@ def swingup(args, output_folder, data_dict):
 
     plt.figure()
     plt.plot(meas_time, meas_vel)
-    #plt.plot(meas_time, meas_vel_filt)
+    # plt.plot(meas_time, meas_vel_filt)
     plt.plot(des_time, des_vel)
     plt.xlabel("Time (s)")
     plt.ylabel("Velocity (rad/s)")
-    plt.legend(['velocity_measured', 'velocity_desired']) #'velocity_filtered',
+    plt.legend(['velocity_measured', 'velocity_desired'])
     plt.title("Velocity (rad/s) vs Time (s)")
     plt.draw()
     if args.save:
@@ -56,12 +57,13 @@ def swingup(args, output_folder, data_dict):
         plt.savefig(output_folder + '/swingup_tau.pdf')
     plt.show()
 
+
 def grav_comp(args, output_folder, data_dict):
     print("Making data plots.")
 
     des_time = data_dict["des_time_list"]
-    des_pos = data_dict["des_pos_list"]
-    des_vel = data_dict["des_vel_list"]
+    # des_pos = data_dict["des_pos_list"]
+    # des_vel = data_dict["des_vel_list"]
     des_tau = data_dict["des_tau_list"]
     meas_time = data_dict["meas_time_list"]
     meas_pos = data_dict["meas_pos_list"]
@@ -110,14 +112,17 @@ def grav_comp(args, output_folder, data_dict):
     plt.xlabel("Time (s)")
     plt.ylabel("Torque (Nm)")
     plt.title(
-        "Filtered Torque (Nm) vs Time (s) with moving average filter (window = 100)")
+        "Filtered Torque (Nm) vs Time (s) with" +
+        " moving average filter (window = 100)")
     plt.legend(['Measured', 'Desired'])
     plt.draw()
     if args.save:
-        plt.savefig(output_folder + '/grav_comp_tau_filt.pdf')
+        plt.savefig(os.path.join(output_folder, 'grav_comp_tau_filt.pdf'))
     plt.show()
 
-def sys_id_unified(meas_time=None, meas_pos=None, meas_vel=None, meas_tau=None, acc=None):
+
+def sys_id_unified(output_folder, meas_time=None, meas_pos=None, meas_vel=None,
+                   meas_tau=None, acc=None):
     plt.figure()
     if meas_pos is not None:
         plt.plot(meas_time, meas_pos, label="position")
@@ -129,12 +134,11 @@ def sys_id_unified(meas_time=None, meas_pos=None, meas_vel=None, meas_tau=None, 
         plt.plot(meas_time, meas_tau, label="torque")
     plt.legend(loc="best")
     plt.draw()
-    plt.savefig(output_folder + '/grav_comp_tau_filt.pdf')
+    plt.savefig(os.path.join(output_folder, 'grav_comp_tau_filt.pdf'))
     plt.show()
 
-def sys_id_comparison(meas_time, vel_dict, tau_dict, acc_dict):
-    print("Making data plots.")
 
+def sys_id_comparison(output_folder, meas_time, vel_dict, tau_dict, acc_dict):
     t = meas_time
     vel_raw = vel_dict["vel_raw"]
     vel_fft = vel_dict["vel_fft"]
@@ -150,12 +154,17 @@ def sys_id_comparison(meas_time, vel_dict, tau_dict, acc_dict):
     acc_grad_2butter = acc_dict["acc_grad_2butter"]
 
     plt.figure("velocity filter comparison", clear=True)
-    plt.plot(t, vel_raw)       
-    plt.plot(t, vel_fft)    
-    plt.plot(t, vel_butter)       
+    plt.plot(t, vel_raw)
+    plt.plot(t, vel_fft)
+    plt.plot(t, vel_butter)
     plt.plot(t, vel_grad)
-    plt.plot(t, vel_grad_butter) 
-    plt.legend(["vel raw", "vel fft", "vel butterworth", "pos/dt", "pos/dt + butterworth"] )
+    plt.plot(t, vel_grad_butter)
+    plt.legend(["vel raw",
+                "vel fft",
+                "vel butterworth",
+                "pos/dt",
+                "pos/dt + butterworth"])
+    plt.savefig(os.path.join(output_folder, 'sys_id_vel_filt_comparison.pdf'))
     plt.show()
 
     plt.figure("torque filter comparison", clear=True)
@@ -168,12 +177,19 @@ def sys_id_comparison(meas_time, vel_dict, tau_dict, acc_dict):
     plt.plot(t, acc_raw)
     plt.plot(t, acc_butter)
     plt.plot(t, acc_grad_butter)
-    plt.plot(t, acc_grad_2butter)   
-    plt.legend(["acc raw (vel/dt)", "acc (vel/dt + butterworth)", "acc (vel + butterworth/dt)", "acc 2x butterworth"] )
+    plt.plot(t, acc_grad_2butter)
+    plt.legend(["acc raw (vel/dt)",
+                "acc (vel/dt + butterworth)",
+                "acc (vel + butterworth/dt)",
+                "acc 2x butterworth"])
+    plt.savefig(os.path.join(output_folder, 'sys_id_tau_filt_comparison.pdf'))
+    plt.show()
 
-def sys_id_result(t, ref_trq, est_trq):
+
+def sys_id_result(output_folder, t, ref_trq, est_trq):
     plt.figure("Measured torque vs. parameter estimation", clear=True)
     plt.plot(t, ref_trq)
     plt.plot(t, est_trq)
-    plt.legend(["measured torque", "estimated torque"] )
+    plt.legend(["measured torque", "estimated torque"])
+    plt.savefig(os.path.join(output_folder, 'sys_id_result.pdf'))
     plt.show()

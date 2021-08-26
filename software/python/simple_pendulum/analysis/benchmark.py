@@ -86,7 +86,7 @@ class benchmarker():
     def set_controller(self, controller):
         self.controller = controller
 
-    def check_energy_consumption(self):
+    def check_regular_execution(self):
 
         t0 = 0.0
         self.controller.set_goal(x=self.goal)
@@ -99,6 +99,8 @@ class benchmarker():
         self.simulator.set_state(time=t, x=np.copy(x))
 
         energy_consumed = 0.0
+        swingup_time = 0.0
+        swingup_success = False
 
         for i in range(self.max_steps):
             _, _, tau = self.controller.get_control_output(meas_pos=x[0],
@@ -114,45 +116,22 @@ class benchmarker():
             t, x = self.simulator.get_state()
             t_ref, x_ref = self.ref_simulator.get_state()
 
-            energy_consumed += np.abs(float(tau*(x[0] - x_ref[0])))
+            energy = np.abs(self.pendulum.total_energy(x) -
+                            self.pendulum.total_energy(x_ref))
+            energy_consumed += energy
 
-        return energy_consumed
-
-    def check_swingup_time(self):
-        t0 = 0.0
-        self.controller.set_goal(x=self.goal)
-        self.controller.init(x0=self.x0)
-
-        x = np.copy(self.x0)
-        t = np.copy(t0)
-        self.simulator.reset_data_recorder()
-        self.simulator.set_state(time=t, x=np.copy(x))
-
-        swingup_time = 0.0
-        swingup_success = False
-
-        while not swingup_success:
-            _, _, tau = self.controller.get_control_output(meas_pos=x[0],
-                                                           meas_vel=x[1],
-                                                           meas_tau=0,
-                                                           meas_time=t)
-
-            self.simulator.step(tau, self.dt, integrator=self.integrator)
-            t, x = self.simulator.get_state()
-
-            swingup_time += self.dt
             diff = x - self.goal
             diff[0] = (diff[0] + np.pi) % (2*np.pi) - np.pi
             if np.abs(diff[0]) < self.epsilon[0]:
                 if np.abs(diff[1]) < self.epsilon[1]:
                     swingup_success = True
-            if swingup_time >= self.max_time:
-                break
+            if not swingup_success:
+                swingup_time += self.dt
 
         if not swingup_success:
             swingup_time = np.inf
 
-        return swingup_time
+        return swingup_success, swingup_time, energy_consumed
 
     def check_consistency(self):
         # different starting positions
@@ -345,13 +324,20 @@ class benchmarker():
             print("average over", N, " function calls")
             print("*********************************\n")
 
+        if check_energy or check_time:
+            successes = []
+            times = []
+            energies = []
+            for i in range(self.iterations):
+                s, t, e = self.check_regular_execution()
+                successes.append(s)
+                times.append(t)
+                energies.append(e)
+
         if check_energy:
             ##########################
             # check energy consumption
             ##########################
-            energies = []
-            for i in range(self.iterations):
-                energies.append(self.check_energy_consumption())
             mean_energy = np.mean(energies)
             print("\n*********************************")
             print("Energy Consumption")
@@ -363,9 +349,6 @@ class benchmarker():
             ##########################
             # check swingup time
             ##########################
-            times = []
-            for i in range(self.iterations):
-                times.append(self.check_swingup_time())
             times = np.asarray(times)
             fails = np.count_nonzero(np.isinf(times))
             times = times[np.isfinite(times)]

@@ -57,7 +57,6 @@ controller = iLQRMPCController(mass=mass,
 
 controller.set_goal(goal)
 # controller.load_initial_guess(filepath="../../../data/trajectories/ilqr/trajectory.csv")
-#controller.compute_initial_guess()
 controller.init(x0=x0_sim)
 
 T, X, U = sim.simulate_and_animate(t0=0.0,
