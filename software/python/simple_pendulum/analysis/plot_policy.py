@@ -7,7 +7,8 @@ def plot_policy(controller,
                 position_range=[-np.pi, np.pi],
                 velocity_range=[-8, 8],
                 samples_per_dim=100,
-                plotstyle="2d"):
+                plotstyle="2d",
+                save_path=None):
 
     positions = np.linspace(position_range[0],
                             position_range[1],
@@ -68,6 +69,9 @@ def plot_policy(controller,
         ax.set_xlabel("\nangle [rad]", fontsize=30, linespacing=4)
         ax.set_ylabel("\nangular velocity [rad/s]", fontsize=30, linespacing=4)
         ax.set_zlabel("\ntorque [Nm]", fontsize=30, linespacing=4)
+
+        if save_path is not None:
+            plt.savefig(save_path, bbox_inches="tight")
         plt.show()
 
     elif plotstyle == "2d":
@@ -100,6 +104,8 @@ def plot_policy(controller,
         plt.xlabel("angle [rad]", fontsize=30)
         plt.ylabel("angular velocity [rad/s]", fontsize=30)
 
+        if save_path is not None:
+            plt.savefig(save_path, bbox_inches="tight")
         plt.show()
 
     else:

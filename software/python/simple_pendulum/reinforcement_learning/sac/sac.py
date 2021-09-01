@@ -166,7 +166,7 @@ class sac_trainer():
                          tensorboard_log=tensorboard_log,
                          learning_rate=learning_rate)
         if warm_start:
-            self.agent.load_parameters(load_path_or_dict=warm_start_path)
+            self.agent.set_parameters(load_path_or_dict=warm_start_path)
 
     def train(self,
               training_timesteps=1e6,

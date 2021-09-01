@@ -31,7 +31,7 @@ where $`\tau`$ is usually small.
 DDPG also makes use of a replay buffer, which is a set of experiences which have been observed during training. The replay buffer should be large enough to contain a wide range of experiences.
 For more information on DDPG please refer to the original paper:
 
-[Lillicrap et al. 2016, Continuous Control with Deep Reinforcement Learning](https://arxiv.org/pdf/1509.02971.pdf)
+[Lillicrap et al. 2016, Continuous Control with Deep Reinforcement Learning](https://arxiv.org/abs/1509.02971v6)
 
 This implementation losely follows the [keras guide](https://keras.io/examples/rl/ddpg_pendulum/).
 
