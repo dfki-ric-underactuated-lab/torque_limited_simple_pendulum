@@ -4,7 +4,7 @@
 </div>
 
 <div align="center">
-<img width="300" src="../hardware/simple_pendulum_CAD.png">
+<img width="400" src="../hardware/simple_pendulum_CAD.png">
 <img width="300" src="../docs/pendulum_light_painting.jpg">
 </div>
 
