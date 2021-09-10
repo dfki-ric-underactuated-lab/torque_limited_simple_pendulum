@@ -25,7 +25,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 **Closed Loop**
 * [Linear Quadratic Regulator (LQR)](software/python/simple_pendulum/controllers/lqr/README.md): stabilization only, optimal
-* [Energy Shaping](software/python/controllers/simple_pendulum/energy_shaping/README.md): swingup only, not optimal
+* [Energy Shaping](software/python/simple_pendulum/controllers/energy_shaping/README.md): swingup only, not optimal
 * [Iterative Linear Quadratic Regulator (iLQR)](software/python/simple_pendulum/controllers/ilqr/README.md): online computed trajectory, optimal, model predictive controller
 * [Soft Actor Critic (SAC)](software/python/simple_pendulum/controllers/sac/README.md): offline trained model, optimal, reinforcement learning
 * [Deep Deterministic Policy Gradient (DDPG)](software/python/simple_pendulum/controllers/ddpg/README.md): offline trained model, optimal, reinforcement learning
