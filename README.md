@@ -40,15 +40,14 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 ## Documentation
 
-* [Reference](docs/reference.md)
-* [Testbench Setup](docs/testbench_setup.md)
-* [Install Instructions](docs/getting_started.md)
-* [Usage](docs/usage.md)
+* [Simple Pendulum Equations](docs/reference.md)
+* [Hardware & Testbench Description](docs/testbench_setup.md)
+* [Installation Guide](docs/getting_started.md)
+* [Usage Instructions](docs/usage.md)
 * [Code Testing](docs/code_test.md)
 
+<!---
 ## Folder Structure #
-
-<img align="right" img width="500" src="../docs/pendulum_swingup_animation.gif" />
 
 <table>
 	<tr>
@@ -82,6 +81,7 @@ The project is an open-source and low-cost kit to get started with underactuated
     </tr>
 </table>
 
+-->
 
 ## Safety Notes #
 
@@ -92,6 +92,8 @@ The project is an open-source and low-cost kit to get started with underactuated
 * Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
 
 ## Authors #
+
+<img align="right" img width="500" src="../docs/pendulum_swingup_animation.gif" />
 
 * [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
 * [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html) (Software Maintainer)
