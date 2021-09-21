@@ -35,16 +35,16 @@ The project is an open-source and low-cost kit to get started with underactuated
 **See a video the simple pendulum in action:** [torque limited swing up (UK video still has to be linked here)](/docs/simple_pendulum_swingup.mp4)
 
 <div align="center">
-<img width="500" src="../docs/overview.png">
+<img width="500" src="../paper/figures/overview.png">
 </div>
 
 ## Documentation
 
-* [Simple Pendulum Equations](docs/reference.md)
-* [Hardware & Testbench Description](docs/testbench_setup.md)
-* [Installation Guide](docs/getting_started.md)
-* [Usage Instructions](docs/usage.md)
-* [Code Testing](docs/code_test.md)
+* [Simple Pendulum Equations](docs/sp_equations.md)
+* [Hardware & Testbench Description](hardware/testbench_description.md)
+* [Installation Guide](docs/installation_guide.md)
+* [Usage Instructions](docs/usage_instructions.md)
+* [Code Testing](docs/code_testing.md)
 
 <!---
 ## Folder Structure #
