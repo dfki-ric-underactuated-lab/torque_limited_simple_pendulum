@@ -11,6 +11,23 @@
 ## Introduction #
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque-limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
 
+## Documentation
+
+* [Simple Pendulum Equations](docs/sp_equations.md)
+* [Hardware & Testbench Description](hardware/testbench_description.md)
+* [Installation Guide](docs/installation_guide.md)
+* [Usage Instructions](docs/usage_instructions.md)
+* [Code Testing](docs/code_testing.md)
+
+## Safety Notes #
+
+* Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
+
+* Stay away from the plane in which pendulum is swinging. It is recommended to have a safety net surrounding the pendulum in case the pendulum flies away.
+
+* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
+
+
 ## Overview of Methods #
 
 **Trajectory Optimization**
@@ -37,14 +54,6 @@ The project is an open-source and low-cost kit to get started with underactuated
 <div align="center">
 <img width="500" src="../paper/figures/overview.png">
 </div>
-
-## Documentation
-
-* [Simple Pendulum Equations](docs/sp_equations.md)
-* [Hardware & Testbench Description](hardware/testbench_description.md)
-* [Installation Guide](docs/installation_guide.md)
-* [Usage Instructions](docs/usage_instructions.md)
-* [Code Testing](docs/code_testing.md)
 
 <!---
 ## Folder Structure #
@@ -80,16 +89,7 @@ The project is an open-source and low-cost kit to get started with underactuated
             </ul>
     </tr>
 </table>
-
 -->
-
-## Safety Notes #
-
-* Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
-
-* Stay away from the plane in which pendulum is swinging. It is recommended to have a safety net surrounding the pendulum in case the pendulum flies away.
-
-* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
 
 ## Authors #
 
