@@ -1,10 +1,60 @@
 <div align="center">
 
-#  Simple Pendulum
+#  Hardware & Testbench Description
 </div>
 
-# Hardware
 The `/hardware` directory contains all information about the hardware that is used to built the simple pednulum test bench, including a bill of materials, step files of the CAD model along with wiring diagrams for the complete set up as well as the CAN bus. Further specifications are noted below or can be found within the documentation under the respective topics.
+
+### Physical Parameters of the Pendulum
+-------------------------------------------------------------------- 
+
+* Point mass: $`m_p`$= 0.546 Kg 
+* Mass of rod, mounting parts and screws: $`m_r`$ = 0.13 Kg 
+* Overall mass: $`m`$ = 0.676 Kg
+* Length to point mass: $`l`$ = 0.5 m
+* Length to COM: $`l_{COM}`$ = 0.045 m 
+
+
+```math 
+l_{COM} = \frac{m_pl + 0.5 m_r l}{m_p + m_r} \, ,
+```
+
+### Physical Parameters of the Actuator
+--------------------------------------------------------------------  
+The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft. The motor controller is basically the same as the one used for MIT Mini-Cheetah, which is described in the documentation from Ben Katz.
+- [Ben Katz: MIT Mini-Cheetah Documentation](https://docs.google.com/document/d/1dzNVzblz6mqB3eZVEMyi2MtSngALHdgpTaDJIW_BpS4/edit)
+
+<div align="center">
+<img width="600" src="../hardware/ak80-6_img.jpg">  
+</div>  
+
+-------------------------------------------------------------------- 
+
+* Voltage = 24 $`V`$
+* Current = rated 12 $`A`$, peak 24 $`A`$
+* Torque = rated 6 $`Nm`$, peak 12 $`Nm`$ (after the transmission)
+* Transmission N = 6 : 1
+* Weight = 485 $`g`$
+* Dimensions = ⌀ 98 $`mm`$ x 38,5 $`mm`$
+* Max. torque to weight ratio = 24 $`Nm/kg`$ (after the transmission) 
+* Max. velocity = 38.2 $`rad/s`$ = 365 $`rpm`$ (after the transmission)
+
+### Motor Constants  
+-------------------------------------------------------------------- 
+ (before the transmission)  
+
+- Motor constant km = 0.2206 $`Nm/ \sqrt{W}`$
+- Electric constant ke= 0.009524 $`V/rpm`$ 
+- Torque constant kt = 0.091 $`Nm/A`$
+- Torque = rated 1,092 $`Nm`$, peak 2,184 $`Nm`$
+- Velocity / back-EMF constant kv = 100 $`rpm/V`$
+- Max. velocity at 24 $`V`$ = 251.2 $`rad/s`$ = 2400 $`rpm`$
+- Motor wiring in $`\nabla`$-delta configuration
+- Number of pole pairs = 21
+- Resistance phase to phase = 170 $`\pm`$ 5 $`m \Omega`$
+- Inductance phase to phase = 57 $`\pm`$ 10 $`\mu H`$
+- Rotor inertia Ir = 0.000060719 $`kg \, m^2`$
+
 
 # Test setup
 
