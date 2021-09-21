@@ -118,5 +118,6 @@ This work has been performed in the VeryHuman project funded by the German Aeros
 
 ## License
 
+This work has been released under the BSD 3-Clause License. Details and terms of use are specified in the LICENSE file within this repository. Note that we do not publish third-party software, hence software packages from other developers are released under their very own terms and conditions, e.g. Stable baselines (MIT License) and Tensorflow (Apache License v2.0). If you install third-party software packages along with this repo ensure  that you follow each individual license agreement.   
 
 -----------------------------------------------------------------------------------------------------------------------------
