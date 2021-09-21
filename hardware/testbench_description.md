@@ -5,6 +5,11 @@
 
 The `/hardware` directory contains all information about the hardware that is used to built the simple pednulum test bench, including a bill of materials, step files of the CAD model along with wiring diagrams for the complete set up as well as the CAN bus. Further specifications are noted below or can be found within the documentation under the respective topics.
 
+<div align="right">
+<img width="800" src="../hardware/simple_pendulum_CAD.png">  
+</div>  
+
+
 ### Physical Parameters of the Pendulum
 -------------------------------------------------------------------- 
 
