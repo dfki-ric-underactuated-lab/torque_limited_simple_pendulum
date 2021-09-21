@@ -1,10 +1,10 @@
 <div align="center">
 
-#  Simple Pendulum
+#  Usage Instructions
 </div>
 <br/>
 
-## Python Motor Driver for T-Motor AK80-6 Actuator
+## Installing Python Driver for T-Motor AK80-6 Actuator
 
 * Clone the python motor driver from: ...
 * Modify the `.bashrc` file to add the driver to your python path. Make sure you restart your terminal after this step.
@@ -51,7 +51,7 @@ All functions return current position, velocity, torque in SI units except for `
 <br/>    
   
   
-## Usage  
+## Using different Controllers for the Swing-Up 
 
 All implemented controllers can be called from the `main.py` file. The desired controller is selected via a required flag, e.g. if you want to execute the gravity compensation experiment the corresponding command would then be:
 
@@ -69,7 +69,7 @@ python main.py -h
 <br/>
 
 
-## Results
+## Saving Results
 
 The results folder serves as the directory, where all results generated from the python code shall be stored. The distinct seperation between python script files and generated output files helps to keep the python package clear and tidy. We provide some example output data from the very start, so that you may see what results each script produces even before you run the code. The tools to create result files from the respective experiment data are located within the python package under `/utilities`, `plot.py`, `plot_policy.py` and `process_data.py`. 
 
