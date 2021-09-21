@@ -76,8 +76,7 @@ This project provides an easy accessible plant for the pendulum dynamics which i
 
 The pendulum has two fixpoints, one of them being stable (the pendulum hanging down) and the other being unstable (the pendulum pointing upwards). A challenge from the control point of view is to swing up the pendulum to the unstable fixpoint and stabilize the pendulum in that state.
 
-### Physical Parameters of the Pendulum
--------------------------------------------------------------------- 
+## Physical Parameters of the Pendulum
 
 * Point mass: $`m_p`$= 0.546 Kg 
 * Mass of rod, mounting parts and screws: $`m_r`$ = 0.13 Kg 
@@ -90,8 +89,8 @@ The pendulum has two fixpoints, one of them being stable (the pendulum hanging d
 l_{COM} = \frac{m_pl + 0.5 m_r l}{m_p + m_r} \, ,
 ```
 
-### Physical Parameters of the Actuator
---------------------------------------------------------------------  
+## Physical Parameters of the Actuator
+
 The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft. 
 
 ![Actuator T-Motor AK80-6.](figures/ak80-6_img.jpg){#id .class height=400px}
