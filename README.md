@@ -15,7 +15,8 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 * [Simple Pendulum Equations](docs/sp_equations.md)
 * [Hardware & Testbench Description](hardware/testbench_description.md)
-* [Installation Guide](docs/installation_guide.md)
+* [Motor Configuration](hardware/motor_configuration.md)
+* [Software Installation Guide](docs/installation_guide.md)
 * [Usage Instructions](docs/usage_instructions.md)
 * [Code Testing](docs/code_testing.md)
 
