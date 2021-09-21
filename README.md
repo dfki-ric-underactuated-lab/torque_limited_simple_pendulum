@@ -116,6 +116,8 @@ Feel free to contact us if you have questions about the test bench. Enjoy!
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
 
+See [Contributing](CONTRIBUTING.md) for more details.
+
 ## Acknowledgements #
 This work has been performed in the VeryHuman project funded by the German Aerospace Center (DLR) with federal funds (Grant Number: FKZ 01IW20004) from the Federal Ministry of Education and Research (BMBF) and is additionally supported with project funds from the federal state of Bremen for setting up the Underactuated Robotics Lab (Grant Number: 201-001-10-3/2021-3-2).
 
