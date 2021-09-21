@@ -1,30 +1,65 @@
 import numpy as np
 
+from simple_pendulum.utilities.process_data import prepare_trajectory
 from simple_pendulum.analysis.benchmark import benchmarker
 from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingController, \
                                                                                  EnergyShapingAndLQRController
 from simple_pendulum.controllers.ilqr.iLQR_MPC_controller import iLQRMPCController
 from simple_pendulum.controllers.sac.sac_controller import SacController
 from simple_pendulum.controllers.ddpg.ddpg_controller import ddpg_controller
+from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController, \
+                                                            OpenLoopAndLQRController
 
-con = "energy_shaping"
-#con = "ilqr"
-#con = "sac"
-#con = "ddpg"
+
+con = "open_ilqr"
+# con = "open_dircol"
+# con = "open_ddp"
+#con = "energy_shaping"
+# con = "ilqrMPC"
+# con = "sac"
+# con = "ddpg"
 
 mass = 0.57288
 length = 0.5
 damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0
-torque_limit = 2.0
+torque_limit = 2.5
 inertia = mass*length*length
 
 # simulation parameters
-dt = 0.02
+dt = 0.01
 max_time = 10.0
 integrator = "runge_kutta"
 benchmark_iterations = 100
+
+if con == "open_ilqr":
+    csv_path = "../../../data/trajectories/ilqr/trajectory.csv"
+    data_dict = prepare_trajectory(csv_path)
+
+    controller = OpenLoopController(data_dict)
+
+    trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
+    dt = trajectory[1][0] - trajectory[0][0]
+
+if con == "open_dircol":
+    csv_path = "../../../data/trajectories/direct_collocation/trajectory.csv"
+    data_dict = prepare_trajectory(csv_path)
+
+    controller = OpenLoopController(data_dict=data_dict)
+
+    integrator = "euler"
+    trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
+    dt = trajectory[1][0] - trajectory[0][0]
+
+if con == "open_ddp":
+    csv_path = "../../../data/trajectories/ddp/trajectory.csv"
+    data_dict = prepare_trajectory(csv_path)
+
+    controller = OpenLoopController(data_dict=data_dict)
+
+    trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
+    dt = trajectory[1][0] - trajectory[0][0]
 
 if con == "energy_shaping":
     controller = EnergyShapingAndLQRController(mass,
@@ -34,7 +69,7 @@ if con == "energy_shaping":
                                                torque_limit)
     controller.set_goal([np.pi, 0])
 
-if con == "ilqr":
+if con == "ilqrMPC":
     n_x = 2
 
     dt = 0.02
@@ -67,10 +102,11 @@ if con == "ilqr":
 if con == "sac":
 
     model_path = "log_data/sac_training/best_model/best_model.zip"
-    params_path = "../../../data/parameters/sp_parameters_sac3.yaml"
 
     controller = SacController(model_path=model_path,
-                               params_path=params_path)
+                               torque_limit=torque_limit,
+                               use_symmetry=True,
+                               state_representation=2)
 
 elif con == "ddpg":
 

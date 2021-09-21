@@ -12,10 +12,10 @@ from simple_pendulum.utilities.process_data import prepare_trajectory
 # pendulum parameters
 mass = 0.57288
 length = 0.5
-damping = 0.15
+damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0
-torque_limit = 2.0
+torque_limit = 2.5
 
 # swingup parameters
 x0 = [0.0, 0.0]
@@ -96,7 +96,7 @@ controller = OpenLoopController(data_dict=data_dict)
 
 trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
 dt = trajectory[1][0] - trajectory[0][0]
-t_final = trajectory[-1][0] + 2.0
+t_final = trajectory[-1][0]
 
 x0 = [trajectory[0][1], trajectory[0][2]]
 

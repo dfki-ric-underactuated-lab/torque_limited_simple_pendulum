@@ -6,7 +6,7 @@ from simple_pendulum.trajectory_optimization.ddp.boxfddp import boxfddp_calculat
 mass = 0.57288
 length = 0.5
 inertia = mass*length*length
-damping = 0.15
+damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0
 torque_limit = 2.0
@@ -37,7 +37,6 @@ ddp.init_pendulum(mass=mass,
                   coulomb_friction=coulomb_fric,
                   torque_limit=torque_limit)
 
-
 T, TH, THD, U = ddp.compute_trajectory(start_state=start_state,
                                        goal_state=goal_state,
                                        weights=weights,
@@ -47,4 +46,10 @@ T, TH, THD, U = ddp.compute_trajectory(start_state=start_state,
                                        running_cost_torque=running_cost_torque,
                                        final_cost_state=final_cost_state)
 ddp.plot_trajectory()
-ddp.simulate_trajectory_gepetto()
+#ddp.simulate_trajectory_gepetto()
+
+# Save Trajectory to a csv file to be sent to the motor.
+csv_data = np.vstack((T, TH, THD, U)).T
+np.savetxt("../../../data/trajectories/ddp/trajectory.csv",
+           csv_data, delimiter=',',
+           header="time,pos,vel,torque", comments="")

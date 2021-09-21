@@ -352,7 +352,10 @@ class benchmarker():
             times = np.asarray(times)
             fails = np.count_nonzero(np.isinf(times))
             times = times[np.isfinite(times)]
-            mean_swingup_time = np.mean(times)
+            if fails < self.iterations:
+                mean_swingup_time = np.mean(times)
+            else:
+                mean_swingup_time = "inf"
             print("\n*********************************")
             print("Swingup time")
             print(mean_swingup_time, " s")

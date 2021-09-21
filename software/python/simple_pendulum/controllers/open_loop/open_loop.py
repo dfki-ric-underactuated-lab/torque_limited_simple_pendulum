@@ -25,12 +25,13 @@ class OpenLoopController(AbstractController):
             data_dict["des_tau_list"] : desired torques
         """
         self.counter = 0
-        self.u = 0
-        self.data_dict = data_dict
         self.traj_time = data_dict["des_time_list"]
         self.traj_pos = data_dict["des_pos_list"]
         self.traj_vel = data_dict["des_vel_list"]
         self.traj_tau = data_dict["des_tau_list"]
+
+    def init(self, x0):
+        self.counter = 0
 
     def set_goal(self, x):
         pass
@@ -64,13 +65,15 @@ class OpenLoopController(AbstractController):
 
         des_pos = None
         des_vel = None
-        des_tau = None
+        des_tau = 0
 
         if self.counter < len(self.traj_time):
             des_pos = self.traj_pos[self.counter]
             des_vel = self.traj_vel[self.counter]
             des_tau = self.traj_tau[self.counter]
-            self.counter += 1
+
+        self.counter += 1
+
         return des_pos, des_vel, des_tau
 
 
@@ -109,6 +112,10 @@ class OpenLoopAndLQRController(AbstractController):
                                             gravity=gravity,
                                             torque_limit=torque_limit)
         self.active_controller = "none"
+
+    def init(self, x0):
+        self.lqr_controller.init(x0)
+        self.open_loop_controller.init(x0)
 
     def set_goal(self, x):
         pass

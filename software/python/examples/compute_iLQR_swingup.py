@@ -21,7 +21,7 @@ from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
 # pendulum parameters
 mass = 0.57288
 length = 0.5
-damping = 0.15
+damping = 0.10
 gravity = 9.81
 coulomb_friction = 0.0
 torque_limit = 10.0
@@ -56,10 +56,10 @@ if n_x == 3:
     N = 300
     sCu = 10.0
     sCp = 10.0
-    sCv = 10.0
+    sCv = 20.0
     sCen = 0.0
     fCp = 100000.0
-    fCv = 100000.0
+    fCv = 50000.0
     fCen = 0.0
 
 iLQR = iLQR_Calculator(n_x=n_x, n_u=n_u)
@@ -126,7 +126,13 @@ iLQR.set_start(x0)
                                                break_cost_redu=1e-6)
 # save results
 time = np.linspace(0, N-1, N)*dt
-csv_data = np.vstack((time, x_trj.T[0], x_trj.T[1],
+if n_x == 3:
+    TH = np.arctan2(x_trj.T[0], x_trj.T[1])
+    THD = x_trj.T[2]
+else:
+    TH = x_trj.T[0]
+    THD = x_trj.T[1]
+csv_data = np.vstack((time, TH, THD,
                       np.append(u_trj.T[0], 0.0))).T
 
 csv_path = "../../../data/trajectories/ilqr/trajectory.csv"
