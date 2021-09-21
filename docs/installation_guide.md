@@ -1,16 +1,8 @@
 <div align="center">
 
-#  Simple Pendulum
+#  Installation Guide
 </div>
 
-# Installing this Python Package
-Once all requirements (see below) are fulfilled, you can install this python package by going to the directory [software/python](software/python) and typing:
-```
-pip install .
-```
-Note: This has to be repeated if you make changes to the code (besides the scripts).
-
-# System Requirements
 In order to execute the python code within the repository you will need to have `Python (>=3.7, <4)` along with the package installer `pip3` on your system installed.
 
 - **python (>=3.7, <4)**
@@ -21,7 +13,12 @@ If you aren't running a suitable python version currently on your system, we rec
 - **pyenv:** https://github.com/pyenv/pyenv
 - **virtualenv:** https://github.com/pyenv/pyenv-virtualenv
 
-<br>
+## Installing this Python Package
+Once all requirements (see below) are fulfilled, you can install this python package by going to the directory [software/python](software/python) and typing:
+```
+pip install .
+```
+Note: This has to be repeated if you make changes to the code (besides the scripts).
 
 ## Instructions for Ubuntu (18.04.5 and 20.04.2.0 LTS)
 The instructions provide assistance in the setup procedure, but with regards to the software [LICENSE](LICENSE) they are provided without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, arising from, out of or in connection with the software or the use or other dealings in the software.
@@ -41,7 +38,7 @@ If you are already using suitable Python 3.7 version jump directly to step `Crea
 
 <br>
 
-### A) Pyenv: Virtual environment for Python
+## A) Pyenv: Virtual environment for Python
 
 The following instructions are our recommendations for a sane build environment.
 
@@ -201,7 +198,7 @@ pip3 --version
 ```
 <br>
 
-## E) Installing Python Packages
+## E) Install Requirements for this Repository
 Navigate inside your cloned git repo to `/torque_limited_simple_pendulum/software/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now install all required packages from the `requirements.txt` file via
 
 ```
