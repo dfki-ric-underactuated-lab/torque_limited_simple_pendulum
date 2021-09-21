@@ -6,6 +6,7 @@ from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController,\
                                                             OpenLoopAndLQRController
+from simple_pendulum.controllers.pid.pid import PIDController
 from simple_pendulum.utilities.process_data import prepare_trajectory
 
 
@@ -84,19 +85,12 @@ sim = Simulator(plant=pendulum)
 csv_path = "../../../data/trajectories/direct_collocation/trajectory.csv"
 data_dict = prepare_trajectory(csv_path)
 
-controller = OpenLoopController(data_dict=data_dict)
-#controller = OpenLoopAndLQRController(data_dict=data_dict,
-#                                      mass=mass,
-#                                      length=length,
-#                                      damping=damping,
-#                                      gravity=gravity,
-#                                      torque_limit=torque_limit)
-#
-#controller.set_goal([np.pi, 0])
+# controller = OpenLoopController(data_dict=data_dict)
+controller = PIDController(data_dict=data_dict, Kp=3.0, Ki=1.0, Kd=1.0)
 
 trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
 dt = trajectory[1][0] - trajectory[0][0]
-t_final = trajectory[-1][0]
+t_final = trajectory[-1][0] + 1.0
 
 x0 = [trajectory[0][1], trajectory[0][2]]
 
@@ -105,7 +99,7 @@ T, X, U = sim.simulate_and_animate(t0=trajectory[0][0],
                                    tf=t_final,
                                    dt=dt,
                                    controller=controller,
-                                   integrator="euler",
+                                   integrator="runge_kutta",
                                    phase_plot=False,
                                    save_video=False)
 
