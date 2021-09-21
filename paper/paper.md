@@ -48,14 +48,13 @@ This dualistic approach of describing software and hardware is chosen to motivat
 To ensure reproducibility and evaluate novel control methods, not just the control methods' code but also results from experiments are available.
 
 
-# Background
-## System Design
+# Hardware & Testbench Description
 
-...
-
-## Pendulum Dynamics
 
 ![Simple Pendulum.](figures/simple_pendulum_CAD.png){#id .class height=400px}
+
+
+## Pendulum Dynamics
 
 The equations of motion of a pendulum are
 
@@ -76,6 +75,47 @@ where
 This project provides an easy accessible plant for the pendulum dynamics which is built up from scratch and uses only standard libraries. The plant can be passed to a simulator object, which is capable of integrating the equations of motion und thus simulating the time evolution of the pendulum. The simulator can do Euler and Runge-Kutta integration and can also visualize the motion in a matplotlib animation. Furthermore, it is possible to interface a controller to the simulator which sends control a signal in form of a torque $\tau$ to the motor.
 
 The pendulum has two fixpoints, one of them being stable (the pendulum hanging down) and the other being unstable (the pendulum pointing upwards). A challenge from the control point of view is to swing up the pendulum to the unstable fixpoint and stabilize the pendulum in that state.
+
+### Physical Parameters of the Pendulum
+-------------------------------------------------------------------- 
+
+* Point mass: $`m_p`$= 0.546 Kg 
+* Mass of rod, mounting parts and screws: $`m_r`$ = 0.13 Kg 
+* Overall mass: $`m`$ = 0.676 Kg
+* Length to point mass: $`l`$ = 0.5 m
+* Length to COM: $`l_{COM}`$ = 0.045 m 
+
+
+```math 
+l_{COM} = \frac{m_pl + 0.5 m_r l}{m_p + m_r} \, ,
+```
+
+### Physical Parameters of the Actuator
+--------------------------------------------------------------------  
+The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft. 
+
+![Actuator T-Motor AK80-6.](figures/ak80-6_img.jpg){#id .class height=400px}
+
+* Voltage = 24 $`V`$
+* Current = rated 12 $`A`$, peak 24 $`A`$
+* Torque = rated 6 $`Nm`$, peak 12 $`Nm`$ (after the transmission)
+* Transmission N = 6 : 1
+* Weight = 485 $`g`$
+* Dimensions = ⌀ 98 $`mm`$ x 38,5 $`mm`$
+* Max. torque to weight ratio = 24 $`Nm/kg`$ (after the transmission) 
+* Max. velocity = 38.2 $`rad/s`$ = 365 $`rpm`$ (after the transmission)
+
+## Electrical Setup
+
+The schematic below displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator (AK80-6 from T-Motor). The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main pc doesn't have a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps under full load. A power supply that is able to deliver both and which is used in our test setup is the EA-PS 9032-40 from Elektro-Automatik. A capacitor filters the backEMF coming from the actuator and therefore protects the power supply from high voltage peaks. The capacitor we use is made of 10x single 2.7V-400F capacitor cells connected in series. A emergency stop button serves as additional safety measure. It disconnects the actuator from the power supply and from the capacitor (Note: If only the power supply is switched off the actuator will continue to run from the energy stored in the capacitor).
+
+![Electrical Setup.](figures/wiring_diagram.png){#id .class height=400px}
+
+## CAN bus wiring
+
+Along the CAN bus proper grounding and isolation is required. It is important to not connect ground pins on the CAN bus connectors between different actuators, since this would cause a critical ground loop. The ground pin should only be used to connect to systems with a ground isolated from the power ground. Additionally, isolation between the main pc and the actuators improves the signal quality. When daisy-chaining multiple actuators, only the CAN-High and CAN-Low pins between the drives must be connected. At the end of the chain a 120 Ohm resistor between CAN-H and CAN-L is used to absorb the signals. It prevents the signals from being reflected at the wire ends. The CAN protocol is differential, hence no additional ground reference is needed. The diagram below displays the wiring of the CAN bus.
+
+![CAN Bus.](figures/can_bus.png){#id .class height=200px}
 
 ## Control Methods
 
@@ -101,6 +141,8 @@ The control methods that are currently implemented in this library can be groupe
 - Soft Actor Critic (SAC) [@haarnoja2018soft]
 - Deep Deterministic Policy Gradient (DDPG) [@lillicrap2019continuous]
 
+
+![Code Structure.](figures/overview.png){#id .class height=400px}
 
 ## Tools
 
