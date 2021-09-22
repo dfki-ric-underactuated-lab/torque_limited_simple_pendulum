@@ -115,7 +115,7 @@ The pendulum has two fixpoints, one of them being stable (the pendulum hanging d
 
 The swing-up challenge with a limited motor torque $\tau$ serves as a benchmark for various control algorithms. If the torque limit is set low enough, the pendulum is no longer able to simply go up to the unstable fixpoint but instead the pendulum has to swing and built up energy in the system.
 
-![Control Software Structure. \label{fig:software_structure}](figures/overview.png){#id .class height=800px}
+![Control Software Structure. \label{fig:software_structure}](figures/controller_overview.png){#id .class height=800px}
 
 The control methods that are currently implemented in this library (see also \autoref{fig:software_structure}) can be grouped in three categories:
 
