@@ -11,7 +11,7 @@ Versatility: -
 ## Theory #
 
 This controller is designed to feed a precomputed trajectory
- in from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the trajectory optimization methods in software/python/trajectory_optimization.
+ in from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the trajectory optimization methods in [software/python/simple_pendulum/trajectory_optimization](software/python/simple_pendulum/trajectory_optimization).
 
 ## Requirements #
 
@@ -48,12 +48,12 @@ The control output \(\mathbf{u}(\mathbf{x})\) can be obtained with the API of th
         returns:
             des_pos, des_vel, u
 
-The function returns the desired position, dsired velocity and a torque as specified in the csv file at the given index. The index counter is incremeted by 1 every time the get_control_output function is called.
+The function returns the desired position, desired velocity and a torque as specified in the csv file at the given index. The index counter is incremeted by 1 every time the get_control_output function is called.
 
 ## Usage #
 
-Before using this controller, first a trajectory has to be defined
-and stored to csv file in a suitable format. Examples for open_controllers usage can be found in trajectory_optimization/iLQR and trajectory_optimization/direct_collocation.
+Before using this controller, first a trajectory has to be defined/calculated
+and stored to csv file in a suitable format.
 
 ## Comments
 
