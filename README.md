@@ -33,20 +33,20 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 **Trajectory Optimization**
 * [Direct Collocation](software/python/simple_pendulum/trajectory_optimization/direct_collocation): offline computed trajectory, optimal
-* [Iterative Linear Quadratic Regulator (iLQR)](software/python/simple_pendulum/trajectory_optimization/ilqr/README.md): offline computed trajectory, optimal
-* [Feasability driven Differential Dynamic Programming (FDDP)](software/python/simple_pendulum/trajectory_optimization/ddp/README.md): offline computed trajectory, optimal
+* [Iterative Linear Quadratic Regulator (iLQR)](software/python/simple_pendulum/trajectory_optimization/ilqr): offline computed trajectory, optimal
+* [Feasability driven Differential Dynamic Programming (FDDP)](software/python/simple_pendulum/trajectory_optimization/ddp): offline computed trajectory, optimal
 
 **Open Loop**
-* Proportional-Derivative (PD): precomputed trajectory, not optimal
-* Proportional-Derivative + Feed-forward Torque Controller: precomputed trajectory, not optimal
-* Feed-forward torque Controller: precomputed trajectory, not optimal
+* [Proportional-Integral-Derivative (PID)](software/python/simple_pendulum/controllers/pid): precomputed trajectory, not optimal
+* [Proportional-Derivative + Feed-forward Torque Controller](software/python/simple_pendulum/controllers/pid): precomputed trajectory, not optimal
+* [Feed-forward torque Controller](software/python/simple_pendulum/controllers/open_loop): precomputed trajectory, not optimal
 
 **Closed Loop**
-* [Linear Quadratic Regulator (LQR)](software/python/simple_pendulum/controllers/lqr/README.md): stabilization only, optimal
-* [Energy Shaping](software/python/simple_pendulum/controllers/energy_shaping/README.md): swingup only, not optimal
-* [Iterative Linear Quadratic Regulator (iLQR)](software/python/simple_pendulum/controllers/ilqr/README.md): online computed trajectory, optimal, model predictive controller
-* [Soft Actor Critic (SAC)](software/python/simple_pendulum/controllers/sac/README.md): offline trained model, optimal, reinforcement learning
-* [Deep Deterministic Policy Gradient (DDPG)](software/python/simple_pendulum/controllers/ddpg/README.md): offline trained model, optimal, reinforcement learning
+* [Linear Quadratic Regulator (LQR)](software/python/simple_pendulum/controllers/lqr): stabilization only, optimal
+* [Energy Shaping](software/python/simple_pendulum/controllers/energy_shaping): swingup only, not optimal
+* [Iterative Linear Quadratic Regulator (iLQR)](software/python/simple_pendulum/controllers/ilqr): online computed trajectory, optimal, model predictive controller
+* [Soft Actor Critic (SAC)](software/python/simple_pendulum/controllers/sac): offline trained model, optimal, reinforcement learning
+* [Deep Deterministic Policy Gradient (DDPG)](software/python/simple_pendulum/controllers/ddpg): offline trained model, optimal, reinforcement learning
 
 **NOTE:** The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
 
