@@ -74,8 +74,8 @@ The index counter is incremeted by 1 every time the get_control_output function 
 
 ## Usage #
 
-Before using this controller, first a trajectory has to be defined
-and stored to csv file in a suitable format. Examples for open_controllers usage can be found in trajectory_optimization/iLQR and trajectory_optimization/direct_collocation.
+Before using this controller, first a trajectory has to be defined/calculated
+and stored to csv file in a suitable format.
 
 ## Comments
 
