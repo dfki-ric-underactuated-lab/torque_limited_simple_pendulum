@@ -21,7 +21,7 @@ This controller is designed to follow a precomputed trajectory
 
 The controller needs pendulum parameters as input during initialization:
 
-    PIDController.__init__(self, csv_path, Kp, Ki, Kd)
+    PIDController.__init__(self, csv_path, Kp, Ki, Kd, use_feed_forward=True)
         inputs:
             csv_path: string
                 path to a csv file containing a trajectory in the below specified format
@@ -32,9 +32,11 @@ The controller needs pendulum parameters as input during initialization:
                 integral term,
                 gain proportional to the integral
                 of the position error
-             Kd : float
+            Kd : float
                 derivative term,
                 gain proportional to the derivative of the position error
+            use_feed_forward : bool
+                whether to use the torque that is provided in the csv file
 
 The csv file should have 4 columns with values for [time, position, velocity, torque] respectively. The values shopuld be separated with a comma. Each row in the file is one timestep. The number of rows can vary.
 The values are assumed to be in SI units, i.e. time in s, position in rad, velocity in rad/s, torque in Nm.
@@ -58,11 +60,15 @@ The control output $`\mathbf{u}(\mathbf{x})`$ can be obtained with the API of th
         returns:
             des_pos, des_vel, u
 
-The function returns the desired position, dsired velocity as specified in the csv file at the given index. The returned torque processed by the PID control terms via:
+The function returns the desired position, desired velocity as specified in the csv file at the given index. The returned torque processed by the PID control terms via (use_feed_forward=True):
 ```math
 u(t) = \tau + K_p e(t) + K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}
 ```
 where $`\tau`$ is the torque from the csv file and $`e(t)`$ is the position error at timestep t.
+If use_feed_forward is set to False, the torque from the csv file is omitted:
+```math
+u(t) = K_p e(t) + K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}
+```
 
 The index counter is incremeted by 1 every time the get_control_output function is called.
 

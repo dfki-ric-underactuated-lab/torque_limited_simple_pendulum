@@ -370,8 +370,6 @@ class Simulator:
             writer = Writer(fps=60, bitrate=1800)
             animation.save(video_name+'.mp4', writer=writer)
             print("Saving video done.")
-        #self.set_state(t0, x0)
-        #self.reset_data_recorder()
         plt.show()
 
         return self.t_values, self.x_values, self.tau_values
