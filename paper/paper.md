@@ -91,7 +91,7 @@ Along the CAN bus proper grounding and isolation is required. It is important to
 
 ## Pendulum Dynamics
 
-The equations of motion of a pendulum are
+The motions of a pendulum are described by the following equation of motion:
 
 $$I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\theta) = \tau$$
 
@@ -138,8 +138,6 @@ The control methods that are currently implemented in this library (see also \au
 - Deep Deterministic Policy Gradient (DDPG) [@lillicrap2019continuous]
 
 This repository is designed to welcome contributions in form of novel optimization methods/controllers/learning algorithms to extend this list.
-
-## Tools
 
 To get an understanding of the functionality of the implemented controllers they can be visualized in the pendulum's state space. Example visualizations of the energy shaping controller and the policy learned with DDPG are shown in figure \autoref{fig:controller_plots}.
 
