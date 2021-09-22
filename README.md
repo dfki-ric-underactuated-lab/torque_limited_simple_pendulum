@@ -53,7 +53,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 **See a video the simple pendulum in action:** [torque limited swing up (UK video still has to be linked here)](/docs/simple_pendulum_swingup.mp4)
 
 <div align="center">
-<img width="500" src="../paper/figures/controller_overview.png">
+<img width="450" src="../paper/figures/controller_overview.png">
 </div>
 
 <!---
