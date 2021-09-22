@@ -1,8 +1,6 @@
 # Other Imports
 import numpy as np
 import matplotlib
-import argparse
-import os
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
@@ -10,12 +8,6 @@ import matplotlib.pyplot as plt
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.controllers.sac.sac_controller import SacController
-
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--model_path',
-                    default="../../../data/models/sac_model.zip")
-args = parser.parse_args()
 
 # get the simulator
 torque_limit = 2.0
@@ -37,14 +29,15 @@ pendulum = PendulumPlant(mass=mass,
 sim = Simulator(plant=pendulum)
 
 # get the controller
-model_path = os.path.join(os.getcwd(), args.model_path)
-controller = SacController(model_path=args.model_path,
+model_path = "../../../data/models/sac_model.zip"
+
+controller = SacController(model_path=model_path,
                            torque_limit=torque_limit,
                            use_symmetry=True,
-                           state_representation=3)
+                           state_representation=2)
 
 # simulate
-x0_sim = [0.0, 0.0]
+x0_sim = [0.1, 0.0]
 dt = 0.01
 t_final = 10
 integrator = "runge_kutta"

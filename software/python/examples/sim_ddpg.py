@@ -25,7 +25,9 @@ pendulum = PendulumPlant(mass=mass,
                          inertia=inertia,
                          torque_limit=torque_limit)
 
-controller = ddpg_controller(model_path='log_data/ddpg_training/actor',
+
+model_path = "../../../data/models/ddpg_model/actor"
+controller = ddpg_controller(model_path=model_path,
                              torque_limit=torque_limit,
                              state_representation=3)
 
