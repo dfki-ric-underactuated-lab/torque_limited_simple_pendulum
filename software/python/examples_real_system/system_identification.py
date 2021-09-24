@@ -13,6 +13,8 @@ csv_file = "data_measured.csv"
 csv_path = os.path.join(output_path, csv_file)
 
 save_dir = "log_data/system_identification"
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
 
 # load results from csv file
 trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")

@@ -306,6 +306,11 @@ class SimplePendulumEnv(gym.Env):
             reward = (-(pos_diff)**2.0 -
                       0.1*(vel_diff)**2.0 -
                       0.001*action**2.0)
+        elif self.reward_type == "open_ai_gym_red_torque":
+            vel_diff = self.target[1] - vel
+            reward = (-(pos_diff)**2.0 -
+                      0.1*(vel_diff)**2.0 -
+                      0.01*action**2.0)
         else:
             raise NotImplementedError(
                 f'Sorry, reward type {self.reward_type} is not implemented.')
