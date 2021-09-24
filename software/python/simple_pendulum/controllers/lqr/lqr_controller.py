@@ -75,15 +75,8 @@ class LQRController(AbstractController):
             the torque supposed to be applied by the actuator [Nm]
         """
 
-        if isinstance(meas_pos, (list, tuple, np.ndarray)):
-            pos = meas_pos[0]
-        else:
-            pos = meas_pos
-
-        if isinstance(meas_vel, (list, tuple, np.ndarray)):
-            vel = meas_vel[0]
-        else:
-            vel = meas_vel
+        pos = float(np.squeeze(meas_pos))
+        vel = float(np.squeeze(meas_vel))
 
         th = pos + np.pi
         th = (th + np.pi) % (2*np.pi) - np.pi

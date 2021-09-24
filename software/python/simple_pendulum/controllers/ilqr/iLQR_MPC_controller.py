@@ -301,17 +301,9 @@ class iLQRMPCController(AbstractController):
         des_tau : float
             the torque supposed to be applied by the actuator [Nm]
         """
-        if isinstance(meas_pos, (list, tuple, np.ndarray)):
-            pos = meas_pos[0]
-        else:
-            pos = meas_pos
-
+        pos = float(np.squeeze(meas_pos))
+        vel = float(np.squeeze(meas_vel))
         pos = pos % (2*np.pi)
-
-        if isinstance(meas_vel, (list, tuple, np.ndarray)):
-            vel = meas_vel[0]
-        else:
-            vel = meas_vel
 
         if self.n_x == 2:
             state = np.array([pos, vel])

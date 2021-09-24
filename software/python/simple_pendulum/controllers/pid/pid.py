@@ -103,6 +103,7 @@ class PIDController(AbstractController):
             self.last_vel = des_vel
 
         e = des_pos - meas_pos
+        e = (e + np.pi) % (2*np.pi) - np.pi
         self.errors.append(e)
 
         P = self.Kp*e
