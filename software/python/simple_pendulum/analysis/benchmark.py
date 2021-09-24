@@ -1,5 +1,6 @@
-import numpy as np
 import time
+import yaml
+import numpy as np
 
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
@@ -98,6 +99,7 @@ class benchmarker():
         self.ref_simulator.reset_data_recorder()
         self.simulator.set_state(time=t, x=np.copy(x))
 
+        tau_list = []
         energy_consumed = 0.0
         swingup_time = 0.0
         swingup_success = False
@@ -107,6 +109,7 @@ class benchmarker():
                                                            meas_vel=x[1],
                                                            meas_tau=0,
                                                            meas_time=t)
+            tau_list.append(float(np.squeeze(tau)))
 
             self.ref_simulator.set_state(time=t, x=np.copy(x))
 
@@ -131,14 +134,17 @@ class benchmarker():
         if not swingup_success:
             swingup_time = np.inf
 
-        return swingup_success, swingup_time, energy_consumed
+        tau_diff = np.diff(tau_list)
+        tau_diff_std = np.std(tau_diff)
+
+        return swingup_success, swingup_time, energy_consumed, tau_diff_std
 
     def check_consistency(self):
         # different starting positions
         t0 = 0.0
         x0 = np.zeros(2)
         x0[0] = np.random.rand()*2*np.pi - np.pi  # in range [-pi, pi]
-        x0[1] = np.random.rand()*4*np.pi - 2*np.pi  # in range [-2pi, 2pi]
+        x0[1] = np.random.rand()*6*np.pi - 3*np.pi  # in range [-3pi, 3pi]
         self.controller.set_goal(x=self.goal)
         self.controller.init(x0=x0)
 
@@ -179,9 +185,12 @@ class benchmarker():
         self.simulator.reset_data_recorder()
         self.simulator.set_state(time=t, x=np.copy(x))
 
-        perturbation_times = np.linspace(0, self.max_time, 11)
+        perturbation_times = np.linspace(0, 0.8*self.max_time, 4)
+        #perturbation_times = np.append(perturbation_times, 10*self.max_time)
         p_counter = 0
+        p_step_counter = 0
         swingup_success = False
+        perturbation = 0.0
 
         while not swingup_success:
             _, _, tau = self.controller.get_control_output(meas_pos=x[0],
@@ -189,12 +198,15 @@ class benchmarker():
                                                            meas_tau=0,
                                                            meas_time=t)
 
-            if t > perturbation_times[0]:
-                tau += np.random.rand()*2.0 - 1.0
-                p_counter += 1
-                if p_counter >= 5:
-                    perturbation_times = np.delete(perturbation_times, 0)
-                    p_counter = 0
+            if p_counter < len(perturbation_times):
+                if t > perturbation_times[p_counter] or p_step_counter > 0:
+                    if p_step_counter == 0:
+                        perturbation = np.random.rand()*4.0 - 2.0
+                    tau += perturbation
+                    p_step_counter += 1
+                    if p_step_counter >= 100:
+                        p_counter += 1
+                        p_step_counter = 0
 
             self.simulator.step(tau, self.dt, integrator=self.integrator)
             t, x = self.simulator.get_state()
@@ -310,10 +322,16 @@ class benchmarker():
                   check_speed=True,
                   check_energy=True,
                   check_time=True,
+                  check_smoothness=True,
                   check_consistency=True,
                   check_stability=True,
                   check_sensitivity=True,
-                  check_torque_limit=True):
+                  check_torque_limit=True,
+                  save_path=None):
+
+        if save_path is not None:
+            save_dict = {}
+            save_dict["iterations"] = self.iterations
 
         if check_speed:
             N = 1000
@@ -323,27 +341,20 @@ class benchmarker():
             print("Minimal dt: ", min_dt, "s (", 1./min_dt, " Hz)")
             print("average over", N, " function calls")
             print("*********************************\n")
+            if save_path is not None:
+                save_dict["frequency"] = 1./min_dt
 
-        if check_energy or check_time:
+        if check_energy or check_time or check_smoothness:
             successes = []
             times = []
             energies = []
+            tau_diff_stds = []
             for i in range(self.iterations):
-                s, t, e = self.check_regular_execution()
+                s, t, e, tstd = self.check_regular_execution()
                 successes.append(s)
                 times.append(t)
                 energies.append(e)
-
-        if check_energy:
-            ##########################
-            # check energy consumption
-            ##########################
-            mean_energy = np.mean(energies)
-            print("\n*********************************")
-            print("Energy Consumption")
-            print(mean_energy, "J")
-            print("average over", self.iterations, "iterations")
-            print("*********************************\n")
+                tau_diff_stds.append(tstd)
 
         if check_time:
             ##########################
@@ -362,6 +373,35 @@ class benchmarker():
             print("average over", self.iterations - fails, "iterations")
             print(fails, " attempts failed")
             print("*********************************\n")
+            if save_path is not None:
+                save_dict["swingup_time"] = float(mean_swingup_time)
+
+        if check_energy:
+            ##########################
+            # check energy consumption
+            ##########################
+            mean_energy = np.mean(energies)
+            print("\n*********************************")
+            print("Energy Consumption")
+            print(mean_energy, "J")
+            print("average over", self.iterations, "iterations")
+            print("*********************************\n")
+            if save_path is not None:
+                save_dict["energy"] = float(mean_energy)
+
+        if check_smoothness:
+            ##########################
+            # check control smoothness
+            ##########################
+            smoothness = np.mean(tau_diff_stds)
+            print("\n*********************************")
+            print("Smoothness")
+            print("(Change in control inputs)")
+            print(smoothness, "Nm")
+            print("average over", self.iterations, "iterations")
+            print("*********************************\n")
+            if save_path is not None:
+                save_dict["smoothness"] = float(smoothness)
 
         if check_consistency:
             ##########################
@@ -375,6 +415,8 @@ class benchmarker():
             print("(Varying start state)")
             print(c_success, "/", self.iterations, " successful")
             print("*********************************\n")
+            if save_path is not None:
+                save_dict["consistency"] = c_success
 
         if check_stability:
             ##########################
@@ -388,6 +430,8 @@ class benchmarker():
             print("(Random perturbations during execution)")
             print(s_success, "/", self.iterations, " successful")
             print("*********************************\n")
+            if save_path is not None:
+                save_dict["stability"] = s_success
 
         if check_sensitivity:
             ##########################
@@ -401,13 +445,15 @@ class benchmarker():
             print("(Modified pendulum model parameters)")
             print(sens_success, "/", self.iterations, " successful")
             print("*********************************\n")
+            if save_path is not None:
+                save_dict["sensitivity"] = sens_success
 
         if check_torque_limit:
             ##########################
             # check reduced torque limit
             ##########################
             rtl_success = 0
-            tlimits = [10.0, 5.0, 2.0, 1.5, 1.0, 0.5, 0.25, 0.1]
+            tlimits = [10.0, 5.0, 2.5, 2.0, 1.5, 1.0, 0.5, 0.25, 0.1]
             for i in range(len(tlimits)):
                 s = self.check_reduced_torque_limit(tl=tlimits[i])
                 rtl_success += int(s)
@@ -424,3 +470,12 @@ class benchmarker():
                 print("Swingup failed with torque limit",
                       tlimits[rtl_success], " Nm")
             print("*********************************\n")
+            if save_path is not None:
+                save_dict["reduced_torque_limit"] = rtl_success
+                if rtl_success > 0:
+                    save_dict["min_successful_torque"] = tlimits[rtl_success-1]
+                else:
+                    save_dict["min_successful_torque"] = np.inf
+
+            with open(save_path, "w") as f:
+                yaml.dump(save_dict, f)
