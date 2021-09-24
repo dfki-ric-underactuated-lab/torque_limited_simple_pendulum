@@ -115,15 +115,21 @@ The pendulum has two fixpoints, one of them being stable (the pendulum hanging d
 
 The swing-up challenge with a limited motor torque $\tau$ serves as a benchmark for various control algorithms. If the torque limit is set low enough, the pendulum is no longer able to simply go up to the unstable fixpoint but instead the pendulum has to swing and built up energy in the system.
 
-![Control Software Structure. \label{fig:software_structure}](figures/controller_overview.png){#id .class height=800px}
+![Control Software Structure. \label{fig:software_structure}](figures/controller_overview.png){#id .class height=1200px}
 
-The control methods that are currently implemented in this library (see also \autoref{fig:software_structure}) can be grouped in three categories:
+The control methods that are currently implemented in this library (see also \autoref{fig:software_structure}) can be grouped in four categories:
 
 **Trajectory optimization** tries to find a trajectory of control inputs and states that is feasible for the system while minimizing a cost function. The cost function can for example include terms which drive the system to a desired goal state and penalize the usage of high torques. The following trajectory optimization algorithms are implemented:
 
 - Direct Collocation [@hargraves1987direct]
 - Iterative Linear Quadratic Regulator (iLQR) [@weiwei2004iterative]
 - Feasibility driven Differential Dynamic Programming (FDDP) [@mastalli2020crocoddyl]
+
+**Trajectory following** controllers act on a precomputed trajectory and ensure that the system follows the trajectory properly. The trajectory following controllers implemented in this project are:
+
+- Feedforward torque
+- Proportional-integral-derivative (PID) control
+- Time-varying Linear Quadratic Regulator (tvLQR)
 
 **Closed Loop Controllers** or feedback controllers take the state of the system as input and ouput a control signal. Because they are able to react to the current state, they can cope with perturbations during the execution. The following feedback controllers are implemented:
 
@@ -137,19 +143,17 @@ The control methods that are currently implemented in this library (see also \au
 - Soft Actor Critic (SAC) [@haarnoja2018soft]
 - Deep Deterministic Policy Gradient (DDPG) [@lillicrap2019continuous]
 
+The implementations make use of drake [@drake], stable-baselines3 [@stable-baselines3] and tensorflow [@tensorflow2015-whitepaper].
 This repository is designed to welcome contributions in form of novel optimization methods/controllers/learning algorithms to extend this list.
 
 To get an understanding of the functionality of the implemented controllers they can be visualized in the pendulum's state space. Example visualizations of the energy shaping controller and the policy learned with DDPG are shown in figure \autoref{fig:controller_plots}.
 
 ![Energy Shaping Controller and DDPG Policy. \label{fig:controller_plots}](figures/energy_and_ddpg.png){#id .class height=600px}
 
-Furthermore, the swing-up controllers can be benchmarked, where it is evaluated how fast, efficient, consistent, stable and sensitive the controller is during the swing-up.
+Furthermore, the swing-up controllers can be benchmarked, where it is evaluated how fast, efficient, consistent, stable and sensitive the controller is during the swing-up. See figure \autoref{fig:benchmark} for a comparison of the different controllers' benchmark results.
 
-<!--
-See figure \autoref{fig:benchmark} for the examplary results of the energy shaping controller.
+![Benchmark results. \label{fig:benchmark}](figures/benchmark_barplot.png){#id .class height=1100px}
 
-![Energy Shaping Benchmark results. \label{fig:benchmark}](figures/benchmark.png){#id .class height=1200px}
--->
 
 <!--
 # Citations
