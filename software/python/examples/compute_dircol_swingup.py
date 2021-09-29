@@ -4,9 +4,10 @@ import matplotlib.pyplot as plt
 from simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation import DirectCollocationCalculator
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
-from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController,\
+from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController, \
                                                             OpenLoopAndLQRController
 from simple_pendulum.controllers.pid.pid import PIDController
+from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 from simple_pendulum.utilities.process_data import prepare_trajectory
 
 
@@ -16,7 +17,7 @@ length = 0.5
 damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0
-torque_limit = 2.5
+torque_limit = 1.5
 
 # swingup parameters
 x0 = [0.0, 0.0]
@@ -86,11 +87,14 @@ csv_path = "../../../data/trajectories/direct_collocation/trajectory.csv"
 data_dict = prepare_trajectory(csv_path)
 
 # controller = OpenLoopController(data_dict=data_dict)
-controller = PIDController(data_dict=data_dict, Kp=3.0, Ki=1.0, Kd=1.0)
-
+# controller = PIDController(data_dict=data_dict, Kp=3.0, Ki=1.0, Kd=1.0)
+controller = TVLQRController(data_dict=data_dict, mass=mass, length=length,
+                             damping=damping, gravity=gravity,
+                             torque_limit=torque_limit)
+controller.set_goal(goal)
 trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
 dt = trajectory[1][0] - trajectory[0][0]
-t_final = trajectory[-1][0] + 1.0
+t_final = trajectory[-1][0] + 0.0
 
 x0 = [trajectory[0][1], trajectory[0][2]]
 

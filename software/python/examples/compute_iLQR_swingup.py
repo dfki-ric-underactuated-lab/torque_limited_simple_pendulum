@@ -16,6 +16,7 @@ from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.utilities.process_data import prepare_trajectory
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
+from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 
 
 # pendulum parameters
@@ -54,7 +55,7 @@ if n_x == 2:
     fCen = 0.0
 if n_x == 3:
     N = 300
-    sCu = 10.0
+    sCu = 30.0
     sCp = 10.0
     sCv = 20.0
     sCen = 0.0
@@ -127,7 +128,7 @@ iLQR.set_start(x0)
 # save results
 time = np.linspace(0, N-1, N)*dt
 if n_x == 3:
-    TH = np.arctan2(x_trj.T[0], x_trj.T[1])
+    TH = np.arctan2(x_trj.T[1], x_trj.T[0])
     THD = x_trj.T[2]
 else:
     TH = x_trj.T[0]
@@ -212,7 +213,10 @@ sim = Simulator(plant=pendulum)
 
 data_dict = prepare_trajectory(csv_path)
 
-controller = OpenLoopController(data_dict)
+#controller = OpenLoopController(data_dict)
+controller = TVLQRController(data_dict=data_dict, mass=mass, length=length,
+                             damping=damping, gravity=gravity,
+                             torque_limit=torque_limit)
 
 controller.set_goal([np.pi, 0])
 
