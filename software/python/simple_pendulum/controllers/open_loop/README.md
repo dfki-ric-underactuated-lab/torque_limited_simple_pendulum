@@ -13,10 +13,6 @@ Versatility: -
 This controller is designed to feed a precomputed trajectory
  in from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the trajectory optimization methods in [software/python/simple_pendulum/trajectory_optimization](software/python/simple_pendulum/trajectory_optimization).
 
-## Requirements #
-
--
-
 ## API
 
 The controller needs pendulum parameters as input during initialization:
