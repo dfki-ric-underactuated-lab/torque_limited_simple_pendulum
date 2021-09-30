@@ -1,19 +1,26 @@
 <div align="center">
 
-#  Torque Limited Simple Pendulum
+# Torque Limited Simple Pendulum
 </div>
 
 <div align="center">
-<img width="400" src="../hardware/simple_pendulum_CAD.png">
-<img width="300" src="../docs/pendulum_light_painting.jpg">
+<img width="400" src="hardware/simple_pendulum_CAD.png">
+<img width="300" src="docs/pendulum_light_painting.jpg">
 </div>
 
 ## Introduction #
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque-limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
 
+**See a video the simple pendulum in action:** [torque limited swing up (UK video still has to be linked here)](/docs/simple_pendulum_swingup.mp4)
+
 ## Documentation
 
-* [Simple Pendulum Equations](docs/sp_equations.md)
+The [hardware setup](hardware/testbench_description.md) and the [motor configuration](hardware/motor_configuration.md) are described in their respective readme files.
+The dynamics of are explained [here](docs/sp_equations.md).
+
+In order to work with this repository you can [get started here](docs/installation_guide.md) and read the [usage instructions here](docs/usage_instructions.md) for a description of how to use this repository on a real system. The instructions for testing the code can be found [here](docs/code_testing.md).
+
+
 * [Hardware & Testbench Description](hardware/testbench_description.md)
 * [Motor Configuration](hardware/motor_configuration.md)
 * [Software Installation Guide](docs/installation_guide.md)
@@ -22,49 +29,49 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 ## Safety Notes #
 
+When working with a real system be careful and mind the following safety measures:
+
 * Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
 
 * Stay away from the plane in which pendulum is swinging. It is recommended to have a safety net surrounding the pendulum in case the pendulum flies away.
 
-* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop. 
+* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop.
 
 
 ## Overview of Methods #
 
-
 <div align="center">
-<img width="450" src="../paper/figures/controller_overview.png">
+<img width="450" src="docs/controller_overview.png">
 </div>
 
-**Trajectory Optimization**
-* [Direct Collocation](software/python/simple_pendulum/trajectory_optimization/direct_collocation): offline computed trajectory, optimal
-* [Iterative Linear Quadratic Regulator (iLQR)](software/python/simple_pendulum/trajectory_optimization/ilqr): offline computed trajectory, optimal
-* [Feasability driven Differential Dynamic Programming (FDDP)](software/python/simple_pendulum/trajectory_optimization/ddp): offline computed trajectory, optimal
+**Trajectory Optimization** tries to find a trajectory of control inputs and states that is feasible for the system while minimizing a cost function. The cost function can for example include terms which drive the system to a desired goal state and penalize the usage of high torques. The following trajectory optimization algorithms are implemented:
 
-**Reinforcement Learning**
-* [Soft Actor Critic (SAC)](software/python/simple_pendulum/controllers/sac): offline trained model, optimal, reinforcement learning
-* [Deep Deterministic Policy Gradient (DDPG)](software/python/simple_pendulum/controllers/ddpg): offline trained model, optimal, reinforcement learning
+* [Direct Collocation](software/python/simple_pendulum/trajectory_optimization/direct_collocation): A collocation method, which transforms the optimal control problem into a mathematical programming problem which is solved by sequential quadratic programming. [reference](https://arc.aiaa.org/doi/pdf/10.2514/3.20223)
+* [Iterative Linear Quadratic Regulator (iLQR)](software/python/simple_pendulum/trajectory_optimization/ilqr): A optimization algorithm which iteratively linearizes the system dynamics and applies LQR to find an optimal trajectory. [reference](https://ieeexplore.ieee.org/abstract/document/6907001)
+* [Feasability driven Differential Dynamic Programming (FDDP)](software/python/simple_pendulum/trajectory_optimization/ddp): Trajectory optimization using locally quadratic dynamics and cost models. [reference ddp](https://www.tandfonline.com/doi/abs/10.1080/00207176608921369), [reference fddp](https://arxiv.org/abs/1909.04947)
 
-**Closed Loop**
-* [Gravity Compensation](software/python/simple_pendulum/controllers/gravity_compensation)
-* [Energy Shaping](software/python/simple_pendulum/controllers/energy_shaping): swingup only, not optimal
-* [Linear Quadratic Regulator (LQR)](software/python/simple_pendulum/controllers/lqr): stabilization only, optimal
-* [Model predictive control with iLQR](software/python/simple_pendulum/controllers/ilqr): online computed trajectory, optimal, model predictive controller
+**Trajectory Following** controllers act on a precomputed trajectory and ensure that the system follows the trajectory properly. As the PID and the tvLQR controller react to the actual state of the pendulum they can also be understood as closed loop controllers. The trajectory following controllers implemented in this project are:
 
-**Trajectory Following**
-* [Feed-forward torque Controller](software/python/simple_pendulum/controllers/open_loop): precomputed trajectory, not optimal
-* [Proportional-Integral-Derivative (PID)](software/python/simple_pendulum/controllers/pid): precomputed trajectory, not optimal
-* [Time-varying Linear Quadreatic Regulator (tvLQR)](software/python/simple_pendulum/controllers/tvlqr): precomputed trajectory, optimal
+* [Feed-forward torque Controller](software/python/simple_pendulum/controllers/open_loop): Simple forwarding of a control signal from a precomputed trajectory.
+* [Proportional-Integral-Derivative (PID)](software/python/simple_pendulum/controllers/pid): A controller reacting to the position error, integrated error and error derivative to a precomputed trajectory.
+* [Time-varying Linear Quadreatic Regulator (tvLQR)](software/python/simple_pendulum/controllers/tvlqr): A controller which linearizes the system dynamics at every timestep around the precomputed trajectory and uses LQR to drive the system towards this nominal trajectory.
 
+**Closed Loop** or feedback controllers take the state of the system as input and ouput a control signal. Because they are able to react to the current state, they can cope with perturbations during the execution. The following feedback controllers are implemented:
 
-**NOTE:** The controllers are considered optimal if a cost function in terms of the pendulum states and control inputs can be defined and the controller is able to find an optimal solution for that cost function.
+* [Gravity Compensation](software/python/simple_pendulum/controllers/gravity_compensation): A controller compensating the gravitational force acting on the pendulum. The pendulum can be moved as if it was in zero-g.
+* [Energy Shaping](software/python/simple_pendulum/controllers/energy_shaping): A controller regulating the energy of the pendulum. Dirves the pendulum towards a desired energy level.
+* [Linear Quadratic Regulator (LQR)](software/python/simple_pendulum/controllers/lqr): Linearizes the dynamics around a fixed point and drives the pendulum towards the fixpoint with a quadratic cost function. Only useable in a state space region around the fixpoint.
+* [Model predictive control with iLQR](software/python/simple_pendulum/controllers/ilqr): A controller which performs an iLQR optimization at every timestep and executes the first control signal of the computed optimal trajectory.
 
-**See a video the simple pendulum in action:** [torque limited swing up (UK video still has to be linked here)](/docs/simple_pendulum_swingup.mp4)
+**Reinforcement Learning** (RL) can be used to learn a policy on the state space of the robot. The policy, which has to be trained beforehand, receives a state and outputs a control signal like a feedback controller. The simple pendulum is can be formulated as a RL problem with two continuous inputs and one continuous output. Similar to the cost function in trajectory optimization, the policy is trained with a reward function. The controllers acting on the policies are closed loop controllers. The following RL algorithms are implemented:
+
+* [Soft Actor Critic (SAC)](software/python/simple_pendulum/controllers/sac): An off-policy model free reinforcement learning algorithm. Maximizes a trade-off between expected return of a reward function and entropy, a measure of randomness in the policy. [reference](https://arxiv.org/abs/1801.01290)
+* [Deep Deterministic Policy Gradient (DDPG)](software/python/simple_pendulum/controllers/ddpg): An off-policy reinforcement algorithm which concurrently learns a Q-function and uses this Q-function to train a policy in the state space. [reference](https://arxiv.org/abs/1509.02971v6)
 
 The controllers can be benchmarked in simulation with a set of predefined criteria. The criteria are defined [here](software/python/simple_pendulum/analysis).
 
 <div align="center">
-<img width="900" src="../paper/figures/benchmark_barplot.png">
+<img width="900" src="data/benchmarks/benchmark_barplot.png">
 </div>
 
 <!---
@@ -75,6 +82,7 @@ The controllers can be benchmarked in simulation with a set of predefined criter
         <td><ul>
                 <li><b>data/</b>
                 <ul>
+                    <li><b>benchmarks/</b></li>
                     <li><b>models/</b> (Machine Learning models)</li>
                     <li><b>parameters/</b></li>
                     <li><b>trajectories/</b> (CSV files with position, velocity and torque data)</li>
@@ -86,17 +94,23 @@ The controllers can be benchmarked in simulation with a set of predefined criter
                     <li><b>CAD/</b></li>
                 </ul>
                 <li><b>results/</b></li>
-                <li><b>software/</b>
+                <li><b>software/</b></li>
                 <ul>
                     <li><b>python/</b>
                     <ul>
-                        <li><b>controllers/</b></li>
-                        <li><b>filters/</b></li>
-                        <li><b>model/</b></li>
-                        <li><b>simulation/</b></li>
-                        <li><b>trajectory_optimization/</b></li>
-                        <li><b>utilities/</b></li>
-                </ul>
+                        <li><b>simple_pendulum/</b>
+                        <ul>
+                            <li><b>analysis/</b></li>
+                            <li><b>controllers/</b></li>
+                            <li><b>model/</b></li>
+                            <li><b>reinforcement_learning/</b></li>
+                            <li><b>simulation/</b></li>
+                            <li><b>trajectory_optimization/</b></li>
+                            <li><b>utilities/</b></li>
+                        </ul>
+                        <li><b>examples/</b></li>
+                        <li><b>examples_real_system/</b></li>
+                    </ul>
                 </ul>
             </ul>
     </tr>
