@@ -13,9 +13,15 @@ Versatility: -
 This controller is designed to follow a precomputed trajectory
  from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the trajectory optimization methods in [software/python/simple_pendulum/trajectory_optimization](software/python/simple_pendulum/trajectory_optimization).
 
-## Requirements #
-
--
+The torque processed by the PID control terms via (with feed forward torque):
+```math
+u(t) = \tau + K_p e(t) + K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}
+```
+where $`\tau`$ is the torque from the csv file and $`e(t)`$ is the position error at timestep t.
+Without feed forward torque, the torque from the precomputed trajectory file is omitted:
+```math
+u(t) = K_p e(t) + K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}
+```
 
 ## API
 
@@ -60,15 +66,7 @@ The control output $`\mathbf{u}(\mathbf{x})`$ can be obtained with the API of th
         returns:
             des_pos, des_vel, u
 
-The function returns the desired position, desired velocity as specified in the csv file at the given index. The returned torque processed by the PID control terms via (use_feed_forward=True):
-```math
-u(t) = \tau + K_p e(t) + K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}
-```
-where $`\tau`$ is the torque from the csv file and $`e(t)`$ is the position error at timestep t.
-If use_feed_forward is set to False, the torque from the csv file is omitted:
-```math
-u(t) = K_p e(t) + K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}
-```
+The function returns the desired position, desired velocity as specified in the csv file at the given index. The returned torque is processed by the PID controller as described in the theory section.
 
 The index counter is incremeted by 1 every time the get_control_output function is called.
 
