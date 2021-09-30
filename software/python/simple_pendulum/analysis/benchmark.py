@@ -174,7 +174,7 @@ class benchmarker():
 
         return swingup_success
 
-    def check_stability(self):
+    def check_robustness(self):
         # random perturbations during executions
         t0 = 0.0
         self.controller.set_goal(x=self.goal)
@@ -186,7 +186,6 @@ class benchmarker():
         self.simulator.set_state(time=t, x=np.copy(x))
 
         perturbation_times = np.linspace(0, 0.8*self.max_time, 4)
-        #perturbation_times = np.append(perturbation_times, 10*self.max_time)
         p_counter = 0
         p_step_counter = 0
         swingup_success = False
@@ -324,7 +323,7 @@ class benchmarker():
                   check_time=True,
                   check_smoothness=True,
                   check_consistency=True,
-                  check_stability=True,
+                  check_robustness=True,
                   check_sensitivity=True,
                   check_torque_limit=True,
                   save_path=None):
@@ -418,20 +417,20 @@ class benchmarker():
             if save_path is not None:
                 save_dict["consistency"] = c_success
 
-        if check_stability:
+        if check_robustness:
             ##########################
-            # check stability
+            # check robustness
             ##########################
             s_success = 0
             for i in range(self.iterations):
-                s_success += int(self.check_stability())
+                s_success += int(self.check_robustness())
             print("\n*********************************")
-            print("Stability")
+            print("Robustness")
             print("(Random perturbations during execution)")
             print(s_success, "/", self.iterations, " successful")
             print("*********************************\n")
             if save_path is not None:
-                save_dict["stability"] = s_success
+                save_dict["robustness"] = s_success
 
         if check_sensitivity:
             ##########################
@@ -460,7 +459,7 @@ class benchmarker():
                 if not s:
                     break
             print("\n*********************************")
-            print("Reduced Torque limit")
+            print("Reduced Torque Limit")
             print("(Reduced pendulum torque limit)")
             print(rtl_success, "/", len(tlimits), " successful")
             if rtl_success > 0:
