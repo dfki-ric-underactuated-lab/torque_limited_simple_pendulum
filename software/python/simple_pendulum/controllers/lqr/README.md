@@ -44,10 +44,6 @@ where $`\mathbf{S}`$ has to fulfill the algebraic Riccati equation
 
 There are many solvers for the algebraic Riccati equation. In this library the solver from the scipy package is used.
 
-## Requirements #
-
--
-
 ## API
 
 The controller needs pendulum parameters as input during initialization:
@@ -76,7 +72,7 @@ If the calculated torque is out of bounds of the pendulum's torque limits the co
 
 ## Usage #
 
-The controller can be tested in simulation with
+A usage example can be found in the [examples folder](../../../examples). The controller can be tested in simulation with
 
     python sim_lqr.py
 
