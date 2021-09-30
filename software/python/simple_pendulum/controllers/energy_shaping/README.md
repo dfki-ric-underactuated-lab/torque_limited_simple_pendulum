@@ -44,10 +44,6 @@ This controller is applicable in the whole state space of the pendulum, i.e. it 
 
 In order to stabilize the pendulum at the unstable fixpoint, energy-shaping control can be combined with a stabilizing controller such as the LQR controller at controllers.LQR.
 
-## Requirements #
-
--
-
 ## API
 
 The controller needs pendulum parameters as well as the control term k (see equaiton (3)) as input during initialization:
@@ -83,7 +79,7 @@ get_control_output returns None for the desired position and desired velocity (t
 
 ## Usage #
 
-Start a simulation with energy-shaping control for pendulum swingup and lqr control stabilization at the unstable fixpoint:
+A usage example can be found in the [examples folder](../../../examples). Start a simulation with energy-shaping control for pendulum swingup and lqr control stabilization at the unstable fixpoint:
 
     python sim_energy_shaping.py
 

@@ -28,11 +28,6 @@ where
 - $`\tau`$ torque applied by the motor
 
 
-
-## Requirements #
-
-
-
 ## API #
 
 The pendulum plant can be initialized as follows

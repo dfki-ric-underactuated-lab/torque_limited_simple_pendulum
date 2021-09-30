@@ -8,7 +8,7 @@ Optimal: Yes
 
 Versatility: Swing-up and stabilization
 
-## Theory # 
+## Theory
 
 The Deep deterministic Policy Gradient (DDPG) algorithm is a reinforcement learning (RL) method. DDPG is a model-free off-policy algorithm.  The controller is trained via interaction with 
 the system, such that a (sub-)optimal mapping from state space 
@@ -29,16 +29,12 @@ Further, DDPG makes use of target networks in order to stabilize the training. T
 where $`\tau`$ is usually small.
 
 DDPG also makes use of a replay buffer, which is a set of experiences which have been observed during training. The replay buffer should be large enough to contain a wide range of experiences.
-For more information on DDPG please refer to the original paper:
+For more information on DDPG please refer to the original paper [[1]](https://arxiv.org/abs/1509.02971v6):
 
-[Lillicrap et al. 2016, Continuous Control with Deep Reinforcement Learning](https://arxiv.org/abs/1509.02971v6)
+This implementation losely follows the [keras guide [2]](https://keras.io/examples/rl/ddpg_pendulum/).
 
-This implementation losely follows the [keras guide](https://keras.io/examples/rl/ddpg_pendulum/).
 
-## Requirements # 
-- Tensorflow 2.x
-
-## API # 
+## API
 
 The ddpg trainer can be initialized with
 
@@ -126,15 +122,22 @@ an appropriate *if* clause, and then selecting this reward function in
 the init_environment parameters under the key *'reward_type'*. The training 
 enviroment is located in [gym_environment](software/python/simple_pendulum/simulation/gym_environment.py)
 
-
-## Usage #
+## Usage
 
 For an example of how to train a sac model see the [train_ddpg.py](software/python/examples/train_ddpg.py) script in the examples folder.
 
-## Comments # 
+## Comments
 Todo: comments on training convergence stability
 
 
+## Requirements
 
+- Tensorflow 2.x
+
+## References
+
+[1] Lillicrap, Timothy P., et al. "Continuous control with deep reinforcement learning." arXiv preprint [arXiv:1509.02971 (2015).](https://arxiv.org/abs/1509.02971v6)
+
+[2] [keras guide](https://keras.io/examples/rl/ddpg_pendulum/)
 
 

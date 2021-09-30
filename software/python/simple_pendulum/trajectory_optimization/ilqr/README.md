@@ -10,7 +10,7 @@ Versatility: Swingup and stabilization
 
 ## Theory #
 
-The iterative linear quadratic regularizer (iLQR) is an extension of the LQR controller. The LQR controller linearizes the dynamics at a given state and and assumes that these linear dynamics are valid at every other system state as well. In contrast to that, the iLQR optimizaition method has the ability to take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs.
+The [iterative linear quadratic regularizer (iLQR) [1]](https://ieeexplore.ieee.org/abstract/document/6907001) is an extension of the LQR controller. The LQR controller linearizes the dynamics at a given state and and assumes that these linear dynamics are valid at every other system state as well. In contrast to that, the iLQR optimization method has the ability to take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs.
 
 The algorithm can be described as:
 
@@ -23,11 +23,6 @@ The following steps are repeated until convergence:
 4. Forward pass: Update the control sequence with the computed gains and rollout the new trajectory with the new control sequence. If the cost of the new trajectory is smaller than before, carry over the new control sequence and increase the gain factor. If not, keep the old trajectory and decrease the gain factor.
 
 If the cost is below a specified threshold the algorithm stops.
-
-
-## Requirements #
-
-pydrake (see [getting_started](../../../../../docs/getting_started.md))
 
 ## API #
 
@@ -61,7 +56,7 @@ Similarily, state_cost and final_cost are functions of the form:
         ...
         return cost
 
-Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in [pendulum.py](pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](compute_pendulum_iLQR.py) in l.48 - l.56 for the dynamics and l.59 - l.83 for the cost functions.
+Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in [pendulum.py](pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](../../../examples/compute_iLQR_swingup.py) in l.80 - l.87 for the dynamics and l.93 - l.113 for the cost functions.
 
 Next: initialize the derivatives and the start state in the iLQR solver:
 
@@ -90,15 +85,20 @@ Besides the state space trajectory x_trj and the control trajectory u_trj the ca
 
 ## Usage #
 
-An example use case for the pendulum can be startet with
+An example script for the pendulum can be found in the [examples](../../../examples/) directory. It can be started with
 
-    python compute_pendulum_iLQR.py
-
-This script saves the optimized trajectory as a csv file in the data folder. The trajectory can be executed in simulation by using the [open_loop controller](../../controllers/open_loop/README.md) which is done with
-
-    python sim_precomp_ilqr.py
-
+    python compute_iLQR_swingup.py
 
 ## Comments #
 
 The iLQR algorithm in this form cannot respect joint and torque limits. Instead, those  have to be enforced by penalizing unwanted values in the cost function.
+
+## Requirements #
+
+[pydrake [2]]((https://drake.mit.edu/)) (see [getting_started](../../../../../docs/getting_started.md))
+
+## References
+
+[1] Y. Tassa, N. Mansard and E. Todorov, "Control-limited differential dynamic programming," 2014 IEEE International Conference on Robotics and Automation (ICRA), 2014, pp. 1168-1175, doi: [10.1109/ICRA.2014.6907001](https://ieeexplore.ieee.org/abstract/document/6907001).
+
+[2] [Model-Based Design and Verification for Robotics](https://drake.mit.edu/).

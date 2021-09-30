@@ -1,4 +1,4 @@
-# Soft Actor Critic Training #
+# Soft Actor Critic Training
 
 Type: Closed loop, learning based, model free
 
@@ -8,7 +8,7 @@ Optimal: Yes
 
 Versatility: Swing-up and stabilization
 
-## Theory # 
+## Theory
 
 The soft actor critic (SAC) algorithm is a reinforcement learning (RL) 
 method. It belongs to the class of so called 'model free' 
@@ -26,18 +26,10 @@ function during training.
 In theory, this leads to robust controllers and reduces the probability of 
 ending up in suboptimal local minima.
 
-For more information on SAC please refer to the original paper:
+For more information on SAC please refer to the original paper [[1]](https://arxiv.org/abs/1801.01290):
 
-Haarnoja et al. 2018, Soft Actor-Critic: Off-Policy Maximum 
-Entropy Deep Reinforcement Learning with a Stochastic Actor, 
-url: https://arxiv.org/abs/1801.01290
 
-## Requirements # 
-- Stable Baselines 3 (https://github.com/DLR-RM/stable-baselines3)
-- Numpy
-- PyYaml
-
-## API # 
+## API
 
 The sac trainer can be initialized with
 
@@ -126,9 +118,20 @@ enviroment is located in [gym_environment](software/python/simple_pendulum/simul
 
 For an example of how to train a sac model see the [train_sac.py](software/python/examples/train_sac.py) script in the examples folder.
 
-## Comments # 
+## Comments #
+
 Todo: comments on training convergence stability
 
+
+## Requirements #
+
+- Stable Baselines 3 (https://github.com/DLR-RM/stable-baselines3)
+- Numpy
+- PyYaml
+
+## References
+
+[1] [Haarnoja, Tuomas, et al. "Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor." International conference on machine learning. PMLR, 2018.](https://arxiv.org/abs/1801.01290)
 
 
 

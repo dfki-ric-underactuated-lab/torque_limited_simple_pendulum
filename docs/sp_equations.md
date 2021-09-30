@@ -8,23 +8,28 @@
 
 
 ```math
-\tau = m l^2 \ddot{\theta} + mgl sin(\theta) + B \dot{\theta}  
+\begin{equation}
+I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\theta) = \tau
+\end{equation}
 ```
 
 <img align="right" img height="200" src="../docs/pendulum.png" />
 
-where:
-* $`m`$: mass of the pendulum
-* $`l`$: length of pendulum
-* $`g`$: acceleration due to gravity
-* $`\theta`$: angle of the pendulum with respect to its stable fixed point configuration
-* $`\dot{\theta}`$: angular velocity
-* $`\ddot{\theta}`$: angular acceleration
-* $`B`$: damping
-<br/>
+where
 
-### Total Energy of the Pendulum
--------------------------------------------------------------------- 
+- $`\theta`$, $`\dot{\theta}`$, $`\ddot{\theta}`$ are the angular displacement, angular velocity and angular acceleration of the pendulum. $`\theta=0`$ means the pendulum is at its stable fixpoint (i.e. hanging down).
+- $`I`$ is the inertia of the pendulum. For a point mass: $`I=ml^2`$
+- $`m`$ mass of the pendulum
+- $`l`$ length of the pendulum
+- $`b`$ damping friction coefficient
+- $`c_f`$ coulomb friction coefficient
+- $`g`$ gravity (positive direction points down)
+- $`\tau`$ torque applied by the motor
+
+The pendulum has two fixpoints, one of them being stable (the pendulum hanging down) and the other being unstable (the pendulum pointing upwards). A challenge from the control point of view is to swing the pendulum up to the unstable fixpoint and stabilize the pendulum in that state.
+
+### Energy of the Pendulum
+--------------------------------------------------------------------
 
 * Kinetic Energy (K) = 
 ```math 
