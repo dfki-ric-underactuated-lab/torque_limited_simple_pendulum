@@ -1,0 +1,10 @@
+consistency: 1
+energy: 10.385674265535824
+frequency: 1079337.1075656202
+iterations: 100
+min_successful_torque: .inf
+reduced_torque_limit: 0
+sensitivity: 0
+smoothness: 0.024355468626747378
+robustness: 2
+swingup_time: .inf
