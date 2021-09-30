@@ -8,14 +8,14 @@ The controller benchmarking class can benchmark the controllers in simulation wi
 
 The controller benchmark currently computes the following properties
 
-    - **Controller Frequency**: How fast can the controller process a pendulum state and return a control output. Measured in calls per second (Hz).
-    - **Swingup time**: How long does it take for the controller to swing-up the pendulum from the lower fixpoint to the upper fixpoint. Units: Seconds (s)
-    - **Energy consumption**: How much energy does the controller use during the swingup motion and holding the pendulum stable afterwards. Energy usage is measured by comparing the energy level of the actuated pendulum with a free falling pendulum. Units: Joule (J).
-    - **Smoothness** measures how much the controller changes the control output during execution. The calculated value is the standard deviation of the differences of all consecutive control signals.
-    - **Consistency** measures if the controller is able to drive the pendulum to the unstable fixpoint for varying starting positions and velocities. The start position is randomly chosen between [-pi, pi] and the velocity is drawn from the intervall [-3pi/s, 3pi/s].
-    - **Robustness** tests the controller abilities to recover from perturbations during the swingup motions. The controller is perturbed four times for 1 entire second with a random amount of torque.
-    - **Sensitivity**: Here the pendulum parameters (mass, length, friction) are modified without using this knowledge in the controller. This tests how sensitive the controller is to the model parameters.
-    - **Reduced torque limit**: This test checks a list of torque limits to find the minimal torque limit with which the controller is still able to swing-up the pendulum.
+- **Controller Frequency**: How fast can the controller process a pendulum state and return a control output. Measured in calls per second (Hz).
+- **Swingup time**: How long does it take for the controller to swing-up the pendulum from the lower fixpoint to the upper fixpoint. Units: Seconds (s)
+- **Energy consumption**: How much energy does the controller use during the swingup motion and holding the pendulum stable afterwards. Energy usage is measured by comparing the energy level of the actuated pendulum with a free falling pendulum. Units: Joule (J).
+- **Smoothness** measures how much the controller changes the control output during execution. The calculated value is the standard deviation of the differences of all consecutive control signals.
+- **Consistency** measures if the controller is able to drive the pendulum to the unstable fixpoint for varying starting positions and velocities. The start position is randomly chosen between [-pi, pi] and the velocity is drawn from the intervall [-3pi/s, 3pi/s].
+- **Robustness** tests the controller abilities to recover from perturbations during the swingup motions. The controller is perturbed four times for 1 entire second with a random amount of torque.
+- **Sensitivity**: Here the pendulum parameters (mass, length, friction) are modified without using this knowledge in the controller. This tests how sensitive the controller is to the model parameters.
+- **Reduced torque limit**: This test checks a list of torque limits to find the minimal torque limit with which the controller is still able to swing-up the pendulum.
 
 ### API
 
