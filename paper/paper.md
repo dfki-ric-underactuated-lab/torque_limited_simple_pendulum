@@ -1,5 +1,5 @@
 ---
-title: 'Torque-limited simple pendulum: A Python package for getting familiar with control algorithms in robotics'
+title: 'Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics'
 tags:
   - Python
   - robotics
@@ -151,6 +151,17 @@ To get an understanding of the functionality of the implemented controllers they
 ![Energy Shaping Controller and DDPG Policy. \label{fig:controller_plots}](figures/energy_and_ddpg.png){#id .class height=600px}
 
 Furthermore, the swing-up controllers can be benchmarked, where it is evaluated how fast, efficient, consistent, stable and sensitive the controller is during the swing-up. See figure \autoref{fig:benchmark} for a comparison of the different controllers' benchmark results.
+
+The benchmark criteria are:
+
+- **Speed** : How fast can the controller process state input and return a control signal.
+- **Swingup time** : How long does it take the controller to swing-up the pendulum from the lower fixpoint to the upper fixpoint.
+- **Energy consumption**: How much energy does the controller use during the swingup motion and holding the pendulum stable afterwards.
+- **Smoothness**: Measures how much the controller changes the control output during execution.
+- **Consistency**: Measures if the controller is able to drive the pendulum to the unstable fixpoint for varying starting positions and velocities.
+- **Robustness**: Tests the controller abilities to recover from perturbations during the swingup motions.
+- **Sensitivity**: The pendulum parameters (mass, length, friction, inertia) are modified without using this knowledge in the controller.
+- **Reduced torque limit**: The minimal torque limit with which the controller is still able to swing-up the pendulum.
 
 ![Benchmark results. \label{fig:benchmark}](figures/benchmark_barplot.png){#id .class height=1100px}
 
