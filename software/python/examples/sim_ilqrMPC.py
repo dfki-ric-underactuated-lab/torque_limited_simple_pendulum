@@ -66,16 +66,6 @@ T, X, U = sim.simulate_and_animate(t0=0.0,
                                    controller=controller,
                                    integrator="runge_kutta")
 
-controller.init(x0=x0_sim)
-sim.set_state(time=0.0, x=x0_sim)
-sim.reset_data_recorder()
-T, X, U = sim.simulate_and_animate(t0=0.0,
-                                   x0=x0_sim,
-                                   tf=t_final,
-                                   dt=dt,
-                                   controller=controller,
-                                   integrator="runge_kutta")
-
 fig, ax = plt.subplots(3, 1, figsize=(18, 6), sharex="all")
 
 ax[0].plot(T, np.asarray(X).T[0], label="theta")

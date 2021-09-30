@@ -10,9 +10,9 @@ from simple_pendulum.analysis.plot_policy import plot_policy
 from simple_pendulum.model.parameters import get_params
 
 con = "energy_shaping"
-#con = "lqr"
-#con = "sac"
-#con = "ddpg"
+# con = "lqr"
+# con = "sac"
+# con = "ddpg"
 
 mass = 0.57288
 length = 0.5
@@ -75,5 +75,6 @@ elif con == "ddpg":
 plot_policy(controller,
             position_range=position_range,
             velocity_range=velocity_range,
-            samples_per_dim=100,
-            plotstyle=plotstyle)
+            samples_per_dim=samples_per_dim,
+            plotstyle=plotstyle,
+            save_path=None)
