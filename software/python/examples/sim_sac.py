@@ -10,10 +10,10 @@ from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.controllers.sac.sac_controller import SacController
 
 # get the simulator
-torque_limit = 2.0
+torque_limit = 1.5
 mass = 0.57288
 length = 0.5
-damping = 0.15
+damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0
 inertia = mass*length**2
@@ -37,7 +37,7 @@ controller = SacController(model_path=model_path,
                            state_representation=2)
 
 # simulate
-x0_sim = [0.1, 0.0]
+x0_sim = [0.01, 0.0]
 dt = 0.01
 t_final = 10
 integrator = "runge_kutta"

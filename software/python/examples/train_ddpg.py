@@ -1,7 +1,12 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
 from simple_pendulum.reinforcement_learning.ddpg.ddpg import ddpg_trainer
+
+save_dir = "log_data/ddpg_training"
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
 
 # pendulum parameters
 mass = 0.57288
@@ -71,7 +76,7 @@ trainer.init_agent(replay_buffer_size=replay_buffer_size,
 rewards, actor_losses, critic_losses = trainer.train(n_episodes=n_episodes,
                                                      verbose=True)
 
-trainer.save("log_data/ddpg_training")
+trainer.save(save_dir)
 
 # plotting
 MA_WINDOW = 10

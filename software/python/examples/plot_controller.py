@@ -47,7 +47,7 @@ if con == "lqr":
     plotstyle = "2d"
 
 if con == "sac":
-    model_path = "log_data/sac_training/best_model/best_model.zip"
+    model_path = "../../../data/models/sac_model.zip"
     params_path = "../../../data/parameters/sp_parameters_sac.yaml"
     params = get_params(params_path)
     controller = SacController(model_path=model_path,

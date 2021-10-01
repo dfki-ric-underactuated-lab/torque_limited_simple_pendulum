@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -10,6 +11,9 @@ from simple_pendulum.controllers.pid.pid import PIDController
 from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 from simple_pendulum.utilities.process_data import prepare_trajectory
 
+log_dir = "log_data/direct_collocation"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 
 # pendulum parameters
 mass = 0.57288
@@ -64,7 +68,7 @@ dircal.plot_phase_space_trajectory(x_trajectory)
 
 # save results
 csv_data = np.vstack((T, X, XD, U)).T
-csv_path = "../../../data/trajectories/direct_collocation/trajectory.csv"
+csv_path = os.path.join(log_dir, "trajectory.csv")
 np.savetxt(csv_path, csv_data, delimiter=',',
            header="time,pos,vel,torque", comments="")
 

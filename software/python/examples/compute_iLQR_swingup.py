@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from functools import partial
@@ -18,6 +19,9 @@ from simple_pendulum.utilities.process_data import prepare_trajectory
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
 from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 
+log_dir = "log_data/ddp"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 
 # pendulum parameters
 mass = 0.57288
@@ -136,7 +140,7 @@ else:
 csv_data = np.vstack((time, TH, THD,
                       np.append(u_trj.T[0], 0.0))).T
 
-csv_path = "../../../data/trajectories/ilqr/trajectory.csv"
+csv_path = os.path.join(log_dir, "trajectory.csv")
 np.savetxt(csv_path, csv_data, delimiter=',',
            header="time,pos,vel,torque", comments="")
 
@@ -213,7 +217,7 @@ sim = Simulator(plant=pendulum)
 
 data_dict = prepare_trajectory(csv_path)
 
-#controller = OpenLoopController(data_dict)
+# controller = OpenLoopController(data_dict)
 controller = TVLQRController(data_dict=data_dict, mass=mass, length=length,
                              damping=damping, gravity=gravity,
                              torque_limit=torque_limit)

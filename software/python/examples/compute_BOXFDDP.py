@@ -1,6 +1,11 @@
+import os
 import numpy as np
 
 from simple_pendulum.trajectory_optimization.ddp.boxfddp import boxfddp_calculator
+
+log_dir = "log_data/ddp"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 
 # pendulum parameters
 mass = 0.57288
@@ -29,7 +34,7 @@ final_cost_state = 1e10
 
 ddp = boxfddp_calculator(urdf_path=urdf_path,
                          enable_gui=True,
-                         log_dir="log_data/ddp")
+                         log_dir=log_dir)
 ddp.init_pendulum(mass=mass,
                   length=length,
                   inertia=inertia,
@@ -46,10 +51,10 @@ T, TH, THD, U = ddp.compute_trajectory(start_state=start_state,
                                        running_cost_torque=running_cost_torque,
                                        final_cost_state=final_cost_state)
 ddp.plot_trajectory()
-#ddp.simulate_trajectory_gepetto()
+ddp.simulate_trajectory_gepetto()
 
 # Save Trajectory to a csv file to be sent to the motor.
 csv_data = np.vstack((T, TH, THD, U)).T
-np.savetxt("../../../data/trajectories/ddp/trajectory.csv",
-           csv_data, delimiter=',',
+csv_path = os.path.join(log_dir, "trajectory.csv")
+np.savetxt(csv_path, csv_data, delimiter=',',
            header="time,pos,vel,torque", comments="")
