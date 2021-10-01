@@ -110,6 +110,37 @@ This project provides an easy accessible plant for the pendulum dynamics which i
 
 The pendulum has two fixpoints, one of them being stable (the pendulum hanging down) and the other being unstable (the pendulum pointing upwards). A challenge from the control point of view is to swing the pendulum up to the unstable fixpoint and stabilize the pendulum in that state.
 
+## Parameter Identification
+
+An inverse model of the robot motion dynamics is the mapping from the motion of the robot, given by the joint positions $q(t)$ $\in$ $\mathbb{R}^n$, joint velocities $ \dot q (t)$ and joint accelerations $\ddot q(t)$ to the actuation torques $\tau (t)$ $\in$ $\mathbb{R}^n$ dependent on time $t$. Applying the Recursive-Newton-Euler algorithm or the Lagrange-Formalism to the a-priori known geometry of the robot \cite{siciliano2009}, yields a theoretical model, still including unknown dynamic parameters such as the mass $m_i$, the three ﬁrst moments of inertia $m_i c_{[x|y|z],i}$ or the six second moments of inertia $I_{[xx|xy|xz|yy|yz|zz],i}$, for each body $i$ of the robot. Two additional parameters are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account, as coefﬁcients of a Coulomb and viscous friction model. The resulting rigid-body model thus has the form \cite{bargsten2016}
+
+\begin{equation}
+    \tau(t)= \mathbf{Y} q(t), \dot q(t), \ddot q(t)) \; \theta,
+\end{equation}
+
+where $\theta$ $\in$ $\mathbb{R}^{12n}$ denotes the parameter vector with $n$ sets of parameters $\theta_i$,
+
+\begin{equation}
+    \theta_i=(m_i \; m_i c_{x,i} \; m_i c_{y,i} \; m_i c_{z,i} \; I_{xx,i} \; I_{xy,i} \; I_{xz,i} \; I_{yy,i} \; I_{yz,i} \; I_{zz,i} \; F_{c,i} \; F_{v,i})^T
+\end{equation}
+
+ For a reference trajectory sampled at $t = kT_s, \; k$ $\in$ $1...K$ with sampling time $T_s$, an \textit{identiﬁcation matrix} $\mathit{\Phi}$ can be created
+
+\begin{equation}
+    \mathit{\Phi} = \left( \begin{array}{c}
+                    \mathbf{Y} (q(T_s), \; \dot q(T_s), \; \ddot q(T_s)) \\
+                    ... \\
+                    \mathbf{Y} (q(kT_s), \; \dot q(kT_s), \; \ddot q(kT_s)) \\
+                    ... \\
+                    \mathbf{Y} (q(KT_s), \; \dot q(KT_s), \; \ddot q(KT_s)) \\
+                    \end{array} \right) 
+\end{equation}
+
+The required torques $\tau_m(kT_s)$ for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory can be obtained by modifying the parameters of a Fourier-Series as described by \cite{swevers2007}. The dynamic parameters $\hat{\theta}$ are estimated through least squares optimization between measured torque $\tau_m$ and computed torque $\mathit{\Phi} \hat{\theta}$;
+
+\begin{equation}
+     \underset{\hat \theta}{\text{minimize}} (\mathit{\Phi} \hat{\theta} - \tau_m)^T (\mathit{\Phi} \hat{\theta} - \tau_m) .
+\end{equation}
 
 ## Control Methods
 
