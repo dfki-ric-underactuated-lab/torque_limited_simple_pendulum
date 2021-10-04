@@ -17,7 +17,7 @@ def syntax():
     controller.add_argument("-ilqr", action='store_true',
                             help="iterative linear quadratic regulator")
     controller.add_argument("-energy", action='store_true',
-                            help="linear quadratic regulator")
+                            help="energy + linear quadratic regulator")
     controller.add_argument("-sac", action='store_true',
                             help="soft actor critic")
     controller.add_argument("-openloop", action='store_true',
