@@ -16,7 +16,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 ## Documentation
 
 The [hardware setup](hardware/testbench_description.md) and the [motor configuration](hardware/motor_configuration.md) are described in their respective readme files.
-The dynamics of are explained [here](docs/sp_equations.md).
+The dynamics of the pendulum are explained [here](docs/sp_equations.md).
 
 In order to work with this repository you can [get started here](docs/installation_guide.md) and read the [usage instructions here](docs/usage_instructions.md) for a description of how to use this repository on a real system. The instructions for testing the code can be found [here](docs/code_testing.md).
 
