@@ -12,7 +12,7 @@ The controller folders contain csv files where a trajectory is stored through po
 
 ## Parameter Identification
 
-PD control is also used for dynamic Parameter identification. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. The `/control_method_pd/system_identification` folder holds a text file containing the dynamically identified parameters on our test bed.
+PD control is also used for dynamic Parameter identification. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. The `/control_method_pd/system_identification` folder holds a text file containing the dynamically identified parameters of our test bed.
 
 ## Data Filter
 
