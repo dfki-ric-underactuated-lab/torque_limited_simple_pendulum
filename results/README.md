@@ -1,17 +1,19 @@
-# Results of the Simple pendulum swingUp tested on the hardware system, using optimal control based on the FDDP algorithm:
+# Results 
 
+## Control Methods 
 
+This folder contains measured data files from all swing ups performed with different control methods on the real simple pendulum in the introduction video: **Differential Dynamic Programming, Direct Collocation, Gravity Compensation, Energy Shapping + Linear Quadratic Regulator,
+Iterative Linear Quadratic Regulator and Soft Actor Critc**
+. 
 
-* swingup_pos file presents the joint rotation from the controller (the desired) and the executed (the measured).
+The basic PD controller is used to demonstrate, that a non-dynamical swing up is not possible with torque limited to 1Nm and therefore showcases how controllers for underactuated systems enhance the perfomance of a torque-limited system by exploiting the natural dynamics of the task.
 
+The controller folders contain csv files where a trajectory is stored through position, velocity and torque data for each simgle time step. If the control method requires a precomputed trajectory the folder will contain a `dat_desired.csv` file along with a `data_measured.csv` file. Plots are used to compare desired and measured `position, velocity and torque data` in order to validate the perfomance of the individual controllers.   
 
-* swingup_vel file presents the joint velocity from the controller (the desired) and the executed (the measured).
+## Parameter Identification
 
+PD control is also used for dynamic Parameter identification. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. 
 
-* swingup_tau file presents the control which represents the applied joint torque from the controller (the desired) and the executed (the measured).
+## Data Filter
 
-
-* data_desired file presents the formated data from the solver to control the hardware system.
-
-
-* data_measured file presents the data extracted from the execution on the hardware system of a swingUp.
+Raw sensor data is often noisy and a convenient way to filter out undesirable frequences is the **Fast Fourier Transform (FFT)**. First the power spectrum density (PSD) is computed. The PSD helps to decompose the frequency bandwidth into the most dominant frequencies. With the help of the plots it is possible to decide which of the main frequencies shall be retained and what frequency are less dense and can therefore be discarded as sensor noise. Plots and csv data files of the filter method are located in the `filter_method_fft` foder. 
