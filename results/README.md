@@ -2,9 +2,7 @@
 
 ## Control Methods 
 
-This folder contains measured data files from all swing ups performed with different control methods on the real simple pendulum in the introduction video: **Differential Dynamic Programming (DDP), Direct Collocation, Gravity Compensation, Energy Shaping + Linear Quadratic Regulator,
-Iterative Linear Quadratic Regulator (iLQR) and Soft Actor Critic (SAC)**
-. 
+This folder contains measured data files from all swing ups performed with different control methods on the real simple pendulum in the introduction video: **Differential Dynamic Programming (DDP), Direct Collocation, Energy Shaping + Linear Quadratic Regulator, Gravity Compensation, Iterative Linear Quadratic Regulator (iLQR) and Soft Actor Critic (SAC)**. 
 
 The basic **Proportinal-Derivative (PD)** controller is used to demonstrate, that a non-dynamical swing up is not possible with torque limited to 1 Nm and therefore showcases how controllers for underactuated systems enhance the performance of a torque-limited system by exploiting the natural dynamics of the task.
 
