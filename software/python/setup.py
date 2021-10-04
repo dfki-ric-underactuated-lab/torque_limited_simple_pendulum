@@ -12,9 +12,10 @@ setup(
         'pyyaml',
         'pandas',
         'argparse',
+        'scipy',
 
         # reinforcement learning
-        'torch',
+        'tensorflow',
         'stable_baselines3'
     ],
     classifiers=[
