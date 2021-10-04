@@ -112,7 +112,7 @@ The pendulum has two fixpoints, one of them being stable (the pendulum hanging d
 
 ## Parameter Identification
 
-An inverse model of the robot motion dynamics is the mapping from the motion of the robot, given by the joint positions $\theta(t)\in \mathbb{R}^n$, joint velocities $\dot{\theta}(t)$ and joint accelerations $\ddot \theta(t)$ to the actuation torques $\tau (t) \in \mathbb{R}^n$ dependent on time $t$. Applying the Recursive-Newton-Euler algorithm or the Lagrange-Formalism to the a-priori known geometry of the robot [@siciliano2009], yields a theoretical model, still including unknown dynamic parameters such as the mass $m_i$, the three ﬁrst moments of inertia $m_i c_{[x|y|z],i}$ or the six second moments of inertia $I_{[xx|xy|xz|yy|yz|zz],i}$, for each body $i$ of the robot. Two additional parameters are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account, as coefﬁcients of a Coulomb and viscous friction model. The resulting rigid-body model thus has the form [@bargsten2016]
+The  rigid-body model dervied from a-priori known geometry as described [@siciliano2009] by has the form 
 
 $$\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot q(t)\right) \; \lambda,$$
 
@@ -120,19 +120,7 @@ where $\lambda$ $\in$ $\mathbb{R}^{12n}$ denotes the parameter vector with $n$ s
 
 $$\lambda_i=(m_i \; m_i c_{x,i} \; m_i c_{y,i} \; m_i c_{z,i} \; I_{xx,i} \; I_{xy,i} \; I_{xz,i} \; I_{yy,i} \; I_{yz,i} \; I_{zz,i} \; F_{c,i} \; F_{v,i})^T$$
 
-For a reference trajectory sampled at $t = kT_s, \; k$ $\in$ $1...K$ with sampling time $T_s$, an \textit{identiﬁcation matrix} $\mathit{\Phi}$ can be created
-
-$$
-    \mathit{\Phi} = \left( \begin{array}{c}
-                    \mathbf{Y} (\theta(T_s), \; \dot \theta(T_s), \; \ddot \theta(T_s)) \\
-                    ... \\
-                    \mathbf{Y} (\theta(kT_s), \; \dot \theta(kT_s), \; \ddot \theta(kT_s)) \\
-                    ... \\
-                    \mathbf{Y} (\theta(KT_s), \; \dot \theta(KT_s), \; \ddot \theta(KT_s)) \\
-                    \end{array} \right) 
-$$
-
-The required torques $\tau_m(kT_s)$ for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory can be obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque $\tau_m$ and computed torque $\mathit{\Phi} \lambda$:
+ Two additional parameters for Coulomb and viscous friction are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account [@bargsten2016]. For a reference trajectory sampled an \textit{identiﬁcation matrix} $\mathit{\Phi}$ can be created. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory are obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque :
 
 $$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right).$$
 
