@@ -3,9 +3,9 @@
 #  Installation Guide
 </div>
 
-In order to execute the python code within the repository you will need to have `Python (>=3.7, <4)` along with the package installer `pip3` on your system installed.
+In order to execute the python code within the repository you will need to have `Python (>=3.6, <4)` along with the package installer `pip3` on your system installed.
 
-- **python (>=3.7, <4)**
+- **python (>=3.6, <4)**
 - **pip3**
 
 If you aren't running a suitable python version currently on your system, we recommend you to install the required python version inside of an virtual environment for python (**pyenv**) and to install all python packages necessary to use this repo afterwards inside a newly created virtual environment (**virtualenv**). The installation procedure for Ubuntu (18.04.5 and 20.04.2.0 LTS) are described in the next section. You can find instructions for MacOS and other Linux distributions, as well as information about common build problems here:
@@ -14,7 +14,7 @@ If you aren't running a suitable python version currently on your system, we rec
 - **virtualenv:** https://github.com/pyenv/pyenv-virtualenv
 
 ## Installing this Python Package
-Once all requirements (see below) are fulfilled, you can install this python package by going to the directory [software/python](software/python) and typing:
+If you want to install this package with your system python version, you can do that by going to the directory [software/python](software/python) and typing:
 ```
 pip install .
 ```
@@ -34,7 +34,7 @@ git clone git@git.hb.dfki.de:underactuated-robotics/torque_limited_simple_pendul
 python3 --version
 ```
 
-If you are already using suitable Python 3.7 version jump directly to step `Creating a Virtual Environment` otherwise continue here and first install a virtual environment for python.
+If you are already using suitable Python 3.6 version jump directly to step `Creating a Virtual Environment` otherwise continue here and first install a virtual environment for python.
 
 <br>
 
@@ -111,7 +111,7 @@ You can diplay a list of available Python versions with:
 pyenv install -l | grep -ow [0-9].[0-9].[0-9]
 ```
 
-Install your desired Python version using Pyenv:
+Install your desired Python version using Pyenv (We suggest 3.6.9 for ubuntu 18.04 and 3.8.10 for ubuntu 20.04):
 
 ```
 pyenv install 3.x.x
@@ -148,10 +148,10 @@ echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 exec "$SHELL"
 ```
 
-**Step 4)** To create a new virtual environment, e.g. named simple-pendulum with Python 3.7.5 run
+**Step 4)** To create a new virtual environment, e.g. named simple-pendulum with Python 3.6.9 run
 
 ```
-pyenv virtualenv 3.7.5 simple-pendulum
+pyenv virtualenv 3.6.9 simple-pendulum
 ```
 
 **Step 5)** Activate the new virtual environment with the command
@@ -199,13 +199,19 @@ pip3 --version
 <br>
 
 ## E) Install Requirements for this Repository
-Navigate inside your cloned git repo to `/torque_limited_simple_pendulum/software/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now install all required packages from the `requirements.txt` file via
+Navigate inside your cloned git repo to `/torque_limited_simple_pendulum/software/python` and make sure your virtual environment is active `pyenv activate simple-pendulum`. Now you can install version specific packages for all required packages from the `requirements.txt` file via:
 
 ```
 python3 -m pip install -r requirements.txt
 ```
 
-(Note: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`)
+Note 1: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`
+Note 2: Yoiu can skip this step and directly install this package with the setup.py file as described in the next line. This will install the requirement packages as well. The setup.py will not install specific versions of the requirements, that have been tested by us, but instead, it will install the latest version.
+
+This package then can be installed from the [software/python](software/python) directory by typing:
+```
+pip install .
+```
 
 This was the final installation step. Your system is now prepared to run all code snippets from this repo. Have fun exploring all kind of different simple pendulum controllers!
 
