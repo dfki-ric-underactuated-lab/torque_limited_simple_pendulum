@@ -27,17 +27,6 @@ In order to work with this repository you can [get started here](docs/installati
 * [Usage Instructions](docs/usage_instructions.md)
 * [Code Testing](docs/code_testing.md)
 
-## Safety Notes #
-
-When working with a real system be careful and mind the following safety measures:
-
-* Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
-
-* Stay away from the plane in which pendulum is swinging. It is recommended to have a safety net surrounding the pendulum in case the pendulum flies away.
-
-* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop.
-
-
 ## Overview of Methods #
 
 <div align="center">
@@ -142,6 +131,16 @@ Feel free to contact us if you have questions about the test bench. Enjoy!
 5. Create a new Pull Request
 
 See [Contributing](CONTRIBUTING.md) for more details.
+
+## Safety Notes #
+
+When working with a real system be careful and mind the following safety measures:
+
+* Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.
+
+* Stay away from the plane in which pendulum is swinging. It is recommended to have a safety net surrounding the pendulum in case the pendulum flies away.
+
+* Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop.
 
 ## Acknowledgements #
 This work has been performed in the VeryHuman project funded by the German Aerospace Center (DLR) with federal funds (Grant Number: FKZ 01IW20004) from the Federal Ministry of Education and Research (BMBF) and is additionally supported with project funds from the federal state of Bremen for setting up the Underactuated Robotics Lab (Grant Number: 201-001-10-3/2021-3-2).
