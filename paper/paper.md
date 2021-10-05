@@ -31,7 +31,7 @@ bibliography: paper.bib
 # Summary
 
 There are many, wildly different approaches to robotic control.
-Underactuated robots are systems for which it is not possible to dictate arbitrary accelerations to all joints. Hence, a controller cannot be used to overwrite the system dynamics and force the system on a desired trajectory as it often is done in classical control techniques.
+Underactuated robots are systems for which it is not possible to dictate arbitrary accelerations to all joints. Hence, a controller cannot be used to override the system dynamics and force the system on a desired trajectory as it often is done in classical control techniques.
 A torque-limited pendulum is arguably the simplest underactuated robotic system and thus is a suitable system to study, test and benchmark different controllers.
 
 This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build a
