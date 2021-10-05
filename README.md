@@ -57,9 +57,9 @@ In order to work with this repository you can [get started here](docs/installati
 * [Soft Actor Critic (SAC)](software/python/simple_pendulum/controllers/sac): An off-policy model free reinforcement learning algorithm. Maximizes a trade-off between expected return of a reward function and entropy, a measure of randomness in the policy. [reference](https://arxiv.org/abs/1801.01290)
 * [Deep Deterministic Policy Gradient (DDPG)](software/python/simple_pendulum/controllers/ddpg): An off-policy reinforcement algorithm which concurrently learns a Q-function and uses this Q-function to train a policy in the state space. [reference](https://arxiv.org/abs/1509.02971v6)
 
-The implementations of Direct Collocaiton and TVLQR make use of drake [@drake], iLQR only makes use of the symbolic library of drake, FDDP is makes use of Crocoddyl [@mastalli2020crocoddyl], SAC uses the stable-baselines3 [@stable-baselines3] implementation and DDPG is implemented in tensorflow [@tensorflow2015-whitepaper]. The other methods use only standard libraries.
+The implementations of direct collocation and TVLQR make use of [drake](https://drake.mit.edu/doxygen_cxx/), iLQR only makes use of the symbolic library of drake, FDDP is makes use of [Crocoddyl](https://gepettoweb.laas.fr/doc/loco-3d/crocoddyl/master/doxygen-html/), SAC uses the [stable-baselines3](https://stable-baselines3.readthedocs.io/en/master/) implementation and DDPG is implemented in [tensorflow](https://www.tensorflow.org/). The other methods use only standard libraries.
 
-The controllers can be benchmarked in simulation with a set of predefined criteria. The criteria are defined [here](software/python/simple_pendulum/analysis).
+The controllers can be benchmarked in simulation with a set of predefined [criteria](software/python/simple_pendulum/analysis).
 
 <div align="center">
 <img width="900" src="data/benchmarks/benchmark_barplot.png">
