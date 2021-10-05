@@ -157,7 +157,7 @@ The control methods that are currently implemented in this library (see also \au
 - Soft Actor Critic (SAC) [@haarnoja2018soft]
 - Deep Deterministic Policy Gradient (DDPG) [@lillicrap2019continuous]
 
-The implementations of Direct Collocaiton and TVLQR make use of drake [@drake], iLQR only makes use of the symbolic library of drake, FDDP is makes use of Crocoddyl [@mastalli2020crocoddyl], SAC uses the stable-baselines3 [@stable-baselines3] implementation and DDPG is implemented in tensorflow [@tensorflow2015-whitepaper]. The other methods use only standard libraries.
+The implementations of direct collocation and TVLQR make use of drake [@drake], iLQR only makes use of the symbolic library of drake, FDDP is makes use of Crocoddyl [@mastalli2020crocoddyl], SAC uses the stable-baselines3 [@stable-baselines3] implementation and DDPG is implemented in tensorflow [@tensorflow2015-whitepaper]. The other methods use only standard libraries.
 This repository is designed to welcome contributions in form of novel optimization methods/controllers/learning algorithms to extend this list.
 
 To get an understanding of the functionality of the implemented controllers they can be visualized in the pendulum's state space. Example visualizations of the energy shaping controller and the policy learned with DDPG are shown in figure \autoref{fig:controller_plots}.
