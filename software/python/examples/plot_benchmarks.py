@@ -11,6 +11,7 @@ font = {'family' : 'Arial',
 mpl.rc('font', **font)
 
 datadir = "../../../data/benchmarks"
+savedir = "log_data"
 alignment = "horizontal"
 
 workdir = os.getcwd()
@@ -126,7 +127,7 @@ if alignment == "vertical":
 
     ax_sens = plt.subplot(427, sharex=ax_freq)
     ax_sens.bar(labels, np.asarray(sensitivities)*100, color="tab:green")
-    ax_sens.set_ylabel("sensitivity [%]", fontsize=20)
+    ax_sens.set_ylabel("insensitivity [%]", fontsize=20)
     ax_sens.set_ylim(0, 100)
     plt.xticks(rotation=45, ha="right", rotation_mode="anchor")
 
@@ -149,12 +150,12 @@ if alignment == "vertical":
 
     ax_mint = plt.subplot(428, sharex=ax_time)
     ax_mint.bar(labels, min_torques, color="tab:red")
-    ax_mint.set_ylabel("minimum tau [Nm]", fontsize=20)
+    ax_mint.set_ylabel(r"Reduced $\tau_{max}$ [Nm]", fontsize=20)
     plt.xticks(rotation=45, ha="right", rotation_mode="anchor")
 
     ax_freq.get_shared_x_axes().join(ax_freq, ax_time)
 
-    plt.savefig(os.path.join(datadir, "benchmark_barplot"),
+    plt.savefig(os.path.join(savedir, "benchmark_barplot"),
                 bbox_inches="tight")
     plt.show()
 
@@ -194,7 +195,7 @@ if alignment == "horizontal":
 
     ax_sens = plt.subplot(244, sharey=ax_freq)
     ax_sens.barh(labels, np.asarray(sensitivities)*100, color="tab:green")
-    ax_sens.set_xlabel("sensitivity [%]", fontsize=20)
+    ax_sens.set_xlabel("insensitivity [%]", fontsize=20)
     ax_sens.xaxis.labelpad = 10
     ax_sens.set_xlim(0, 100)
     ax_sens.set_xticks([25, 50, 75, 100])
@@ -224,12 +225,12 @@ if alignment == "horizontal":
 
     ax_mint = plt.subplot(248, sharey=ax_time)
     ax_mint.barh(labels, min_torques, color="tab:red")
-    ax_mint.set_xlabel("minimum tau [Nm]", fontsize=20)
+    ax_mint.set_xlabel(r"Reduced $\tau_{max}$ [Nm]", fontsize=20)
     plt.setp(ax_mint.get_yticklabels(), visible=False)
 
     ax_freq.get_shared_y_axes().join(ax_freq, ax_time)
 
     plt.subplots_adjust(wspace=0.1, hspace=0.1)
-    plt.savefig(os.path.join(datadir, "benchmark_barplot"),
+    plt.savefig(os.path.join(savedir, "benchmark_barplot"),
                 bbox_inches="tight")
     plt.show()

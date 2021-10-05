@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="167.97307mm"
+   height="204.9467mm"
+   viewBox="0 0 167.97308 204.9467"
+   version="1.1"
+   id="svg5"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="controller_overview.svg"
+   inkscape:export-filename="controller_overview.png"
+   inkscape:export-xdpi="500"
+   inkscape:export-ydpi="500">
+  <metadata
+     id="metadata109">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="3.2526912"
+     inkscape:cx="196.16422"
+     inkscape:cy="359.42302"
+     inkscape:window-width="6144"
+     inkscape:window-height="3248"
+     inkscape:window-x="3840"
+     inkscape:window-y="54"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path964"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <rect
+       x="-24.778257"
+       y="81.76825"
+       width="98.837715"
+       height="64.974098"
+       id="rect536" />
+    <rect
+       x="230.98843"
+       y="143.7139"
+       width="97.736458"
+       height="41.297096"
+       id="rect530" />
+    <rect
+       x="94.030594"
+       y="145.34521"
+       width="100.54894"
+       height="21.080605"
+       id="rect488" />
+    <rect
+       x="-28.720896"
+       y="89.798241"
+       width="294.11652"
+       height="194.50226"
+       id="rect380" />
+    <rect
+       x="557.1026"
+       y="10.173738"
+       width="24.838936"
+       height="25.900532"
+       id="rect296" />
+    <rect
+       x="-60.20005"
+       y="-319.19376"
+       width="1207.0868"
+       height="313.87381"
+       id="rect222514" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-47.971317,-45.033401)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58329964px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458299"
+       x="74.813919"
+       y="100.1519"
+       id="text54056"><tspan
+         sodipodi:role="line"
+         id="tspan54054"
+         style="stroke-width:0.26458299"
+         x="74.813919"
+         y="109.51564" /></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text222512"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect222514);fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.70446897;stroke-linejoin:round;stroke-miterlimit:25.79999924;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1297"
+       width="167.97307"
+       height="181.39467"
+       x="47.971317"
+       y="45.033401" />
+    <text
+       transform="scale(1.0037881,0.99622619)"
+       id="text23408-6-2-7-4"
+       y="143.66396"
+       x="49.386082"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:0.82745098;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       xml:space="preserve"><tspan
+         y="143.66396"
+         x="49.386082"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:0.82745098;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan23406-2-3-5-5"
+         sodipodi:role="line">offline</tspan></text>
+    <text
+       transform="scale(1.0037881,0.99622619)"
+       id="text23408-6-2-7-4-0"
+       y="154.52287"
+       x="49.710224"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:0.82745098;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       xml:space="preserve"><tspan
+         y="154.52287"
+         x="49.710224"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:0.82745098;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan23406-2-3-5-5-3"
+         sodipodi:role="line">online</tspan></text>
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:0.59925807;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.59925806, 1.19851612;stroke-dashoffset:0;stroke-opacity:0.82745098"
+       d="M 49.977767,146.44838 H 214.11928"
+       id="path177451-6"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#a8d6cc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.56964129;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-22-5"
+       width="78.07666"
+       height="41.65699"
+       x="49.418823"
+       y="156.93155" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="52.263447"
+       y="165.35196"
+       id="text23408-7"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-0"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="52.263447"
+         y="165.35196">Closed Loop </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="51.455307"
+       y="173.04239"
+       id="text23408-3-7-8-7"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="51.455307"
+         y="173.04239"
+         id="tspan929">- Gravity Compensation</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="51.455307"
+         y="180.09795"
+         id="tspan1318">- Energy Shaping</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="51.455307"
+         y="187.1535"
+         id="tspan1320">- LQR </tspan></text>
+    <rect
+       y="156.9751"
+       x="130.74677"
+       height="41.575218"
+       width="68.000099"
+       id="rect31-0-22-5-2"
+       style="fill:#a8d6cc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.64759398;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(1.0037881,0.99622619)"
+       id="text23408-2-1"
+       y="191.73123"
+       x="134.354"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       xml:space="preserve"><tspan
+         y="191.73123"
+         x="134.354"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan23406-9-2"
+         sodipodi:role="line">- TVLQR</tspan></text>
+    <text
+       transform="scale(1.0037881,0.99622619)"
+       id="text23408-7-6"
+       y="165.81804"
+       x="132.39854"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       xml:space="preserve"><tspan
+         y="165.81804"
+         x="132.39854"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan23406-0-0"
+         sodipodi:role="line">Trajectory Following</tspan></text>
+    <rect
+       style="fill:#f6cddf;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-2-4"
+       width="106.20546"
+       height="24.659527"
+       x="93.74369"
+       y="93.148499" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="126.79877"
+       y="101.67316"
+       id="text23408-3-8"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-6-3"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="126.79877"
+         y="101.67316">Simulation</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="111.16687"
+       y="111.00985"
+       id="text23408-3-6-4"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-6-1-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="111.16687"
+         y="111.00985">  kinematics &amp; dynamics</tspan></text>
+    <rect
+       style="fill:#a5d6cc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.67152262;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-22"
+       width="79.349289"
+       height="35.404457"
+       x="134.07431"
+       y="46.502728" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="141.65894"
+       y="69.885284"
+       id="text23408-61-3-7"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-29-1-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="141.65894"
+         y="69.885284">- SAC</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="135.23834"
+       y="54.100906"
+       id="text12274-1"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="135.23834"
+         y="54.100906"
+         id="tspan329193">Reinforcement Learning</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 178.70653,82.113588 v 10.99457"
+       id="path277675"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#a5d6cc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.69999999;stroke-linejoin:round;stroke-miterlimit:25.79999924;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0"
+       width="80.009331"
+       height="35.280487"
+       x="49.739235"
+       y="46.523865" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="52.053913"
+       y="53.822132"
+       id="text12274"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="52.053913"
+         y="53.822132"
+         id="tspan343601">Trajectory Optimization</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:0;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="52.195831"
+       y="61.391048"
+       id="text23408-3-7"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-6-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.5;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="52.195831"
+         y="61.391048">- Direct Collocation</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.5;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="52.195831"
+         y="69.857712"
+         id="tspan939">- iLQR</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.5;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="52.195831"
+         y="78.324379"
+         id="tspan941">- BoxFDDP</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.5;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         sodipodi:role="line"
+         id="tspan225"
+         x="52.195831"
+         y="82.557716" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9105401px;line-height:0;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="131.42499"
+       y="62.635254"
+       id="text23408-3-7-1"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-6-5-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9105401px;line-height:1.5;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="131.42499"
+         y="63.910843" /><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9105401px;line-height:1.5;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="131.42499"
+         y="63.910843"
+         id="tspan211-8" /><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9105401px;line-height:1.5;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="131.42499"
+         y="63.910843"
+         id="tspan213-3" /><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.9105401px;line-height:1.5;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         sodipodi:role="line"
+         id="tspan225-4"
+         x="131.42499"
+         y="63.910843" /></text>
+    <text
+       xml:space="preserve"
+       id="text294"
+       style="font-size:5.92454004px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect296)"
+       transform="matrix(0.7770201,0,0,0.77116647,-410.66207,46.015805)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 115.62415,81.742251 V 93.193839"
+       id="path277954"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#f6cddf;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.62114149;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-2-4-33"
+       width="161.07298"
+       height="15.731865"
+       x="50.597557"
+       y="209.91652" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+       x="99.118874"
+       y="228.50012"
+       id="text23408-1"
+       transform="scale(1.0391574,0.96231812)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-4"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+         x="99.118874"
+         y="228.50012">Main Control Loop</tspan></text>
+    <rect
+       style="fill:#87ada4;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.39670461;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-22-5-2-8"
+       width="32.085594"
+       height="14.860664"
+       x="92.327492"
+       y="181.97411" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="95.336876"
+       y="195.49763"
+       id="text23408-2-1-8"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-9-2-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="95.336876"
+         y="195.49763">- iLQR</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="99.974632"
+       y="188.19167"
+       id="text23408-7-6-0"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-0-0-6"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="99.974632"
+         y="188.19167">MPC </tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.61007351;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 205.66826,140.01682 v 69.54264"
+       id="path277952-3-9"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       id="text378"
+       style="font-size:4.58611012px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect380)" />
+    <text
+       xml:space="preserve"
+       id="text486"
+       style="font-size:4.58611012px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect488)" />
+    <rect
+       style="fill:#d2c1e4;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31"
+       width="36.139019"
+       height="10.013765"
+       x="129.28456"
+       y="130.17566" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="130.67311"
+       y="137.71379"
+       id="text23408-3-6"
+       transform="scale(1.0037881,0.9962262)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-6-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="130.67311"
+         y="137.71379">Trajectories</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text528"
+       style="font-size:4.58611012px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect530)" />
+    <text
+       xml:space="preserve"
+       id="text534"
+       style="font-size:4.58611012px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect536)" />
+    <rect
+       style="fill:#d2c1e4;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-2-4-3-1-9"
+       width="33.611607"
+       height="13.971663"
+       x="49.758411"
+       y="89.371704" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="50.140942"
+       y="98.352348"
+       id="text23408-3-6-4-6"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-6-1-0-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="50.140942"
+         y="98.352348">Parameters</tspan></text>
+    <rect
+       style="fill:#d2c1e4;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-2-4-3-1-9-0"
+       width="33.611607"
+       height="13.971663"
+       x="49.758411"
+       y="107.61684" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="57.841419"
+       y="116.54368"
+       id="text23408-3-6-4-6-9"
+       transform="scale(1.0037881,0.9962262)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-6-1-0-0-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="57.841419"
+         y="116.54368">URDF </tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 148.73071,117.8922 v 12.19798"
+       id="path277954-3"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 189.19977,118.14196 v 12.12176"
+       id="path277954-3-8"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 87.804879,198.94399 v 10.58005"
+       id="path277954-3-1"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.65440696;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 148.8378,140.2137 v 16.84367"
+       id="path277954-3-1-0"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.61133516;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 163.13493,198.78171 v 11.07025"
+       id="path277952-3-9-5"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 83.464463,96.436511 H 93.832832"
+       id="path1681"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 83.386432,114.36552 h 10.35821"
+       id="path1683"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="172.77672"
+       y="69.494987"
+       id="text23408-61-3-7-6"
+       transform="scale(1.0037881,0.99622619)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-29-1-8-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="172.77672"
+         y="69.494987">- DDPG</tspan></text>
+    <text
+       transform="scale(1.0037881,0.9962262)"
+       id="text23408-2"
+       y="184.08936"
+       x="134.354"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       xml:space="preserve"><tspan
+         y="184.08936"
+         x="134.354"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan23406-9"
+         sodipodi:role="line">- PID controller</tspan></text>
+    <text
+       transform="scale(1.0037881,0.9962262)"
+       id="text23408-2-4"
+       y="176.65295"
+       x="134.354"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       xml:space="preserve"><tspan
+         y="176.65295"
+         x="134.354"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan23406-9-6"
+         sodipodi:role="line">- Feedforward torque</tspan></text>
+    <rect
+       style="fill:#d2c1e4;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.6052736;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-3"
+       width="41.893414"
+       height="9.9980688"
+       x="167.87312"
+       y="130.18346" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+       x="168.07828"
+       y="137.65195"
+       id="text23408-3-6-8-9"
+       transform="scale(1.0037881,0.9962262)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-6-1-7-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none"
+         x="168.07828"
+         y="137.65195">Trained Model</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot931"
+       style="font-size:13.33333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px"
+       transform="matrix(0.26458333,0,0,0.26458333,46.263769,42.7502)"><flowRegion
+         id="flowRegion933"><rect
+           id="rect935"
+           width="129.43129"
+           height="46.115658"
+           x="-37.507404"
+           y="490.9816" /></flowRegion><flowPara
+         id="flowPara937" /></flowRoot>    <rect
+       style="fill:#f6dc9b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.62114149;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-2-4-33-6"
+       width="161.07298"
+       height="15.731865"
+       x="50.648613"
+       y="233.93767" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+       x="109.89206"
+       y="253.03925"
+       id="text23408-1-7"
+       transform="scale(1.0391574,0.96231813)"><tspan
+         sodipodi:role="line"
+         id="tspan23406-4-5"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+         x="109.89206"
+         y="253.03925">Pendulum</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.51901615;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 129.63761,225.86882 v 7.97922"
+       id="path277952-3-9-5-3"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

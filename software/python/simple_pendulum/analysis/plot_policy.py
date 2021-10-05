@@ -44,32 +44,35 @@ def plot_policy(controller,
         tau_min = np.floor(np.min(torques))
         tau_max = np.ceil(np.max(torques))
 
-        ax.set_xticks(np.linspace(0, samples_per_dim, 17))
-        ax.set_yticks(np.linspace(-1, samples_per_dim, 17))
-        ax.set_zticks(np.linspace(tau_min, tau_max, 23))
+        n_ticks = [7, 7, 5]
+
+        ax.set_xticks(np.linspace(0, samples_per_dim, n_ticks[0]))
+        ax.set_yticks(np.linspace(-1, samples_per_dim, n_ticks[1]))
+        ax.set_zticks(np.linspace(tau_min, tau_max, n_ticks[2]))
 
         x_ticks = np.linspace(position_range[0],
                               position_range[1],
-                              17)
-        x_ticks = np.around(x_ticks, 2)
-        ax.set_xticklabels(x_ticks, fontsize=20)
+                              n_ticks[0])
+        x_ticks = np.around(x_ticks, 1)
+        ax.set_xticklabels(x_ticks, fontsize=50, rotation=50, ha="right")
 
         y_ticks = np.linspace(velocity_range[0],
                               velocity_range[1],
-                              17)
+                              n_ticks[1])
         y_ticks = np.around(y_ticks, 1)
-        ax.set_yticklabels(y_ticks, fontsize=20)
+        ax.set_yticklabels(y_ticks, fontsize=50, rotation=-20, ha="left")
 
         z_ticks = np.linspace(tau_min,
                               tau_max,
-                              23)
+                              n_ticks[2])
         z_ticks = np.around(z_ticks, 1)
-        ax.set_zticklabels(z_ticks, fontsize=20)
+        ax.set_zticklabels(z_ticks, fontsize=50)
 
-        ax.set_xlabel("\nangle [rad]", fontsize=30, linespacing=4)
-        ax.set_ylabel("\nangular velocity [rad/s]", fontsize=30, linespacing=4)
-        ax.set_zlabel("\ntorque [Nm]", fontsize=30, linespacing=4)
+        ax.set_xlabel("\nangle [rad]", fontsize=60, linespacing=6)
+        ax.set_ylabel("\nangular velocity [rad/s]", fontsize=60, linespacing=6)
+        ax.set_zlabel("\ntorque [Nm]", fontsize=60, linespacing=4)
 
+        fig.tight_layout()
         if save_path is not None:
             plt.savefig(save_path, bbox_inches="tight")
         plt.show()

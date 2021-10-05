@@ -34,8 +34,8 @@ There are many, wildly different approaches to robotic control.
 Underactuated robots are systems for which it is not possible to dictate arbitrary accelerations to all joints. Hence, a controller cannot be used to override the system dynamics and force the system on a desired trajectory as it often is done in classical control techniques.
 A torque-limited pendulum is arguably the simplest underactuated robotic system and thus is a suitable system to study, test and benchmark different controllers.
 
-This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build a
-physical pendulum system and provides the software (URDF models, simulation and controller) to control it. It provides a setup for studying established and novel control methods on a simple torque-limited pendulum, and targets students and beginners of robotic control.
+This repository describes the hardware (Computer-aided design (CAD) models, Bill Of Materials (BOM), etc.) required to build a
+physical pendulum system and provides the software (Unified Robot Description Format (URDF) models, simulation and controller) to control it. It provides a setup for studying established and novel control methods on a simple torque-limited pendulum, and targets students and beginners of robotic control.
 
 
 # Statement of need
@@ -45,7 +45,8 @@ for studying underactuation in real systems which is often overlooked in convent
 With this software package, students who want to learn about robotics, optimal control or reinforcement learning can make hands-on
 experiences with hardware and software for robot control.
 This dualistic approach of describing software and hardware is chosen to motivate experiments with real robotic hardware and facilitate the transfer between software and hardware.
-To ensure reproducibility and evaluate novel control methods, not just the control methods' code but also results from experiments are available.
+This dualism as well as the large spectrum of control methods are stand out features of this package in comparison to similar software such as open AI gym [@Brockman2016] and Drake [@drake].
+To ensure reproducibility and evaluate novel control methods, not just the control methods' code but also results from experiments are provided.
 
 
 # Background
@@ -77,9 +78,9 @@ The physical parameters of the pendulum are:
 
 ## Electrical Setup
 
-The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator (AK80-6 from T-Motor). The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main pc doesn't have a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps under full load. A power supply that is able to deliver both and which is used in our test setup is the EA-PS 9032-40 from Elektro-Automatik. A capacitor filters the backEMF coming from the actuator and therefore protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
+The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator (AK80-6 from T-Motor). The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main PC doesn't have a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps under full load. A power supply that is able to deliver both and which is used in our test setup is the EA-PS 9032-40 from Elektro-Automatik. A capacitor filters the backEMF coming from the actuator and therefore protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
 
-![Electrical Setup. \label{fig:electrical_schematic}](figures/wiring_diagram.png){#id .class height=800px}
+![Electrical setup. \label{fig:electrical_schematic}](figures/wiring_diagram.png){#id .class height=800px}
 
 <!--
 ## CAN bus wiring
@@ -142,7 +143,7 @@ The control methods that are currently implemented in this library (see also \au
 
 - Feedforward torque
 - Proportional-integral-derivative (PID) control
-- Time-varying Linear Quadratic Regulator (tvLQR)
+- Time-varying Linear Quadratic Regulator (TVLQR)
 
 **Closed Loop Controllers** or feedback controllers take the state of the system as input and ouput a control signal. Because they are able to react to the current state, they can cope with perturbations during the execution. The following feedback controllers are implemented:
 
@@ -167,17 +168,18 @@ Furthermore, the swing-up controllers can be benchmarked, where it is evaluated 
 
 The benchmark criteria are:
 
-- **Speed** : How fast can the controller process state input and return a control signal.
-- **Swingup time** : How long does it take the controller to swing-up the pendulum from the lower fixpoint to the upper fixpoint.
-- **Energy consumption**: How much energy does the controller use during the swingup motion and holding the pendulum stable afterwards.
+- **Speed** : The inverse of the time the controller needs to process state input and return a control signal (hardware dependent).
+- **Swingup time** : The time it takes for the controller to swing-up the pendulum from the lower fixpoint to the upper fixpoint.
+- **Energy consumption**: The energy the controller uses during the swingup motion and holding the pendulum in position afterwards.
 - **Smoothness**: Measures how much the controller changes the control output during execution.
 - **Consistency**: Measures if the controller is able to drive the pendulum to the unstable fixpoint for varying starting positions and velocities.
 - **Robustness**: Tests the controller abilities to recover from perturbations during the swingup motions.
-- **Sensitivity**: The pendulum parameters (mass, length, friction, inertia) are modified without using this knowledge in the controller.
+- **Insensitivity**: The pendulum parameters (mass, length, friction, inertia) are modified without using this knowledge in the controller.
 - **Reduced torque limit**: The minimal torque limit with which the controller is still able to swing-up the pendulum.
 
 ![Benchmark results. \label{fig:benchmark}](figures/benchmark_barplot.png){#id .class height=1100px}
 
+Trajectory optimization (iLQR, direct collocation, ddp) produces smooth trajectories, which swingup the pendulum relatively quick. But they do require a trajectory following control loop (PID, TVLQR) to make them more consistent, robust and insensitive. This can become a problem for large deviations from the nominal trajectory. RL policies perform well on consistency, robustness, insensitivity and are able to perfrom fast swingup motions. Their drawback is that their output can fluctuate which can result in rougher motions. The model predictive iLQR controller has an overall good performance but has the disadvantage that is it comparatively slow due to the optimization at every timestep. The energy shaping plus LQR controller, despite its simplicity, shows very satisfying results in all benchmark categories.
 
 <!--
 # Citations
