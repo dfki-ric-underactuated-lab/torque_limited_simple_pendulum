@@ -26,6 +26,8 @@ authors:
 affiliations:
  - name: DFKI GmbH Robotics Innovation Center, Bremen, Germany
    index: 1
+ - name: Working Group Robotics, University of Bremen, Bremen, Germany
+   index: 2
 
 date: 04 October 2021
 bibliography: paper.bib
