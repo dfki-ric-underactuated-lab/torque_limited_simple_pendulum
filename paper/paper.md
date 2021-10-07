@@ -118,17 +118,15 @@ The pendulum has two fixpoints, one of them being stable (the pendulum hanging d
 
 ## Parameter Identification
 
-The  rigid-body model dervied from a-priori known geometry as described [@siciliano2009] by has the form 
+The rigid-body model dervied from a-priori known geometry as described by [@siciliano2009] has the form 
 
-$$\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot q(t)\right) \; \lambda,$$
+$$\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot \theta(t)\right) \; \lambda,$$
 
-where $\lambda$ $\in$ $\mathbb{R}^{12n}$ denotes the parameter vector with $n$ sets of parameters $\lambda_i$,
+where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $ \dot \theta (t)$ and accelerations $\ddot \theta(t)$ depend on time $t$ and $\lambda$ $\in$ $\mathbb{R}^{6n}$ denotes the parameter vector. Two additional parameters for Coulomb and viscous friction are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account [@bargsten2016]. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque
 
-$$\lambda_i=(m_i \; m_i c_{x,i} \; m_i c_{y,i} \; m_i c_{z,i} \; I_{xx,i} \; I_{xy,i} \; I_{xz,i} \; I_{yy,i} \; I_{yz,i} \; I_{zz,i} \; F_{c,i} \; F_{v,i})^T$$
+$$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right),$$
 
- Two additional parameters for Coulomb and viscous friction are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account [@bargsten2016]. For a reference trajectory sampled an \textit{identiﬁcation matrix} $\mathit{\Phi}$ can be created. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory are obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque :
-
-$$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right).$$
+where $\mathit{\Phi}$ denotes the identiﬁcation matrix.
 
 ## Control Methods
 
