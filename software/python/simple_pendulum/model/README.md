@@ -80,8 +80,7 @@ The class is inteded to be used inside the simulator class.
 
 ## Parameter Identification #
 
-An inverse model of the robot motion dynamics is the mapping from the motion of the robot, given by the joint positions $`q(t)`$ 
-$`[\dot{\theta}, \ddot{\theta}]`$ $`I {\in} `$ $`{\in}$  defr $`{\mathbb{R}}^n`$, joint velocities $`{\dot} q(t)`$ and joint accelerations $\ddot q(t)$ to the actuation torques $\tau (t)$ $\in$ $\mathbb{R}^n$ dependent on time $t$. Applying the Recursive-Newton-Euler algorithm or the Lagrange-Formalism to the a-priori known geometry of the robot \cite{siciliano2009}[^fn1], yields a theoretical model, still including unknown dynamic parameters such as the mass $m_i$, the three ﬁrst moments of inertia $m_i c_{[x|y|z],i}$ or the six second moments of inertia $I_{[xx|xy|xz|yy|yz|zz],i}$, for each body $i$ of the robot. Two additional parameters are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account, as coefﬁcients of a Coulomb and viscous friction model. The resulting rigid-body model thus has the form \cite{bargsten2016} [^fn2]
+An inverse model of the robot motion dynamics is the mapping from the motion of the robot, given by the joint positions $`q(t) \; {\in} \; \mathbb{R}^n `$, joint velocities $`\dot{q}(t)`$ and joint accelerations $`\ddot{q}(t)`$ to the actuation torques $` \tau (t) `$ $` \in`$ $` \mathbb{R}^n`$ dependent on time $`t`$. Applying the Recursive-Newton-Euler algorithm or the Lagrange-Formalism to the a-priori known geometry of the robot, yields a theoretical model, still including unknown dynamic parameters such as the mass $`m_i`$, the three ﬁrst moments of inertia $`m_i c_{[x|y|z],i}`$ or the six second moments of inertia $`I_{[xx|xy|xz|yy|yz|zz],i}`$, for each body $`i`$ of the robot.[^fn1] Two additional parameters are added to the model, $`F_{c,i}`$ and $`F_{v,i}`$, in order to take joint friction into account, as coefﬁcients of a Coulomb and viscous friction model. The resulting rigid-body model thus has the form [^fn2]
 
 ```math
 \begin{equation}
@@ -89,15 +88,10 @@ $`[\dot{\theta}, \ddot{\theta}]`$ $`I {\in} `$ $`{\in}$  defr $`{\mathbb{R}}^n`$
 \end{equation}
 ```
 
-where $\theta$ $\in$ $\mathbb{R}^{12n}$ denotes the parameter vector with $n$ sets of parameters $\theta_i$,
+where $`\theta`$ $`\in`$ $`\mathbb{R}^{6n}`$ denotes the parameter vector with $`n`$ sets of parameters $`\theta_i`$,
 
-```math
-\begin{equation}
-    \theta_i=(m_i \; m_i c_{x,i} \; m_i c_{y,i} \; m_i c_{z,i} \; I_{xx,i} \; I_{xy,i} \; I_{xz,i} \; I_{yy,i} \; I_{yz,i} \; I_{zz,i} \; F_{c,i} \; F_{v,i})^T
-\end{equation}
-```
 
- For a reference trajectory sampled at $t = kT_s, \; k$ $\in$ $1...K$ with sampling time $T_s$, an \textit{identiﬁcation matrix} $\mathit{\Phi}$ can be created
+ For a reference trajectory sampled at $`t = kT_s, \; k`$ $`\in`$ $`1...K`$ with sampling time $`T_s`$, an identiﬁcation matrix $`\mathit{\Phi}`$ can be created
 
 ```math
 \begin{equation}
@@ -111,7 +105,7 @@ where $\theta$ $\in$ $\mathbb{R}^{12n}$ denotes the parameter vector with $n$ se
 \end{equation}
 ```
 
-The required torques $\tau_m(kT_s)$ for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory can be obtained by modifying the parameters of a Fourier-Series as described by \cite{swevers2007}[^fn3]. The dynamic parameters $\hat{\theta}$ are estimated through least squares optimization between measured torque $\tau_m$ and computed torque $\mathit{\Phi} \hat{\theta}$;
+The required torques $`\tau_m(kT_s)`$ for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory can be obtained by modifying the parameters of a Fourier-Series as described by Swevers et al.[^fn3] The dynamic parameters $`\hat{\theta}`$ are estimated through least squares optimization between measured torque $`\tau_m`$ and computed torque $`\mathit{\Phi} \hat{\theta}`$;
 
 ```math
 \begin{equation}
