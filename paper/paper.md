@@ -22,7 +22,7 @@ authors:
     orcid: 0000-0002-6254-3882
     affiliation: 1
   - name: Frank Kirchner
-    affiliation: 1    
+    affiliation: 1, 2    
 affiliations:
  - name: DFKI GmbH Robotics Innovation Center, Bremen, Germany
    index: 1
