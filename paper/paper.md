@@ -21,11 +21,14 @@ authors:
   - name: Melya Boukheddimi
     affiliation: 1
   - name: Shivesh Kumar
+    orcid: 0000-0002-6254-3882
     affiliation: 1
+  - name: Frank Kirchner
+    affiliation: 1, 2    
 affiliations:
  - name: DFKI GmbH Robotics Innovation Center, Bremen, Germany
    index: 1
- - name: University Bremen, Bremen, Germany
+ - name: Working Group Robotics, University of Bremen, Bremen, Germany
    index: 2
 
 date: 04 October 2021
@@ -44,20 +47,25 @@ physical pendulum system and provides the software (Unified Robot Description Fo
 
 # Statement of need
 
-This repository is designed to be used in education and research. It targets lowering the entry barrier
+This repository is designed to be used in education and research. It lowers the entry barrier
 for studying underactuation in real systems which is often overlooked in conventional robotics courses.
 With this software package, students who want to learn about robotics, optimal control or reinforcement learning can make hands-on
 experiences with hardware and software for robot control.
-This dualistic approach of describing software and hardware is chosen to motivate experiments with real robotic hardware and facilitate the transfer between software and hardware.
-This dualism as well as the large spectrum of control methods are stand out features of this package in comparison to similar software such as open AI gym [@Brockman2016] and Drake [@drake].
-To ensure reproducibility and evaluate novel control methods, not just the control methods' code but also results from experiments are provided.
+The dualistic approach of describing software and hardware as well as the large spectrum of control methods are stand out features of this package in comparison to similar software such as open AI gym [@Brockman2016] and Drake [@drake].
+Results from real experiments are provided to ensure reproducibility and evaluate novel control methods.
 
 
 # Background
 
+This project provides an easy accessible plant for the pendulum dynamics which is built up from scratch and uses only standard libraries. The plant can be passed to a simulator object, which is capable of integrating the equations of motion and thus simulating the pendulum's motion forward in time. The simulator can perform Euler and Runge-Kutta integration and can also visualize the motion in a matplotlib animation. Furthermore, it is possible to interface a controller to the simulator which sends control a signal in form of a torque $\tau$ to the motor.
+
+The pendulum has two fixpoints, one of them being stable (the pendulum hanging down) and the other being unstable (the pendulum pointing upwards). A challenge from the control point of view is to swing the pendulum up to the unstable fixpoint and stabilize the pendulum in that state.
+
+## Mechanical Setup
+
 ![Simple Pendulum. \label{fig:pendulum}](figures/simple_pendulum_CAD.png){#id .class height=400px}
 
-A pendulum (\autoref{fig:pendulum}) is constructed by mounting a motor to a fixed frame, attaching a rod to the motor and attaching a weight to the other end of the rod. The motor used in this setup is the AK80-6 actuator from T-Motor, which is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft.
+The pendulum (\autoref{fig:pendulum}) is constructed by mounting a motor to a fixed frame, attaching a rod to the motor and a weight to the other end of the rod. The motor used in this setup is the AK80-6 actuator from T-Motor, which is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft.
 
 <!--
 * Voltage = 24 $`V`$
@@ -82,7 +90,7 @@ The physical parameters of the pendulum are:
 
 ## Electrical Setup
 
-The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator (AK80-6 from T-Motor). The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main PC doesn't have a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps under full load. A power supply that is able to deliver both and which is used in our test setup is the EA-PS 9032-40 from Elektro-Automatik. A capacitor filters the backEMF coming from the actuator and therefore protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
+The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator. The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main PC doesn't feature a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps under full load. A power supply that is able to deliver both and is used in our test setup is the EA-PS 9032-40 from Elektro-Automatik. The capacitor filters backEMF coming from the actuator and protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
 
 ![Electrical setup. \label{fig:electrical_schematic}](figures/wiring_diagram.png){#id .class height=800px}
 
@@ -111,23 +119,17 @@ where
 - $g$ gravity (positive direction points down)
 - $\tau$ torque applied by the motor
 
-This project provides an easy accessible plant for the pendulum dynamics which is built up from scratch and uses only standard libraries. The plant can be passed to a simulator object, which is capable of integrating the equations of motion and thus simulating the pendulum's motion forward in time. The simulator can perform Euler and Runge-Kutta integration and can also visualize the motion in a matplotlib animation. Furthermore, it is possible to interface a controller to the simulator which sends control a signal in form of a torque $\tau$ to the motor.
-
-The pendulum has two fixpoints, one of them being stable (the pendulum hanging down) and the other being unstable (the pendulum pointing upwards). A challenge from the control point of view is to swing the pendulum up to the unstable fixpoint and stabilize the pendulum in that state.
-
 ## Parameter Identification
 
-The  rigid-body model dervied from a-priori known geometry as described [@siciliano2009] by has the form 
+The rigid-body model dervied from a-priori known geometry as described by [@siciliano2009] has the form 
 
-$$\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot q(t)\right) \; \lambda,$$
+$$\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot \theta(t)\right) \; \lambda,$$
 
-where $\lambda$ $\in$ $\mathbb{R}^{12n}$ denotes the parameter vector with $n$ sets of parameters $\lambda_i$,
+where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $ \dot \theta (t)$ and accelerations $\ddot \theta(t)$ depend on time $t$ and $\lambda$ $\in$ $\mathbb{R}^{6n}$ denotes the parameter vector. Two additional parameters for Coulomb and viscous friction are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account [@bargsten2016]. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque
 
-$$\lambda_i=(m_i \; m_i c_{x,i} \; m_i c_{y,i} \; m_i c_{z,i} \; I_{xx,i} \; I_{xy,i} \; I_{xz,i} \; I_{yy,i} \; I_{yz,i} \; I_{zz,i} \; F_{c,i} \; F_{v,i})^T$$
+$$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right),$$
 
- Two additional parameters for Coulomb and viscous friction are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account [@bargsten2016]. For a reference trajectory sampled an \textit{identiﬁcation matrix} $\mathit{\Phi}$ can be created. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory are obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque :
-
-$$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right).$$
+where $\mathit{\Phi}$ denotes the identiﬁcation matrix.
 
 ## Control Methods
 
