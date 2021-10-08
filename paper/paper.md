@@ -16,6 +16,8 @@ authors:
     affiliation: 1
   - name: Daniel Harnack
     affiliation: 1
+  - name: Mihaela Popescu
+    affiliation: 2
   - name: Melya Boukheddimi
     affiliation: 1
   - name: Shivesh Kumar
@@ -23,6 +25,8 @@ authors:
 affiliations:
  - name: DFKI GmbH Robotics Innovation Center, Bremen, Germany
    index: 1
+ - name: University Bremen, Bremen, Germany
+   index: 2
 
 date: 04 October 2021
 bibliography: paper.bib
