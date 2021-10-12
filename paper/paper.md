@@ -24,7 +24,7 @@ authors:
     orcid: 0000-0002-6254-3882
     affiliation: 1
   - name: Frank Kirchner
-    affiliation: 1, 2    
+    affiliation: 1, 2
 affiliations:
  - name: DFKI GmbH Robotics Innovation Center, Bremen, Germany
    index: 1
@@ -123,9 +123,9 @@ where
 
 The rigid-body model dervied from a-priori known geometry as described by [@siciliano2009] has the form 
 
-$$\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot \theta(t)\right) \; \lambda,$$
+$$\tau(t)= \mathbf{Y} \left(\theta(t), \dot{\theta}(t), \ddot{\theta}(t)\right) \; \lambda,$$
 
-where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $ \dot \theta (t)$ and accelerations $\ddot \theta(t)$ depend on time $t$ and $\lambda$ $\in$ $\mathbb{R}^{6n}$ denotes the parameter vector. Two additional parameters for Coulomb and viscous friction are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account [@bargsten2016]. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque
+where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $\dot{\theta} (t)$ and accelerations $\ddot{\theta}(t)$ depend on time $t$ and $\lambda \in \mathbb{R}^{6n}$ denotes the parameter vector. Two additional parameters for Coulomb and viscous friction are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account [@bargsten2016]. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque
 
 $$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right),$$
 
