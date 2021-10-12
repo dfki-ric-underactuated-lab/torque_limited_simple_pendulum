@@ -45,6 +45,29 @@ def prepare_empty(params):
 
 
 def prepare_trajectory(csv_path):
+    """
+    inputs:
+        csv_path: string
+            path to a csv file containing a trajectory in the
+            below specified format
+
+    The csv file should have 4 columns with values for
+    [time, position, velocity, torque] respectively.
+    The values shopuld be separated with a comma.
+    Each row in the file is one timestep. The number of rows can vary.
+    The values are assumed to be in SI units, i.e. time in s, position in rad,
+    velocity in rad/s, torque in Nm.
+    The first line in the csv file is reserved for comments
+    and will be skipped during read out.
+
+    Example:
+
+        # time, position, velocity, torque
+        0.00, 0.00, 0.00, 0.10
+        0.01, 0.01, 0.01, -0.20
+        0.02, ....
+
+    """
     # load trajectories from csv file
     trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
     des_time_list = trajectory.T[0].T                       # desired time in s

@@ -15,8 +15,13 @@ class TVLQRController(AbstractController):
     """
     Controller acts on a predefined trajectory.
     """
-    def __init__(self, data_dict, mass,
-                 length, damping, gravity, torque_limit):
+    def __init__(self,
+                 data_dict,
+                 mass=1.0,
+                 length=0.5,
+                 damping=0.1,
+                 gravity=9.81,
+                 torque_limit=np.inf):
         """
         Controller acts on a predefined trajectory.
 
@@ -29,6 +34,16 @@ class TVLQRController(AbstractController):
             data_dict["des_pos_list"] : desired positions
             data_dict["des_vel_list"] : desired velocities
             data_dict["des_tau_list"] : desired torques
+        mass : float, default=1.0
+            mass of the pendulum [kg]
+        length : float, default=0.5
+            length of the pendulum [m]
+        damping : float, default=0.1
+            damping factor of the pendulum [kg m/s]
+        gravity : float, default=9.81
+            gravity (positive direction points down) [m/s^2]
+        torque_limit : float, default=np.inf
+            the torque_limit of the pendulum actuator
         """
         # load the trajectory
         self.traj_time = data_dict["des_time_list"]

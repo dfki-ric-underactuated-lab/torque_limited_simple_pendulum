@@ -17,21 +17,19 @@ This controller is designed to feed a precomputed trajectory
 
 The controller needs pendulum parameters as input during initialization:
 
-    OpenLoopController.__init__(self, csv_path)
+    OpenLoopController.__init__(self, data_dict)
         inputs:
-            csv_path: string
-                path to a csv file containing a trajectory in the below specified format
+            data_dict: dictionary
+                A dictionary containing a trajectory in the below specified format
 
-The csv file should have 4 columns with values for [time, position, velocity, torque] respectively. The values shopuld be separated with a comma. Each row in the file is one timestep. The number of rows can vary.
-The values are assumed to be in SI units, i.e. time in \(s\), position in \(rad\), velocity in \(rad/s\), torque in \(Nm\).
-The first line in the csv file is reserved for comments and will be skipped during read out.
+The data_dict dictionary should have the entries:
 
-Example:
+            data_dict["des_time_list"] : desired timesteps
+            data_dict["des_pos_list"] : desired positions
+            data_dict["des_vel_list"] : desired velocities
+            data_dict["des_tau_list"] : desired torques
 
-    # time, position, velocity, torque
-    0.00, 0.00, 0.00, 0.10
-    0.01, 0.01, 0.01, -0.20
-    0.02, ....
+The values are assumed to be in SI units, i.e. time in s, position in rad, velocity in rad/s, torque in Nm.
 
 The control output \(\mathbf{u}(\mathbf{x})\) can be obtained with the API of the abstract controller class:
 
