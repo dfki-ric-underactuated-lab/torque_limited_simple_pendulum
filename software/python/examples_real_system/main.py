@@ -38,21 +38,61 @@ TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
 # select control method
 if args.openloop:
     attribute = "open_loop"
+    """
+    Open loop control methods replay a precomputed trajectory. The trajectories are derived offline from 
+    one out of two trajectory optimization techniques:
+        - Direct Collocation (within the open source software pyDrake)
+        - Feasibility-Driven Dynamic Programming (within the open source software crocoddyl)
+    
+    A trajectory is split into time steps and stored as csv file in the form of position, velocity and 
+    torque data for every time step. It is important to ensure that the time step size acquired from trajectory 
+    optimization matches with the frequency in which the time steps are executed on the real system. We achieve 
+    this with a while loop 
+    
+    "while time.time() - start_loop < dt:
+            pass
+
+    that runs until the control loop run time matches with the desired time step size of the precomputed 
+    trajectory and a error print out that tells us, if the control loop is slower then the desired
+    time step size.
+    """
 
     if args.pd:
+        """
+        Trajectory Following controllers act on a precomputed trajectory and ensure that the system follows 
+        the trajectory properly. In this example the trajectory is obtained via Direct Collocation with 
+        pydrake. The Proportional-Derivative Controller is composed of a proportional term,
+        gaining torque proportional to the position error and a derivative term gaining torque proportional 
+        to the derivative of the position error. The controller can be seen as a spring-damper system
+        where the the proportional gain contributes to the stiffness or springiness of the system and the 
+        derivative term acts as a damper.
+        """
         name = "Proportional-Derivative Control"
         folder_name = "pd_control"
         csv_file = "swingup_300Hz.csv"
     if args.fft:
+        """
+        The Feed-forward torque Controller is simply forwarding the torque control signal from a precomputed 
+        trajectory. In this example the trajectory is obtained via Direct Collocation with pydrake.
+        """
         name = "Feedforward Torque"
         folder_name = "torque_control"
         csv_file = "swingup_300Hz.csv"
-    if args.ddp:
-        name = "Differential Dynamic Programming"
-        folder_name = "ddp"
+    if args.fddp:
+        """
+        This option uses a trajectory obtained via Feasability-Driven Differential Dynamic Programming with 
+        crocoddyl in combination with a Proportional-Derivative Controller.
+        """
+        name = "Feasability-Driven Differential Dynamic Programming"
+        folder_name = "fddp"
         csv_file = "swingup_OC_FDDP_offline.csv"
 
     # get parameters
+        """
+        All parameters of the real simple pendulum are stored in a .yaml file. Some parameters like (mass, length) 
+        can be measred directly, others are obtained from system identification (damping, coulomb-fric, inertia) or 
+        depend on actuator properties (torque_limit, gear ratio, kp, kd).
+        """
     params_file = "sp_parameters_openloop.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
@@ -81,6 +121,12 @@ if args.gravity:
     control_method = GravityCompController(params)
 
 if args.sac:
+        """
+        Soft Actor Critic is an off-policy model free reinforcement learning algorithm. It maximizes a trade-off 
+        between expected return of a reward function and entropy, a measure of randomness in the policy. The 
+        controller is trained via interaction with the system, such that a  mapping from state space to control 
+        command is learned. It generates input torques online based on the learned control policy.
+        """
     name = "Soft Actor Critic"
     folder_name = "sac"
     attribute = "closed_loop"
@@ -96,6 +142,7 @@ if args.sac:
                                    use_symmetry=params['use_symmetry'])
 
 if args.energy:
+    
     name = "Energy Shaping"
     folder_name = "energy_shaping"
     attribute = "closed_loop"
