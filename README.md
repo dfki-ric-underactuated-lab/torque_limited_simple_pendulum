@@ -48,7 +48,7 @@ In order to work with this repository you can [get started here](docs/installati
 **Closed Loop** or feedback controllers take the state of the system as input and ouput a control signal. Because they are able to react to the current state, they can cope with perturbations during the execution. The following feedback controllers are implemented:
 
 * [Gravity Compensation](software/python/simple_pendulum/controllers/gravity_compensation): A controller compensating the gravitational force acting on the pendulum. The pendulum can be moved as if it was in zero-g.
-* [Energy Shaping](software/python/simple_pendulum/controllers/energy_shaping): A controller regulating the energy of the pendulum. Dirves the pendulum towards a desired energy level.
+* [Energy Shaping](software/python/simple_pendulum/controllers/energy_shaping): A controller regulating the energy of the pendulum. Drives the pendulum towards a desired energy level.
 * [Linear Quadratic Regulator (LQR)](software/python/simple_pendulum/controllers/lqr): Linearizes the dynamics around a fixed point and drives the pendulum towards the fixpoint with a quadratic cost function. Only useable in a state space region around the fixpoint.
 * [Model predictive control with iLQR](software/python/simple_pendulum/controllers/ilqr): A controller which performs an iLQR optimization at every timestep and executes the first control signal of the computed optimal trajectory.
 
