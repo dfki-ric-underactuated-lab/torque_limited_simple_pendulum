@@ -12,12 +12,16 @@ Versatility: only compensates for gravitational force acting on the pendulum, no
 
 A controller compensating the gravitational force acting on the pendulum. The control function is given by:
 
-```math
-\begin{equation}
-u(\theta) = mgl \sin(\theta)
-\end{equation}
-```
-where $`u`$ is commanded torque, $`m`$ is the 0,5kg mass attached to the rod together with the mass of the rod and the mounitng parts, $`l`$ is the length of the rod and $`theta`$ is the current position of the pendulum. 
+<br>
+
+</div>
+<div align="center">
+<img src="https://render.githubusercontent.com/render/math?math=u(\theta) = mgl \sin(\theta)">
+</div>
+
+<br>
+
+where <img src="https://render.githubusercontent.com/render/math?math=u"> is commanded torque, <img src="https://render.githubusercontent.com/render/math?math=m">  is a weight of _0,5 kg_ attached to the rod together with the mass of the rod and the mounting parts, <img src="https://render.githubusercontent.com/render/math?math=l"> is the length of _0,5 m_ of the rod, <img src="https://render.githubusercontent.com/render/math?math=g"> is  gravitational acceleration on earth of <img src="https://render.githubusercontent.com/render/math?math=9.81 \, ms^{-2}">  and <img src="https://render.githubusercontent.com/render/math?math=\theta"> is the current position of the pendulum. 
 
 
-While the controller is running it actively compensates for the gravitational force acting on the pendulum, therfore the pendulum can be moved as if it was in zero-g.
+While the controller is running it actively compensates for the gravitational force acting on the pendulum, therefore the pendulum can be moved as if it was in zero-g.
