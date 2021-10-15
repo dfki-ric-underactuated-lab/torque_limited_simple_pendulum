@@ -38,33 +38,33 @@ TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
 # select control method
 if args.openloop:
     attribute = "open_loop"
-    """
-    Open loop control methods replay a precomputed trajectory. The trajectories are derived offline from 
-    one out of two trajectory optimization techniques:
-        - Direct Collocation (within the open source software pyDrake)
-        - Feasibility-Driven Dynamic Programming (within the open source software crocoddyl)
-    
-    A trajectory is split into time steps and stored as csv file in the form of position, velocity and 
-    torque data for every time step. It is important to ensure that the time step size acquired from trajectory 
-    optimization matches with the frequency in which the time steps are executed on the real system. We achieve 
-    this with a while loop 
-    
-    "while time.time() - start_loop < dt:
-            pass
+        """
+        Open loop control methods replay a precomputed trajectory. The trajectories are derived offline from 
+        one out of two trajectory optimization techniques:
+            - Direct Collocation (within the open source software pyDrake)
+            - Feasibility-Driven Dynamic Programming (within the open source software crocoddyl)
+        
+        A trajectory is split into time steps and stored as csv file in the form of position, velocity and 
+        torque data for every time step. It is important to ensure that the time step size acquired from trajectory 
+        optimization matches with the frequency in which the time steps are executed on the real system. We achieve 
+        this with a while loop 
+        
+        "while time.time() - start_loop < dt:
+                pass
 
-    that runs until the control loop run time matches with the desired time step size of the precomputed 
-    trajectory and a error print out that tells us, if the control loop is slower then the desired
-    time step size.
-    """
+        that runs until the control loop run time matches with the desired time step size of the precomputed 
+        trajectory and a error print out that tells us, if the control loop is slower then the desired
+        time step size.
+        """
 
     if args.pd:
         """
-        Trajectory Following controllers act on a precomputed trajectory and ensure that the system follows 
+        Trajectory following controllers act on a precomputed trajectory and ensure that the system follows 
         the trajectory properly. In this example the trajectory is obtained via Direct Collocation with 
-        pydrake. The Proportional-Derivative Controller is composed of a proportional term,
+        pydrake. The proportional-derivative controller is composed of a proportional term,
         gaining torque proportional to the position error and a derivative term gaining torque proportional 
         to the derivative of the position error. The controller can be seen as a spring-damper system
-        where the the proportional gain contributes to the stiffness or springiness of the system and the 
+        where the proportional gain contributes to the stiffness/springiness of the system and the 
         derivative term acts as a damper.
         """
         name = "Proportional-Derivative Control"
@@ -72,7 +72,7 @@ if args.openloop:
         csv_file = "swingup_300Hz.csv"
     if args.fft:
         """
-        The Feed-forward torque Controller is simply forwarding the torque control signal from a precomputed 
+        The feed-forward torque controller is simply forwarding the torque control signal from a precomputed 
         trajectory. In this example the trajectory is obtained via Direct Collocation with pydrake.
         """
         name = "Feedforward Torque"
@@ -80,8 +80,8 @@ if args.openloop:
         csv_file = "swingup_300Hz.csv"
     if args.fddp:
         """
-        This option uses a trajectory obtained via Feasability-Driven Differential Dynamic Programming with 
-        crocoddyl in combination with a Proportional-Derivative Controller.
+        This option uses a trajectory obtained via Feasibility-Driven Differential Dynamic Programming with 
+        crocoddyl in combination with a proportional-derivative controller.
         """
         name = "Feasability-Driven Differential Dynamic Programming"
         folder_name = "fddp"
@@ -90,8 +90,8 @@ if args.openloop:
     # get parameters
         """
         All parameters of the real simple pendulum are stored in a .yaml file. Some parameters like (mass, length) 
-        can be measred directly, others are obtained from system identification (damping, coulomb-fric, inertia) or 
-        depend on actuator properties (torque_limit, gear ratio, kp, kd).
+        can be measured directly, others are obtained from system identification (damping, coulomb friction, inertia) or 
+        depend on actuator properties (torque limits, gear ratio, kp, kd).
         """
     params_file = "sp_parameters_openloop.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
@@ -108,6 +108,10 @@ if args.openloop:
     control_method = OpenLoopController(data_dict)
 
 if args.gravity:
+        """
+        A controller compensating the gravitational force acting on the pendulum. The pendulum can be moved as if it was in zero-g. The control     input torque is computed online and depends directly on the current position of the pendulum.
+        """
+
     name = "Gravity Compensation"
     folder_name = "gravity_compensation"
     attribute = "closed_loop"
@@ -142,7 +146,10 @@ if args.sac:
                                    use_symmetry=params['use_symmetry'])
 
 if args.energy:
-    
+"""
+A controller regulating the energy of the pendulum. Drives the pendulum into the upright position where the system has maximum potential and no kinetic energy by controlling the desired energy level. The control input torque is computed online and depends on current position and velocity of the pendulum. Note however, that the controller does not stabilize the upright position. For this task an additional LQR controller is needed.
+"""
+
     name = "Energy Shaping"
     folder_name = "energy_shaping"
     attribute = "closed_loop"
@@ -163,6 +170,10 @@ if args.energy:
     control_method.set_goal([np.pi, 0])
 
 if args.ilqr:
+    """
+    A controller which performs an iLQR optimization at every time step and executes the first control signal of the computed optimal trajectory. The iLQR optimization method has the ability to take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs. This means iLQR is used in an Model Predictive Control (MPC) setting. New trajectories are generated online and therefore the controller is able to equalize perturbations.
+    """
+
     name = "Iterative Linear Quadratic Regulator"
     folder_name = "ilqr"
     attribute = "closed_loop"
@@ -200,6 +211,22 @@ if args.ilqr:
 start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
                                                            name, attribute,
                                                            params, data_dict)
+    """
+    The motor control loop only contains the minimum of code necessary to send commands to and receive measurement data from
+    the motor control board in real time over CAN bus. It specifies the outgoing CAN port and the CAN ID of the motor
+    on the CAN bus and transfers this information to the motor driver. It furthermore requires the following arguments:
+        control method =  calls the controller, which executes the respective control policy and returns the input torques
+        name = needed for print outs and to set kp, kd gains to 0 if the controller only uses feed-forward torque
+        attribute = needed to differentiate between open and closed loop methods. The former read out the input torques from 
+        trajectories stored in .csv files and the latter compute input torques in real time.
+        params = parameter stored in .yaml files, although most parameters like gravity constant, link length and gear 
+        ratio, remain the same for all controllers some parameter are controller specific like e.g. reward type, integrator or 
+        learning rate for the Soft Actor Critic Controller
+        data_dict = the data dictionary contains position, velocity and torque data for each time step of the trajectory. It 
+        includes commanded as well as measured data.
+        
+    The return values start, end and meas_dt are required to monitor if desired and measured time steps match.
+    """
 
 # performance profiler
 profiler(data_dict, start, end, meas_dt)
