@@ -112,7 +112,7 @@ The controllers can be benchmarked in simulation with a set of predefined [crite
 
 ## Authors #
 
-<img align="right" img width="500" src="../docs/pendulum_swingup_animation.gif" />
+<img align="right" img width="500" src="docs/pendulum_swingup_animation.gif" />
 
 * [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
 * [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html) (Software Maintainer)
