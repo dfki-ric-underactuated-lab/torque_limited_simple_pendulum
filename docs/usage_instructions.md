@@ -59,7 +59,7 @@ All implemented controllers can be called from the `main.py` file. The desired c
 python main.py -gravity
 ```
 
-Make sure you execute the command from the directory `/software/python/` otherwise you have to specify the path to `main.py` as well. If you want to autosave all data from the experiment use the optional flag `-save` together with the flag required for the controller.
+Make sure you execute the command from the directory `/software/python/examples_real_system` otherwise you have to specify the path to `main.py` as well. If you want to autosave all data from your experiment use the optional flag `-save` together with the flag required for the controller.
 
 To get an overview of all possible arguments display help documentation via
 
