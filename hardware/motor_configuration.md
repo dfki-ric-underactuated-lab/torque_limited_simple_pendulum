@@ -75,4 +75,4 @@ A proportional-derivative controller, which is based on the MIT Mini-Cheetah Mot
 <img width="500" src="pd_controller.png">  
 </div>   
 
-In the [motor driver](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/docs/usage.md#usage), `send_rad_command(position_in_radians, velocity_in_radians, Kp, Kd, tau_ff)` function lets you set desired position (Pdes), velocity (Pvel), Kp, Kd and feedforward torque (tff) values at every time step. 
+In the [motor driver](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/usage_instructions.md), `send_rad_command(position_in_radians, velocity_in_radians, Kp, Kd, tau_ff)` function lets you set desired position (Pdes), velocity (Pvel), Kp, Kd and feedforward torque (tff) values at every time step. 

@@ -10,11 +10,11 @@ Versatility: Swingup and stabilization
 
 ## Theory #
 
-This controller uses the trajectory optimization from the iLQR algorithm (see [iLQR](../../trajectory_optimization/ilqr/README.md)) in an MPC setting. This means that this controller recomputes an optimal trajectory (including the optimal sequence of control inputs) at every time step. The first control input of this solution is returned as control input for the current state. As the optimization happens every timestep the iLQR algorithm is only executed with one forward and one backward pass. As initial trajectory the solution of the previous timestep is parsed to the iLQR solver.
+This controller uses the trajectory optimization from the iLQR algorithm (see [iLQR](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/trajectory_optimization/ilqr/README.md)) in an MPC setting. This means that this controller recomputes an optimal trajectory (including the optimal sequence of control inputs) at every time step. The first control input of this solution is returned as control input for the current state. As the optimization happens every timestep the iLQR algorithm is only executed with one forward and one backward pass. As initial trajectory the solution of the previous timestep is parsed to the iLQR solver.
 
 ## Requirements #
 
-pydrake (see [getting_started](../../../../docs/getting_started.md))
+pydrake (see [getting_started](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md))
 
 ## API
 
@@ -42,7 +42,7 @@ The controller can be initialized as:
 
 where
 
-- mass, length, damping, coulomb_friction, gravity are the pendulum parameters (see [PendulumPlant](../../model/README.md))
+- mass, length, damping, coulomb_friction, gravity are the pendulum parameters (see [PendulumPlant](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/model/README.md))
 - x0:   array like, start state
 - dt:   float, time step
 - N:    int, time steps the controller plans ahead
@@ -56,7 +56,7 @@ where
 - fCv: float, final cost coefficient penalizing the velocity error at the final state
 - fCen: float, final cost coefficient penalizing the energy error at the final state
 - dynamics: string, "euler" for euler integrator, "runge_kutta" for Runge-Kutta integrator
-- nx: int, nx=2, or n_x=3 for pendulum, n_x=2 uses $`[\theta, \dot{\theta}]`$ as pendulum state during the optimization, n_x=3 uses $`[\cos(\theta), \sin(\theta), \dot{\theta}]`$ as state
+- nx: int, nx=2, or n_x=3 for pendulum, n_x=2 uses <img src="https://render.githubusercontent.com/render/math?math=[\theta, \dot{\theta}]"> as pendulum state during the optimization, n_x=3 uses <img src="https://render.githubusercontent.com/render/math?math=[\cos(\theta), \sin(\theta), \dot{\theta}]"> as state
 
 Before using the controller a goal has to be set via
 
@@ -68,7 +68,7 @@ It is possible to either load an initial guess for the trajectory from a csv fil
 
     controller.load_initial_guess(filepath="../../../../data/trajectories/iLQR/trajectory.csv"
 
-for example a trajectory that has been found with the offline trajectory optimization [iLQR](../../trajectory_optimization/iLQR/README.md).
+for example a trajectory that has been found with the offline trajectory optimization [iLQR](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/trajectory_optimization/ilqr).
 Alternatively, it is possible to compute a new initial guess with
 
     controller.compute_initial_guess(N=50)

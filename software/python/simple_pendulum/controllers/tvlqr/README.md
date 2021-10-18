@@ -11,23 +11,15 @@ Versatility: -
 ## Theory #
 
 This controller is designed to follow a precomputed trajectory
- from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the trajectory optimization methods in [software/python/simple_pendulum/trajectory_optimization](software/python/simple_pendulum/trajectory_optimization).
+ from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the [trajectory optimization](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/trajectory_optimization) methods.
 
-The Time-varying Linear Quadratic Regulator (TVLQR) is an extension to the regular [LQR controller](software/python/simple_pendulum/controllers/lqr). The LQR formalization is used for a time-varying linear dynamics function
+The Time-varying Linear Quadratic Regulator (TVLQR) is an extension to the regular [LQR controller](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/lqr). The LQR formalization is used for a time-varying linear dynamics function
 
-```math
-\begin{equation}
-\dot{\mathbf{x}} =  \mathbf{A}(t)\mathbf{x} + \mathbf{B}(t)\mathbf{u}
-\end{equation}
-```
+<img src="https://render.githubusercontent.com/render/math?math=\dot{\mathbf{x}} =  \mathbf{A}(t)\mathbf{x} %2B \mathbf{B}(t)\mathbf{u}">
 
-The TVLQR controller tries to stabilize the system along a nominal trajectory. For this, at every timestep the system dynamics are linearized around the state of the nominal trajectory $`\mathbf{x}_0(t), \mathbf{u}_0(t)`$ at the given timestep $`t`$. The LQR formalism then can be used to derive the optimal controller at timestep $`t`$:
+The TVLQR controller tries to stabilize the system along a nominal trajectory. For this, at every timestep the system dynamics are linearized around the state of the nominal trajectory <img src="https://render.githubusercontent.com/render/math?math=\mathbf{x}_0(t), \mathbf{u}_0(t)"> at the given timestep <img src="https://render.githubusercontent.com/render/math?math=t">. The LQR formalism then can be used to derive the optimal controller at timestep <img src="https://render.githubusercontent.com/render/math?math=t">:
 
-```math
-\begin{equation}
-u(\mathbf{x}) = \mathbf{u}_0(t) - \mathbf{K}(t) \left( \mathbf{x} - \mathbf{x}_0(t)\right)
-\end{equation}
-```
+<img src="https://render.githubusercontent.com/render/math?math=u(\mathbf{x}) = \mathbf{u}_0(t) - \mathbf{K}(t) \left( \mathbf{x} - \mathbf{x}_0(t)\right)">
 
 For further reading, we recommend chapter 8 of this [Underactuated Robotics [1]](http://underactuated.mit.edu/) lecture.
 
@@ -54,7 +46,7 @@ The data_dict dictionary should have the entries:
 
 The values are assumed to be in SI units, i.e. time in s, position in rad, velocity in rad/s, torque in Nm.
 
-The control output $`\mathbf{u}(\mathbf{x})`$ can be obtained with the API of the abstract controller class:
+The control output <img src="https://render.githubusercontent.com/render/math?math=\mathbf{u}(\mathbf{x})"> can be obtained with the API of the abstract controller class:
 
     TVLQRController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time)
         inputs:

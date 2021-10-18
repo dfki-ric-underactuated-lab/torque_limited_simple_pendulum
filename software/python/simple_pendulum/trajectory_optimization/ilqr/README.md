@@ -14,7 +14,7 @@ The [iterative linear quadratic regularizer (iLQR) [1]](https://ieeexplore.ieee.
 
 The algorithm can be described as:
 
-1. Set an initial state $`x_0`$ and an initial control sequence $`\mathbf{U} = [u_0, u_1, ..., u_{N-1}]`$, where $`N`$ is the number of steps that will optimized over (the time horizon).
+1. Set an initial state <img src="https://render.githubusercontent.com/render/math?math=x_0"> and an initial control sequence <img src="https://render.githubusercontent.com/render/math?math=\mathbf{U} = [u_0, u_1, ..., u_{N-1}]">, where <img src="https://render.githubusercontent.com/render/math?math=N"> is the number of steps that will optimized over (the time horizon).
 2. Rollout the trajectory by applying the control sequence iteratively to the initial state.
 
 The following steps are repeated until convergence:
@@ -56,7 +56,7 @@ Similarily, state_cost and final_cost are functions of the form:
         ...
         return cost
 
-Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in [pendulum.py](pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](../../../examples/compute_iLQR_swingup.py) in l.80 - l.87 for the dynamics and l.93 - l.113 for the cost functions.
+Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in [pendulum.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/trajectory_optimization/ilqr/pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/compute_iLQR_swingup.py) in l.80 - l.87 for the dynamics and l.93 - l.113 for the cost functions.
 
 Next: initialize the derivatives and the start state in the iLQR solver:
 
@@ -85,7 +85,7 @@ Besides the state space trajectory x_trj and the control trajectory u_trj the ca
 
 ## Usage #
 
-An example script for the pendulum can be found in the [examples](../../../examples/) directory. It can be started with
+An example script for the pendulum can be found in the [examples directory](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples). It can be started with
 
     python compute_iLQR_swingup.py
 
@@ -95,7 +95,7 @@ The iLQR algorithm in this form cannot respect joint and torque limits. Instead,
 
 ## Requirements #
 
-[pydrake [2]]((https://drake.mit.edu/)) (see [getting_started](../../../../../docs/getting_started.md))
+[pydrake [2]]((https://drake.mit.edu/)) (see [getting_started](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md))
 
 ## References
 

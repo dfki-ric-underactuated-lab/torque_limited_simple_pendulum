@@ -14,14 +14,14 @@ If you aren't running a suitable python version currently on your system, we rec
 - **virtualenv:** https://github.com/pyenv/pyenv-virtualenv
 
 ## Installing this Python Package
-If you want to install this package with your system python version, you can do that by going to the directory [software/python](software/python) and typing:
+If you want to install this package with your system python version, you can do that by going to the directory [software/python](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python) and typing:
 ```
 pip install .
 ```
 Note: This has to be repeated if you make changes to the code (besides the scripts).
 
 ## Instructions for Ubuntu (18.04.5 and 20.04.2.0 LTS)
-The instructions provide assistance in the setup procedure, but with regards to the software [LICENSE](LICENSE) they are provided without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, arising from, out of or in connection with the software or the use or other dealings in the software.
+The instructions provide assistance in the setup procedure, but with regards to the software [LICENSE](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/LICENSE) they are provided without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, arising from, out of or in connection with the software or the use or other dealings in the software.
 
 1) Clone this repo from GitHub, in case you haven't done it yet:
 ```
@@ -208,7 +208,7 @@ python3 -m pip install -r requirements.txt
 Note 1: You can generate your own requirements.txt file with this command: `pip freeze > requirements.txt`
 Note 2: Yoiu can skip this step and directly install this package with the setup.py file as described in the next line. This will install the requirement packages as well. The setup.py will not install specific versions of the requirements, that have been tested by us, but instead, it will install the latest version.
 
-This package then can be installed from the [software/python](software/python) directory by typing:
+This package then can be installed from the [software/python](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python) directory by typing:
 ```
 pip install .
 ```

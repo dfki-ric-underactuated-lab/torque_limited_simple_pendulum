@@ -106,17 +106,19 @@ r =  \exp{-(\theta - \pi)^2/(2*0.25^2)} - \exp{-(\theta - 0)^2/(2*0.25^2)}
 \end{equation}
 ```
 This encourages moving away from the stable fixed point of the system 
-at $`\theta = 0`$ and spending most time at the target, the unstable 
-fixed point $`\theta = \pi`$. Different reward functions can be used. 
+at <img src="https://render.githubusercontent.com/render/math?math=\theta = 0"> and spending most time at the target, the unstable 
+fixed point <img src="https://render.githubusercontent.com/render/math?math=\theta = \pi">. Different reward functions can be used. 
 Novel reward funcitons can be implemented by modifying the *swingup_reward* method of the training environment with 
 an appropriate *if* clause, and then selecting this reward function in 
 the init_environment parameters under the key *'reward_type'*. The training 
-enviroment is located in [gym_environment](software/python/simple_pendulum/simulation/gym_environment.py)
+enviroment is located in [gym_environment](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/simulation/gym_environment.py)
 
 
 ## Usage #
 
-For an example of how to train a sac model see the [train_sac.py](software/python/examples/train_sac.py) script in the examples folder.
+For an example of how to train a sac model see the [train_sac.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/train_sac.py) script in the examples folder.
+
+The trained model can be used with the [sac controller](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/sac).
 
 ## Comments #
 

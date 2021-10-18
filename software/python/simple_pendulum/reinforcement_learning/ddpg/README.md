@@ -21,12 +21,9 @@ It utilizes two networks, an actor and a critic. The actor receives a state and 
 
 Further, DDPG makes use of target networks in order to stabilize the training. This means there are a training and a target version of the actor and critic models. The training version is used during training and the target networks are partially updated by polyak averaging:
 
-```math
-\begin{equation}
-\phi_{targ} = \tau \phi_{targ} + (1 - \tau) \phi_{train}
-\end{equation}
-```
-where $`\tau`$ is usually small.
+<img src="https://render.githubusercontent.com/render/math?math=\phi_{targ} = \tau \phi_{targ} %2B (1 - \tau) \phi_{train}">
+
+where <img src="https://render.githubusercontent.com/render/math?math=\tau"> is usually small.
 
 DDPG also makes use of a replay buffer, which is a set of experiences which have been observed during training. The replay buffer should be large enough to contain a wide range of experiences.
 For more information on DDPG please refer to the original paper [[1]](https://arxiv.org/abs/1509.02971v6):
@@ -111,20 +108,20 @@ The save method will save the actor and critic model under the given path.
 model, move the saved files somewhere else.
 
 The default reward function used during training is "open_ai_gym"
-```math
-\begin{equation}
-r =  -(\theta - \pi)^2} - 0.1 \cdot(\theta - 0)^2 - 0.001 \cdot(action)^2}
-\end{equation}
-```
-This encourages spending most time at the target (in the equation ([$`\pi`$, 0]) with actions as small as possible. Different reward functions can be used by changing the reward type in init_environment. 
+
+<img src="https://render.githubusercontent.com/render/math?math=r=-(\theta-\pi)^{2}-0.1 (\dot{\theta}-0)^{2}-0.001 u^{2}">
+
+This encourages spending most time at the target (in the equation ([pi, 0]) with actions as small as possible. Different reward functions can be used by changing the reward type in init_environment. 
 Novel reward functions can be implemented by modifying the *swingup_reward* method of the training environment with 
 an appropriate *if* clause, and then selecting this reward function in 
 the init_environment parameters under the key *'reward_type'*. The training 
-enviroment is located in [gym_environment](software/python/simple_pendulum/simulation/gym_environment.py)
+enviroment is located in [gym_environment](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/simulation)
 
 ## Usage
 
-For an example of how to train a sac model see the [train_ddpg.py](software/python/examples/train_ddpg.py) script in the examples folder.
+For an example of how to train a sac model see the [train_ddpg.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/sim_ddpg.py) script in the examples folder.
+
+The trained model can be used with the [ddpg controller](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/ddpg).
 
 ## Comments
 Todo: comments on training convergence stability
