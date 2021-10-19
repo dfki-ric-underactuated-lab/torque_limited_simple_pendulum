@@ -11,7 +11,7 @@ Versatility: -
 ## Theory #
 
 This controller is designed to feed a precomputed trajectory
- in from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the trajectory optimization methods in [software/python/simple_pendulum/trajectory_optimization](software/python/simple_pendulum/trajectory_optimization).
+ in from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the [trajectory optimization](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/trajectory_optimization) methods.
 
 ## API
 

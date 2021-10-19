@@ -28,7 +28,7 @@ To initialize the benchmark class do:
                           integrator=integrator,
                           benchmark_iterations=benchmark_iterations)
 
-where dt is the control frequency, max_time the time of a single motion, integrator the integrator to be used ("euler" or "runge_kutta", see [simulator](../simulation)) and benchmark_iterations is the number iterations that are used to do the benchmark test.
+where dt is the control frequency, max_time the time of a single motion, integrator the integrator to be used ("euler" or "runge_kutta", see [simulator](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/simulation)) and benchmark_iterations is the number iterations that are used to do the benchmark test.
 
 The parameters of the pendulum can be parsed to the benchmark class with
 
@@ -44,7 +44,7 @@ The controller to be tested has to be set by
 
         ben.set_controller(controller)
 
-where controller is a controller inheriting from the [abstract controller class](software/python/simple_pendulum/controllers/abstract_controller.py).
+where controller is a controller inheriting from the [abstract controller class](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/abstract_controller.py).
 
 The benmark calculations are then started with
 
@@ -62,7 +62,7 @@ The individual checks can be turned off. The results will be stored in the filed
 
 ### Usage
 
-An example usage can be found in the [examples folder](../../examples) in the [benchmark_controller.py](../../examples/benchmark_controller.py) script.
+An example usage can be found in the [examples folder](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples) in the [benchmark_controller.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/benchmark_controller.py) script.
 
 ## Plotting Controllers
 
@@ -70,7 +70,7 @@ Controllers can be plotted by plotting their control signal in the pendulum's st
 
 ### API
 
-A controller inheriting from the [abstract controller class](software/python/simple_pendulum/controllers/abstract_controller.py) can be plotted by using
+A controller inheriting from the [abstract controller class](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/abstract_controller.py) can be plotted by using
 
     from simple_pendulum.analysis.plot_policy import plot_policy
 
@@ -86,4 +86,4 @@ The plotstyle can also be set to "2d". If a save_path is specified the plot will
 
 ### Usage
 
-An example usage can be found in the [examples folder](../../examples) in the [plot_controller.py](../../examples/benchmark_controller.py) script.
+An example usage can be found in the [examples folder](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples) in the [plot_controller.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/plot_controller.py) script.

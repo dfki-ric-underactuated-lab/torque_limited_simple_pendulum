@@ -12,35 +12,19 @@ Versatility: Stabilization only
 
 A linear quadratic regulator (LQR) can be used to stabilize the pendulum at the unstable fixpoint. For a linear system of the form
 
-```math
-\begin{equation}
-\dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}
-\end{equation}
-```
+<img src="https://render.githubusercontent.com/render/math?math=\dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} %2B \mathbf{B}\mathbf{u}">
 
 and a infinite horizon cost function in quadratic form:
 
-```math
-\begin{equation}
-J = \int_0^{\infty} \left( \mathbf{x}^T \mathbf{Q}\mathbf{x} + \mathbf{u}^T \mathbf{R} \mathbf{u} \right)\text{d}t, \quad \mathbf{Q} = \mathbf{Q} \succeq 0, \, \mathbf{R} = \mathbf{R} \succeq 0
-\end{equation}
-```
+<img src="https://render.githubusercontent.com/render/math?math=J = \int_0^{\infty} \left( \mathbf{x}^T \mathbf{Q}\mathbf{x} %2B \mathbf{u}^T \mathbf{R} \mathbf{u} \right)\text{d}t, \quad \mathbf{Q} = \mathbf{Q} \succeq 0, \, \mathbf{R} = \mathbf{R} \succeq 0">
 
 the (provably) optimal controller is
 
-```math
-\begin{equation}
-u(\mathbf{x}) = -\mathbf{R}^{-1}\mathbf{B}^{T}\mathbf{S} \mathbf{x} = -\mathbf{K} \mathbf{x}
-\end{equation}
-```
+<img src="https://render.githubusercontent.com/render/math?math=u(\mathbf{x}) = -\mathbf{R}^{-1}\mathbf{B}^{T}\mathbf{S} \mathbf{x} = -\mathbf{K} \mathbf{x}">
 
-where $`\mathbf{S}`$ has to fulfill the algebraic Riccati equation
+where <img src="https://render.githubusercontent.com/render/math?math=\mathbf{S}"> has to fulfill the algebraic Riccati equation
 
-```math
-\begin{equation}
-\mathbf{SA} + \mathbf{A}^{T}\mathbf{S} - \mathbf{SBR}^{-1}\mathbf{B}\mathbf{S} + \mathbf{Q} = 0.
-\end{equation}
-```
+<img src="https://render.githubusercontent.com/render/math?math=\mathbf{SA} %2B \mathbf{A}^{T}\mathbf{S} - \mathbf{SBR}^{-1}\mathbf{B}\mathbf{S} %2B \mathbf{Q} = 0.">
 
 There are many solvers for the algebraic Riccati equation. In this library the solver from the scipy package is used.
 
@@ -56,7 +40,7 @@ The controller needs pendulum parameters as input during initialization:
             gravity: float, default: 9.81
             torque_limit: float, default: np.inf
 
-The control output $`\mathbf{u}(\mathbf{x})`$ can be obtained with the API of the abstract controller class:
+The control output <img src="https://render.githubusercontent.com/render/math?math=\mathbf{u}(\mathbf{x})"> can be obtained with the API of the abstract controller class:
 
     LQRController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time)
         inputs:
@@ -72,7 +56,7 @@ If the calculated torque is out of bounds of the pendulum's torque limits the co
 
 ## Usage #
 
-A usage example can be found in the [examples folder](../../../examples). The controller can be tested in simulation with
+A usage example can be found in the [examples folder](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples). The controller can be tested in simulation with
 
     python sim_lqr.py
 

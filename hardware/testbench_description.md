@@ -13,16 +13,14 @@ The `/hardware` directory contains all information about the hardware that is us
 ### Physical Parameters of the Pendulum
 -------------------------------------------------------------------- 
 
-* Point mass: $`m_p`$= 0.546 Kg 
-* Mass of rod, mounting parts and screws: $`m_r`$ = 0.13 Kg 
-* Overall mass: $`m`$ = 0.676 Kg
-* Length to point mass: $`l`$ = 0.5 m
-* Length to COM: $`l_{COM}`$ = 0.045 m 
+* Point mass: <img src="https://render.githubusercontent.com/render/math?math=m_p">= 0.546 Kg 
+* Mass of rod, mounting parts and screws: <img src="https://render.githubusercontent.com/render/math?math=m_r"> = 0.13 Kg 
+* Overall mass: <img src="https://render.githubusercontent.com/render/math?math=m"> = 0.676 Kg
+* Length to point mass: <img src="https://render.githubusercontent.com/render/math?math=l"> = 0.5 m
+* Length to COM: <img src="https://render.githubusercontent.com/render/math?math=l_{COM}"> = 0.045 m 
 
 
-```math 
-l_{COM} = \frac{m_pl + 0.5 m_r l}{m_p + m_r} \, ,
-```
+<img src="https://render.githubusercontent.com/render/math?math=l_{COM} = \frac{m_pl %2B 0.5 m_r l}{m_p %2B m_r} \,">
 
 ### Physical Parameters of the Actuator
 --------------------------------------------------------------------  
@@ -35,30 +33,30 @@ The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:
 
 -------------------------------------------------------------------- 
 
-* Voltage = 24 $`V`$
-* Current = rated 12 $`A`$, peak 24 $`A`$
-* Torque = rated 6 $`Nm`$, peak 12 $`Nm`$ (after the transmission)
+* Voltage = 24 <img src="https://render.githubusercontent.com/render/math?math=V">
+* Current = rated 12 <img src="https://render.githubusercontent.com/render/math?math=A">, peak 24 <img src="https://render.githubusercontent.com/render/math?math=A">
+* Torque = rated 6 <img src="https://render.githubusercontent.com/render/math?math=Nm">, peak 12 <img src="https://render.githubusercontent.com/render/math?math=Nm"> (after the transmission)
 * Transmission N = 6 : 1
-* Weight = 485 $`g`$
-* Dimensions = ⌀ 98 $`mm`$ x 38,5 $`mm`$
-* Max. torque to weight ratio = 24 $`Nm/kg`$ (after the transmission) 
-* Max. velocity = 38.2 $`rad/s`$ = 365 $`rpm`$ (after the transmission)
+* Weight = 485 <img src="https://render.githubusercontent.com/render/math?math=g">
+* Dimensions = ⌀ 98 <img src="https://render.githubusercontent.com/render/math?math=mm"> x 38,5 <img src="https://render.githubusercontent.com/render/math?math=mm">
+* Max. torque to weight ratio = 24 <img src="https://render.githubusercontent.com/render/math?math=Nm/kg"> (after the transmission) 
+* Max. velocity = 38.2 <img src="https://render.githubusercontent.com/render/math?math=rad/s"> = 365 <img src="https://render.githubusercontent.com/render/math?math=rpm"> (after the transmission)
 
 ### Motor Constants  
 -------------------------------------------------------------------- 
  (before the transmission)  
 
-- Motor constant km = 0.2206 $`Nm/ \sqrt{W}`$
-- Electric constant ke= 0.009524 $`V/rpm`$ 
-- Torque constant kt = 0.091 $`Nm/A`$
-- Torque = rated 1,092 $`Nm`$, peak 2,184 $`Nm`$
-- Velocity / back-EMF constant kv = 100 $`rpm/V`$
-- Max. velocity at 24 $`V`$ = 251.2 $`rad/s`$ = 2400 $`rpm`$
-- Motor wiring in $`\nabla`$-delta configuration
+- Motor constant km = 0.2206 <img src="https://render.githubusercontent.com/render/math?math=Nm/ \sqrt{W}">
+- Electric constant ke= 0.009524 <img src="https://render.githubusercontent.com/render/math?math=V/rpm"> 
+- Torque constant kt = 0.091 <img src="https://render.githubusercontent.com/render/math?math=Nm/A">
+- Torque = rated 1,092 <img src="https://render.githubusercontent.com/render/math?math=Nm">, peak 2,184 <img src="https://render.githubusercontent.com/render/math?math=Nm">
+- Velocity / back-EMF constant kv = 100 <img src="https://render.githubusercontent.com/render/math?math=rpm/V">
+- Max. velocity at 24 <img src="https://render.githubusercontent.com/render/math?math=V"> = 251.2 <img src="https://render.githubusercontent.com/render/math?math=rad/s"> = 2400 <img src="https://render.githubusercontent.com/render/math?math=rpm">
+- Motor wiring in <img src="https://render.githubusercontent.com/render/math?math=\nabla">-delta configuration
 - Number of pole pairs = 21
-- Resistance phase to phase = 170 $`\pm`$ 5 $`m \Omega`$
-- Inductance phase to phase = 57 $`\pm`$ 10 $`\mu H`$
-- Rotor inertia Ir = 0.000060719 $`kg \, m^2`$
+- Resistance phase to phase = 170 <img src="https://render.githubusercontent.com/render/math?math=\pm"> 5 <img src="https://render.githubusercontent.com/render/math?math=m \Omega">
+- Inductance phase to phase = 57 <img src="https://render.githubusercontent.com/render/math?math=\pm"> 10 <img src="https://render.githubusercontent.com/render/math?math=\mu H">
+- Rotor inertia Ir = 0.000060719 <img src="https://render.githubusercontent.com/render/math?math=kg \, m^2">
 
 </br> 
 

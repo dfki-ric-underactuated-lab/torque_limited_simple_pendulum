@@ -11,44 +11,36 @@ The urdf model is modified to fit a pinocchio model.
 
 The costs functions for the **Running model** is written as :
 
-```math
-\begin{equation}
-  Costl = {\sum}_{n=1}^{T-1} \alpha_n \Phi_n(q,\dot{q},\Tau),
-\end{equation}
-```
+<img src="https://render.githubusercontent.com/render/math?math=l = {\sum}_{n=1}^{T-1} \alpha_n \Phi_n(q,\dot{q},\Tau),">
 
-With the following costs and weights, $`t_S`$ denoting the final time horizon.
+With the following costs and weights, <img src="https://render.githubusercontent.com/render/math?math=t_S"> denoting the final time horizon.
 
 1. _**Torque minimization**_: Minimization of the joint torques for realistic dynamic motions.
 
-$`\Phi_{1} =  \parallel \Tau (t) \parallel ^{2}_2,   \alpha_1 = 1e-4`$
+    <img src="https://render.githubusercontent.com/render/math?math=\Phi_{1} =  \parallel \Tau (t) \parallel ^{2}_2,  \quad \alpha_1 = 1e-4">
 
-2. _**Posture regularization**_:  giving as input only the final reference posture. 
+2. _**Posture regularization**_:  giving as input only the final reference posture.
 
-$`\Phi_{2} = \parallel q(t)-q^{ref}(t_{s-1})\parallel ^{2}_2 ,   \alpha_2 = 1e-5`$
+    <img src="https://render.githubusercontent.com/render/math?math=\Phi_{2} = \parallel q(t)-q^{ref}(t_{s-1})\parallel ^{2}_2 ,  \quad \alpha_2 = 1e-5">
 
 
 
 * The costs functions for the **Terminal model** are applied to only one node (the terminal node) and is written as :
 
 
-```math
- \begin{equation}
-  Costl_T =  \alpha_T \Phi_T(q,\dot{q}),
- \end{equation}
-```
+    <img src="https://render.githubusercontent.com/render/math?math=l_T =  \alpha_T \Phi_T(q,\dot{q}),">
 
-With the following cost and weight, $`T = t_{final}`$ the final time horizon.
+With the following cost and weight, <img src="https://render.githubusercontent.com/render/math?math=T = t_{final}"> the final time horizon.
 
-1. _**Posture regularization**_: giving as input only the final reference posture. 
+1. _**Posture regularization**_: giving as input only the final reference posture.
 
 
-    $`\Phi_{3} = \parallel q(T)-q^{ref}(T)\parallel^{2}_2 ,   \alpha_{3} = 1e10`$
+    <img src="https://render.githubusercontent.com/render/math?math=\Phi_{3} = \parallel q(T)-q^{ref}(T)\parallel^{2}_{2}, \quad  \alpha_{3} = 10^{10}">
 
 
 
 
-The weights $`\alpha_i`$ for this optimization problem are determined experimentally. 
+The weights <img src="https://render.githubusercontent.com/render/math?math=\alpha_i"> for this optimization problem are determined experimentally.
 
 # API
 
@@ -58,7 +50,7 @@ The BOXFDDP algorithm can be executed with the boxfddp_calculator class. It can 
                              enable_gui=True,
                              log_dir="log_data/ddp")
 
-The urdf_path should point to the urdf of the pendulum in a format that pinochio accepts. The urdf for a simple pendulum can be found in the data folder of this repository: [data/urdf/simplependul_dfki_pino_Modi.urdf](../../../../../data/urdf/simplependul_dfki_pino_Modi.urdf). enable_gui can be set to True if the trajectory shall be visualized with pinocchio after computation. In the log_dir a urdf with modified pendulum parameters will be stored.
+The urdf_path should point to the urdf of the pendulum in a format that pinochio accepts. The urdf for a simple pendulum can be found in the data folder of this repository: [simplependul_dfki_pino_Modi.urdf](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/data/urdf/simplependul_dfki_pino_Modi.urdf). enable_gui can be set to True if the trajectory shall be visualized with pinocchio after computation. In the log_dir a urdf with modified pendulum parameters will be stored.
 
 To set the correct pendulum parameters in the urdf with:
 
@@ -92,7 +84,7 @@ or simulated with gepetto with (for this enable_gui has to be set to True during
 
 # Usage
 
-An example script for the pendulum can be found in the [examples](../../../examples/) directory. It can be started with
+An example script for the pendulum can be found in the [examples](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples) directory. It can be started with
 
     python compute_BOXFDDP_swingup.py
 

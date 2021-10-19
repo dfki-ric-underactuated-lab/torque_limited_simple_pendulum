@@ -1,8 +1,11 @@
 # Trajectory optimization using direct collocation
 
 Type: Trajectory Optimization
+
 State/action space constraints: Yes
+
 Optimal: Yes
+
 Versatility: Swingup and stabilization
 
 ## Theory
@@ -24,33 +27,32 @@ The formulation of the optimization problem at the collocation points is as foll
           & {\bf{x}}[0] = {\bf{x}}_0\\
           & {\bf{x}}[N] = {\bf{x}}_F
 \end{align*}
-```
- --> 
+-->
 
-- $`{\bf{x}} = {{[\theta(.),\dot{\theta}(.)]}}^T`$: Angular position and velocity are the states of the system 
+- <img src="https://render.githubusercontent.com/render/math?math={\bf{x}} = {{[\theta(.),\dot{\theta}(.)]}}^T">: Angular position and velocity are the states of the system
 
-- $`u`$: Input torque of the system applied by motor
+- <img src="https://render.githubusercontent.com/render/math?math=u">: Input torque of the system applied by motor
 
-- $`N = 21`$: Number of break points in the trajectory
+- <img src="https://render.githubusercontent.com/render/math?math=N = 21">: Number of break points in the trajectory
 
-- $`h_k = t_{k+1} - t_k`$: Time interval between two breaking points
+- <img src="https://render.githubusercontent.com/render/math?math=h_k = t_{k%2B1} - t_k">: Time interval between two breaking points
 
-- $`l(u) = u^TR u`$: Running cost 
+- <img src="https://render.githubusercontent.com/render/math?math=l(u) = u^TR u">: Running cost
 
-- $`R = 10`$: Input weight
+- <img src="https://render.githubusercontent.com/render/math?math=R = 10">: Input weight
 
-- $`\dot{{\bf{x}}}(t_{c,n}) `$: [Nonlinear dynamics of the pendulum](https://git.hb.dfki.de/underactuated-robotics/release_version/torque_limited_simple_pendulum/-/blob/master/software/python/model/README.md) considered as equality constraint at collocation point
+- <img src="https://render.githubusercontent.com/render/math?math=\dot{{\bf{x}}}(t_{c,n})">: [Nonlinear dynamics of the pendulum](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/model) considered as equality constraint at collocation point
 
-- $`t_{c,k} = \frac{1}{2}\left(t_k + t_{k+1}\right)`$: A collocation point at time instant $`k,(i.e.,{\bf{x}}[k] = {\bf{x}}(t_k))`$,in which the collocation constraints depends on the decision variables  $`{\bf{x}}[k], {\bf{x}}[k~+~1], u[k], u[k+1]`$
+- <img src="https://render.githubusercontent.com/render/math?math=t_{c,k} = \frac{1}{2}\left(t_k %2B t_{k%2B1}\right)">: A collocation point at time instant <img src="https://render.githubusercontent.com/render/math?math=k,(i.e.,{\bf{x}}[k] = {\bf{x}}(t_k))">,in which the collocation constraints depends on the decision variables  <img src="https://render.githubusercontent.com/render/math?math={\bf{x}}[k], {\bf{x}}[k%2B1], u[k], u[k%2B1]">
 
-- $`u_{max} = 10`$: Maximum torque limit
+- <img src="https://render.githubusercontent.com/render/math?math=u_{max} = 10">: Maximum torque limit
 
-- $`{\bf{x}}_0 = [\theta = 0,\dot{\theta} = 0]:`$ Initial state constraint
+- <img src="https://render.githubusercontent.com/render/math?math={\bf{x}}_0 = [\theta = 0,\dot{\theta} = 0]:"> Initial state constraint
 
-- $`{\bf{x}}_F = [\theta = \pi,\dot{\theta} = 0]:`$ Terminal state constraint
+- <img src="https://render.githubusercontent.com/render/math?math={\bf{x}}_F = [\theta = \pi,\dot{\theta} = 0]:"> Terminal state constraint
 
 
-Minimum and a maximum spacing between sample times set to $`0.05, 0.5`$. It assumes a **first-order hold** on the input trajectory, in which the signal is reconstructed as a piecewise linear approximation to the original sampled signal.
+Minimum and a maximum spacing between sample times set to <img src="https://render.githubusercontent.com/render/math?math=0.05, 0.5">. It assumes a **first-order hold** on the input trajectory, in which the signal is reconstructed as a piecewise linear approximation to the original sampled signal.
 
 ## API
 

@@ -3,9 +3,6 @@
 The simulator class can simulate and animate the pendulum motion forward in time.
 The gym environment can be used for reinforcement learning.
 
-## Requirements #
-
-
 ## API #
 
 ### The simulator #
@@ -79,24 +76,24 @@ The environment can be initialized with
 
 The parameters are:
 
--        simulator : simulator object
--        max_steps : int, default=5000, maximum steps the agent can take before the episode is terminated
--        target : array-like, default=[np.pi, 0.0], the target state of the pendulum
--        state_target_epsilon: array-like, default=[1e-2, 1e-2], target epsilon for discrete reward type
--        reward_type : string, default='continuous', the reward type selects the reward function which is used
+- simulator : simulator object
+- max_steps : int, default=5000, maximum steps the agent can take before the episode is terminated
+- target : array-like, default=[np.pi, 0.0], the target state of the pendulum
+- state_target_epsilon: array-like, default=[1e-2, 1e-2], target epsilon for discrete reward type
+- reward_type : string, default='continuous', the reward type selects the reward function which is used
              options: 'continuous', 'discrete', 'soft_binary',
                           'soft_binary_with_repellor'
--        dt : float, default=1e-3, timestep for the simulation
--        integrator : string, default='runge_kutta', the integrator which is used by the simulator
+- dt : float, default=1e-3, timestep for the simulation
+- integrator : string, default='runge_kutta', the integrator which is used by the simulator
              options : 'euler', 'runge_kutta'
--        state_representation : int, default=2, determines how the state space of the pendulum is represented
+- state_representation : int, default=2, determines how the state space of the pendulum is represented
              2 means state = [position, velocity]
              3 means state = [cos(position), sin(position), velocity]
--        validation_limit : float, default=-150, If the reward during validation episodes surpasses this value
+- validation_limit : float, default=-150, If the reward during validation episodes surpasses this value
              the training stops early
--        scale_action : bool, default=True, whether to scale the output of the model with the torque limit
+- scale_action : bool, default=True, whether to scale the output of the model with the torque limit
              of the simulator's plant. If True the model is expected so return values in the intervall [-1, 1] as action.
--        random_init : string, default="False",
+- random_init : string, default="False",
              A string determining the random state initialisation
              "False" : The pendulum is set to [0, 0],
              "start_vicinity" : The pendulum position and velocity
@@ -106,9 +103,9 @@ The parameters are:
 
 ## Usage #
 
-For examples of usages of the simulator class check out the scripts in the [example folder](software/python/simple_pendulum/examples).
+For examples of usages of the simulator class check out the scripts in the [examples folder](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples).
 
-The gym environment is used for example in the [ddpg training](software/python/simple_pendulum/reinforcement_learning/ddpg).
+The gym environment is used for example in the [ddpg training](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/reinforcement_learning/ddpg).
 
 ## Comments #
 

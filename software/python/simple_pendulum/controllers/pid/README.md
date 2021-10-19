@@ -11,17 +11,16 @@ Versatility: -
 ## Theory #
 
 This controller is designed to follow a precomputed trajectory
- from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the trajectory optimization methods in [software/python/simple_pendulum/trajectory_optimization](software/python/simple_pendulum/trajectory_optimization).
+ from of a csv file to the simulator or the real pendulum. Particulary, the controller can process trajectories that have been found with help of the [trajectory optimization](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/trajectory_optimization) methods.
 
 The torque processed by the PID control terms via (with feed forward torque):
-```math
-u(t) = \tau + K_p e(t) + K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}
-```
-where $`\tau`$ is the torque from the csv file and $`e(t)`$ is the position error at timestep t.
+
+<img src="https://render.githubusercontent.com/render/math?math=u(t) = \tau %2B K_p e(t) %2B K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}">
+
+where <img src="https://render.githubusercontent.com/render/math?math=\tau"> is the torque from the csv file and <img src="https://render.githubusercontent.com/render/math?math=e(t)"> is the position error at timestep t.
 Without feed forward torque, the torque from the precomputed trajectory file is omitted:
-```math
-u(t) = K_p e(t) + K_i \int_0^t e(t') \text{d}t' + K_d \frac{\text{d}e(t)}{\text{d}t}
-```
+
+<img src="https://render.githubusercontent.com/render/math?math=u(t) = K_p e(t) %2B K_i \int_0^t e(t') \text{d}t' %2B K_d \frac{\text{d}e(t)}{\text{d}t}">
 
 ## API
 
@@ -53,7 +52,7 @@ The data_dict dictionary should have the entries:
 
 The values are assumed to be in SI units, i.e. time in s, position in rad, velocity in rad/s, torque in Nm.
 
-The control output $`\mathbf{u}(\mathbf{x})`$ can be obtained with the API of the abstract controller class:
+The control output <img src="https://render.githubusercontent.com/render/math?math=\mathbf{u}(\mathbf{x})"> can be obtained with the API of the abstract controller class:
 
     PIDController.get_control_output(mean_pos, mean_vel, meas_tau, meas_time)
         inputs:
