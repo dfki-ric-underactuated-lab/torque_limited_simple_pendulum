@@ -12,17 +12,17 @@ authors:
     affiliation: 1 # (Multiple affiliations must be quoted)
   - name: Jonathan Babel^[co-first author] # note this makes a footnote saying 'co-first author'
     affiliation: 1
+  - name: Shivesh Kumar
+    orcid: 0000-0002-6254-3882
+    affiliation: 1    
   - name: Shubham Vyas
     affiliation: 1
   - name: Daniel Harnack
     affiliation: 1
-  - name: Mihaela Popescu
-    affiliation: 2
   - name: Melya Boukheddimi
     affiliation: 1
-  - name: Shivesh Kumar
-    orcid: 0000-0002-6254-3882
-    affiliation: 1
+  - name: Mihaela Popescu
+    affiliation: 2    
   - name: Frank Kirchner
     affiliation: 1, 2
 affiliations:
