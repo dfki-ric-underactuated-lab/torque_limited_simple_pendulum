@@ -76,38 +76,26 @@ The class is inteded to be used inside the simulator class.
 
 ## Parameter Identification #
 
-An inverse model of the robot motion dynamics is the mapping from the motion of the robot, given by the joint positions <img src="https://render.githubusercontent.com/render/math?math=q(t) \; {\in} \; \mathbb{R}^n ">, joint velocities <img src="https://render.githubusercontent.com/render/math?math=\dot{q}(t)"> and joint accelerations <img src="https://render.githubusercontent.com/render/math?math=\ddot{q}(t)"> to the actuation torques <img src="https://render.githubusercontent.com/render/math?math= \tau (t) "> <img src="https://render.githubusercontent.com/render/math?math= \in"> <img src="https://render.githubusercontent.com/render/math?math= \mathbb{R}^n"> dependent on time <img src="https://render.githubusercontent.com/render/math?math=t">. Applying the Recursive-Newton-Euler algorithm or the Lagrange-Formalism to the a-priori known geometry of the robot, yields a theoretical model, still including unknown dynamic parameters such as the mass <img src="https://render.githubusercontent.com/render/math?math=m_i">, the three ﬁrst moments of inertia <img src="https://render.githubusercontent.com/render/math?math=m_i c_{[x|y|z],i}"> or the six second moments of inertia <img src="https://render.githubusercontent.com/render/math?math=I_{[xx|xy|xz|yy|yz|zz],i}">, for each body <img src="https://render.githubusercontent.com/render/math?math=i"> of the robot.[^fn1] Two additional parameters are added to the model, <img src="https://render.githubusercontent.com/render/math?math=F_{c,i}"> and <img src="https://render.githubusercontent.com/render/math?math=F_{v,i}">, in order to take joint friction into account, as coefﬁcients of a Coulomb and viscous friction model. The resulting rigid-body model thus has the form [^fn2]
+The rigid-body model dervied from a-priori known geometry as described by [^fn1] has the form
 
-```math
-\begin{equation}
-    \tau(t)= \mathbf{Y} q(t), \dot q(t), \ddot q(t)) \; \theta,
-\end{equation}
-```
+<div align="center">
+<img src="https://render.githubusercontent.com/render/math?math=%5Ctau(t)%3D%20%5Cmathbf%7BY%7D%20%5Cleft(%5Ctheta(t)%2C%20%5Cdot%20%5Ctheta(t)%2C%20%5Cddot%20%5Ctheta(t)%5Cright)%20%5C%3B%20%5Clambda%2C">
+</div>
 
-where <img src="https://render.githubusercontent.com/render/math?math=\theta"> <img src="https://render.githubusercontent.com/render/math?math=\in"> <img src="https://render.githubusercontent.com/render/math?math=\mathbb{R}^{6n}"> denotes the parameter vector with <img src="https://render.githubusercontent.com/render/math?math=n"> sets of parameters <img src="https://render.githubusercontent.com/render/math?math=\theta_i">,
+<!-- $$\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot \theta(t)\right) \; \lambda,$$ -->
 
 
- For a reference trajectory sampled at <img src="https://render.githubusercontent.com/render/math?math=t = kT_s, \; k"> <img src="https://render.githubusercontent.com/render/math?math=\in"> <img src="https://render.githubusercontent.com/render/math?math=1...K"> with sampling time <img src="https://render.githubusercontent.com/render/math?math=T_s">, an identiﬁcation matrix <img src="https://render.githubusercontent.com/render/math?math=\mathit{\Phi}"> can be created
+where actuation torques <img src="https://render.githubusercontent.com/render/math?math=\tau (t)">, joint positions <img src="https://render.githubusercontent.com/render/math?math=\theta(t)">, velocities <img src="https://render.githubusercontent.com/render/math?math=\dot \theta (t)"> and accelerations <img src="https://render.githubusercontent.com/render/math?math=\ddot \theta(t)"> depend on time <img src="https://render.githubusercontent.com/render/math?math=t"> and <img src="https://render.githubusercontent.com/render/math?math=\lambda"> <img src="https://render.githubusercontent.com/render/math?math=\in"> <img src="https://render.githubusercontent.com/render/math?math=\mathbb{R}^{6n}"> denotes the parameter vector. Two additional parameters for Coulomb and viscous friction are added to the model, <img src="https://render.githubusercontent.com/render/math?math=F_{c,i}"> and <img src="https://render.githubusercontent.com/render/math?math=F_{v,i}">, in order to take joint friction into account [^fn2]. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [^fn3]. The dynamic parameters <img src="https://render.githubusercontent.com/render/math?math=\hat{\lambda}"> are estimated through least squares optimization between measured torque and computed torque
 
-```math
-\begin{equation}
-    \mathit{\Phi} = \left( \begin{array}{c}
-                    \mathbf{Y} (q(T_s), \; \dot q(T_s), \; \ddot q(T_s)) \\
-                    ... \\
-                    \mathbf{Y} (q(kT_s), \; \dot q(kT_s), \; \ddot q(kT_s)) \\
-                    ... \\
-                    \mathbf{Y} (q(KT_s), \; \dot q(KT_s), \; \ddot q(KT_s)) \\
-                    \end{array} \right) 
-\end{equation}
-```
+<div align="center">
+<img src="https://render.githubusercontent.com/render/math?math=%5Chat%7B%5Clambda%7D%20%3D%20%5Cunderset%7B%5Clambda%7D%7B%5Ctext%7Bargmin%7D%7D%20%5Cleft(%20(%5Cmathit%7B%5CPhi%7D%20%5Clambda%20-%20%5Ctau_m)%5ET%20(%5Cmathit%7B%5CPhi%7D%20%5Clambda%20-%20%5Ctau_m)%20%5Cright)">
+</div>
 
-The required torques <img src="https://render.githubusercontent.com/render/math?math=\tau_m(kT_s)"> for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory can be obtained by modifying the parameters of a Fourier-Series as described by Swevers et al.[^fn3] The dynamic parameters <img src="https://render.githubusercontent.com/render/math?math=\hat{\theta}"> are estimated through least squares optimization between measured torque <img src="https://render.githubusercontent.com/render/math?math=\tau_m"> and computed torque <img src="https://render.githubusercontent.com/render/math?math=\mathit{\Phi} \hat{\theta}">;
+<!-- $$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right),$$ -->
 
-```math
-\begin{equation}
-     \underset{\hat \theta}{\text{minimize}} (\mathit{\Phi} \hat{\theta} - \tau_m)^T (\mathit{\Phi} \hat{\theta} - \tau_m) .
-\end{equation}
-```
+
+where <img src="https://render.githubusercontent.com/render/math?math=\mathit{\Phi}"> denotes the identiﬁcation matrix.
+
 
 ## References #
 
