@@ -153,4 +153,8 @@ This work has been performed in the VeryHuman project funded by the German Aeros
 
 This work has been released under the BSD 3-Clause License. Details and terms of use are specified in the LICENSE file within this repository. Note that we do not publish third-party software, hence software packages from other developers are released under their very own terms and conditions, e.g. Stable baselines (MIT License) and Tensorflow (Apache License v2.0). If you install third-party software packages along with this repo ensure  that you follow each individual license agreement.   
 
+## Citation
+
+Felix Wiebe, Jonathan Babel, Shubham Vyas, Daniel Harnack, Mihaela Popescu, Melya Boukheddimi, Shivesh Kumar, Frank Kirchner. Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. In: Journal of Open Source Software (JOSS). (to be submitted)
+
 -----------------------------------------------------------------------------------------------------------------------------
