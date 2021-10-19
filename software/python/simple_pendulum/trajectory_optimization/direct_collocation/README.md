@@ -29,8 +29,6 @@ The formulation of the optimization problem at the collocation points is as foll
 \end{align*}
 -->
 
-<img src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign*%7D%0A%20%20%20%20%20%20%20%20%5Cmin_%7B%7B%5Cbf%7Bx%7D%7D%5B.%5D%2C%7B%7Bu%7D%7D%5B.%5D%7D%20%5Csum_%7Bn_0%7D%5E%7BN-1%7D%26%20h_%7Bn%7Dl(%7B%7Bu%7D%7D%5Bn%5D)%5C%5C%0A%20%20%20%20%20%20%20%20%5Ctextrm%7Bs.t.%7D%20%5Cquad%20%26%20%5Cdot%7B%7B%5Cbf%7Bx%7D%7D%7D(t_%7Bc%2Cn%7D)%3Df(%7B%5Cbf%7Bx%7D%7D(t_%7Bc%2Cn%7D)%2Cu(t_%7Bc%2Cn%7D))%2C%20%5Chspace%7B0.2cm%7D%20%5Cforall%20n%20%5Cin%20%5B0%2CN-1%5D%20%5C%5C%0A%20%20%20%20%20%20%20%20%26%20%7Cu%7C%20%5Cleq%20u_%7Bmax%7D%5C%5C%0A%20%20%20%20%20%20%20%20%26%20%7B%5Cbf%7Bx%7D%7D%5B0%5D%20%3D%20%7B%5Cbf%7Bx%7D%7D_0%5C%5C%0A%20%20%20%20%20%20%20%20%26%20%7B%5Cbf%7Bx%7D%7D%5BN%5D%20%3D%20%7B%5Cbf%7Bx%7D%7D_F%0A%5Cend%7Balign*%7D">
-
 - <img src="https://render.githubusercontent.com/render/math?math={\bf{x}} = {{[\theta(.),\dot{\theta}(.)]}}^T">: Angular position and velocity are the states of the system
 
 - <img src="https://render.githubusercontent.com/render/math?math=u">: Input torque of the system applied by motor
