@@ -155,6 +155,6 @@ This work has been released under the BSD 3-Clause License. Details and terms of
 
 ## Citation
 
-Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Mihaela Popescu, Melya Boukheddimi, Frank Kirchner. Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. In: Journal of Open Source Software (JOSS). (to be submitted)
+Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner. Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. In: Journal of Open Source Software (JOSS). (to be submitted)
 
 -----------------------------------------------------------------------------------------------------------------------------
