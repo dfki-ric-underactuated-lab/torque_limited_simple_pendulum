@@ -6,7 +6,7 @@
 
 ## Installing Python Driver for T-Motor AK80-6 Actuator
 
-* Clone the python motor driver from: ...
+* Clone the python motor driver from: https://github.com/dfki-ric-underactuated-lab/mini-cheetah-tmotor-python-can
 * Modify the `.bashrc` file to add the driver to your python path. Make sure you restart your terminal after this step.
 ```
 # mini-cheetah driver
