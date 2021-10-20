@@ -41,6 +41,7 @@ The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:
 * Dimensions = ⌀ 98 <img src="https://render.githubusercontent.com/render/math?math=mm"> x 38,5 <img src="https://render.githubusercontent.com/render/math?math=mm">
 * Max. torque to weight ratio = 24 <img src="https://render.githubusercontent.com/render/math?math=Nm/kg"> (after the transmission) 
 * Max. velocity = 38.2 <img src="https://render.githubusercontent.com/render/math?math=rad/s"> = 365 <img src="https://render.githubusercontent.com/render/math?math=rpm"> (after the transmission)
+* Backlash (accuracy) = 0.15° degrees
 
 ### Motor Constants  
 -------------------------------------------------------------------- 
