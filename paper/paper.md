@@ -125,11 +125,11 @@ The rigid-body model derived from a-priori known geometry as described by [@sici
 
 $$\tau(t)= \mathbf{Y} \left(\theta(t), \dot{\theta}(t), \ddot{\theta}(t)\right) \; \lambda,$$
 
-where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $\dot{\theta} (t)$ and accelerations $\ddot{\theta}(t)$ depend on time $t$ and $\lambda \in \mathbb{R}^{6n}$ denotes the parameter vector. Two additional parameters for Coulomb and viscous friction are added to the model, $F_{c,i}$ and $F_{v,i}$, in order to take joint friction into account [@bargsten2016]. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory. A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque
+where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $\dot{\theta} (t)$ and accelerations $\ddot{\theta}(t)$ depend on time $t$ and a linear dependency between the parameter vector $\lambda$ and the regressor matrix $\mathbf{Y}$ exists. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque
 
 $$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right),$$
 
-where $\mathit{\Phi}$ denotes the identiﬁcation matrix.
+where $\mathit{\Phi}$ denotes the identiﬁcation matrix. The parameters according to which the optimization problem is solved for the single pendulum are the Jacobian, the inertia term comprising mass and distance from the axis of rotation to the center of mass, Coulomb $F_{c,i}$ and viscous friction $F_{v,i}$, as well as a offset term [@bargsten2016]. A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The required torques for system identification are measured using stiff position control and closely tracking the reference trajectory. Filter methods like Fast Fourier transform and Butterworth filtering are applied on position and velocity measurements to compensate for sensor noise.
 
 ## Control Methods
 
