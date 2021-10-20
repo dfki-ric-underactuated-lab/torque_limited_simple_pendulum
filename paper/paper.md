@@ -51,7 +51,7 @@ This repository is designed to be used in education and research. It lowers the 
 for studying underactuation in real systems which is often overlooked in conventional robotics courses.
 With this software package, students who want to learn about robotics, optimal control or reinforcement learning can make hands-on
 experiences with hardware and software for robot control.
-The dualistic approach of describing software and hardware as well as the large spectrum of control methods are stand out features of this package in comparison to similar software such as open AI gym [@Brockman2016] and Drake [@drake].
+The dualistic approach of describing software and hardware as well as the large spectrum of control methods are stand out features of this package in comparison to similar software such as stable baselines [@stable-baselines3], open AI gym [@Brockman2016] and Drake [@drake].
 Results from real experiments are provided to ensure reproducibility and evaluate novel control methods.
 
 
@@ -121,7 +121,7 @@ where
 
 ## Parameter Identification
 
-The rigid-body model dervied from a-priori known geometry as described by [@siciliano2009] has the form 
+The rigid-body model derived from a-priori known geometry as described by [@siciliano2009] has the form 
 
 $$\tau(t)= \mathbf{Y} \left(\theta(t), \dot{\theta}(t), \ddot{\theta}(t)\right) \; \lambda,$$
 
