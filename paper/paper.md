@@ -125,11 +125,7 @@ The rigid-body model derived from a-priori known geometry as described by [@sici
 
 $$\tau(t)= \mathbf{Y} \left(\theta(t), \dot{\theta}(t), \ddot{\theta}(t)\right) \; \lambda,$$
 
-where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $\dot{\theta} (t)$ and accelerations $\ddot{\theta}(t)$ depend on time $t$. The parameter vector $\lambda$ and the regressor matrix $\mathbf{Y}$ have a linear dependency. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque $\tau_m$ and computed torque $\mathit{\Phi} \hat{\lambda}$
-
-$$\underset{\hat{\lambda}}{\text{minimize}} \left((\mathit{\Phi} \hat{\lambda} - \tau_m)^T (\mathit{\Phi} \hat{\lambda} - \tau_m) \right),$$
-
-where $\mathit{\Phi}$ denotes the identiﬁcation matrix. In case of the simple pendulum the optimization problem is solved for inertia $I$, lumped parameters $ml$, Coulomb $c_f$ and viscous friction $b$ as well as a offset term $o$ and hence the parameter vector denotes [@bargsten2016]
+where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $\dot{\theta} (t)$ and accelerations $\ddot{\theta}(t)$ depend on time $t$. The parameter vector $\lambda$ and the regressor matrix $\mathbf{Y}$ have a linear dependency. In case of the simple pendulum the parameter vector contains inertia $I$, lumped parameters $ml$, Coulomb $c_f$ and viscous friction $b$ as well as a offset term $o$ and denotes as follows [@bargsten2016]
 
 $$\lambda = \begin{bmatrix}
 I \\
@@ -139,7 +135,11 @@ c_f \\
 o 
 \end{bmatrix}.$$
 
-A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The required torques for system identification are measured using stiff position control and closely tracking the reference trajectory. Filter methods like Fast Fourier transform and Butterworth filtering are applied on position and velocity measurements to compensate for sensor noise.
+The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque $\tau_m$ and computed torque $\mathit{\Phi} \hat{\lambda}$
+
+$$\underset{\hat{\lambda}}{\text{minimize}} \left((\mathit{\Phi} \hat{\lambda} - \tau_m)^T (\mathit{\Phi} \hat{\lambda} - \tau_m) \right),$$
+
+where $\mathit{\Phi}$ denotes the identiﬁcation matrix.A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The required torques for system identification are measured using stiff position control and closely tracking the reference trajectory. Filter methods like Fast Fourier transform and Butterworth filtering are applied on position and velocity measurements to compensate for sensor noise.
 
 ## Control Methods
 
