@@ -125,11 +125,21 @@ The rigid-body model derived from a-priori known geometry as described by [@sici
 
 $$\tau(t)= \mathbf{Y} \left(\theta(t), \dot{\theta}(t), \ddot{\theta}(t)\right) \; \lambda,$$
 
-where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $\dot{\theta} (t)$ and accelerations $\ddot{\theta}(t)$ depend on time $t$ and a linear dependency between the parameter vector $\lambda$ and the regressor matrix $\mathbf{Y}$ exists. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque and computed torque
+where actuation torques $\tau (t)$, joint positions $\theta(t)$, velocities $\dot{\theta} (t)$ and accelerations $\ddot{\theta}(t)$ depend on time $t$. The parameter vector $\lambda$ and the regressor matrix $\mathbf{Y}$ have a linear dependency. The dynamic parameters $\hat{\lambda}$ are estimated through least squares optimization between measured torque $\tau_m$ and computed torque $\mathit{\Phi} \hat{\lambda}$
 
-$$\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right),$$
+$$\underset{\hat{\lambda}}{\text{minimize}} \left((\mathit{\Phi} \hat{\lambda} - \tau_m)^T (\mathit{\Phi} \hat{\lambda} - \tau_m) \right),$$
 
-where $\mathit{\Phi}$ denotes the identiﬁcation matrix. The parameters according to which the optimization problem is solved for the single pendulum are the Jacobian, the inertia term comprising mass and distance from the axis of rotation to the center of mass, Coulomb $F_{c,i}$ and viscous friction $F_{v,i}$, as well as a offset term [@bargsten2016]. A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The required torques for system identification are measured using stiff position control and closely tracking the reference trajectory. Filter methods like Fast Fourier transform and Butterworth filtering are applied on position and velocity measurements to compensate for sensor noise.
+where $\mathit{\Phi}$ denotes the identiﬁcation matrix. In case of the simple pendulum the optimization problem is solved for inertia $I$, lumped parameters $ml$, Coulomb $c_f$ and viscous friction $b$ as well as a offset term $o$ and hence the parameter vector denotes [@bargsten2016]
+
+$$\lambda = \begin{bmatrix}
+I \\
+ml \\
+b\\
+c_f \\
+o 
+\end{bmatrix}.$$
+
+A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [@swevers2007]. The required torques for system identification are measured using stiff position control and closely tracking the reference trajectory. Filter methods like Fast Fourier transform and Butterworth filtering are applied on position and velocity measurements to compensate for sensor noise.
 
 ## Control Methods
 
