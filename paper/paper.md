@@ -20,7 +20,7 @@ authors:
   - name: Daniel Harnack
     affiliation: 1
   - name: Melya Boukheddimi
-    affiliation: 1
+    affiliation: 2
   - name: Mihaela Popescu
     affiliation: 2    
   - name: Frank Kirchner
@@ -90,7 +90,7 @@ The physical parameters of the pendulum are:
 
 ## Electrical Setup
 
-The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator. The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main PC doesn't feature a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps for peak torque. The power supply in our test setup is the EA-PS 9032-40 from Elektro-Automatik. The capacitor filters backEMF coming from the actuator and protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
+The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator. The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main PC doesn't feature a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps for peak torque. The power supply in our test setup is the EA-PS 9032-40 from Elektro-Automatik. The capacitor filters back EMF coming from the actuator and protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
 
 ![Electrical setup. \label{fig:electrical_schematic}](figures/wiring_diagram.png){#id .class height=800px}
 
