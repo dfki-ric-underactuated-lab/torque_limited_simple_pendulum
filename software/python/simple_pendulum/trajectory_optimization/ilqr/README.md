@@ -56,7 +56,7 @@ Similarily, state_cost and final_cost are functions of the form:
         ...
         return cost
 
-Important: These functions have to be differentiable with the pydrake symbolic library! Examples for these functions for the pendulum are implemented in [pendulum.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/trajectory_optimization/ilqr/pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/compute_iLQR_swingup.py) in l.80 - l.87 for the dynamics and l.93 - l.113 for the cost functions.
+Important: These functions have to be differentiable either with the pydrake symbolic library or with sympy! Examples for these functions for the pendulum are implemented in [pendulum.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/trajectory_optimization/ilqr/pendulum.py). With the 'partial' function from the 'functools' package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see [compute_pendulum_iLQR.py](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/compute_iLQR_swingup.py) in l.80 - l.87 for the dynamics and l.93 - l.113 for the cost functions.
 
 Next: initialize the derivatives and the start state in the iLQR solver:
 
@@ -95,7 +95,11 @@ The iLQR algorithm in this form cannot respect joint and torque limits. Instead,
 
 ## Requirements #
 
-[pydrake [2]]((https://drake.mit.edu/)) (see [getting_started](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md))
+Optional: [pydrake [2]]((https://drake.mit.edu/)) (see [getting_started](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md))
+
+## Notes #
+
+The calculations with the pydrake symbolic library are about 30% faster than the calculations based on the sympy library in these implementations.
 
 ## References
 

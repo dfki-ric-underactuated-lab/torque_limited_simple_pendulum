@@ -1,10 +1,18 @@
 # Other imports
 import numpy as np
 from functools import partial
+try:
+    import pydrake
+    pydrake_available = True
+except ModuleNotFoundError:
+    pydrake_available = False
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
-from simple_pendulum.trajectory_optimization.ilqr.ilqr import iLQR_Calculator
+if pydrake_available:
+    from simple_pendulum.trajectory_optimization.ilqr.ilqr import iLQR_Calculator
+else:
+    from simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy import iLQR_Calculator
 from simple_pendulum.trajectory_optimization.ilqr.pendulum import pendulum_discrete_dynamics_euler, \
                                                                   pendulum_discrete_dynamics_rungekutta, \
                                                                   pendulum_swingup_stage_cost, \

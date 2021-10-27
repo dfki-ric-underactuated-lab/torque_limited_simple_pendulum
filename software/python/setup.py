@@ -13,6 +13,7 @@ setup(
         'pandas',
         'argparse',
         'scipy',
+        'sympy',
 
         # reinforcement learning
         'tensorflow',
