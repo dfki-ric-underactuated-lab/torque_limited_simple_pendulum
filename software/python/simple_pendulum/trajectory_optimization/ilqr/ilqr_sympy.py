@@ -1,18 +1,18 @@
 # large parts taken from https://github.com/RussTedrake/underactuated
 
 import numpy as np
-import pydrake.symbolic as sym
+import sympy as smp
 
 
 class iLQR_Calculator():
     '''
     Class to calculate an optimal trajectory with an iterative
-    linear quadratic regulator (iLQR). This implementation uses the pydrake symbolic library.
+    linear quadratic regulator (iLQR). This implementation uses sympy.
     '''
     def __init__(self, n_x=2, n_u=1):
-        '''
+        """
         Class to calculate an optimal trajectory with an iterative
-        linear quadratic regulator (iLQR). This implementation uses the pydrake symbolic library.
+        linear quadratic regulator (iLQR). This implementation uses sympy.
 
         Parameters
         ----------
@@ -20,20 +20,23 @@ class iLQR_Calculator():
             The size of the state space.
         n_u : int, default=1
             The size of the control space.
-        '''
+        """
         self.n_x = n_x
         self.n_u = n_u
 
+        self.x_sym = smp.symbols("x:"+str(self.n_x))
+        self.u_sym = smp.symbols("u:"+str(self.n_u))
+
     def set_start(self, x0):
-        '''
+        """
         Set the start state for the trajectory.
 
         Parameters
         ----------
         x0 : array-like
             the start state. Should have the shape of (n_x,)
-        '''
-        self.x0 = np.asarray(x0)
+        """
+        self.x0 = x0
 
     def set_discrete_dynamics(self, dynamics_func):
         '''
@@ -46,7 +49,7 @@ class iLQR_Calculator():
         '''
         self.discrete_dynamics = dynamics_func
 
-    def _rollout(self, u_trj):
+    def rollout(self, u_trj):
         x_trj = np.zeros((u_trj.shape[0]+1, self.x0.shape[0]))
         x = self.x0
         i = 0
@@ -81,7 +84,7 @@ class iLQR_Calculator():
         '''
         self.final_cost = final_cost_func
 
-    def _cost_trj(self, x_trj, u_trj):
+    def cost_trj(self, x_trj, u_trj):
         total = 0.0
         ln = 0.0
         N = x_trj.shape[0]
@@ -95,103 +98,112 @@ class iLQR_Calculator():
         """
         Initialize the derivatives of the dynamics.
         """
-        self.x_sym = np.array([sym.Variable("x_{}".format(i))
-                               for i in range(self.n_x)])
-        self.u_sym = np.array([sym.Variable("u_{}".format(i))
-                               for i in range(self.n_u)])
         x = self.x_sym
         u = self.u_sym
 
-        l_stage = self.stage_cost(x, u)
-        self.l_x = sym.Jacobian([l_stage], x).ravel()
-        self.l_u = sym.Jacobian([l_stage], u).ravel()
-        self.l_xx = sym.Jacobian(self.l_x, x)
-        self.l_ux = sym.Jacobian(self.l_u, x)
-        self.l_uu = sym.Jacobian(self.l_u, u)
+        l = self.stage_cost(x, u)
+
+        l_x = smp.Matrix([l]).jacobian(x)
+        self.l_x = smp.lambdify([x, u], l_x, "numpy")
+
+        l_u = smp.Matrix([l]).jacobian(u)
+        self.l_u = smp.lambdify([x, u], l_u, "numpy")
+
+        l_xx = smp.Matrix([l_x]).jacobian(x)
+        self.l_xx = smp.lambdify([x, u], l_xx, "numpy")
+
+        l_ux = smp.Matrix([l_u]).jacobian(x)
+        self.l_ux = smp.lambdify([x, u], l_ux, "numpy")
+
+        l_uu = smp.Matrix([l_u]).jacobian(u)
+        self.l_uu = smp.lambdify([x, u], l_uu, "numpy")
 
         l_final = self.final_cost(x)
-        self.l_final_x = sym.Jacobian([l_final], x).ravel()
-        self.l_final_xx = sym.Jacobian(self.l_final_x, x)
+
+        l_final_x = smp.Matrix([l_final]).jacobian(x)
+        self.l_final_x = smp.lambdify([x], l_final_x, "numpy")
+
+        l_final_xx = smp.Matrix([l_final_x]).jacobian(x)
+        self.l_final_xx = smp.lambdify([x], l_final_xx, "numpy")
 
         f = self.discrete_dynamics(x, u)
-        self.f_x = sym.Jacobian(f, x)
-        self.f_u = sym.Jacobian(f, u)
+        print(x)
+        f_x = smp.Matrix([f]).jacobian(x)
+        self.f_x = smp.lambdify([x, u], f_x, "numpy")
 
-    def _compute_stage_cost_derivatives(self, x, u):
-        env = {self.x_sym[i]: x[i] for i in range(x.shape[0])}
-        env.update({self.u_sym[i]: u[i] for i in range(u.shape[0])})
+        f_u = smp.Matrix([f]).jacobian(u)
+        self.f_u = smp.lambdify([x, u], f_u, "numpy")
 
-        l_x = sym.Evaluate(self.l_x, env).ravel()
-        l_u = sym.Evaluate(self.l_u, env).ravel()
-        l_xx = sym.Evaluate(self.l_xx, env)
-        l_ux = sym.Evaluate(self.l_ux, env)
-        l_uu = sym.Evaluate(self.l_uu, env)
-
-        f_x = sym.Evaluate(self.f_x, env)
-        f_u = sym.Evaluate(self.f_u, env)
-
+    def compute_stage_cost_derivatives(self, x, u):
+        l_x = np.atleast_1d(np.squeeze(self.l_x(x, u)))
+        l_u = np.atleast_1d(np.squeeze(self.l_u(x, u)))
+        l_xx = np.atleast_2d(np.squeeze(self.l_xx(x, u)))
+        l_ux = np.atleast_2d(np.squeeze(self.l_ux(x, u)))
+        l_uu = np.atleast_2d(np.squeeze(self.l_uu(x, u)))
+        f_x = np.atleast_2d(np.squeeze(self.f_x(x, u)))
+        f_u = np.atleast_2d(np.squeeze(self.f_u(x, u))).T
         return l_x, l_u, l_xx, l_ux, l_uu, f_x, f_u
 
-    def _compute_final_cost_derivatives(self, x):
-        env = {self.x_sym[i]: x[i] for i in range(x.shape[0])}
-        l_final_x = sym.Evaluate(self.l_final_x, env).ravel()
-        l_final_xx = sym.Evaluate(self.l_final_xx, env)
+    def compute_final_cost_derivatives(self, x):
+        l_final_x = np.atleast_1d(np.squeeze(self.l_final_x(x)))
+        l_final_xx = np.atleast_2d(np.squeeze(self.l_final_xx(x)))
         return l_final_x, l_final_xx
 
-    def _Q_terms(self, l_x, l_u, l_xx, l_ux, l_uu, f_x, f_u, V_x, V_xx):
-        Q_x = f_x.T.dot(V_x) + l_x
-        Q_u = f_u.T.dot(V_x) + l_u
-        Q_xx = l_xx + f_x.T.dot(V_xx.dot(f_x))
-        Q_ux = l_ux + f_u.T.dot(V_xx.dot(f_x))
-        Q_uu = l_uu + f_u.T.dot(V_xx.dot(f_u))
+    def Q_terms(self, l_x, l_u, l_xx, l_ux, l_uu, f_x, f_u, V_x, V_xx):
+        Q_x = np.matmul(f_x.T, V_x) + l_x
+        Q_u = np.matmul(f_u.T, V_x) + l_u
+        Q_xx = l_xx + np.matmul(f_x.T, np.matmul(V_xx, f_x))
+        Q_ux = l_ux + np.matmul(f_u.T, np.matmul(V_xx, f_x))
+        Q_uu = l_uu + np.matmul(f_u.T, np.matmul(V_xx, f_u))
         return Q_x, Q_u, Q_xx, Q_ux, Q_uu
 
-    def _gains(self, Q_uu, Q_u, Q_ux):
+    def gains(self, Q_uu, Q_u, Q_ux):
         Q_uu_inv = np.linalg.inv(Q_uu + Q_uu.T)
-        k = -2*Q_uu_inv.dot(Q_u.T)
-        K = -2*Q_uu_inv.dot(Q_ux)
+        k = -2*np.matmul(Q_uu_inv, Q_u)
+        K = -2*np.matmul(Q_uu_inv, Q_ux)
+
+        k = np.atleast_1d(np.squeeze(k))
+        K = np.atleast_2d(np.squeeze(K))
         return k, K
 
-    def _V_terms(self, Q_x, Q_u, Q_xx, Q_ux, Q_uu, K, k):
-        V_x = Q_x + K.T.dot(Q_u) + 0.5*(Q_ux.T.dot(k) + K.T.dot(Q_uu.T.dot(k)))
-        V_xx = Q_xx + Q_ux.T.dot(K) + K.T.dot(Q_ux) + K.T.dot(Q_uu.dot(K))
+    def V_terms(self, Q_x, Q_u, Q_xx, Q_ux, Q_uu, K, k):
+        V_x = Q_x - np.matmul(K.T, np.matmul(Q_uu, k))
+        V_xx = Q_xx - np.matmul(K.T, np.matmul(Q_uu, K))
         return V_x, V_xx
 
-    def _expected_cost_reduction(self, Q_u, Q_uu, k):
-        return -Q_u.T.dot(k) - 0.5 * k.T.dot(Q_uu.dot(k))
+    def expected_cost_reduction(self, Q_u, Q_uu, k):
+        ecr = -Q_u.T*k - 0.5*k.T*(Q_uu*k)
+        return np.squeeze(ecr)
 
-    def _forward_pass(self, x_trj, u_trj, k_trj, K_trj):
+    def forward_pass(self, x_trj, u_trj, k_trj, K_trj):
         x_trj_new = np.zeros(x_trj.shape)
         x_trj_new[0, :] = x_trj[0, :]
         u_trj_new = np.zeros(u_trj.shape)
         for n in range(u_trj.shape[0]):
-            u_trj_new[n, :] = u_trj[n] + k_trj[n] + \
-                              K_trj[n].dot((x_trj_new[n] - x_trj[n]))
+            u_trj_new[n, :] = u_trj[n] + k_trj[n] \
+                              + np.matmul(K_trj[n],
+                                          ((x_trj_new[n] - x_trj[n])))
             x_trj_new[n+1, :] = self.discrete_dynamics(x_trj_new[n],
                                                        u_trj_new[n])
         return x_trj_new, u_trj_new
 
-    def _backward_pass(self, x_trj, u_trj, regu):
+    def backward_pass(self, x_trj, u_trj, regu):
         k_trj = np.zeros([u_trj.shape[0], u_trj.shape[1]])
         K_trj = np.zeros([u_trj.shape[0], u_trj.shape[1], x_trj.shape[1]])
         expected_cost_redu = 0
-        l_final_x, l_final_xx = self._compute_final_cost_derivatives(x_trj[-1])
+        l_final_x, l_final_xx = self.compute_final_cost_derivatives(x_trj[-1])
         V_x = l_final_x
         V_xx = l_final_xx
         for n in range(u_trj.shape[0]-1, -1, -1):
-            l_x, l_u, l_xx, l_ux, l_uu, f_x, f_u = (
-                    self._compute_stage_cost_derivatives(x_trj[n], u_trj[n]))
-            Q_x, Q_u, Q_xx, Q_ux, Q_uu = self._Q_terms(l_x, l_u, l_xx, l_ux,
-                                                       l_uu, f_x, f_u,
-                                                       V_x, V_xx)
-            # We add regularization to ensure that Q_uu is invertible
-            # and nicely conditioned
+            l_x, l_u, l_xx, l_ux, l_uu, f_x, f_u = self.compute_stage_cost_derivatives(x_trj[n], u_trj[n])
+            Q_x, Q_u, Q_xx, Q_ux, Q_uu = self.Q_terms(l_x, l_u, l_xx, l_ux, l_uu, f_x, f_u, V_x, V_xx)
+            # We add regularization to ensure that Q_uu is invertible and nicely conditioned
             Q_uu_regu = Q_uu + np.eye(Q_uu.shape[0])*regu
-            k, K = self._gains(Q_uu_regu, Q_u, Q_ux)
+            k, K = self.gains(Q_uu_regu, Q_u, Q_ux)
             k_trj[n, :] = k
             K_trj[n, :, :] = K
-            V_x, V_xx = self._V_terms(Q_x, Q_u, Q_xx, Q_ux, Q_uu, K, k)
-            expected_cost_redu += self._expected_cost_reduction(Q_u, Q_uu, k)
+            V_x, V_xx = self.V_terms(Q_x, Q_u, Q_xx, Q_ux, Q_uu, K, k)
+            expected_cost_redu += self.expected_cost_reduction(Q_u, Q_uu, k)
         return k_trj, K_trj, expected_cost_redu
 
     def run_ilqr(self, N=50, init_u_trj=None, init_x_trj=None, shift=False,
@@ -236,6 +248,7 @@ class iLQR_Calculator():
         redu_trace : array-like
             trace of the cost reduction development during the optimization
         """
+        # First forward rollout
         if init_u_trj is not None:
             u_trj = init_u_trj
             if shift:
@@ -248,13 +261,13 @@ class iLQR_Calculator():
             x_trj = init_x_trj
             if shift:
                 x_trj = np.delete(x_trj, 0, axis=0)
-                last_state = [self.discrete_dynamics(x_trj[-1],
-                              np.array(u_trj[-1]))]
-                x_trj = np.append(x_trj, last_state, axis=0)
+                x_trj = np.append(x_trj,
+                                  [self.discrete_dynamics(x_trj[-1],
+                                   np.array(u_trj[-1]))], axis=0)
         else:
-            x_trj = self._rollout(u_trj)
+            x_trj = self.rollout(u_trj)
 
-        total_cost = self._cost_trj(x_trj, u_trj)
+        total_cost = self.cost_trj(x_trj, u_trj)
         regu = regu_init
         max_regu = 10000
         min_regu = 0.01
@@ -268,15 +281,13 @@ class iLQR_Calculator():
         # Run main loop
         for it in range(max_iter):
             # Backward and forward pass
-            k_trj, K_trj, expected_cost_redu = self._backward_pass(x_trj,
-                                                                   u_trj,
-                                                                   regu)
-            x_trj_new, u_trj_new = self._forward_pass(x_trj,
-                                                      u_trj,
-                                                      k_trj,
-                                                      K_trj)
+            k_trj, K_trj, expected_cost_redu = self.backward_pass(x_trj,
+                                                                  u_trj,
+                                                                  regu)
+            x_trj_new, u_trj_new = self.forward_pass(x_trj, u_trj,
+                                                     k_trj, K_trj)
             # Evaluate new trajectory
-            total_cost = self._cost_trj(x_trj_new, u_trj_new)
+            total_cost = self.cost_trj(x_trj_new, u_trj_new)
             cost_redu = cost_trace[-1] - total_cost
             redu_ratio = cost_redu / abs(expected_cost_redu)
             # Accept or reject iteration
@@ -300,5 +311,4 @@ class iLQR_Calculator():
             if expected_cost_redu <= break_cost_redu:
                 break
 
-        return x_trj, u_trj, cost_trace, regu_trace, \
-            redu_ratio_trace, redu_trace
+        return x_trj, u_trj, cost_trace, regu_trace, redu_ratio_trace, redu_trace

@@ -3,7 +3,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from functools import partial
 
-from simple_pendulum.trajectory_optimization.ilqr.ilqr import iLQR_Calculator
+try:
+    import pydrake
+    pydrake_available = True
+    print("Using Pydrake")
+except ModuleNotFoundError:
+    pydrake_available = False
+    print("Using Sympy")
+
+if pydrake_available:
+    from simple_pendulum.trajectory_optimization.ilqr.ilqr import iLQR_Calculator
+else:
+    from simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy import iLQR_Calculator
 from simple_pendulum.trajectory_optimization.ilqr.pendulum import (
                                         pendulum_discrete_dynamics_euler,
                                         pendulum_discrete_dynamics_rungekutta,
@@ -17,7 +28,7 @@ from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.utilities.process_data import prepare_trajectory
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
-from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
+# from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 
 log_dir = "log_data/ddp"
 if not os.path.exists(log_dir):
@@ -32,7 +43,7 @@ coulomb_friction = 0.0
 torque_limit = 10.0
 inertia = mass*length*length
 integrator = "runge_kutta"
-n_x = 3
+n_x = 2
 n_u = 1
 
 # swingup parameters
@@ -59,12 +70,12 @@ if n_x == 2:
     fCen = 0.0
 if n_x == 3:
     N = 300
-    sCu = 30.0
-    sCp = 10.0
-    sCv = 20.0
+    sCu = 10.0
+    sCp = 5.0
+    sCv = 2.0
     sCen = 0.0
-    fCp = 100000.0
-    fCv = 50000.0
+    fCp = 2000.0
+    fCv = 200.0
     fCen = 0.0
 
 iLQR = iLQR_Calculator(n_x=n_x, n_u=n_u)
@@ -217,10 +228,10 @@ sim = Simulator(plant=pendulum)
 
 data_dict = prepare_trajectory(csv_path)
 
-# controller = OpenLoopController(data_dict)
-controller = TVLQRController(data_dict=data_dict, mass=mass, length=length,
-                             damping=damping, gravity=gravity,
-                             torque_limit=torque_limit)
+controller = OpenLoopController(data_dict)
+# controller = TVLQRController(data_dict=data_dict, mass=mass, length=length,
+#                              damping=damping, gravity=gravity,
+#                              torque_limit=torque_limit)
 
 controller.set_goal([np.pi, 0])
 
