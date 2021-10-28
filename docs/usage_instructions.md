@@ -14,6 +14,10 @@ export PYTHONPATH=~/path/from/home/to/underactuated-robotics/python-motor-driver
 ```
 * Make sure you setup your can interface first. The easiest way to do this is to run `sh setup_caninterface.sh` from the `mini-cheetah-motor/python-motor-driver` folder.   
 * To run an offline computed swingup trajectory, use: `python3 swingup_control.py`. The script assumes can id as `'can0'` and motor id as `0x01`. If these parameters differ, please modify them within the script.
+* Alternatively, the motor driver can also be installed via pip from https://pypi.org/project/mini-cheetah-motor-driver-socketcan/.
+```
+pip install mini-cheetah-motor-driver-socketcan
+```
 <br/>
 
 ## Setting up the CAN interface
