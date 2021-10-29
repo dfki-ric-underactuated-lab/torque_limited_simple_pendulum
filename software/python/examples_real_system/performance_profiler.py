@@ -1,6 +1,6 @@
 from motor_driver.canmotorlib import CanMotorController
 
-from simple_pendulum.utils.performance_profiler import motor_speed_test
+from simple_pendulum.utilities.performance_profiler import motor_speed_test
 
 
 # Motor ID
