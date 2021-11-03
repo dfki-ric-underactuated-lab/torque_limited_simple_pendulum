@@ -35,23 +35,39 @@ def syntax():
                             help="gravity compensation mode")
     controller.add_argument("-lqr", action='store_true',
                             help="linear quadratic regulator")
-    controller.add_argument("-ilqr", action='store_true',
-                            help="iterative linear quadratic regulator")
+    controller.add_argument("-ilqrmpc", action='store_true',
+                            help="model predictive control with" + \
+                                  "iterative linear quadratic regulator")
     controller.add_argument("-energy", action='store_true',
                             help="energy shaping + linear quadratic regulator")
     controller.add_argument("-sac", action='store_true',
                             help="soft actor critic")
-    controller.add_argument("-openloop", action='store_true',
-                            help="open loop control mode, choose either -pd "
-                                 "or -fft ")
-    openloop = parser.add_mutually_exclusive_group(required=False)
-    openloop.add_argument("-pd", action='store_true',
-                          help="proportional derivative control mode")
-    openloop.add_argument("-fft", action='store_true',
-                          help="feedforward torque control mode")
-    openloop.add_argument("-fddp", action='store_true',
-                          help="feasibility-driven differential dynamic "
-                               "programming")
+    controller.add_argument("-ddpg", action='store_true',
+                            help="deep deterministic policy gradient")
+    controller.add_argument("-ddp", action='store_true',
+                            help="ddp trajectory, " + \
+                                  "choose -fft (feed-forward torque, default)," + \
+                                  "-pid (proportional integral derivative) or" + \
+                                  "-tvlqr (time-varying LQR)")
+    controller.add_argument("-dircol", action='store_true',
+                            help="direct collocation trajectory," + \
+                                  "choose -fft (feed-forward torque, default)," + \
+                                  "-pid (proportional integral derivative) or" + \
+                                  "-tvlqr (time-varying LQR)")
+    controller.add_argument("-ilqr", action='store_true',
+                            help="ilqr trajectory," + \
+                                  "choose -fft (feed-forward torque, default)," + \
+                                  "-pid (proportional integral derivative) or" + \
+                                  "-tvlqr (time-varying LQR)")
+
+    trajectory = parser.add_mutually_exclusive_group(required=False)
+    trajectory.add_argument("-fft", action='store_true',
+                          help="feedforward torque control")
+    trajectory.add_argument("-tvlqr", action='store_true',
+                          help="time-varying LQR")
+    trajectory.add_argument("-pd", action='store_true',
+                          help="proportional derivative motor control mode")
+
     parser.add_argument("-save", action='store_true',
                         help="saves your measurements into (../results)",
                         required=False)

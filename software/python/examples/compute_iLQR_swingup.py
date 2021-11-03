@@ -30,7 +30,7 @@ from simple_pendulum.utilities.process_data import prepare_trajectory
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
 # from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 
-log_dir = "log_data/ddp"
+log_dir = "log_data/ilqr"
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 

@@ -14,9 +14,11 @@ setup(
         'argparse',
         'scipy',
         'sympy',
+        'mini-cheetah-motor-driver-socketcan',
 
         # reinforcement learning
-        'tensorflow',
+        'tensorflow>=2.6.0',
+        'pickle5',
         'stable_baselines3'
     ],
     classifiers=[

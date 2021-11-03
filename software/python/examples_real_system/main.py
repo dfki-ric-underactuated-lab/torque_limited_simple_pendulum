@@ -9,20 +9,44 @@ import numpy as np
 from simple_pendulum.model.parameters import get_params
 from simple_pendulum.utilities import parse, plot, process_data
 from simple_pendulum.utilities.performance_profiler import profiler
+from simple_pendulum.utilities.process_data import prepare_trajectory
 from simple_pendulum.controllers import motor_control_loop
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
 from simple_pendulum.controllers.gravity_compensation.gravity_compensation import GravityCompController
 from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingAndLQRController
+from simple_pendulum.controllers.ilqr.iLQR_MPC_controller import iLQRMPCController
+
 try:
-    from simple_pendulum.controllers.ilqr.iLQR_MPC_controller import iLQRMPCController
+    from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 except ModuleNotFoundError:
+    # drake not installed
     pass
 
 try:
     from simple_pendulum.controllers.sac.sac_controller import SacController
 except ModuleNotFoundError:
+    # pytorch not installed
     pass
 
+try:
+    from simple_pendulum.controllers.ddpg.ddpg_controller import ddpg_controller
+except ModuleNotFoundError:
+    # tensorflow not installed
+    pass
+
+"""
+All parameters of the controllers in this script for the real simple pendulum
+are stored in a .yaml file. The yaml files for the different controllers
+can be found in the /data/parameters directory.
+Some parameters like (mass, length) can be measured directly, others 
+are obtained from system identification (damping, coulomb friction, 
+inertia) or depend on actuator properties (torque limits, gear ratio, 
+kp, kd).
+"""
+
+# set motor parameters
+motor_id = "0x02"
+can_port = 'can0'
 
 # run syntax parser
 args, unknown = parse.syntax()
@@ -30,21 +54,21 @@ args, unknown = parse.syntax()
 # set your workspace
 WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[3])
 print("Workspace is set to:", WORK_DIR)
-sys.path.append(f'{WORK_DIR}/software/python')  # add parent folder to system path
 
 # get a timestamp
 TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
 
 # select control method
-if args.openloop:
-    attribute = "open_loop"
+
+if args.ddp or args.dircol or args.ilqr:
     """
         Open loop control methods replay a precomputed trajectory. The 
         trajectories are derived offline from one out of two trajectory 
         optimization techniques:
-            - Direct Collocation (within the open source software pyDrake)
             - Feasibility-Driven Dynamic Programming (within the open source 
               software crocoddyl)
+            - Direct Collocation (within the open source software pyDrake)
+            - iterative linear quadratic regulator
         
         A trajectory is split into time steps and stored as csv file in the 
         form of position, velocity and torque data for every time step. It is 
@@ -59,12 +83,63 @@ if args.openloop:
         step size of the precomputed trajectory and a error print out that tells 
         us, if the control loop is slower then the desired time step size.
     """
+    if args.ddp:
+        """
+        This option uses a trajectory obtained via Feasibility-Driven 
+        Differential Dynamic Programming with crocoddyl. 
+        """
+        csv_file = "trajectory.csv"
+        csv_path = os.path.join(WORK_DIR, 'data', 'trajectories', 'ddp', csv_file)
+        name = "Differential Dynamic Programming"
+        folder_name = "ddp"
+
+    if args.dircol:
+        """
+        This option uses a trajectory obtained via Direct Collocation
+        with pydrake. 
+        """
+        csv_file = "trajectory.csv"
+        csv_path = os.path.join(WORK_DIR, 'data', 'trajectories', 'direct_collocation', csv_file)
+        name = "Direct Collocation"
+        folder_name = "dircol"
+
+    if args.ilqr:
+        """
+        This option uses a trajectory obtained via iterative linear quadratic regulator.
+        """
+        csv_file = "trajectory.csv"
+        csv_path = os.path.join(WORK_DIR, 'data', 'trajectories', 'ilqr', csv_file)
+        name = "Iterative Linear Quadratic Regulator"
+        folder_name = "ilqr"
+
+    csv_data = prepare_trajectory(csv_path)
+
+    params_file = "sp_parameters_trajectory.yaml"
+    params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
+    params = get_params(params_path)
+    data_dict = process_data.prepare_trajectory(csv_path)
+
+    #if args.pd: # is realized on motor level (see below)
+    #    control_method = PIDController(data_dict=csv_data, Kp=3.0, Ki=1.0, Kd=1.0)
+    if args.tvlqr:
+        control_method = TVLQRController(data_dict=csv_data,
+                                         mass=params["mass"],
+                                         length=params["length"],
+                                         damping=params["damping"],
+                                         gravity=params["gravity"],
+                                         torque_limit=params["torque_limit"])
+        control_method.init([csv_data["des_pos_list"][0],
+                             csv_data["des_pos_list"][0]])
+        control_method.set_goal([np.pi, 0.0])  # final point must be stable point
+        name += " + tvlqr"
+        folder_name += "_tvlqr"
+    else:  # args.fft or args.pd
+        control_method = OpenLoopController(data_dict=csv_data)
 
     if args.pd:
         """
         Trajectory following controllers act on a precomputed trajectory and 
-        ensure that the system follows the trajectory properly. In this example 
-        the trajectory is obtained via Direct Collocation with pydrake. The 
+        ensure that the system follows the trajectory properly. The 
         proportional-derivative controller is composed of a proportional term,
         gaining torque proportional to the position error and a derivative term 
         gaining torque proportional to the derivative of the position error. 
@@ -72,49 +147,17 @@ if args.openloop:
         proportional gain contributes to the stiffness/springiness of the system 
         and the derivative term acts as a damper.
         """
-        name = "Proportional-Derivative Control"
-        folder_name = "pd_control"
-        csv_file = "swingup_300Hz.csv"
-    if args.fft:
+        name += " + pd control"
+        folder_name += "_pd"
+        attribute = "pd_control"
+    else:  # args.fft:
         """
         The feed-forward torque controller is simply forwarding the torque 
-        control signal from a precomputed trajectory. In this example the 
-        trajectory is obtained via Direct Collocation with pydrake.
+        control signal from a precomputed trajectory.
         """
-        name = "Feedforward Torque"
-        folder_name = "torque_control"
-        csv_file = "swingup_300Hz.csv"
-    if args.fddp:
-        """
-        This option uses a trajectory obtained via Feasibility-Driven 
-        Differential Dynamic Programming with crocoddyl in combination with a 
-        proportional-derivative controller.
-        """
-        name = "Feasability-Driven Differential Dynamic Programming"
-        folder_name = "fddp"
-        csv_file = "swingup_OC_FDDP_offline.csv"
-
-    # get parameters
-        """
-        All parameters of the real simple pendulum are stored in a .yaml file. 
-        Some parameters like (mass, length) can be measured directly, others 
-        are obtained from system identification (damping, coulomb friction, 
-        inertia) or depend on actuator properties (torque limits, gear ratio, 
-        kp, kd).
-        """
-    params_file = "sp_parameters_openloop.yaml"
-    params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
-    params = get_params(params_path)
-    # alternatively from an urdf file
-    # urdf_file = dfki_simple_pendulum.urdf
-    # urdf_path = os.path.join(Path(__file__).parents[4], 'data/urdf/' +
-    # urdf_file )
-
-    # load precomputed trajectory
-    csv_path = os.path.join(WORK_DIR, 'data', 'trajectories', csv_file)
-    data_dict = process_data.prepare_trajectory(csv_path)
-
-    control_method = OpenLoopController(data_dict)
+        attribute = "motorfft"
+        name += " + feedforward torque"
+        folder_name += "_fft"
 
 if args.gravity:
     """
@@ -125,7 +168,7 @@ if args.gravity:
     """
     name = "Gravity Compensation"
     folder_name = "gravity_compensation"
-    attribute = "closed_loop"
+    attribute = "motorfft"
 
     # get parameters
     params_file = "sp_parameters_gravity.yaml"
@@ -146,7 +189,7 @@ if args.sac:
     """
     name = "Soft Actor Critic"
     folder_name = "sac"
-    attribute = "closed_loop"
+    attribute = "motorfft"
 
     # get parameters
     params_file = "sp_parameters_sac.yaml"
@@ -154,10 +197,29 @@ if args.sac:
     params = get_params(params_path)
     data_dict = process_data.prepare_empty(params)
 
-    control_method = SacController(model_path=params['model_path'],
+    control_method = SacController(model_path=os.path.join(WORK_DIR, params['model_path']),
                                    torque_limit=params['torque_limit'],
                                    use_symmetry=params['use_symmetry'])
 
+if args.ddpg:
+    """
+        The controller is trained via interaction with the system, such that a 
+        mapping from state space to control command is learned. It generates 
+        input torques online based on the learned control policy.
+    """
+    name = "Deep deterministic policy gradient"
+    folder_name = "ddpg"
+    attribute = "motorfft"
+
+    # get parameters
+    params_file = "sp_parameters_ddpg.yaml"
+    params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
+    params = get_params(params_path)
+    data_dict = process_data.prepare_empty(params)
+
+    control_method = ddpg_controller(model_path=os.path.join(WORK_DIR, params['model_path']),
+                                   torque_limit=params['torque_limit'],
+                                   state_representation=params['state_representation'])
 if args.energy:
     """
         A controller regulating the energy of the pendulum. Drives the pendulum 
@@ -170,7 +232,7 @@ if args.energy:
     """
     name = "Energy Shaping"
     folder_name = "energy_shaping"
-    attribute = "closed_loop"
+    attribute = "motorfft"
 
     # get parameters
     params_file = "sp_parameters_energy.yaml"
@@ -187,7 +249,7 @@ if args.energy:
                                         k=params['k'])
     control_method.set_goal([np.pi, 0])
 
-if args.ilqr:
+if args.ilqrmpc:
     """
         A controller which performs an iLQR optimization at every time step and 
         executes the first control signal of the computed optimal trajectory. 
@@ -198,8 +260,8 @@ if args.ilqr:
         controller is able to equalize perturbations.
     """
     name = "Iterative Linear Quadratic Regulator"
-    folder_name = "ilqr"
-    attribute = "closed_loop"
+    folder_name = "ilqrmpc"
+    attribute = "motorfft"
 
     # get parameters
     params_file = "sp_parameters_ilqr.yaml"
@@ -233,33 +295,8 @@ if args.ilqr:
 # start control loop for ak80_6
 start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
                                                            name, attribute,
-                                                           params, data_dict)
-"""
-    The motor control loop only contains the minimum of code necessary to 
-    send commands to and receive measurement data from the motor control 
-    board in real time over CAN bus. It specifies the outgoing CAN port and 
-    the CAN ID of the motor on the CAN bus and transfers this information to 
-    the motor driver. It furthermore requires the following arguments:
-        control method = calls the controller, which executes the respective 
-                         control policy and returns the input torques
-        name =      needed for print outs and to set kp, kd gains to 0 if 
-                    the controller only uses feed-forward torque
-        attribute = needed to differentiate between open and closed loop 
-                    methods. The former read out the input torques from 
-                    trajectories stored in .csv files and the latter compute 
-                    input torques in real time.
-        params =    parameter stored in .yaml files, although most 
-                    parameters like gravity constant, link length and gear 
-                    ratio, remain the same for all controllers some 
-                    parameter are controller specific like e.g. reward type, 
-                    integrator or learning rate for the Soft Actor Critic 
-                    Controller
-        data_dict = the data dictionary contains position, velocity and 
-                    torque data for each time step of the trajectory. It 
-                    includes commanded as well as measured data.
-    The return values start, end and meas_dt are required to monitor if 
-    desired and measured time steps match.
-"""
+                                                           params, data_dict,
+                                                           motor_id, can_port)
 
 # performance profiler
 profiler(data_dict, start, end, meas_dt)

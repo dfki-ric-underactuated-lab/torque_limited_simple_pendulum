@@ -1,24 +1,36 @@
 import cProfile
 import time
 import numpy as np
+from motor_driver.canmotorlib import CanMotorController
 
-
-def motor_send_n_commands(motor, numTimes):
+def motor_send_n_commands(numTimes):
+    global motor
     for i in range(numTimes):
         pos, vel, curr = motor.send_deg_command(0, 0, 0, 0, 0)
 
 
-def motor_speed_test(motor, n=1000):
+def motor_speed_test(motor_id="0x01", can_port="can0", n=1000):
+    global motor
 
+    if motor_id == "0x00":
+        motor_id = 0x00
+    elif motor_id == "0x01":
+        motor_id = 0x01
+    elif motor_id == "0x02":
+        motor_id = 0x02
+    elif motor_id == "0x03":
+        motor_id = 0x03
+    elif motor_id == "0x04":
+        motor_id = 0x04
+
+    motor = CanMotorController(can_port, motor_id)
     motor.enable_motor()
-    steps_array = np.linspace(n, n, 1)
     startdtTest = time.time()
-    for i in steps_array:
-        print("Starting Profiler for {} Commands".format(i))
-        cmdString = "motor_send_n_commands({}, {})".format(motor, int(i))
-        profiler = cProfile.Profile()
-        profiler.run(cmdString)
-        profiler.print_stats()
+    print("Starting Profiler for {} Commands".format(n))
+    cmdString = "motor_send_n_commands({})".format(int(n))
+    profiler = cProfile.Profile()
+    profiler.run(cmdString)
+    profiler.print_stats()
 
     enddtTest = time.time()
     motor.disable_motor()

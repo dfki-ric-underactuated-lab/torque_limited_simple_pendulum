@@ -84,6 +84,7 @@ def prepare_trajectory(csv_path):
     meas_pos_list = np.zeros(n)
     meas_vel_list = np.zeros(n)
     meas_tau_list = np.zeros(n)
+    vel_filt_list = np.zeros(n)
 
     data_dict = {"des_time_list": des_time_list,
                  "des_pos_list": des_pos_list,
@@ -93,6 +94,7 @@ def prepare_trajectory(csv_path):
                  "meas_pos_list": meas_pos_list,
                  "meas_vel_list": meas_vel_list,
                  "meas_tau_list": meas_tau_list,
+                 "vel_filt_list": vel_filt_list,
                  "n": n,
                  "dt": dt,
                  "t": t}
