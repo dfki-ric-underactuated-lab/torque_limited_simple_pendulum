@@ -17,7 +17,7 @@ The `/hardware` directory contains all information about the hardware that is us
 * Mass of rod, mounting parts and screws: <img src="https://render.githubusercontent.com/render/math?math=m_r"> = 0.13 Kg 
 * Overall mass: <img src="https://render.githubusercontent.com/render/math?math=m"> = 0.676 Kg
 * Length to point mass: <img src="https://render.githubusercontent.com/render/math?math=l"> = 0.5 m
-* Length to COM: <img src="https://render.githubusercontent.com/render/math?math=l_{COM}"> = 0.045 m 
+* Length to COM: <img src="https://render.githubusercontent.com/render/math?math=l_{COM}"> = 0.45 m 
 
 
 <img src="https://render.githubusercontent.com/render/math?math=l_{COM} = \frac{m_pl %2B 0.5 m_r l}{m_p %2B m_r} \,">
