@@ -35,8 +35,8 @@ class LQRController(AbstractController):
         self.torque_limit = torque_limit
 
         self.A = np.array([[0, 1],
-                           [self.g/self.len, -self.b/self.m/self.len**2.0]])
-        self.B = np.array([[0, self.m/self.len**2.0]]).T
+                           [self.g/self.len, -self.b/(self.m*self.len**2.0)]])
+        self.B = np.array([[0, 1./(self.m*self.len**2.0)]]).T
         self.Q = np.diag((10, 1))
         self.R = np.array([[1]])
 
