@@ -85,7 +85,7 @@ class SystemIdentification:
 
         # Solve least_squares optimization problem
         param_names = ["J", "m*cx", "Fv", "Fc", "offset"]
-        # (Jacobian (J), Viscous Friction (Fv), Coulomb Friction (Fc)
+        # (Inertia (J), mass*center of mass (m*cx), Viscous Friction (Fv), Coulomb Friction (Fc) and offset terms
 
         p0 = [0.0, 1.0, 0.0, 0.0, 0.0]                # initial parameter guess
         bounds = ([0.0, -np.Inf, 0.0, 0.0, -1.0000000011], [np.Inf, np.Inf,
