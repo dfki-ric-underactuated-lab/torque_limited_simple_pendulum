@@ -14,7 +14,7 @@
    id="svg5"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="controller_overview.svg"
-   inkscape:export-filename="controller_overview.png"
+   inkscape:export-filename="/home/felix/Work/DFKI/Development/underactuated_lab/pendulum/torque_limited_simple_pendulum/docs/controller_overview.png"
    inkscape:export-xdpi="500"
    inkscape:export-ydpi="500">
   <metadata
@@ -40,8 +40,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="3.2526912"
-     inkscape:cx="196.16422"
-     inkscape:cy="359.42302"
+     inkscape:cx="291.08814"
+     inkscape:cy="406.41093"
      inkscape:window-width="6144"
      inkscape:window-height="3248"
      inkscape:window-x="3840"
@@ -530,7 +530,7 @@
        id="path277954-3-1"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.65440696;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.654;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 148.8378,140.2137 v 16.84367"
        id="path277954-3-1-0"
        inkscape:connector-curvature="0" />
@@ -616,28 +616,62 @@
            x="-37.507404"
            y="490.9816" /></flowRegion><flowPara
          id="flowPara937" /></flowRoot>    <rect
-       style="fill:#f6dc9b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.62114149;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#f6dc9b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.41550827;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect31-0-2-4-33-6"
-       width="161.07298"
-       height="15.731865"
-       x="50.648613"
-       y="233.93767" />
+       width="71.147728"
+       height="15.937498"
+       x="50.545795"
+       y="233.83484" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
-       x="109.89206"
-       y="253.03925"
+       x="83.415367"
+       y="249.39325"
        id="text23408-1-7"
        transform="scale(1.0391574,0.96231813)"><tspan
          sodipodi:role="line"
-         id="tspan23406-4-5"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
-         x="109.89206"
-         y="253.03925">Pendulum</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+         x="83.415367"
+         y="249.39325"
+         id="tspan925">Pendulum</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+         x="83.415367"
+         y="256.69742"
+         id="tspan930">Simulation</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.51901615;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 129.63761,225.86882 v 7.97922"
+       d="m 86.774915,225.86882 v 7.97922"
        id="path277952-3-9-5-3"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="fill:#f6dc9b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4155083;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect31-0-2-4-33-6-5"
+       width="71.147736"
+       height="15.937498"
+       x="138.10892"
+       y="233.83485" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;line-height:1.25;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+       x="167.28955"
+       y="249.39314"
+       id="text23408-1-7-3"
+       transform="scale(1.0391574,0.96231813)"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+         x="167.28955"
+         y="249.39314"
+         id="tspan925-6">Pendulum</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.84333134px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.31057075;stroke-miterlimit:4;stroke-dasharray:none"
+         x="167.28955"
+         y="256.69733"
+         id="tspan930-7">Hardware</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.51901615;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 173.66258,225.75539 v 7.97922"
+       id="path277952-3-9-5-3-3"
        inkscape:connector-curvature="0" />
   </g>
 </svg>

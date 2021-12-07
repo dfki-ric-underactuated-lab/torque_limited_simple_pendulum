@@ -110,7 +110,7 @@ $$I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\the
 
 where
 
-- $\theta$, $\dot{\theta}$, $\ddot{\theta}$ are the angular displacement, angular velocity and angular acceleration of the pendulum. $\theta=0$ means the pendulum is at its stable fixpoint (i.e. hanging down).
+- $\theta$, $\dot{\theta}$, $\ddot{\theta}$ are the angular displacement, angular velocity and angular acceleration of the pendulum in counter-clockwise direction. $\theta=0$ means the pendulum is at its stable fixpoint (i.e. hanging down).
 - $I$ is the inertia of the pendulum. For a point mass: $I=ml^2$
 - $m$ mass of the pendulum
 - $l$ length of the pendulum
@@ -119,7 +119,7 @@ where
 - $g$ gravity (positive direction points down)
 - $\tau$ torque applied by the motor
 
-We provide a pendulum plant model which can be used for simulation and real time control. Also, a system identification method is implemented which can reliably estimate the unknown pendulum parameters of the real setup.
+We provide a pendulum plant model which can be used for computing trajectories and policies without the actual hardware, simulating the execution of a controller as well as simulating the systems response during real time control. Also, a system identification method is implemented which can reliably estimate the unknown pendulum parameters of the real setup.
 
 <!--
 ## Parameter Identification
@@ -158,23 +158,31 @@ The control methods that are currently implemented in this library (see also \au
 - Iterative Linear Quadratic Regulator (iLQR) [@weiwei2004iterative]
 - Feasibility driven Differential Dynamic Programming (FDDP) [@mastalli2020crocoddyl]
 
+The optimization is done with a simulation of the pendulum dynamics.
+
 **Trajectory following** controllers act on a precomputed trajectory and ensure that the system follows the trajectory properly. The trajectory following controllers implemented in this project are:
 
 - Feedforward torque
 - Proportional-integral-derivative (PID) control
 - Time-varying Linear Quadratic Regulator (TVLQR)
 
-**Closed Loop Controllers** or feedback controllers take the state of the system as input and ouput a control signal. Because they are able to react to the current state, they can cope with perturbations during the execution. The following feedback controllers are implemented:
+Feedforward and PID controller funtion model independent, while the TVLQR controller utilizes knowledge about the pendulum model.
+
+**Closed Loop Controllers** or feedback controllers take the state of the system as input and ouput a control signal. In contrast to trajectory optimization, these controllers do not compute just a single trajectory. Instead, they react to the current state of the pendulum and because of this they can cope with perturbations during the execution. The following feedback controllers are implemented:
 
 - Energy Shaping
 - Linear Quadratic Regulator (LQR)
 - Gravity Compensation
 - Model Predictive Control (MPC) with iLQR
 
+All of these controllers utilize model knowledge and the MPC controller uses a simulation of the pendulum to optimize with a time horizon.
+
 **Reinforcement Learning** (RL) can be used to learn a policy on the state space of the robot. The policy, which has to be trained beforehand, receives a state and outputs a control signal like a feedback controller. The simple pendulum is can be formulated as a RL problem with two continuous inputs and one continuous output. Similar to the cost function in trajectory optimization, the policy is trained with a reward function. The following RL algorithms are implemented:
 
 - Soft Actor Critic (SAC) [@haarnoja2018soft]
 - Deep Deterministic Policy Gradient (DDPG) [@lillicrap2019continuous]
+
+Currently, learning is possible in the simulation environment.
 
 The implementations of direct collocation and TVLQR make use of Drake [@drake], iLQR makes use of only the symbolic library of Drake, FDDP makes use of Crocoddyl [@mastalli2020crocoddyl], SAC uses stable-baselines3 [@stable-baselines3] and DDPG is implemented in tensorflow [@tensorflow2015-whitepaper]. The other methods use only standard libraries.
 This repository is designed to welcome contributions in form of novel optimization methods/controllers/learning algorithms to extend this list.
@@ -183,11 +191,11 @@ To get an understanding of the functionality of the implemented controllers they
 
 ![Energy Shaping Controller and DDPG Policy. \label{fig:controller_plots}](figures/energy_and_ddpg.png){#id .class height=600px}
 
-Furthermore, the swing-up controllers can be benchmarked, where it is evaluated how fast, efficient, consistent, stable and sensitive the controller is during the swing-up. See figure \autoref{fig:benchmark} for a comparison of the different controllers' benchmark results.
+Furthermore, the swing-up controllers can be benchmarked in simulation, where it is evaluated how fast, efficient, consistent, stable and sensitive the controller is during the swing-up. See figure \autoref{fig:benchmark} for a comparison of the different controllers' benchmark results.
 
 The benchmark criteria are:
 
-- **Speed** : The inverse of the time the controller needs to process state input and return a control signal (hardware dependent).
+- **Frequency** : The inverse of the time the controller needs to process state input and return a control signal (hardware dependent).
 - **Swingup time** : The time it takes for the controller to swing-up the pendulum from the lower fixpoint to the upper fixpoint.
 - **Energy consumption**: The energy the controller uses during the swingup motion and holding the pendulum in position afterwards.
 - **Smoothness**: Measures how much the controller changes the control output during execution.
