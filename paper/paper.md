@@ -177,7 +177,7 @@ Feedforward and PID controller funtion model independent, while the TVLQR contro
 
 All of these controllers utilize model knowledge and the MPC controller uses a simulation of the pendulum to optimize with a time horizon.
 
-**Reinforcement Learning** (RL) can be used to learn a policy on the state space of the robot. The policy, which has to be trained beforehand, receives a state and outputs a control signal like a feedback controller. The simple pendulum is can be formulated as a RL problem with two continuous inputs and one continuous output. Similar to the cost function in trajectory optimization, the policy is trained with a reward function. The following RL algorithms are implemented:
+**Reinforcement Learning** (RL) can be used to learn a policy on the state space of the robot. The policy, which has to be trained beforehand, receives a state and outputs a control signal like a feedback controller. The simple pendulum can be formulated as a RL problem with two continuous inputs and one continuous output. Similar to the cost function in trajectory optimization, the policy is trained with a reward function. The following RL algorithms are implemented:
 
 - Soft Actor Critic (SAC) [@haarnoja2018soft]
 - Deep Deterministic Policy Gradient (DDPG) [@lillicrap2019continuous]
