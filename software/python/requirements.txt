@@ -8,7 +8,6 @@ charset-normalizer==2.0.7
 clang==5.0
 cloudpickle==1.6.0
 cycler==0.11.0
-dataclasses==0.8
 flatbuffers==1.12
 gast==0.4.0
 google-auth==2.3.3
@@ -53,7 +52,6 @@ tensorflow==2.6.1
 tensorflow-estimator==2.6.0
 termcolor==1.1.0
 torch==1.10.0
-TorqueLimitedSimplePendulum==1.0.0
 typing-extensions==3.7.4.3
 urllib3==1.26.7
 Werkzeug==2.0.2

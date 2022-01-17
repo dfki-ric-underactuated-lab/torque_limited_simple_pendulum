@@ -217,50 +217,10 @@ This was the final installation step. Your system is now prepared to run all cod
 
 <br>
 
-## OPTIONAL: Installing Drake for Python
-Drake is not installable via pip at present. It is available as a binary package and the latest image can be pulled from Docker Hub simply with: `docker pull robotlocomotion/drake:latest`. 
-  
+## OPTIONAL: Gepetto Viewer
 
-**Check here for more detailed instructions:** https://drake.mit.edu/python_bindings.html 
+The optimal control library [Crocoddyl](https://github.com/loco-3d/crocoddyl) has an interface to the gepetto-viewer for visualization. For installing the gepetto viewer we refer to their [github repository](https://github.com/Gepetto/gepetto-viewer-corba).
 
---------------------------------------------------------------------------------------------------------------
-
-:warning: **Attention**: By following the instructions you will install Drake permanently on your system. This may cause incompatiblity issues with preexisting Python packages. Drake for instance is incompatible with the Python environment supplied by Anaconda. Please uninstall Anaconda or remove the Anaconda bin directory from the PATH before building or using the Drake Python bindings. Before attempting the installation, please review the supported configurations to know what versions of Python are supported for your platform: https://drake.mit.edu/developers.html#supported-configurations
-  
---------------------------------------------------------------------------------------------------------------
-
-**Step 1)** Download and extract an available binary package. As an example, here is how to download and extract one of the latest releases to /opt (where `<platform>` could be bionic, focal, or mac):
-
-```
-curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-<platform>.tar.gz
-sudo rm -rf /opt/drake
-sudo tar -xvzf drake.tar.gz -C /opt
-```
-
-**Step 2)** Ensure that you have the system dependencies:
-
-```
-sudo /opt/drake/share/drake/setup/install_prereqs
-```
-
-**Step 3)** Configure your `PYTHONPATH` properly: 
-
-```
-# Ubuntu 18.04 (Bionic):
-export PYTHONPATH=/opt/drake/lib/python3.6/site-packages:${PYTHONPATH}
-
-# Ubuntu 20.04 (Focal):
-export PYTHONPATH=/opt/drake/lib/python3.8/site-packages:${PYTHONPATH}
-```
-
-**Step 4)** To check whether the installation was successful you can import `pydrake`:
-
-```
-python3 -c 'import pydrake; print(pydrake.__file__)'
-```
-
-If this command returns the directory of your pydrake installation, you are now able to import pydrake modules to your python code with e.g. `from pydrake.solvers.mathematicalprogram import Solve`. A comprehensive list of all available pydrake modules is provided by the `Python API documentation`: https://drake.mit.edu/pydrake/index.html
-  
 <br>    
 
 

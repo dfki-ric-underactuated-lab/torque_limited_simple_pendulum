@@ -9,7 +9,7 @@ Every trajectory optimization algorithm and every controller in this software pa
 
 pytest automatically identifies all python scripts with names "\*\_test.py" or "test\_\*.py" in the current directory and all subdirectories. Therefore, if you want to perform all unit tests in this software package, simply go to the [python root directory](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python) and type
 
-    pytest
+    python -m pytest
 
 If you want perform a specific unit test (e.g. for the lqr controller) use
 

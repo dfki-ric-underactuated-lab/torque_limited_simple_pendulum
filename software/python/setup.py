@@ -16,6 +16,10 @@ setup(
         'sympy',
         'mini-cheetah-motor-driver-socketcan',
 
+        # optimal control
+        'drake',
+        'crocoddyl',
+
         # reinforcement learning
         'tensorflow>=2.6.0',
         'pickle5',
