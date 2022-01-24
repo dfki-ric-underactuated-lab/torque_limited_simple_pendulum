@@ -25,7 +25,7 @@ The instructions provide assistance in the setup procedure, but with regards to 
 
 1) Clone this repo from GitHub, in case you haven't done it yet:
 ```
-git clone git@git.hb.dfki.de:underactuated-robotics/torque_limited_simple_pendulum.git
+git clone git@github.com:dfki-ric-underactuated-lab/torque_limited_simple_pendulum.git
 ```
 
 2) Check your Python version with:
