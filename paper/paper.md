@@ -63,9 +63,9 @@ The pendulum has a stable (downward configuration) and unstable (upward configur
 
 ## Mechanical Setup
 
-![Simple Pendulum. \label{fig:pendulum}](figures/simple_pendulum_CAD.png){#id .class height=400px}
+![Simple Pendulum. The physical variables are introduced in \autoref{eq:eom}. \label{fig:pendulum}](figures/simple_pendulum_CAD.png){#id .class height=500px}
 
-The pendulum (\autoref{fig:pendulum}) is constructed by mounting a motor to a fixed frame, attaching a rod to the motor and a weight to the other end of the rod. The motor used in this setup is the AK80-6 actuator from T-Motor, which is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft.
+The pendulum (\autoref{fig:pendulum}) is constructed by mounting a motor to a fixed frame, attaching a rod to the motor and a weight to the other end of the rod. The motor used in this setup is the AK80-6 actuator from T-Motor [@tmotors_manual], which is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft.
 
 <!--
 * Voltage = 24 $`V`$
@@ -90,7 +90,7 @@ The physical parameters of the pendulum are:
 
 ## Electrical Setup
 
-The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1) mounted on the actuator. The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main PC doesn't feature a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps for peak torque. The power supply in our test setup is the EA-PS 9032-40 from Elektro-Automatik. The capacitor filters back EMF coming from the actuator and protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
+The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1, see [@tmotors_manual]) mounted on the actuator. The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main PC doesn't feature a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps for peak torque. The power supply in our test setup is the EA-PS 9032-40 from Elektro-Automatik. The capacitor filters back EMF coming from the actuator and protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
 
 ![Electrical setup. \label{fig:electrical_schematic}](figures/wiring_diagram.png){#id .class height=800px}
 
@@ -106,7 +106,10 @@ Along the CAN bus proper grounding and isolation is required. It is important to
 
 The motions of a pendulum are described by the following equation of motion:
 
-$$I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\theta) = \tau$$
+\begin{equation}
+I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\theta) = \tau
+\label{eq:eom}
+\end{equation}
 
 where
 
@@ -148,7 +151,7 @@ where $\mathit{\Phi}$ denotes the identiﬁcation matrix.A sufﬁciently rich, p
 
 The swing-up with a limited motor torque $\tau$ serves as a benchmark for various control algorithms. If the torque limit is set low enough, the pendulum is no longer able to simply go up to the unstable fixpoint but instead the pendulum has to swing and built up energy in the system.
 
-![Control Software Structure. \label{fig:software_structure}](figures/controller_overview.png){#id .class height=1200px}
+![Control Software Structure. \label{fig:software_structure}](figures/controller_overview.png){#id .class height=1100px}
 
 The control methods that are currently implemented in this library (see also \autoref{fig:software_structure}) can be grouped in four categories:
 
@@ -204,9 +207,11 @@ The benchmark criteria are:
 - **Insensitivity**: The pendulum parameters (mass, length, friction, inertia) are modified without using this knowledge in the controller.
 - **Reduced torque limit**: The minimal torque limit with which the controller is still able to swing-up the pendulum.
 
+The results shown in \autoref{fig:benchmark} are the average of 100 repetitions for every controller and criterium. In the case of consistency, robustness and insensitivity the percentage refers to the ratio of successfull swingup motions of the 100 repetitions.
+
 ![Benchmark results. \label{fig:benchmark}](figures/benchmark_barplot.png){#id .class height=1100px}
 
-Trajectory optimization (iLQR, direct collocation, ddp) produces smooth trajectories, which swings up the pendulum relatively quickly. But they do require a trajectory following control loop (PID, TVLQR) to make them more consistent, robust and insensitive. This can become a problem for large deviations from the nominal trajectory. RL policies perform well on consistency, robustness, insensitivity and are able to perfrom fast swingup motions. Their drawback is that their output can fluctuate which can result in rougher motions. The model predictive iLQR controller has an overall good performance but has the disadvantage that is it comparatively slow due to the optimization at every timestep. The energy shaping plus LQR controller, despite its simplicity, shows very satisfying results in all benchmark categories.
+Trajectory optimization (iLQR, direct collocation, ddp) produces smooth trajectories, which swing up the pendulum relatively quickly. But they do require a trajectory following control loop (PID, TVLQR) to make them more consistent, robust and insensitive. This can become a problem for large deviations from the nominal trajectory. RL policies perform well on consistency, robustness, insensitivity and are able to perform fast swingup motions. Their drawback is that their output can fluctuate which can result in rougher motions. The model predictive iLQR controller has an overall good performance but has the disadvantage that is it comparatively slow due to the optimization at every timestep. The energy shaping plus LQR controller, despite its simplicity, shows very satisfying results in all benchmark categories.
 
 <!--
 # Citations
