@@ -22,7 +22,7 @@ Trajectory optimization with direct collocation is explained [here](https://gith
 
 It can be tested with
 
-    python compute dircol_swingup.py
+    python compute_dircol_swingup.py
 
 The script computes a trajectory and stores the trajectory in a csv file at "log_data/direct_collocation/trajectory.csv". The trajectory is also simulated with a [TVLQR](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/tvlqr) controller which stabilizes the trajectory.
 
