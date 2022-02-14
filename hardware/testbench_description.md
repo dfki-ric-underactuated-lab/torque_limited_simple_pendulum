@@ -3,7 +3,10 @@
 #  Hardware & Testbench Description
 </div>
 
-The `/hardware` directory contains all information about the hardware that is used to built the simple pednulum test bench, including a bill of materials, step files of the CAD model along with wiring diagrams for the complete set up as well as the CAN bus. Further specifications are noted below or can be found within the documentation under the respective topics.
+The `/hardware` directory contains all information about the hardware that is used to built the simple pednulum test bench, including a bill of materials, step files of the CAD model along with wiring diagrams for the complete set up as well as the CAN bus.  
+  
+We additionally uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: [grabcad.com/simple_pendulum](https://grabcad.com/library/simple_pendulum-1)
+
 
 <div align="right">
 <img width="800" src="../hardware/simple_pendulum_CAD.png">  
