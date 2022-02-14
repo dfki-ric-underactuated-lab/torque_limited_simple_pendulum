@@ -11,16 +11,17 @@
 ## Introduction #
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque-limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
 
-**See a video the simple pendulum in action:** 
+**See the simple pendulum in action:** 
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/JVvwMGYiH3A/0.jpg)](https://www.youtube.com/watch?v=JVvwMGYiH3A)
 
 ## Documentation
 
-The [hardware setup](hardware/testbench_description.md) and the [motor configuration](hardware/motor_configuration.md) are described in their respective readme files.
-The dynamics of the pendulum are explained [here](docs/sp_equations.md).
+The [hardware setup](hardware/testbench_description.md) and the [motor configuration](hardware/motor_configuration.md) are described in their respective readme files. We additionally uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: 
 
-In order to work with this repository you can [get started here](docs/installation_guide.md) and read the [usage instructions here](docs/usage_instructions.md) for a description of how to use this repository on a real system. The instructions for testing the code can be found [here](docs/code_testing.md).
+* [grabcad.com/simple_pendulum](https://grabcad.com/library/simple_pendulum-1)
+
+In order to work with this repository you can [get started here](docs/installation_guide.md) and read the [usage instructions here](docs/usage_instructions.md) for a description of how to use this repository on a real system. The dynamics of the pendulum are explained [here](docs/sp_equations.md). The instructions for testing the code can be found [here](docs/code_testing.md).
 
 
 * [Hardware & Testbench Description](hardware/testbench_description.md)
