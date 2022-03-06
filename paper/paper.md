@@ -163,31 +163,31 @@ The control methods that are currently implemented in this library (see also \au
 
 The optimization is done with a simulation of the pendulum dynamics.
 
-**Trajectory following** controllers act on a precomputed trajectory and ensure that the system follows the trajectory properly. The trajectory following controllers implemented in this project are:
-
-- Feedforward torque
-- Proportional-integral-derivative (PID) control
-- Time-varying Linear Quadratic Regulator (TVLQR)
-
-Feedforward and PID controller funtion model independent, while the TVLQR controller utilizes knowledge about the pendulum model.
-
-**Closed Loop Controllers** or feedback controllers take the state of the system as input and ouput a control signal. In contrast to trajectory optimization, these controllers do not compute just a single trajectory. Instead, they react to the current state of the pendulum and because of this they can cope with perturbations during the execution. The following feedback controllers are implemented:
-
-- Energy Shaping
-- Linear Quadratic Regulator (LQR)
-- Gravity Compensation
-- Model Predictive Control (MPC) with iLQR
-
-All of these controllers utilize model knowledge and the MPC controller uses a simulation of the pendulum to optimize with a time horizon.
-
-**Reinforcement Learning** (RL) can be used to learn a policy on the state space of the robot. The policy, which has to be trained beforehand, receives a state and outputs a control signal like a feedback controller. The simple pendulum can be formulated as a RL problem with two continuous inputs and one continuous output. Similar to the cost function in trajectory optimization, the policy is trained with a reward function. The following RL algorithms are implemented:
+**Reinforcement Learning** (RL) can be used to learn a policy on the state space of the robot, which then can be used to control the robot. The simple pendulum can be formulated as a RL problem with two continuous inputs and one continuous output. Similar to the cost function in trajectory optimization, the policy is trained with a reward function. The following RL algorithms are implemented:
 
 - Soft Actor Critic (SAC) [@haarnoja2018soft]
 - Deep Deterministic Policy Gradient (DDPG) [@lillicrap2019continuous]
 
-Currently, learning is possible in the simulation environment.
+Both methods, are model-free, i.e. they use the dynamics of the system as a black box. Currently, learning is possible in the simulation environment.
 
-The implementations of direct collocation and TVLQR make use of Drake [@drake], iLQR makes use of only the symbolic library of Drake, FDDP makes use of Crocoddyl [@mastalli2020crocoddyl], SAC uses stable-baselines3 [@stable-baselines3] and DDPG is implemented in tensorflow [@tensorflow2015-whitepaper]. The other methods use only standard libraries.
+**Trajectory-based Controllers** act on a precomputed trajectory and ensure that the system follows the trajectory properly. The trajectory-based controllers implemented in this project are:
+
+- Feedforward torque
+- Proportional-integral-derivative (PID) control
+- Time-varying Linear Quadratic Regulator (TVLQR)
+- Model Predictive Control (MPC) with iLQR
+
+Feedforward and PID controller operate model independent, while the TVLQR and iLQR MPC controllers utilize knowledge about the pendulum model. In contrast to the others, the iLQR MPC controller optimizes over a predefined horizon at every timestep.
+
+**Policy-based Controllers** take the state of the system as input and ouput a control signal. In contrast to trajectory optimization, these controllers do not compute just a single trajectory. Instead, they react to the current state of the pendulum and because of this they can cope with perturbations during the execution. The following policy-based controllers are implemented:
+
+- Energy Shaping
+- Linear Quadratic Regulator (LQR)
+- Gravity Compensation
+
+All of these controllers utilize model knowledge. Additionally, the control policies, obtained by one of the RL methods, fall in the category of policy-based control.
+
+The implementations of direct collocation and TVLQR make use of Drake [@drake], iLQR makes use of either the symbolic library of Drake or sympy, FDDP makes use of Crocoddyl [@mastalli2020crocoddyl], SAC uses stable-baselines3 [@stable-baselines3] and DDPG is implemented in tensorflow [@tensorflow2015-whitepaper]. The other methods use only standard libraries.
 This repository is designed to welcome contributions in form of novel optimization methods/controllers/learning algorithms to extend this list.
 
 To get an understanding of the functionality of the implemented controllers they can be visualized in the pendulum's state space. Example visualizations of the energy shaping controller and the policy learned with DDPG are shown in figure \autoref{fig:controller_plots}.
