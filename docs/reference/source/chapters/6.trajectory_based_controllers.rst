@@ -1,0 +1,7 @@
+Trajectory-based Controllers
+============================
+
+.. toctree::
+    :glob:
+
+    6.trajectory_based_controllers/*
