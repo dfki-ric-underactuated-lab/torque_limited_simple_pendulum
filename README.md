@@ -5,7 +5,7 @@
 
 <div align="center">
 <img width="400" src="hardware/simple_pendulum_CAD.png">
-<img width="300" src="docs/pendulum_light_painting.jpg">
+<img width="300" src="docs/reference/source/figures/pendulum_light_painting.jpg">
 </div>
 
 ## Introduction #
@@ -33,7 +33,7 @@ In order to work with this repository you can [get started here](docs/installati
 ## Overview of Methods #
 
 <div align="center">
-<img width="450" src="docs/controller_overview.png">
+<img width="450" src="docs/reference/source/figures/controller_overview.png">
 </div>
 
 **Trajectory Optimization** tries to find a trajectory of control inputs and states that is feasible for the system while minimizing a cost function. The cost function can for example include terms which drive the system to a desired goal state and penalize the usage of high torques. The following trajectory optimization algorithms are implemented:
@@ -121,7 +121,7 @@ The controllers can be benchmarked in simulation with a set of predefined [crite
 
 ## Authors #
 
-<img align="right" img width="500" src="docs/pendulum_swingup_animation.gif" />
+<img align="right" img width="500" src="docs/reference/source/figures/pendulum_swingup_animation.gif" />
 
 * [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
 * [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html) (Software Maintainer)
