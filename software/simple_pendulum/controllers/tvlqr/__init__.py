@@ -1,4 +1,4 @@
 """
-Time-varying Linear Quadrativ Regulator (TVLQR)
+Time-varying Linear Quadratic Regulator (TVLQR)
 ===============================================
 """
