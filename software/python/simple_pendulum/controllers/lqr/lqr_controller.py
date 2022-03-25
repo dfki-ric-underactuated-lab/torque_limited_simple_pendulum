@@ -42,8 +42,13 @@ class LQRController(AbstractController):
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
+        self.clip_out = False
+
     def set_goal(self, x):
         pass
+
+    def set_clip(self):
+        self.clip_out = True
 
     def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0):
@@ -85,8 +90,14 @@ class LQRController(AbstractController):
 
         u = np.asarray(-self.K.dot(y))[0]
 
-        if np.abs(u) > self.torque_limit:
-            u = None
+        if not self.clip_out:
+            if np.abs(u) > self.torque_limit:
+                u = None
+
+        else:
+            u = np.clip(u, -self.torque_limit, self.torque_limit)
+
+        
 
         # since this is a pure torque controller,
         # set des_pos and des_pos to None
