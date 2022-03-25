@@ -23,12 +23,12 @@ def get_ellipse_params(rho,M):
 
     return width,height,angle
 
-def get_ellipse_patch(px,py,rho,M,alpha_val=1,linec="red",facec="none"):
+def get_ellipse_patch(px,py,rho,M,alpha_val=1,linec="red",facec="none",linest="solid"):
     """
     return an ellipse patch
     """
     w,h,a = get_ellipse_params(rho,M)
-    return patches.Ellipse((px,py), w, h, a, alpha=alpha_val,ec=linec,facecolor=facec)
+    return patches.Ellipse((px,py), w, h, a, alpha=alpha_val,ec=linec,facecolor=facec,linestyle=linest)
 
 def plot_ellipse(px,py,rho, M, save_to=None, show=True):
     p=get_ellipse_patch(px,py,rho,M)
@@ -41,7 +41,7 @@ def plot_ellipse(px,py,rho, M, save_to=None, show=True):
     ax.set_ylim(py-l/2,py+l/2)
 
     ax.grid(True)
-    
+
     if not (save_to is None):
         plt.savefig(save_to)
     if show:

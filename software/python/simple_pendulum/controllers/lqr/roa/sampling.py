@@ -6,7 +6,7 @@ from simple_pendulum.controllers.lqr.lqr_controller import LQRController
 from simple_pendulum.controllers.lqr.roa.plot import plot_ellipse # just for the example code
 from simple_pendulum.controllers.lqr.roa.utils import sample_from_ellipsoid,quad_form
 
-def najafi_based_sampling(plant,controller,n=100000,rho0=10,M=None,x_star=np.array([np.pi,0])):
+def najafi_based_sampling(plant,controller,n=10000,rho0=10,M=None,x_star=np.array([np.pi,0])):
     """Estimate the RoA for the closed loop dynamics using the method introduced in Najafi, E., Babuška, R. & Lopes, G.A.D. A fast sampling method for estimating the domain of attraction. Nonlinear Dyn 86, 823–834 (2016). https://doi.org/10.1007/s11071-016-2926-7 
 
     Parameters
