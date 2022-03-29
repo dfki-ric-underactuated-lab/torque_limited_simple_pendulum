@@ -7,9 +7,10 @@ from simple_pendulum.controllers.lqr.lqr_controller import LQRController
 from simple_pendulum.controllers.lqr.roa.plot import get_ellipse_patch 
 
 from simple_pendulum.controllers.lqr.roa.sampling import najafi_based_sampling
+from simple_pendulum.controllers.lqr.roa.sos import SOSequalityConstrained, SOSlineSearch
 
-roa_estimation_methods  = [najafi_based_sampling]
-linestyles              = ["-",":"]
+roa_estimation_methods  = [najafi_based_sampling, SOSequalityConstrained, SOSlineSearch]
+linestyles              = ["-",":","--"]
 
 torque_limits = [0.1,0.5,1,2,3]
 colors        = ["red","darkorange","gold","yellow","yellowgreen"]
@@ -45,8 +46,9 @@ for i,torque_limit in enumerate(torque_limits):
 
         rho,S = mthd(pendulum,controller)
 
-        p = get_ellipse_patch(np.pi,0,rho,S,linec=colors[i],linest=linestyles[j])
-        ax.add_patch(p)
+        if (rho != 0):
+            p = get_ellipse_patch(np.pi,0,rho,S,linec=colors[i],linest=linestyles[j])
+            ax.add_patch(p)
 
 plt.grid(True)
 plt.show()
