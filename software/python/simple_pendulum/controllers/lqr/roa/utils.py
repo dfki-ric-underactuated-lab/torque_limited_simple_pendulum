@@ -1,8 +1,11 @@
+from termios import TIOCSWINSZ
 from scipy.spatial.transform import Rotation as R
 from scipy import linalg
 from scipy.special import gamma, factorial
 import numpy as np
 from pydrake.all import (MathematicalProgram, Solve, Variables, Jacobian)
+from pydrake.symbolic import TaylorExpand, Evaluate
+from pydrake.all import Variable
 
 
 
@@ -161,3 +164,127 @@ def rhoVerification(rho, pendulum, controller):
     # Solve the problem
     result = Solve(prog).is_success()
     return result
+
+class PendulumPlantApprox:
+    def __init__(self, mass=1.0, length=0.5, damping=0.1, gravity=9.81,
+                 coulomb_fric=0.0, inertia=None, torque_limit=np.inf, taylorApprox_order = 1):
+
+        """
+        The PendulumPlantApprox class contains the taylor-approximated dynamics
+        of the simple pendulum.
+
+        The state of the pendulum in this class is described by
+            state = [angle, angular velocity]
+            (array like with len(state)=2)
+            in units: rad and rad/s
+        The zero state of the angle corresponds to the pendulum hanging down.
+        The plant expects an actuation input (tau) either as float or
+        array like in units Nm.
+        (in which case the first entry is used (which should be a float))
+
+        Parameters
+        ----------
+        mass : float, default=1.0
+            pendulum mass, unit: kg
+        length : float, default=0.5
+            pendulum length, unit: m
+        damping : float, default=0.1
+            damping factor (proportional to velocity), unit: kg*m/s
+        gravity : float, default=9.81
+            gravity (positive direction points down), unit: m/s^2
+        coulomb_fric : float, default=0.0
+            friction term, (independent of magnitude of velocity), unit: Nm
+        inertia : float, default=None
+            inertia of the pendulum (defaults to point mass inertia)
+            unit: kg*m^2
+        torque_limit: float, default=np.inf
+            maximum torque that the motor can apply, unit: Nm
+        taylorApprox_order: int, default=1
+            order of the taylor approximation of the sine term
+        """
+
+        self.m = mass
+        self.l = length
+        self.b = damping
+        self.g = gravity
+        self.coulomb_fric = coulomb_fric
+        if inertia is None:
+            self.inertia = mass*length*length
+        else:
+            self.inertia = inertia
+
+        self.torque_limit = torque_limit
+
+        self.dof = 1
+        self.n_actuators = 1
+        self.base = [0, 0]
+        self.n_links = 1
+        self.workspace_range = [[-1.2*self.l, 1.2*self.l],
+                                [-1.2*self.l, 1.2*self.l]]
+        self.order = taylorApprox_order
+
+    def forward_dynamics(self, state, tau):
+
+        """
+        Computes forward dynamics
+
+        Parameters
+        ----------
+        state : array like
+            len(state)=2
+            The state of the pendulum [angle, angular velocity]
+            floats, units: rad, rad/s
+        tau : float
+            motor torque, unit: Nm
+
+        Returns
+        -------
+            - float, angular acceleration, unit: rad/s^2
+        """
+
+        torque = np.clip(tau, -np.asarray(self.torque_limit),
+                         np.asarray(self.torque_limit))
+
+        # Taylor approximation of the sine term
+        x0 = Variable("theta")
+        Tsin_exp = TaylorExpand(np.sin(x0), {x0: np.pi},self.order)
+        Tsin = Tsin_exp.Evaluate({x0 : state[0]})
+
+        accn = (torque - self.m * self.g * self.l * Tsin -
+                self.b * state[1] -
+                np.sign(state[1]) * self.coulomb_fric) / self.inertia
+        return accn
+
+    def rhs(self, t, state, tau):
+
+        """
+        Computes the integrand of the equations of motion.
+
+        Parameters
+        ----------
+        t : float
+            time, not used (the dynamics of the pendulum are time independent)
+        state : array like
+            len(state)=2
+            The state of the pendulum [angle, angular velocity]
+            floats, units: rad, rad/s
+        tau : float or array like
+            motor torque, unit: Nm
+
+        Returns
+        -------
+        res : array like
+              the integrand, contains [angular velocity, angular acceleration]
+        """
+
+        if isinstance(tau, (list, tuple, np.ndarray)):
+            torque = tau[0]
+        else:
+            torque = tau
+
+        accn = self.forward_dynamics(state, torque)
+
+        res = np.zeros(2*self.dof)
+        res[0] = state[1]
+        res[1] = accn
+        return res
