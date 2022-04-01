@@ -1,3 +1,9 @@
+"""
+Direct Collocation Calculator
+=============================
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -7,12 +13,6 @@ from pydrake.systems.trajectory_optimization import DirectCollocation
 from pydrake.trajectories import PiecewisePolynomial
 
 from pydrake.examples.pendulum import PendulumPlant, PendulumState
-
-
-"""
-Direct Collocation Calculator
-=============================
-"""
 
 
 class DirectCollocationCalculator():

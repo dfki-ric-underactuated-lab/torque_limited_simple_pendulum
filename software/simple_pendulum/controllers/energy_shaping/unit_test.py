@@ -1,15 +1,15 @@
+"""
+Unit Tests
+==========
+"""
+
+
 import unittest
 import numpy as np
 
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingController
-
-
-"""
-Unit Tests
-==========
-"""
 
 
 class Test(unittest.TestCase):

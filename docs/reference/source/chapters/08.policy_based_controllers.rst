@@ -4,4 +4,4 @@ Policy-based Controllers
 .. toctree::
     :glob:
 
-    7.policy_based_controllers/*
+    08.policy_based_controllers/*

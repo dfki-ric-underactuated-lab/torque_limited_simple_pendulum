@@ -1,13 +1,13 @@
-import unittest
-import numpy as np
-
-from simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation import DirectCollocationCalculator
-
-
 """
 Unit Tests
 ==========
 """
+
+
+import unittest
+import numpy as np
+
+from simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation import DirectCollocationCalculator
 
 
 class Test(unittest.TestCase):

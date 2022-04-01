@@ -4,4 +4,4 @@ Trajectory Optimization
 .. toctree::
     :glob:
 
-    4.trajectory_optimization/*
+    05.trajectory_optimization/*

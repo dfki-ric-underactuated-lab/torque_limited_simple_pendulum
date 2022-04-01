@@ -15,7 +15,7 @@ The costs functions for the **Running model** is written as
 
 .. math::
 
-    l = {\sum}_{n=1}^{T-1} \alpha_n \Phi_n(q,\dot{q},\Tau)
+    l = {\sum}_{n=1}^{T-1} \alpha_n \Phi_n(q,\dot{q},\mathrm{T})
 
 With the following costs and weights, :math:`t_s` denoting the final time horizon.
 
@@ -23,7 +23,7 @@ With the following costs and weights, :math:`t_s` denoting the final time horizo
 
     .. math::
 
-        \Phi_{1} =  \parallel \Tau (t) \parallel ^{2}_2,  \quad \alpha_1 = 1e-4
+        \Phi_{1} =  \parallel \mathrm{T} (t) \parallel ^{2}_2,  \quad \alpha_1 = 1e-4
 
 * **Posture regularization**:  giving as input only the final reference posture.
 

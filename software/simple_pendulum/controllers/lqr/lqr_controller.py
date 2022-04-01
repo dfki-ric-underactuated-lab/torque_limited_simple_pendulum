@@ -1,15 +1,15 @@
+"""
+LQR Controller
+==============
+"""
+
+
 # Other imports
 import numpy as np
 
 # Local imports
 from simple_pendulum.controllers.lqr.lqr import lqr
 from simple_pendulum.controllers.abstract_controller import AbstractController
-
-
-"""
-LQR Controller
-==============
-"""
 
 
 class LQRController(AbstractController):

@@ -1,12 +1,12 @@
-import os
-import pandas as pd
-import numpy as np
-
-
 """
 Data Processing
 ===============
 """
+
+
+import os
+import pandas as pd
+import numpy as np
 
 
 def read(WORK_DIR, params_file, urdf_file, csv_file):

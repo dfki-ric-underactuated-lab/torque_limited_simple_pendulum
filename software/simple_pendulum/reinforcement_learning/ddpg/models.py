@@ -1,11 +1,11 @@
-import tensorflow as tf
-from tensorflow.keras.layers import Input, Dense, Concatenate
-
-
 """
 Models
 ======
 """
+
+
+import tensorflow as tf
+from tensorflow.keras.layers import Input, Dense, Concatenate
 
 
 def get_actor(state_shape, upper_bound=2.0, verbose=False):

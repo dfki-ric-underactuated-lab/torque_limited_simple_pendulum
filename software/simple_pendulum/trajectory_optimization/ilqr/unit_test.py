@@ -1,3 +1,9 @@
+"""
+Unit Tests
+==========
+"""
+
+
 import unittest
 import numpy as np
 from functools import partial
@@ -13,12 +19,6 @@ from simple_pendulum.trajectory_optimization.ilqr.pendulum import (
                                     pendulum3_swingup_stage_cost,
                                     pendulum3_swingup_final_cost
                                     )
-
-
-"""
-Unit Tests
-==========
-"""
 
 
 class Test(unittest.TestCase):

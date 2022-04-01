@@ -1,3 +1,9 @@
+"""
+iLQR MPC Controller
+===================
+"""
+
+
 # Other imports
 import numpy as np
 from functools import partial
@@ -21,12 +27,6 @@ from simple_pendulum.trajectory_optimization.ilqr.pendulum import pendulum_discr
                                                                   pendulum3_discrete_dynamics_rungekutta, \
                                                                   pendulum3_swingup_stage_cost, \
                                                                   pendulum3_swingup_final_cost
-
-
-"""
-iLQR MPC Controller
-===================
-"""
 
 
 class iLQRMPCController(AbstractController):

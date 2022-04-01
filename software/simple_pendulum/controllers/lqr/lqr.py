@@ -1,12 +1,12 @@
-# adapted from https://www.mwm.im/lqr-controllers-with-python/
+"""
+LQR solver
+==========
+
+Adapted from Mark `Wilfried Mueller <https://www.mwm.im/lqr-controllers-with-python/>`_
+"""
 
 import numpy as np
 import scipy.linalg
-
-"""
-Main
-====
-"""
 
 
 def lqr(A, B, Q, R):

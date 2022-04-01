@@ -1,9 +1,3 @@
-# Global imports
-import time
-import numpy as np
-# driver for t-motors AK80-6
-from motor_driver.canmotorlib import CanMotorController
-
 """
 Motor Control Loop
 ==================
@@ -36,6 +30,14 @@ the motor driver. It furthermore requires the following arguments:
 The return values start, end and meas_dt are required to monitor if 
 desired and measured time steps match.
 """
+
+
+# Global imports
+import time
+import numpy as np
+# driver for t-motors AK80-6
+from motor_driver.canmotorlib import CanMotorController
+
 
 def ak80_6(control_method, name, attribute, params, data_dict,
            motor_id="0x01", can_port='can0'):

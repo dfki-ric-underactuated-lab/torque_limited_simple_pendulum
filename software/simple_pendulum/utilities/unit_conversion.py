@@ -1,11 +1,11 @@
-# global imports
-import numpy as np
-
-
 """
 Units
 =====
 """
+
+
+# global imports
+import numpy as np
 
 
 def rad_to_deg(theta_rad):

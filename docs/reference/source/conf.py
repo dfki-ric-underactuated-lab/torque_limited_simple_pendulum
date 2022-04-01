@@ -9,16 +9,21 @@ import datetime
 import importlib
 import sphinx_rtd_theme
 
+from sphinx.builders.html import StandaloneHTMLBuilder
+
 # Set up paths for import
 file_path = os.path.realpath(__file__)                            # Obtain path of this config file
 root_path = (os.sep).join(file_path.split(os.sep)[:-4])           # Obtain project root path
 sys.path.insert(1, root_path)                                     # Import from root path
 
 # -- Project information -----------------------------------------------------
-from docs.reference.source.project import project, author, codename, report_title, report_author, logo
+from docs.reference.source.project import project, author, codename, codedir, report_title, report_author, logo
 
 # Scan the project to generate documentation
 scan = True
+
+# Source
+src = lambda sep: codedir + f'{sep}' if codedir != '.' else ''
 
 # Obtain the project's release version, which must be stored in a
 # __version__ variable inside the main project script or package.
@@ -33,7 +38,7 @@ scan = True
 #
 #            if __name__ == '__main__':
 #                <body of your project>
-release = importlib.import_module(f'software.{codename}').__version__  # Get project version
+release = importlib.import_module(f'{src(".")}{codename}').__version__  # Get project version
 
 sys.path.remove(root_path)                                           # Remove root path from search
 
@@ -62,6 +67,7 @@ numfig_format = {'figure':     'Figure %s',
                  'table':      'Table %s',
                  'code-block': 'Listing %s',
                  'section':    'Section %s'}
+autosectionlabel_maxdepth = 1                      # Automatically label top level sections only
 
 # BibTeX citations
 #    In text:           :cite:t:`key`
@@ -70,6 +76,9 @@ extensions      = ['sphinxcontrib.bibtex']
 bibtex_bibfiles = ['bibliography.bib']
 
 # -- General configuration ---------------------------------------------------
+
+# Extract documentation from the __init__ function of classes
+autoclass_content = 'init'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -99,7 +108,7 @@ def run_apidoc(app):
     import better_apidoc
 
     # Set package search path
-    sys.path.insert(0, os.path.abspath('../../software/.'))
+    sys.path.insert(0, os.path.abspath(f'../../{src("/")}.'))
 
     better_apidoc.APP = app
     better_apidoc.main(
@@ -110,7 +119,7 @@ def run_apidoc(app):
             '-fMeET',
             '-o',
             'source',
-            f'../../software/{codename}',   # Change to '../../.' if you wish to document scripts in your top-level project directory
+            f'../../{src("/")}{codename}',
         ]
     )
 
@@ -121,6 +130,14 @@ exclude_patterns = ['_templates/*']     # Exclude templates from rendering
 
 # -- HTML SETTINGS -------------------------------------------------------------
 root_doc = 'index'
+
+# Figure format priority for .. image:: <name>.*
+StandaloneHTMLBuilder.supported_image_types = [
+    'image/svg+xml',
+    'image/gif',
+    'image/png',
+    'image/jpeg'
+]
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

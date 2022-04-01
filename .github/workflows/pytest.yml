@@ -1,0 +1,226 @@
+name: Unit tests
+
+on:                       # Run action when changes are pushed or pull requests are accepted
+  push:
+    branches-ignore: 
+      - 'docs'            # Run on pushes to any branch except the doc hosting branch
+  pull_request:
+    branches-ignore:
+      - 'docs'            # Run on pull requests to any branch except the doc hosting branch
+  release:
+    types: [ published ]
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ===========================
+  #
+  #         Ubuntu 18
+  #
+  # ===========================
+  ub18:
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    # Load environment variables from config.env =================
+    - name: Load config variables into env
+      run: |
+        grep -v '^#' config.env | tr -d "[:blank:]" >> $GITHUB_ENV
+    # Setup ======================================================
+    - name: Set up Python 3.6
+      if: env.run_tests == 'true'
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.6
+    - name: Install pytest
+      if: env.run_tests == 'true'
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+    - name: Install coverage and emblem
+      if: env.run_tests == 'true'
+      run: |
+        pip install coverage
+        pip install emblem
+    - name: Install Python dev headers
+      if: env.run_tests == 'true'
+      run: |
+        sudo apt-get update
+        sudo apt-get install python3-dev
+        sudo apt install libpython3.6-dev
+    - name: Install Curl
+      if: env.run_tests == 'true'
+      run: |
+        sudo apt-get install curl
+    - name: Install croccodyl
+      if: env.run_tests == 'true'
+      run: |
+        sudo apt-get update
+        # 1
+        sudo tee /etc/apt/sources.list.d/robotpkg.list <<EOF
+        deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg
+        deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg
+        EOF
+        # 2
+        curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
+        # 3
+        sudo apt-get update
+        # 4
+        sudo apt install robotpkg-py36-crocoddyl
+    - name: Install Drake dependencies
+      if: env.run_tests == 'true'
+      run: |
+        sudo apt-get update
+        sudo apt-get install --no-install-recommends \
+          libpython3.6 libx11-6 libsm6 libxt6 libglib2.0-0
+    - name: Install project dependencies
+      if: env.run_tests == 'true'
+      run: |
+        pip install -r $codedir/requirements.txt
+    # Run unit tests =============================================
+    - name: Run tests
+      if: env.run_tests == 'true'
+      run: |
+        # Set environment variables to ensure dependencies are found
+        export PATH=/opt/openrobots/bin:$PATH
+        export PKG_CONFIG_PATH=/opt/openrobots/lib/pkgconfig:$PKG_CONFIG_PATH
+        export LD_LIBRARY_PATH=/opt/openrobots/lib:$LD_LIBRARY_PATH
+        export PYTHONPATH=/opt/openrobots/lib/python3.6/site-packages:$PYTHONPATH
+        # Run tests
+        cd $codedir
+        coverage run -m pytest
+    - name: Coverage
+      run: |      
+        cd $codedir
+        # Report
+        coverage report
+        # Emblem
+        emblem $(coverage report | awk '$1 == "TOTAL" {print $NF+0}') --label "Py3.6 Ub18.04" --fname ./ub18cov.svg
+        ls
+        cd ..
+        ls        
+    - name: Set
+      if: env.run_tests == 'true'
+      run: |
+        mv -v $codedir/ub18cov.svg ./cov/ub18cov.svg
+    - name: Push
+      if: env.branch != ''
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git pull
+        git add ./cov/ub18cov.svg && git commit --allow-empty -m "Updated Documentation"
+        git push -u origin $branch
+  # ===========================
+  #
+  #         Ubuntu 20
+  #
+  # ===========================
+  ub20:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    # Load environment variables from config.env =================
+    - name: Load config variables into env
+      run: |
+        grep -v '^#' config.env | tr -d "[:blank:]" >> $GITHUB_ENV
+    # Setup ======================================================
+    - name: Set up Python 3.8
+      if: env.run_tests == 'true'
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install pytest
+      if: env.run_tests == 'true'
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+    - name: Install coverage and emblem
+      if: env.run_tests == 'true'
+      run: |
+        pip install coverage
+        pip install emblem
+        emblem 80%
+        ls -a
+    - name: Install Python dev headers
+      if: env.run_tests == 'true'
+      run: |
+        sudo apt-get update
+        sudo apt-get install python3-dev
+        sudo apt install libpython3.8-dev
+    - name: Install curl
+      if: env.run_tests == 'true'
+      run: |
+        sudo apt-get install curl
+    - name: Install croccodyl
+      if: env.run_tests == 'true'
+      run: |
+        sudo apt-get update
+        # 1
+        sudo tee /etc/apt/sources.list.d/robotpkg.list <<EOF
+        deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg
+        deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg
+        EOF
+        # 2
+        curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
+        # 3
+        sudo apt-get update
+        # 4
+        sudo apt install robotpkg-py38-crocoddyl
+    - name: Install pydrake dependencies
+      if: env.run_tests == 'true'
+      run: |
+        sudo apt-get update
+        sudo apt-get install --no-install-recommends \
+          libpython3.8 libx11-6 libsm6 libxt6 libglib2.0-0
+    - name: Install project dependencies
+      if: env.run_tests == 'true'
+      run: |
+        pip install -r $codedir/requirements.txt
+    # Run unit tests =============================================
+    - name: Run tests
+      if: env.run_tests == 'true'
+      run: |
+        # Set environment variables to ensure dependencies are found
+        export PATH=/opt/openrobots/bin:$PATH
+        export PKG_CONFIG_PATH=/opt/openrobots/lib/pkgconfig:$PKG_CONFIG_PATH
+        export LD_LIBRARY_PATH=/opt/openrobots/lib:$LD_LIBRARY_PATH
+        export PYTHONPATH=/opt/openrobots/lib/python3.8/site-packages:$PYTHONPATH
+        # Run tests
+        cd $codedir
+        coverage run -m pytest
+    - name: Coverage
+      run: |      
+        cd $codedir
+        # Report
+        coverage report
+        # Emblem
+        emblem $(coverage report | awk '$1 == "TOTAL" {print $NF+0}') --label "Py3.8 Ub20.04" --fname ./ub20cov.svg
+    - name: Set
+      if: env.run_tests == 'true'
+      run: |
+        mv -v $codedir/ub20cov.svg ./cov/ub20cov.svg
+    - name: Push
+      if: env.branch != ''
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git pull
+        git add ./cov/ub20cov.svg && git commit --allow-empty -m "Updated Documentation"
+        git push -u origin $branch

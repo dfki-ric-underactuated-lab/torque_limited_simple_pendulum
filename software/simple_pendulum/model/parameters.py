@@ -1,26 +1,29 @@
-# Global imports
-import math
-import yaml
-import numpy as np
-
-
 """
 Parameters
 ==========
 """
 
 
+# Global imports
+import math
+import yaml
+import numpy as np
+
+
 def get_params(params_path):
+    """
+    Retrieve parameters from a yaml file with name ``params_path``
+    """
     with open(params_path, 'r') as fle:
         params = yaml.safe_load(fle)
     return params
 
 
 class Environment:
-    """
-    Environmental parameters
-    """
     def __init__(self):
+        """
+        Environmental parameters
+        """
         self.gravity = None                             # Gravity constant
 
 
@@ -30,10 +33,10 @@ earth.gravity = 9.81                                    # [m/s^2]
 
 
 class Robot:
-    """
-    Robot parameters
-    """
     def __init__(self):
+        """
+        Robot parameters
+        """
         self.base = None                                # Fixed, floating, ....
         self.origin = None
         self.mass = None                                # Overall mass
@@ -55,10 +58,10 @@ sp.dof = 1
 
 
 class Joints:
-    """
-    Joint parameters
-    """
     def __init__(self):
+        """
+        Joint parameters
+        """
         self.num = None                         # Number in the kinematic chain
         self.type = None                        # Type: prismatic, revolute,
                                                 # spherical, cylindrical,
@@ -95,10 +98,10 @@ joint_01.b = 0.1                                # add unit
 
 
 class Links:
-    """
-    Link parameters
-    """
     def __init__(self):
+        """
+        Link parameters
+        """
         self.num = None                         # Number within kinematic chain
         self.mass = None                        # Overall mass
         self.mass_p = None                      # Point mass at link end
@@ -136,10 +139,10 @@ link_01.length = 0.5                            # [m]
 
 
 class Actuators:
-    """
-    Motor parameters
-    """
     def __init__(self):
+        """
+        Motor parameters
+        """
         self.can_id = None
         self.mass = None
         self.v_max = None                       # Max. voltage

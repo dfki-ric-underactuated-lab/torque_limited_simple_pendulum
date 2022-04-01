@@ -1,3 +1,9 @@
+"""
+Simulator
+=========
+"""
+
+
 import time
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,12 +11,6 @@ from matplotlib.animation import FuncAnimation
 import matplotlib.animation as mplanimation
 from matplotlib.patches import Arc, RegularPolygon
 from numpy import radians as rad
-
-
-"""
-Simulator
-=========
-"""
 
 
 class Simulator:

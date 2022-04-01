@@ -19,13 +19,13 @@ A linear quadratic regulator (LQR) can be used to stabilize the pendulum at the 
 
 .. math::
 
-    \dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} \mathbf{B}\mathbf{u}
+    \dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}
 
 and a infinite horizon cost function in quadratic form:
 
 .. math::
 
-    J = \int_0^{\infty} \left( \mathbf{x}^T \mathbf{Q}\mathbf{x} \mathbf{u}^T \mathbf{R} \mathbf{u} \right)\text{d}t, \quad \mathbf{Q} = \mathbf{Q} \succeq 0, \, \mathbf{R} = \mathbf{R} \succeq 0
+    J = \int_0^{\infty} \left( \mathbf{x}^T \mathbf{Q}\mathbf{x} + \mathbf{u}^T \mathbf{R} \mathbf{u} \right)\text{d}t, \quad \mathbf{Q} = \mathbf{Q} \succeq 0, \, \mathbf{R} = \mathbf{R} \succeq 0
 
 the (provably) optimal controller is
 
@@ -37,7 +37,7 @@ where :math:`\mathbf{S}` has to fulfill the algebraic Riccati equation
 
 .. math::
 
-    \mathbf{SA} \mathbf{A}^{T}\mathbf{S} - \mathbf{SBR}^{-1}\mathbf{B}\mathbf{S} \mathbf{Q} = 0
+    \mathbf{SA} + \mathbf{A}^{T}\mathbf{S} - \mathbf{SBR}^{-1}\mathbf{B}\mathbf{S} + \mathbf{Q} = 0
 
 There are many solvers for the algebraic Riccati equation. In this library the solver from the scipy package is used.
 

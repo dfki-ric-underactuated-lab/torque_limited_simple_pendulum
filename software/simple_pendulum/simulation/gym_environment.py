@@ -1,12 +1,12 @@
-# Other imports
-import gym
-import numpy as np
-
-
 """
 Gym Environment
 ===============
 """
+
+
+# Other imports
+import gym
+import numpy as np
 
 
 class SimplePendulumEnv(gym.Env):

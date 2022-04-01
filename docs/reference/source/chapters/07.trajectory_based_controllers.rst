@@ -4,4 +4,4 @@ Trajectory-based Controllers
 .. toctree::
     :glob:
 
-    6.trajectory_based_controllers/*
+    07.trajectory_based_controllers/*

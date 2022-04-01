@@ -1,3 +1,9 @@
+"""
+Fast Fourier Transform
+======================
+"""
+
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,6 +12,9 @@ from scipy.fftpack import rfft, irfft, rfftfreq
 
 # Fast Fourier Transform (FFT)
 def fast_fourier_transform(data_measured, data_desired, n, t):
+    """
+    Fast Fourier transform method
+    """
     # Define function on which the FFT shall be executed                         
     dm_pos = data_measured["pos"]                         
     dm_vel = data_measured["vel"]
@@ -49,6 +58,9 @@ def fast_fourier_transform(data_measured, data_desired, n, t):
 
 # FFT scipy alternative
 def scipy_fft(data_measured, smooth_freq=100):
+    """
+    SciPy alternative
+    """
     w = rfft(data_measured)                    # FFT where data_measured is an array
     spectrum = w**2                            # squared amplitudes w of the FFT
     # cuts off frequencies that are much lower (/smooth_freq) then the main frequency at spectrum.max.()

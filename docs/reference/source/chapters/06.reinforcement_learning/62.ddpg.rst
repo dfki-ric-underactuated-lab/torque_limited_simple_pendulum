@@ -62,7 +62,7 @@ Before the training can be started the following three initialisations have to b
 
 .. warning::
 
-    **Attention** Make sure to call these functions in this order as they build upon another.
+    **Attention**: Make sure to call these functions in this order as they build upon another.
 
 The parameters of ``init_pendulum`` are:
 

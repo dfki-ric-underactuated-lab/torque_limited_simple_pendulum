@@ -4,4 +4,4 @@ Reinforcement Learning
 .. toctree::
     :glob:
 
-    5.reinforcement_learning/*
+    06.reinforcement_learning/*

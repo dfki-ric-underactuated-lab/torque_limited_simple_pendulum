@@ -1,15 +1,15 @@
+"""
+Open Loop Controller
+====================
+"""
+
+
 # Global imports
 import numpy as np
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
 from simple_pendulum.controllers.lqr.lqr_controller import LQRController
-
-
-"""
-Open Loop Controller
-====================
-"""
 
 
 class OpenLoopController(AbstractController):

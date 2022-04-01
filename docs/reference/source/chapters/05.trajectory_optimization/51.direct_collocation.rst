@@ -14,7 +14,7 @@ Trajectory optimization using direct collocation
 Theory
 ------
 
-Direct collocation is an approach from **collocation methods** , which transforms the optimal control problem into a mathematical programming problem. The numerical solution can be achieved directly by solving the new problem using sequential quadratic programming `[1] <https://arc.aiaa.org/doi/pdf/10.2514/3.20223>`_`[2] <http://underactuated.mit.edu/trajopt.html>`_.
+Direct collocation is an approach from **collocation methods** , which transforms the optimal control problem into a mathematical programming problem. The numerical solution can be achieved directly by solving the new problem using sequential quadratic programming `[1] <https://arc.aiaa.org/doi/pdf/10.2514/3.20223>`_ `[2] <http://underactuated.mit.edu/trajopt.html>`_.
 The formulation of the optimization problem at the collocation points is as follows:
 
 .. math::
@@ -42,9 +42,9 @@ The formulation of the optimization problem at the collocation points is as foll
 
 * `R = 10`: Input weight
 
-* :math:`\dot{\bf{x}}(t_{c,n}`: `Nonlinear dynamics of the pendulum <https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/model>`_ considered as equality constraint at collocation point
+* :math:`\dot{\bf{x}}(t_{c,n})`: `Nonlinear dynamics of the pendulum <https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/model>`_ considered as equality constraint at collocation point
 
-* :math`t_{c,k} = \frac{1}{2}\left(t_k t_{k1}\right)`: A collocation point at time instant :math:`k,(i.e.,{\bf{x}}[k] = {\bf{x}}(t_k))`,in which the collocation constraints depends on the decision variables :math:`{\bf{x}}[k], {\bf{x}}[k2, B1], u[k], u[k2, B1]`
+* :math:`t_{c,k} = \frac{1}{2}\left(t_k t_{k1}\right)`: A collocation point at time instant :math:`k,(i.e.,{\bf{x}}[k] = {\bf{x}}(t_k))`,in which the collocation constraints depends on the decision variables :math:`{\bf{x}}[k], {\bf{x}}[k2, B1], u[k], u[k2, B1]`
 
 * :math:`u_{max} = 10`: Maximum torque limit
 

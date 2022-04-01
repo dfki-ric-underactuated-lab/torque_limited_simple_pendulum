@@ -4,12 +4,13 @@
 Welcome to the |project| documentation!
 =======================================
 
-.. include:: intro.rst
+.. include:: abstract.rst
 
 .. toctree::
     :glob:
     :caption: Table of Contents
     
+    intro
     chapters/*
     simple_pendulum
     bibliography

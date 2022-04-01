@@ -1,11 +1,13 @@
-# global imports
-import argparse
-from argparse import RawTextHelpFormatter
-
 """
 Parsing
 =======
 """
+
+
+# global imports
+import argparse
+from argparse import RawTextHelpFormatter
+
 
 def syntax():
     parser = argparse.ArgumentParser(

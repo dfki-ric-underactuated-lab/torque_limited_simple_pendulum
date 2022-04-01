@@ -1,3 +1,9 @@
+"""
+Plotting
+========
+"""
+
+
 # global imports
 import os
 import numpy as np
@@ -5,12 +11,6 @@ import matplotlib.pyplot as plt
 
 # local imports
 from simple_pendulum.utilities.filters import running_mean as rm
-
-
-"""
-Plotting
-========
-"""
 
 
 def swingup(args, output_folder, data_dict):

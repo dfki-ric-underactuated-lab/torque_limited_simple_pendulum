@@ -1,14 +1,14 @@
+"""
+Gravity Compensation Controller
+===============================
+"""
+
+
 # Other imports
 import math
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
-
-
-"""
-Gravity Compensation Controller
-===============================
-"""
 
 
 class GravityCompController(AbstractController):

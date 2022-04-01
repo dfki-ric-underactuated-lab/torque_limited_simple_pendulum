@@ -1,3 +1,9 @@
+"""
+Unit Tests
+==========
+"""
+
+
 import eigenpy
 # Matrix deprecated -> this should ensure that everything
 # is treated/converted in array
@@ -17,12 +23,6 @@ from pinocchio.robot_wrapper import RobotWrapper
 from pinocchio.utils import *
 
 
-"""
-Unit Tests
-==========
-"""
-
-
 class Test(unittest.TestCase):
 
     epsilon = 0.2
@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
 
         # Loading the double pendulum model
 
-        WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[5])
+        WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[4])
 
         filename = os.path.join(WORK_DIR, "data/urdf/simplependul_dfki_pino_Modi.urdf")
 

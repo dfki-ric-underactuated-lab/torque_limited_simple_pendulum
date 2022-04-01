@@ -1,3 +1,9 @@
+"""
+Energy Shaping Controller
+=========================
+"""
+
+
 # Other imports
 import numpy as np
 
@@ -5,12 +11,6 @@ import numpy as np
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.controllers.abstract_controller import AbstractController
 from simple_pendulum.controllers.lqr.lqr_controller import LQRController
-
-
-"""
-Energy Shaping Controller
-=========================
-"""
 
 
 class EnergyShapingController(AbstractController):
@@ -27,8 +27,8 @@ class EnergyShapingController(AbstractController):
         """
         Controller which swings up the pendulum by regulating its energy.
 
-        Parameters
-        ----------
+        **Parameters**
+        
         mass : float, default=1.0
             mass of the pendulum [kg]
         length : float, default=0.5

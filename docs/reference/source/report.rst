@@ -24,6 +24,7 @@ This title will not display
     :glob:
     :caption: Table of Contents
     
+    intro
     chapters/*
     simple_pendulum
     bibliography

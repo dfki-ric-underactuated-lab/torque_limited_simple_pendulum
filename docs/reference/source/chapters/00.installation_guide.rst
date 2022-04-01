@@ -83,9 +83,10 @@ The following instructions are our recommendations for a sane build environment.
 Restart your login session for the changes to take effect. If you're in a GUI session, you need to fully log out and log back in. You can now begin using pyenv.
 
 .. note::
+    
     Consider uprading to the latest version of Pyenv via::
 
-    pyenv update
+        pyenv update
 
 Installing Python into Pyenv
 ----------------------------

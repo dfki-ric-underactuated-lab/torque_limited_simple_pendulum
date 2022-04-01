@@ -1,14 +1,14 @@
+"""
+PID Controller
+==============
+"""
+
+
 # Global imports
 import numpy as np
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
-
-
-"""
-PID Controller
-==============
-"""
 
 
 class PIDController(AbstractController):

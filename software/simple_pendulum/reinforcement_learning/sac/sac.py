@@ -1,3 +1,9 @@
+"""
+SAC Trainer
+===========
+"""
+
+
 import os
 import numpy as np
 from stable_baselines3 import SAC
@@ -8,12 +14,6 @@ from stable_baselines3.common.callbacks import EvalCallback, \
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.simulation.gym_environment import SimplePendulumEnv
-
-
-"""
-SAC Trainer
-===========
-"""
 
 
 class sac_trainer():

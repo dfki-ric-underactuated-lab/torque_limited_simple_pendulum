@@ -1,13 +1,13 @@
-import unittest
-import numpy as np
-
-from simple_pendulum.model.pendulum_plant import PendulumPlant
-
-
 """
 Unit Tests
 ==========
 """
+
+
+import unittest
+import numpy as np
+
+from simple_pendulum.model.pendulum_plant import PendulumPlant
 
 
 class Test(unittest.TestCase):

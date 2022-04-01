@@ -1,10 +1,10 @@
-import numpy as np
-
-
 """
 Noise
 =====
 """
+
+
+import numpy as np
 
 
 class OUActionNoise:

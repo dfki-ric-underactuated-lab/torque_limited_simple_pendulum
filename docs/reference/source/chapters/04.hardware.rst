@@ -1,0 +1,7 @@
+Hardware Setup
+==============
+
+.. toctree::
+    :glob:
+
+    04.hardware/*

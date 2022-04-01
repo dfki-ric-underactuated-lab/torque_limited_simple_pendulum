@@ -1,11 +1,11 @@
-import numpy as np
-import yaml
-
-
 """
 Pendulum Plant
 ==============
 """
+
+
+import numpy as np
+import yaml
 
 
 class PendulumPlant:

@@ -1,3 +1,9 @@
+"""
+FDDP Calculator
+===============
+"""
+
+
 import os
 import time
 import subprocess
@@ -13,11 +19,6 @@ from crocoddyl.utils.pendulum import ActuationModelDoublePendulum
 
 # pinocchio imports
 from pinocchio.robot_wrapper import RobotWrapper
-
-"""
-FDDP Calculator
-===============
-"""
 
 # Matrix deprecated -> this should ensure that everything
 # is treated/converted in array

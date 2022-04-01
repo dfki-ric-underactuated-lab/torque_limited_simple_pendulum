@@ -1,15 +1,15 @@
+"""
+SAC Controller
+==============
+"""
+
+
 # Other imports
 import numpy as np
 from stable_baselines3 import SAC
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
-
-
-"""
-SAC Controller
-==============
-"""
 
 
 class SacController(AbstractController):

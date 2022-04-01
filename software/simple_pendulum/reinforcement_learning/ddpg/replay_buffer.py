@@ -1,11 +1,11 @@
-import numpy as np
-import tensorflow as tf
-
-
 """
 Replay Buffer
 =============
 """
+
+
+import numpy as np
+import tensorflow as tf
 
 
 class ReplayBuffer:

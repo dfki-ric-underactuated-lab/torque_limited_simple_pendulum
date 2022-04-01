@@ -1,12 +1,12 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-
-
 """
 Policy Plots
 ============
 """
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def plot_policy(controller,
@@ -15,6 +15,9 @@ def plot_policy(controller,
                 samples_per_dim=100,
                 plotstyle="2d",
                 save_path=None):
+    """
+    Plot controller policy
+    """
 
     positions = np.linspace(position_range[0],
                             position_range[1],

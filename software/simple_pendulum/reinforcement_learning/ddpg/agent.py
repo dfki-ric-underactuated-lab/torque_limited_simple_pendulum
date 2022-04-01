@@ -1,12 +1,12 @@
-import numpy as np
-import tensorflow as tf
-import os
-
-
 """
 Agent
 =====
 """
+
+
+import numpy as np
+import tensorflow as tf
+import os
 
 
 class Agent:

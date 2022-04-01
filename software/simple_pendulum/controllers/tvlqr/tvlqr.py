@@ -1,3 +1,9 @@
+"""
+tvLQR Controller
+================
+"""
+
+
 # Global imports
 import numpy as np
 from pydrake.all import FiniteHorizonLinearQuadraticRegulatorOptions, \
@@ -9,12 +15,6 @@ from pydrake.examples.pendulum import PendulumPlant
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
-
-
-"""
-tvLQR Controller
-================
-"""
 
 
 class TVLQRController(AbstractController):

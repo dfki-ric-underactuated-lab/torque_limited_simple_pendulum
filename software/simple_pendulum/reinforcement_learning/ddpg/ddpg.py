@@ -1,3 +1,9 @@
+"""
+DDPG Trainer
+============
+"""
+
+
 import numpy as np
 import tensorflow as tf
 
@@ -10,12 +16,6 @@ from simple_pendulum.reinforcement_learning.ddpg.models import get_actor, \
                                                                get_critic
 from simple_pendulum.reinforcement_learning.ddpg.agent import Agent
 from simple_pendulum.reinforcement_learning.ddpg.noise import OUActionNoise
-
-
-"""
-DDPG Trainer
-============
-"""
 
 
 class ddpg_trainer:

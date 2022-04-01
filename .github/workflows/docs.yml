@@ -1,14 +1,9 @@
 name: Documentation workflow
 
-on:                       # Run action when changes are pushed or pull requests are accepted
-  push:
-    branches-ignore: 
-      - 'docs'            # Run on pushes to any branch except the doc hosting branch
-  pull_request:
-    branches-ignore:
-      - 'docs'            # Run on pull requests to any branch except the doc hosting branch
-  release:
-    types: [ published ]
+on:                       # Run action after unit test workflow is complete
+  workflow_run:
+    workflows: ['Unit tests']
+    types: [completed]
 
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,6 +21,8 @@ jobs:
     defaults:
       run:
         shell: bash
+    # Only run if unit tests have been passed
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Set up Git repository
@@ -134,6 +131,8 @@ jobs:
     defaults:
       run:
         shell: bash
+    # Only run if unit tests have been passed
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Set up Git repository

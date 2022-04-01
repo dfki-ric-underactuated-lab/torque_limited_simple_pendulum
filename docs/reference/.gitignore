@@ -1,4 +1,4 @@
 build/html/*
 build/latex/*
 build/doctrees/*
-source/project*rst
+source/simple_pendulum*rst
