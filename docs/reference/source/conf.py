@@ -23,7 +23,7 @@ from docs.reference.source.project import project, author, codename, codedir, re
 scan = True
 
 # Source
-src = lambda sep: codedir + f'{sep}' if codedir != '.' else ''
+src = lambda sep: codedir.replace('/', sep) + f'{sep}' if codedir != '.' else ''
 
 # Obtain the project's release version, which must be stored in a
 # __version__ variable inside the main project script or package.
