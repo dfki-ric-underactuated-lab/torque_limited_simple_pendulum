@@ -101,6 +101,7 @@ jobs:
         coverage run -m pytest
       continue-on-error: true
     - name: Coverage
+      if: env.run_tests == 'true'
       run: |
         cd $codedir
         # Report
@@ -118,7 +119,7 @@ jobs:
         mkdir --parents cov
         mv -v $codedir/ub18cov.svg $_
     - name: Push
-      if: env.branch != ''
+      if: env.run_tests == 'true'
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
@@ -211,6 +212,7 @@ jobs:
         coverage run -m pytest
       continue-on-error: true
     - name: Coverage
+      if: env.run_tests == 'true'
       run: |
         cd $codedir
         # Report
@@ -228,7 +230,7 @@ jobs:
         mkdir --parents cov
         mv -v $codedir/ub20cov.svg $_
     - name: Push
-      if: env.branch != ''
+      if: env.run_tests == 'true'
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
