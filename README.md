@@ -21,18 +21,21 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 ## Documentation
 
-The [hardware setup](hardware/testbench_description.md) and the [motor configuration](hardware/motor_configuration.md) are described in their respective readme files. We additionally uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: 
+The full documentation for this repository can be found [here](https://dfki-ric-underactuated-lab.github.io/torque_limited_simple_pendulum/).
+
+As a quick start, we refer to the following readme files:
+
+* [Software Installation Guide](docs/reference/source/chapters/00.installation_guide.rst)
+* [Code Testing](docs/reference/source/chapters/02.code_testing.rst)
+* [Pendulum Dynamics](docs/reference/source/chapters/03.model.rst)
+* [Hardware & Testbench Description](hardware/testbench_description.md)
+* [Motor Configuration](hardware/motor_configuration.md)
+* [Hardware Usage Instructions](docs/reference/source/chapters/01.usage_instructions.rst)
+
+Additionally, we uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: 
 
 * [grabcad.com/simple_pendulum](https://grabcad.com/library/simple_pendulum-1)
 
-In order to work with this repository you can [get started here](docs/installation_guide.md) and read the [usage instructions here](docs/usage_instructions.md) for a description of how to use this repository on a real system. The dynamics of the pendulum are explained [here](docs/sp_equations.md). The instructions for testing the code can be found [here](docs/code_testing.md).
-
-
-* [Hardware & Testbench Description](hardware/testbench_description.md)
-* [Motor Configuration](hardware/motor_configuration.md)
-* [Software Installation Guide](docs/installation_guide.md)
-* [Usage Instructions](docs/usage_instructions.md)
-* [Code Testing](docs/code_testing.md)
 
 ## Overview of Methods #
 
@@ -162,7 +165,7 @@ When working with a real system be careful and mind the following safety measure
 ## Acknowledgements #
 This work has been performed in the VeryHuman project funded by the German Aerospace Center (DLR) with federal funds (Grant Number: FKZ 01IW20004) from the Federal Ministry of Education and Research (BMBF) and is additionally supported with project funds from the federal state of Bremen for setting up the Underactuated Robotics Lab (Grant Number: 201-001-10-3/2021-3-2).
 
-<img width="500" src="docs/underactuated_lab_animation.gif" />
+<img width="500" src="docs/reference/source/figures/Logo_Underactuated_Lab.gif" />
 
 
 ## License
