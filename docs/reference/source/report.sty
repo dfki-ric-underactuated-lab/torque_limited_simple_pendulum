@@ -1,0 +1,189 @@
+\RequirePackage{tikz}                               % Vector graphics
+\RequirePackage{fancyhdr}                           % Page headers and footers
+
+\RequirePackage{amsmath,amsfonts,amssymb,amsthm}    % Math symbols
+\RequirePackage{fontawesome5}		                % Cool icons
+
+\RequirePackage{datetime}                           % Date formatting
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            %
+%      General Settings      %
+%                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH] \THEYEAR}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            %
+%         Typefaces          %
+%                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\styleTitle   {\fontsize{30}{40}\bfseries\selectfont}
+\def\styleAuthor  {\fontsize{15}{20}\bfseries\selectfont}
+\def\styleDate    {\fontsize{12}{12}\selectfont}
+
+\def\styleTOC     {\fontsize{30}{30}\selectfont}
+\def\styleLOF     {\fontsize{30}{30}\selectfont}
+\def\styleLOT     {\fontsize{30}{30}\selectfont}
+
+\def\styleChapter {\fontsize{30}{30}\raggedright\selectfont}
+
+\def\styleHeaderTitle   {\fontsize{20}{20}\selectfont}
+\def\styleHeaderVersion {\fontsize{20}{20}\selectfont}
+\def\styleHeaderInst    {\fontsize{8}{11.2}\selectfont}
+
+\def\styleFooter  {\fontsize{10}{10}\selectfont}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            %
+%           Title            %
+%                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\maketitle}{
+
+    \clearpage\thispagestyle{empty}     % Remove page numbering
+
+    \newgeometry{left=3cm,bottom=4cm, top=-4.2mm, right=3cm}
+    \begin{titlepage}
+
+    \makeatletter                       % Retrieve title & other macros
+
+    \centering
+
+    \vspace*{8cm}
+    {\styleTitle\@title\par}
+
+    \vspace{2cm}
+    {\styleAuthor\@author}
+
+    \vspace*{0.5cm}
+    {\styleDate\monthyeardate\today}
+
+    \begin{figure}[!b]
+        \centering
+        \includegraphics[height=\logoHeight]{\logo}
+    \end{figure}
+
+    \makeatother
+
+    \end{titlepage} % ---------------------------------- Title Page End
+    \restoregeometry
+
+    \clearpage
+    \pagenumbering{roman}
+
+    \tableofcontents            % TOC
+    % \listoffigures              % LOF
+    % \listoftables               % LOT
+
+    \clearpage
+    \pagenumbering{arabic}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            %
+%           Header           %
+%                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{colorHeader}{HTML}{\colorHeader}
+
+\newlength   \headerStripeHeight
+\newlength   \headerLogoHeight
+\newlength   \headerLogoWidth
+\newlength   \institutionHeight
+
+\setlength   \headerStripeHeight {\headerHeight}
+\setlength   \headerLogoHeight   {\headerHeight}
+\settowidth  \headerLogoWidth    {\includegraphics[height=\headerLogoHeight]{\logo}}
+
+\newcommand\headercontent[1]{%
+    \if\relax\detokenize{#1}\relax%
+        \institution{}\par%
+    \else%
+        #1%
+    \fi%
+}
+
+\newcommand{\header}[1]{
+    \settoheight \institutionHeight {\vbox{\styleHeaderInst\headercontent{#1}}}
+    \begin{tikzpicture}[remember picture, overlay, transform shape]
+    \tikzstyle{every node}=[font=\styleHeaderInst]
+    \node [anchor=north west,
+           inner sep=0]
+           at (current page.north west)
+           {
+               \color{colorHeader}\rule{\paperwidth}{\headerStripeHeight}
+            };
+    \node [anchor=north west,
+        inner sep=0,
+        xshift=\dimexpr -0.5\headerStripeHeight + 0.5\headerLogoHeight,
+        yshift=\dimexpr -0.5\headerStripeHeight + 0.5\headerLogoHeight] 
+        (logo) at (current page.north west) 
+        {
+            \includegraphics[height=\headerLogoHeight]{\logo}
+        };
+    \node [anchor=north west,
+        inner sep=0] 
+        (separator) at (logo.north east) 
+        {
+            \color{white}\rule{\headerLineWidth}{\headerStripeHeight}
+        };
+    \node [align=left,
+        text=white,
+        anchor=north west,
+        inner sep=0,
+        xshift=\dimexpr 0.5\headerStripeHeight - 0.5\institutionHeight,
+        yshift=\dimexpr -0.5\headerStripeHeight + 0.5\institutionHeight] 
+        at (separator.north east)
+        {
+            \headercontent{#1}
+        };
+    \end{tikzpicture}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            %
+%         Page styles        %
+%                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Normal
+\fancypagestyle{normal}{
+    \fancyhf{}
+    % Tune lines
+    \renewcommand{\headrulewidth}{0.0pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    % Header
+    \fancyhead[L]{\header{}}
+    \fancyhead[LE, LO]{\header{}}
+    % Footer
+    \makeatletter
+    \fancyfoot[R]{\styleFooter \thepage}
+    \fancyfoot[LE, RO]{\styleFooter \thepage}
+    \fancyfoot[L]{\styleFooter \textbf{\project}\hspace*{0.1cm}\version}
+    \fancyfoot[LO, RE]{\styleFooter \textbf{\project}\hspace*{0.1cm}\version}
+    \makeatother
+}
+\pagestyle{normal}
+
+% Chapters
+\fancypagestyle{plain}{
+    \fancyhf{}
+    % Tune lines
+    \renewcommand{\headrulewidth}{0.0pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    % Header
+    \fancyhead[L]{\header{\styleHeaderTitle \textbf{\project} \styleHeaderVersion \version}}
+    \fancyhead[LE, LO]{\header{\styleHeaderTitle \textbf{\project} \styleHeaderVersion \version}}
+    % Footer
+    \makeatletter
+    \fancyfoot[R]{\styleFooter \thepage}
+    \fancyfoot[LE, RO]{\styleFooter \thepage}
+    \fancyfoot[L]{\styleFooter \textbf{\project}\hspace*{0.1cm}\version}
+    \fancyfoot[LO, RE]{\styleFooter \textbf{\project}\hspace*{0.1cm}\version}
+    \makeatother
+}

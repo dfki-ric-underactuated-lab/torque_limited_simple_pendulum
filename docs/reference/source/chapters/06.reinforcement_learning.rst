@@ -1,0 +1,7 @@
+Reinforcement Learning
+======================
+
+.. toctree::
+    :glob:
+
+    06.reinforcement_learning/*

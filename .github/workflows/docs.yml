@@ -1,0 +1,188 @@
+name: Documentation workflow
+
+on:                       # Run action after unit test workflow is complete
+  workflow_run:
+    workflows: ['Unit tests']
+    types: [completed]
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  # ===========================
+  #
+  #            Site
+  #
+  # ===========================
+  site:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    # Only run if unit tests have been passed
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    # Get host preference from config.env file ===================
+    - name: Load config variables into env
+      run: |
+        grep -v '^#' config.env | tr -d "[:blank:]" >> $GITHUB_ENV
+    - name: Report host(s)
+      run: |
+        if ! [ -z "${branch}" ]; then
+          # If a host branch has been provided
+          echo "Host: ${{ github.event.repository.name }}.$branch"
+          echo ::set-output name=branch::$branch
+        fi
+        if ! [ -z "${dest_gh_repository+x}" ]; then
+          # If a host repository has been provided
+          echo "Host: $dest_gh_repository.$dest_branch"
+          echo ::set-output name=dest_gh_username::$dest_gh_username
+          echo ::set-output name=dest_gh_reponame::$dest_gh_repository
+          echo ::set-output name=dest_gh_repobranch::$dest_branch
+          echo ::set-output name=user_email::$user_email
+        fi
+      id: config
+    # Generate documentation =====================================
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r $codedir/requirements.txt
+        pip install -r $docsdir/source/requirements.txt
+    - name: Install HTML math dependencies
+      run: |
+        sudo apt-get install dvipng
+        sudo apt-get install texlive-latex-extra
+    - name: Generate
+      run:  |
+        cd $docsdir
+        make html
+        echo ::set-output name=html::$docsdir/build/html
+      id: generate
+    # REPO hosting ===============================================
+    - name: Ready up
+      if: env.dest_gh_repository != ''
+      run: |
+        cd $docsdir/build/html
+        touch .nojekyll
+    - name: Push
+      if: env.dest_gh_repository != ''
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+      # Cannot use $ variable substitution in function inputs
+        source-directory: ${{ steps.generate.outputs.html }}
+        destination-github-username: ${{ steps.config.outputs.dest_gh_username }}
+        destination-repository-name: ${{ steps.config.outputs.dest_gh_reponame }}
+        target-branch: ${{ steps.config.outputs.dest_gh_repobranch }}
+        user-email: ${{ steps.config.outputs.user_email }}
+        commit-message: See ORIGIN_COMMIT from $GITHUB_REF
+    # BRANCH hosting =============================================
+    - name: Stow
+      if: env.branch != ''
+      run: |
+        cd ..
+        mkdir docs
+        mv -v ${{ github.event.repository.name }}/$docsdir/build/html/* docs
+    - name: Switch
+      if: env.branch != ''
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ steps.config.outputs.branch }}
+    - name: Clean
+      if: env.branch != ''
+      run: |
+        mkdir -p docs
+        cd docs
+        rm -rf *
+    - name: Ready up
+      if: env.branch != ''
+      run: |
+        mv -v ../docs/* docs
+        cd docs
+        touch .nojekyll
+    - name: Push
+      if: env.branch != ''
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git pull
+        git add -A && git commit --allow-empty -m "Updated Documentation"
+        git push -u origin $branch
+
+  # ===========================
+  #
+  #          Reference
+  #
+  # ===========================
+  reference:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    # Only run if unit tests have been passed
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    # Get host preference from config.env file ===================
+    - name: Load config variables into env
+      run: |
+        grep -v '^#' config.env | tr -d "[:blank:]" >> $GITHUB_ENV
+    # Generate LaTeX code ========================================
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r $codedir/requirements.txt
+        pip install -r $docsdir/source/requirements.txt
+    - name: Generate LaTeX code
+      run:  |
+        cd $docsdir
+        make latex
+        echo ::set-output name=latex::$docsdir/build/latex
+      id: generate
+    - name: Install LaTeX engine
+      run: |
+        sudo apt-get update
+        sudo apt-get install texlive
+        sudo apt-get install texlive-luatex
+        sudo apt-get install -y latexmk
+    - name: Install LaTeX dependencies
+      run: |
+        sudo apt-get install -y xindy
+    - name: Install LaTeX packages
+      run: |
+        sudo apt-get install texlive-latex-extra
+        sudo apt-get install texlive-fonts-extra
+    - name: Compile
+      run: |
+        cd $docsdir/build/latex
+        make LATEXMKOPTS="-lualatex"
+    - name: Set
+      run: |
+        mv -v $docsdir/build/latex/main.pdf $pdfdir/${{ github.event.repository.name }}.pdf
+    - name: Push
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git pull
+        git add $pdfdir/${{ github.event.repository.name }}.pdf && git commit --allow-empty -m "Updated Report"
+        git push -u

@@ -1,0 +1,7 @@
+Trajectory Optimization
+=======================
+
+.. toctree::
+    :glob:
+
+    05.trajectory_optimization/*

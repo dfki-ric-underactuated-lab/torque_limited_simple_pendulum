@@ -1,0 +1,12 @@
+numpy
+pyyaml
+pandas
+argparse
+scipy
+sympy
+mini-cheetah-motor-driver-socketcan
+drake
+tensorflow>=2.6.0
+pickle5
+stable_baselines3
+eigenpy

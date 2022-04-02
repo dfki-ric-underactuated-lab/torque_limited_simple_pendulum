@@ -1,0 +1,4 @@
+build/html/*
+build/latex/*
+build/doctrees/*
+source/simple_pendulum*rst
