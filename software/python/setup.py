@@ -15,10 +15,10 @@ setup(
         'scipy',
         'sympy',
         'mini-cheetah-motor-driver-socketcan',
+        'eigenpy',
 
         # optimal control
         'drake',
-        'crocoddyl',
 
         # reinforcement learning
         'tensorflow>=2.6.0',

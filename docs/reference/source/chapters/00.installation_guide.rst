@@ -169,9 +169,11 @@ This package then can be installed from the `software/python <https://github.com
 
     pip install .
 
-This was the final installation step. Your system is now prepared to run all code snippets from this repo. Have fun exploring all kind of different simple pendulum controllers!
+This was the final installation step. Your system is now prepared to run all code snippets from this repo (except the ones which require `Crocoddyl <https://gepettoweb.laas.fr/doc/loco-3d/crocoddyl/master/doxygen-html/>`_ , see next section for instructions). Have fun exploring all kind of different simple pendulum controllers!
 
-OPTIONAL: Gepetto Viewer
+OPTIONAL: Crocoddyl and Gepetto Viewer
 ------------------------
 
-The optimal control library `Crocoddyl <https://github.com/loco-3d/crocoddyl>`_ has an interface to the gepetto-viewer for visualization. For installing the gepetto viewer we refer to their `github repository <https://github.com/Gepetto/gepetto-viewer-corba>`_.
+For installing optimal control library crocoddyl, we refer to the instructions provided in the `Crocoddyl <https://github.com/loco-3d/crocoddyl>`_ and recommend the installation through robotpkg.
+
+The `Crocoddyl <https://github.com/loco-3d/crocoddyl>`_ has an interface to the gepetto-viewer for visualization. For installing the gepetto viewer we refer to their `github repository <https://github.com/Gepetto/gepetto-viewer-corba>`_.
