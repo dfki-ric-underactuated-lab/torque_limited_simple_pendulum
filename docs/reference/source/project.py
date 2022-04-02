@@ -7,7 +7,7 @@ author  = 'Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harn
 codename = 'simple_pendulum'
 
 # Project code directory
-codedir = 'software'
+codedir = 'software/python'
 
 # Report title
 report_title = rf'Torque-limited\\Simple Pendulum:\\Reference'
