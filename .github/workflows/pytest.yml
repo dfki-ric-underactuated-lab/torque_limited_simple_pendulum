@@ -111,7 +111,7 @@ jobs:
         then
           emblem $(coverage report | awk '$1 == "TOTAL" {print $NF+0}') --label "Py3.6 Ub18.04" --fname ./ub18cov.svg
         else
-          emblem Error --label "Py3.6 Ub18.04" --fname ./ub20cov.svg
+          emblem Error --label "Py3.6 Ub18.04" --fname ./ub18cov.svg
         fi
     - name: Set
       if: env.run_tests == 'true'

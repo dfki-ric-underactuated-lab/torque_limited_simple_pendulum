@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
 
         # Loading the double pendulum model
 
-        WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[4])
+        WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[5])
 
         filename = os.path.join(WORK_DIR, "data/urdf/simplependul_dfki_pino_Modi.urdf")
 
