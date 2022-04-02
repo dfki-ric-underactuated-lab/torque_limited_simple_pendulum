@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation Guide" href="chapters/00.installation_guide.html" />
+    <link rel="prev" title="Welcome to the Torque-limited Simple Pendulum documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-methods">Overview of Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#safety-notes">Safety Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#citation">Citation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
+<p>In this reference you will find installation and usage guides to get going with a real system,
+as well as dives into:</p>
+<ul class="simple">
+<li><p>Code testing</p></li>
+<li><p>The physics of a simple pendulum</p></li>
+<li><p>Our hardware and test bench</p></li>
+<li><p>Motor configuration</p></li>
+</ul>
+<p>We’ve additionally uploaded all CAD files to <a class="reference external" href="https://grabcad.com/library/simple_pendulum-1">grabcad.com: you can use its 3D viewer to diplay the 3D model directly within your browser</a>.</p>
+<p>A range of methods to solve the control problem will then be presented. Their implementation will be discussed, as well
+as their advantages and disadvantages observed experimentally.</p>
+<p>Lastly you will find the API reference of the <code class="docutils literal notranslate"><span class="pre">simple_pendulum</span></code> package, including all functions available within it.</p>
+</section>
+<section id="overview-of-methods">
+<h2>Overview of Methods<a class="headerlink" href="#overview-of-methods" title="Permalink to this headline"></a></h2>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/controller_overview.png"><img alt="_images/controller_overview.png" src="_images/controller_overview.png" style="width: 60%;" /></a>
+</figure>
+<p><strong>Trajectory Optimization</strong> tries to find a trajectory of control inputs and states that is feasible for the system while minimizing a cost function. The cost function can for example include terms which drive the system to a desired goal state and penalize the usage of high torques. The following trajectory optimization algorithms are implemented:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="software/python/simple_pendulum/trajectory_optimization/direct_collocation">Direct Collocation</a>: A collocation method, which transforms the optimal control problem into a mathematical programming problem which is solved by sequential quadratic programming. For more information, click <a class="reference external" href="https://arc.aiaa.org/doi/pdf/10.2514/3.20223">here</a></p></li>
+<li><p><a class="reference external" href="software/python/simple_pendulum/trajectory_optimization/ilqr">Iterative Linear Quadratic Regulator (iLQR)</a>: A optimization algorithm which iteratively linearizes the system dynamics and applies LQR to find an optimal trajectory. For more information, click <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/6907001">here</a></p></li>
+<li><p><a class="reference external" href="software/python/simple_pendulum/trajectory_optimization/ddp">Feasability driven Differential Dynamic Programming (FDDP)</a>: Trajectory optimization using locally quadratic dynamics and cost models. For more information about DDP, click <a class="reference external" href="https://www.tandfonline.com/doi/abs/10.1080/00207176608921369">here</a> and for FDDP, click <a class="reference external" href="https://arxiv.org/abs/1909.04947">here</a></p></li>
+</ul>
+<p>The optimization is done with a simulation of the pendulum dynamics.</p>
+<p><strong>Reinforcement Learning</strong> (RL) can be used to learn a policy on the state space of the robot, which then can be used to control the robot. The simple pendulum can be formulated as a RL problem with two continuous inputs and one continuous output. Similar to the cost function in trajectory optimization, the policy is trained with a reward function. The following RL algorithms are implemented:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/sac">Soft Actor Critic (SAC)</a>: An off-policy model free reinforcement learning algorithm. Maximizes a trade-off between expected return of a reward function and entropy, a measure of randomness in the policy. For more information, click <a class="reference external" href="https://arxiv.org/abs/1801.01290">here</a></p></li>
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/ddpg">Deep Deterministic Policy Gradient (DDPG)</a>: An off-policy reinforcement algorithm which concurrently learns a Q-function and uses this Q-function to train a policy in the state space. For more information, click <a class="reference external" href="https://arxiv.org/abs/1509.02971v6">here</a>.</p></li>
+</ul>
+<p>Both methods, are model-free, i.e. they use the dynamics of the system as a black box. Currently, learning is possible in the simulation environment.</p>
+<p><strong>Trajectory-based Controllers</strong> act on a precomputed trajectory and ensure that the system follows the trajectory properly. The trajectory-based controllers implemented in this project are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/open_loop">Feed-forward torque Controller</a>: Simple forwarding of a control signal from a precomputed trajectory.</p></li>
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/pid">Proportional-Integral-Derivative (PID)</a>: A controller reacting to the position error, integrated error and error derivative to a precomputed trajectory.</p></li>
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/tvlqr">Time-varying Linear Quadreatic Regulator (tvLQR)</a>: A controller which linearizes the system dynamics at every timestep around the precomputed trajectory and uses LQR to drive the system towards this nominal trajectory.</p></li>
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/ilqr">Model predictive control with iLQR</a>: A controller which performs an iLQR optimization at every timestep and executes the first control signal of the computed optimal trajectory.</p></li>
+</ul>
+<p>Feedforward and PID controller operate model independent, while the TVLQR and iLQR MPC controllers utilize knowledge about the pendulum model. In contrast to the others, the iLQR MPC controller optimizes over a predefined horizon at every timestep.</p>
+<p><strong>Policy-based Controllers</strong> take the state of the system as input and ouput a control signal. In contrast to trajectory optimization, these controllers do not compute just a single trajectory. Instead, they react to the current state of the pendulum and because of this they can cope with perturbations during the execution. The following policy-based controllers are implemented:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/gravity_compensation">Gravity Compensation</a>: A controller compensating the gravitational force acting on the pendulum. The pendulum can be moved as if it was in zero-g.</p></li>
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/energy_shaping">Energy Shaping</a>: A controller regulating the energy of the pendulum. Drives the pendulum towards a desired energy level.</p></li>
+<li><p><a class="reference external" href="software/python/simple_pendulum/controllers/lqr">Linear Quadratic Regulator (LQR)</a>: Linearizes the dynamics around a fixed point and drives the pendulum towards the fixpoint with a quadratic cost function. Only useable in a state space region around the fixpoint.</p></li>
+</ul>
+<p>All of these controllers utilize model knowledge. Additionally, the control policies, obtained by one of the RL methods, fall in the category of policy-based control.</p>
+<p>The implementations of direct collocation and TVLQR make use of <a class="reference external" href="https://drake.mit.edu/doxygen_cxx/">drake</a>, iLQR makes use of the symbolic library of drake or sympy, FDDP makes use of <a class="reference external" href="https://gepettoweb.laas.fr/doc/loco-3d/crocoddyl/master/doxygen-html/">Crocoddyl</a>, SAC uses the <a class="reference external" href="https://stable-baselines3.readthedocs.io/en/master/">stable-baselines3</a> implementation and DDPG is implemented in <a class="reference external" href="https://www.tensorflow.org/">Tensorflow</a>. The other methods use only standard libraries.</p>
+<p>The controllers can be benchmarked in simulation with a set of predefined <a class="reference external" href="software/python/simple_pendulum/analysis">criteria</a>.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/benchmark_barplot.png"><img alt="_images/benchmark_barplot.png" src="_images/benchmark_barplot.png" style="width: 80%;" /></a>
+</figure>
+</section>
+<section id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline"></a></h2>
+<p>Project Supervisor:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html">Shivesh Kumar</a></p></li>
+</ul>
+<p>Software Maintainer:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html">Felix Wiebe</a></p></li>
+</ul>
+<p>Hardware Maintainer:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://robotik.dfki-bremen.de/en/about-us/staff/joba02.html">Jonathan Babel</a></p></li>
+</ul>
+<p>Contributors:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://robotik.dfki-bremen.de/en/about-us/staff/daha03.html">Daniel Harnack</a></p></li>
+<li><p><a class="reference external" href="https://robotik.dfki-bremen.de/en/about-us/staff/hepe02.html">Heiner Peters</a></p></li>
+<li><p><a class="reference external" href="https://robotik.dfki-bremen.de/en/about-us/staff/shvy01/">Shubham Vyas</a></p></li>
+<li><p><a class="reference external" href="https://robotik.dfki-bremen.de/en/about-us/staff/mebo01/">Melya Boukheddimi</a></p></li>
+<li><p><a class="reference external" href="https://robotik.dfki-bremen.de/en/about-us/staff/mipo02/">Mihaela Popescu</a></p></li>
+</ul>
+<p>Feel free to contact us if you have questions about the test bench. Enjoy!</p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline"></a></h2>
+<ol class="arabic">
+<li><p><a class="reference external" href="https://github.com/yourname/yourproject/fork">Fork it</a></p></li>
+<li><p>Create your feature branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">feature</span><span class="o">/</span><span class="n">fooBar</span>
+</pre></div>
+</div>
+</li>
+<li><p>Commit your changes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">am</span> <span class="s1">&#39;Add some fooBar&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Push to the branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">feature</span><span class="o">/</span><span class="n">fooBar</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create a new Pull Request</p></li>
+</ol>
+<p>See <a class="reference internal" href="chapters/11.contributing.html#how-to-contribute"><span class="std std-ref">How to Contribute</span></a> for more details.</p>
+</section>
+<section id="safety-notes">
+<h2>Safety Notes<a class="headerlink" href="#safety-notes" title="Permalink to this headline"></a></h2>
+<p>When working with a real system be careful and mind the following safety measures:</p>
+<ul class="simple">
+<li><p>Brushless motors can be very powerful, moving with tremendous force and speed. Always limit the range of motion, power, force and speed using configurable parameters, current limited supplies, and mechanical design.</p></li>
+<li><p>Stay away from the plane in which pendulum is swinging. It is recommended to have a safety net surrounding the pendulum in case the pendulum flies away.</p></li>
+<li><p>Make sure you have access to emergency stop while doing experiments. Be extra careful while operating in pure torque control loop.</p></li>
+</ul>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline"></a></h2>
+<p>This work has been performed in the VeryHuman project funded by the German Aerospace Center (DLR) with federal funds (Grant Number: FKZ 01IW20004) from the Federal Ministry of Education and Research (BMBF) and is additionally supported with project funds from the federal state of Bremen for setting up the Underactuated Robotics Lab (Grant Number: 201-001-10-3/2021-3-2).</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h2>
+<p>This work has been released under the BSD 3-Clause License. Details and terms of use are specified in the LICENSE file within this repository. Note that we do not publish third-party software, hence software packages from other developers are released under their very own terms and conditions, e.g. Stable baselines (MIT License) and Tensorflow (Apache License v2.0). If you install third-party software packages along with this repo ensure  that you follow each individual license agreement.</p>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline"></a></h2>
+<p>Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner. Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. In: Journal of Open Source Software (JOSS) (submitted).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the Torque-limited Simple Pendulum documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="chapters/00.installation_guide.html" class="btn btn-neutral float-right" title="Installation Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

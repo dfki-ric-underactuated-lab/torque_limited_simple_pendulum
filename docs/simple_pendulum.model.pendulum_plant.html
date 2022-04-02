@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pendulum Plant &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="simple_pendulum.model.system_identification.html" />
+    <link rel="prev" title="Parameters" href="simple_pendulum.model.parameters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="simple_pendulum.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.model.parameters.html">Parameters</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Pendulum Plant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.model.unit_test.html">Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.simulation.html"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.utilities.html"><code class="docutils literal notranslate"><span class="pre">Utilities</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="simple_pendulum.html">API Reference</a> &raquo;</li>
+          <li><a href="simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a> &raquo;</li>
+      <li>Pendulum Plant</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/simple_pendulum.model.pendulum_plant.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-simple_pendulum.model.pendulum_plant"></span><section id="pendulum-plant">
+<h1>Pendulum Plant<a class="headerlink" href="#pendulum-plant" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PendulumPlant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coulomb_fric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The PendulumPlant class contains the kinematics and dynamics
+of the simple pendulum.</p>
+<dl class="simple">
+<dt>The state of the pendulum in this class is described by</dt><dd><p>state = [angle, angular velocity]
+(array like with len(state)=2)
+in units: rad and rad/s</p>
+</dd>
+</dl>
+<p>The zero state of the angle corresponds to the pendulum hanging down.
+The plant expects an actuation input (tau) either as float or
+array like in units Nm.
+(in which case the first entry is used (which should be a float))</p>
+<dl class="simple">
+<dt>mass<span class="classifier">float, default=1.0</span></dt><dd><p>pendulum mass, unit: kg</p>
+</dd>
+<dt>length<span class="classifier">float, default=0.5</span></dt><dd><p>pendulum length, unit: m</p>
+</dd>
+<dt>damping<span class="classifier">float, default=0.1</span></dt><dd><p>damping factor (proportional to velocity), unit: kg*m/s</p>
+</dd>
+<dt>gravity<span class="classifier">float, default=9.81</span></dt><dd><p>gravity (positive direction points down), unit: m/s^2</p>
+</dd>
+<dt>coulomb_fric<span class="classifier">float, default=0.0</span></dt><dd><p>friction term, (independent of magnitude of velocity), unit: Nm</p>
+</dd>
+<dt>inertia<span class="classifier">float, default=None</span></dt><dd><p>inertia of the pendulum (defaults to point mass inertia)
+unit: kg*m^2</p>
+</dd>
+<dt>torque_limit: float, default=np.inf</dt><dd><p>maximum torque that the motor can apply, unit: Nm</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.load_params_from_file">
+<span class="sig-name descname"><span class="pre">load_params_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.load_params_from_file" title="Permalink to this definition"></a></dt>
+<dd><p>Load the pendulum parameters from a yaml file.</p>
+<dl class="simple">
+<dt>filepath<span class="classifier">string</span></dt><dd><p>path to yaml file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.forward_kinematics">
+<span class="sig-name descname"><span class="pre">forward_kinematics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.forward_kinematics" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the forward kinematics.</p>
+<p>pos : float, angle of the pendulum</p>
+<dl class="simple">
+<dt>list<span class="classifier">A list containing one list (for one end-effector)</span></dt><dd><p>The inner list contains the x and y coordinates
+for the end-effector of the pendulum</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.inverse_kinematics">
+<span class="sig-name descname"><span class="pre">inverse_kinematics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ee_pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.inverse_kinematics" title="Permalink to this definition"></a></dt>
+<dd><p>Comutes inverse kinematics</p>
+<dl class="simple">
+<dt>ee_pos<span class="classifier">array like,</span></dt><dd><p>len(state)=2
+contains the x and y position of the end_effector
+floats, units: m</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>pos<span class="classifier">float</span></dt><dd><p>angle of the pendulum, unit: rad</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.forward_dynamics">
+<span class="sig-name descname"><span class="pre">forward_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.forward_dynamics" title="Permalink to this definition"></a></dt>
+<dd><p>Computes forward dynamics</p>
+<dl class="simple">
+<dt>state<span class="classifier">array like</span></dt><dd><p>len(state)=2
+The state of the pendulum [angle, angular velocity]
+floats, units: rad, rad/s</p>
+</dd>
+<dt>tau<span class="classifier">float</span></dt><dd><p>motor torque, unit: Nm</p>
+</dd>
+</dl>
+<blockquote>
+<div><ul class="simple">
+<li><p>float, angular acceleration, unit: rad/s^2</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.inverse_dynamics">
+<span class="sig-name descname"><span class="pre">inverse_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.inverse_dynamics" title="Permalink to this definition"></a></dt>
+<dd><p>Computes inverse dynamics</p>
+<dl class="simple">
+<dt>state<span class="classifier">array like</span></dt><dd><p>len(state)=2
+The state of the pendulum [angle, angular velocity]
+floats, units: rad, rad/s</p>
+</dd>
+<dt>accn<span class="classifier">float</span></dt><dd><p>angular acceleration, unit: rad/s^2</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>tau<span class="classifier">float</span></dt><dd><p>motor torque, unit: Nm</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.rhs">
+<span class="sig-name descname"><span class="pre">rhs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.rhs" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the integrand of the equations of motion.</p>
+<dl class="simple">
+<dt>t<span class="classifier">float</span></dt><dd><p>time, not used (the dynamics of the pendulum are time independent)</p>
+</dd>
+<dt>state<span class="classifier">array like</span></dt><dd><p>len(state)=2
+The state of the pendulum [angle, angular velocity]
+floats, units: rad, rad/s</p>
+</dd>
+<dt>tau<span class="classifier">float or array like</span></dt><dd><p>motor torque, unit: Nm</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>res<span class="classifier">array like</span></dt><dd><p>the integrand, contains [angular velocity, angular acceleration]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.potential_energy">
+<span class="sig-name descname"><span class="pre">potential_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.potential_energy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.kinetic_energy">
+<span class="sig-name descname"><span class="pre">kinetic_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.kinetic_energy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.total_energy">
+<span class="sig-name descname"><span class="pre">total_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.total_energy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simple_pendulum.model.parameters.html" class="btn btn-neutral float-left" title="Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.model.system_identification.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

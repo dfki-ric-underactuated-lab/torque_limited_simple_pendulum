@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAC Trainer &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Simulation" href="simple_pendulum.simulation.html" />
+    <link rel="prev" title="Soft Actor Critic (SAC) Training" href="simple_pendulum.reinforcement_learning.sac.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="simple_pendulum.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.html">Deep Determininstic Policy Gradient (DDPG) Training</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="simple_pendulum.reinforcement_learning.sac.html">Soft Actor Critic (SAC) Training</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">SAC Trainer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.simulation.html"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.utilities.html"><code class="docutils literal notranslate"><span class="pre">Utilities</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="simple_pendulum.html">API Reference</a> &raquo;</li>
+          <li><a href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a> &raquo;</li>
+          <li><a href="simple_pendulum.reinforcement_learning.sac.html">Soft Actor Critic (SAC) Training</a> &raquo;</li>
+      <li>SAC Trainer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/simple_pendulum.reinforcement_learning.sac.sac.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-simple_pendulum.reinforcement_learning.sac.sac"></span><section id="sac-trainer">
+<h1>SAC Trainer<a class="headerlink" href="#sac-trainer" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.sac.sac.sac_trainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sac_trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sac_training'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.sac.sac.sac_trainer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to train a policy for pendulum swingup with the
+state actor critic (sac) method.</p>
+<dl class="simple">
+<dt>log_dir<span class="classifier">string, default=”sac_training”</span></dt><dd><p>path to directory where results and log data will be stored</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.sac.sac.sac_trainer.init_pendulum">
+<span class="sig-name descname"><span class="pre">init_pendulum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.57288</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coulomb_friction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.sac.sac.sac_trainer.init_pendulum" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the pendulum parameters.</p>
+<dl class="simple">
+<dt>mass<span class="classifier">float, default=0.57288</span></dt><dd><p>mass of the pendulum [kg]</p>
+</dd>
+<dt>length<span class="classifier">float, default=0.5</span></dt><dd><p>length of the pendulum [m]</p>
+</dd>
+<dt>inertia<span class="classifier">float, default=None</span></dt><dd><p>inertia of the pendulum [kg m^2]
+defaults to point mass inertia (mass*length^2)</p>
+</dd>
+<dt>damping<span class="classifier">float, default=0.15</span></dt><dd><p>damping factor of the pendulum [kg m/s]</p>
+</dd>
+<dt>coulomb_friction<span class="classifier">float, default=0.0</span></dt><dd><p>coulomb friciton of the pendulum [Nm]</p>
+</dd>
+<dt>gravity<span class="classifier">float, default=9.81</span></dt><dd><p>gravity (positive direction points down) [m/s^2]</p>
+</dd>
+<dt>torque_limit<span class="classifier">float, default=2.0</span></dt><dd><p>the torque_limit of the pendulum actuator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.sac.sac.sac_trainer.init_environment">
+<span class="sig-name descname"><span class="pre">init_environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runge_kutta'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'soft_binary_with_repellor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validation_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3.141592653589793,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_target_epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01,</span> <span class="pre">0.01]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'everywhere'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.sac.sac.sac_trainer.init_environment" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the training environment.
+This includes the simulation parameters of the pendulum.</p>
+<dl>
+<dt>dt<span class="classifier">float, default=0.01</span></dt><dd><p>time step [s]</p>
+</dd>
+<dt>integrator: string</dt><dd><p>integration method to be used
+“euler” for euler integrator,
+“runge_kutta” for Runge-Kutta integrator</p>
+</dd>
+<dt>max_steps<span class="classifier">int, default=1000</span></dt><dd><p>maximum number of timesteps for one training episode
+i.e. One episode lasts at most max_stepd*dt seconds</p>
+</dd>
+<dt>reward_type<span class="classifier">string, default=soft_binary_with_repellor</span></dt><dd><p>string which defines the reward function
+options are: ‘continuous’, ‘discrete’, ‘soft_binary’,</p>
+<blockquote>
+<div><p>‘soft_binary_with_repellor’</p>
+</div></blockquote>
+</dd>
+<dt>state_representation<span class="classifier">int, default=2</span></dt><dd><p>determines how the state space of the pendulum is represented
+state_representation=2 means state = [position, velocity]
+state_representation=3 means state = [cos(position),</p>
+<blockquote>
+<div><p>sin(position),
+velocity]</p>
+</div></blockquote>
+</dd>
+<dt>target<span class="classifier">array-like, default=[np.pi, 0.0]</span></dt><dd><p>The target state of the pendulum</p>
+</dd>
+<dt>state_target_epsilon<span class="classifier">array-like, default=[1e-2, 1e-2]</span></dt><dd><p>In this vicinity the target counts as reached.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.sac.sac.sac_trainer.init_agent">
+<span class="sig-name descname"><span class="pre">init_agent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0003</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warm_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warm_start_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.sac.sac.sac_trainer.init_agent" title="Permalink to this definition"></a></dt>
+<dd><p>Initilize the agent.</p>
+<dl class="simple">
+<dt>learning_rate<span class="classifier">float, default=0.0003</span></dt><dd><p>learning rate of the agent</p>
+</dd>
+<dt>warm_start<span class="classifier">bool, default=False</span></dt><dd><p>whether to use a pretrained model as initial model
+for training</p>
+</dd>
+<dt>warm_start_path<span class="classifier">string, default=””</span></dt><dd><p>path to the model to load for warm start if warm_start==True</p>
+</dd>
+<dt>verbose<span class="classifier">int, default=1</span></dt><dd><p>enable/disable printing of training progression to terminal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.sac.sac.sac_trainer.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_timesteps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_eval_episodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.sac.sac.sac_trainer.train" title="Permalink to this definition"></a></dt>
+<dd><p>Train the agent and save the model.
+The model will be saved to os.path.join(self.logdir, “best_model”).</p>
+<dl class="simple">
+<dt>training_timesteps<span class="classifier">int, default=1e6</span></dt><dd><p>total number of training steps.
+After training_steps steps the training terminates</p>
+</dd>
+<dt>reward_threshold<span class="classifier">float, default=1000.0</span></dt><dd><p>If the evaluation of the agent surpasses this reward_threshold
+the training terminates early</p>
+</dd>
+<dt>n_eval_episodes<span class="classifier">int, default=20</span></dt><dd><p>number of episodes used during evaluation</p>
+</dd>
+<dt>verbose<span class="classifier">int, default=1</span></dt><dd><p>enable/disable printing of training progression to terminal</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simple_pendulum.reinforcement_learning.sac.html" class="btn btn-neutral float-left" title="Soft Actor Critic (SAC) Training" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.simulation.html" class="btn btn-neutral float-right" title="Simulation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

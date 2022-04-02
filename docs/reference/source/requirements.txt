@@ -1,7 +1,0 @@
-# SPHINX DEPENDENCIES
-Sphinx>=4.1.2
-better-apidoc>=0.3.2
-sphinxcontrib-bibtex>=2.4.1
-
-# SPHINX THEME
-sphinx-rtd-theme>=0.5.2

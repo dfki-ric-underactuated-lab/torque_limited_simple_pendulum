@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation Guide &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Usage Instructions" href="01.usage_instructions.html" />
+    <link rel="prev" title="Introduction" href="../intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="../_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-this-python-package">Installing this Python Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instructions-for-ubuntu-18-04-5-and-20-04-2-0-lts">Instructions for Ubuntu (18.04.5 and 20.04.2.0 LTS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pyenv-virtual-environment-for-python">Pyenv: Virtual environment for Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-python-into-pyenv">Installing Python into Pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-virtual-environment-with-pyenv">Creating a Virtual Environment with Pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-pip3">Installing pip3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-requirements-for-this-repository">Install Requirements for this Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-gepetto-viewer">OPTIONAL: Gepetto Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_pendulum.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Installation Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/chapters/00.installation_guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Permalink to this headline"></a></h1>
+<p>In order to execute the python code within the repository you will need to have <cite>Python (&gt;=3.6, &lt;4)</cite> along with the package installer <cite>pip3</cite> on your system installed.</p>
+<ul class="simple">
+<li><p><strong>python (&gt;=3.6, &lt;4)</strong></p></li>
+<li><p><strong>pip3</strong></p></li>
+</ul>
+<p>If you aren’t running a suitable python version currently on your system, we recommend you to install the required python version inside of an virtual environment for python (<strong>pyenv</strong>) and to install all python packages necessary to use this repo afterwards inside a newly created virtual environment (<strong>virtualenv</strong>). The installation procedure for Ubuntu (18.04.5 and 20.04.2.0 LTS) are described in the next section. You can find instructions for MacOS and other Linux distributions, as well as information about common build problems here:</p>
+<ul class="simple">
+<li><p><strong>pyenv:</strong> <a class="reference external" href="https://github.com/pyenv/pyenv">https://github.com/pyenv/pyenv</a></p></li>
+<li><p><strong>virtualenv:</strong> <a class="reference external" href="https://github.com/pyenv/pyenv-virtualenv">https://github.com/pyenv/pyenv-virtualenv</a></p></li>
+</ul>
+<section id="installing-this-python-package">
+<h2>Installing this Python Package<a class="headerlink" href="#installing-this-python-package" title="Permalink to this headline"></a></h2>
+<p>If you want to install this package with your system python version, you can do that by going to the directory <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python">software/python</a> and typing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Note: This has to be repeated if you make changes to the code (besides the scripts).</p>
+</section>
+<section id="instructions-for-ubuntu-18-04-5-and-20-04-2-0-lts">
+<h2>Instructions for Ubuntu (18.04.5 and 20.04.2.0 LTS)<a class="headerlink" href="#instructions-for-ubuntu-18-04-5-and-20-04-2-0-lts" title="Permalink to this headline"></a></h2>
+<p>The instructions provide assistance in the setup procedure, but with regards to the software <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/LICENSE">LICENSE</a> they are provided without warranty of any kind. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, arising from, out of or in connection with the software or the use or other dealings in the software.</p>
+<ol class="arabic">
+<li><p>Clone this repo from GitHub, in case you haven’t done it yet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">dfki</span><span class="o">-</span><span class="n">ric</span><span class="o">-</span><span class="n">underactuated</span><span class="o">-</span><span class="n">lab</span><span class="o">/</span><span class="n">torque_limited_simple_pendulum</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check your Python version with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>If you are already using suitable Python 3.6 version jump directly to step <cite>Creating a Virtual Environment</cite> otherwise continue here and first install a virtual environment for python.</p>
+</section>
+<section id="pyenv-virtual-environment-for-python">
+<h2>Pyenv: Virtual environment for Python<a class="headerlink" href="#pyenv-virtual-environment-for-python" title="Permalink to this headline"></a></h2>
+<p>The following instructions are our recommendations for a sane build environment.</p>
+<ol class="arabic">
+<li><p>Make sure to have installed python’s binary dependencies and build tools as per:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">libbz2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">wget</span> <span class="n">curl</span> <span class="n">llvm</span>
+<span class="n">libncursesw5</span><span class="o">-</span><span class="n">dev</span> <span class="n">xz</span><span class="o">-</span><span class="n">utils</span> <span class="n">tk</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxmlsec1</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">liblzma</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</li>
+<li><p>Once prerequisites have been installed correctly, install Pyenv with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pyenv</span><span class="o">.</span><span class="n">run</span> <span class="o">|</span> <span class="n">bash</span>
+</pre></div>
+</div>
+</li>
+<li><p>Configure your shell’s environment for Pyenv</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The below instructions are designed for common shell setups. If you have an uncommon setup and they don’t work for you, use the linked guidance to figure out what you need to do in your specific case: <a class="reference external" href="https://github.com/pyenv/pyenv#advanced-configuration">https://github.com/pyenv/pyenv#advanced-configuration</a></p>
+</div>
+<p>Before editing your <cite>.bashrc</cite> and <cite>.profile</cite> files it is a good idea to &lt;ins&gt;make a copy&lt;/ins&gt; of both files in case something goes wrong. Add pyenv to your <cite>.bashrc</cite> file from the terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">&#39;eval &quot;$(pyenv init -)&quot;&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
+</pre></div>
+</div>
+<p>Add these lines at the beginning of your <cite>.profile</cite> file (not from the terminal):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PYENV_ROOT</span><span class="o">=</span><span class="s2">&quot;$HOME/.pyenv&quot;</span>
+<span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s2">&quot;$PYENV_ROOT/bin:$PATH&quot;</span>
+</pre></div>
+</div>
+<p>and this line at the very end of your <cite>.profile</cite> file (not from the terminal):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span> <span class="s2">&quot;$(pyenv init --path)&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Source <cite>.profile</cite> and <cite>.bashrc</cite>, then restart your shell so the path changes take effect:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>source ~/.profile
+source ~/.bashrc
+
+exec $SHELL
+</pre></div>
+</div>
+</li>
+<li><p>Run <cite>pyenv init -</cite> in your shell, then copy and also execute the output to enable shims:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">init</span> <span class="o">-</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Restart your login session for the changes to take effect. If you’re in a GUI session, you need to fully log out and log back in. You can now begin using pyenv.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Consider uprading to the latest version of Pyenv via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">update</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="installing-python-into-pyenv">
+<h2>Installing Python into Pyenv<a class="headerlink" href="#installing-python-into-pyenv" title="Permalink to this headline"></a></h2>
+<p>You can diplay a list of available Python versions with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">install</span> <span class="o">-</span><span class="n">l</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">ow</span> <span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Install your desired Python version using Pyenv (We suggest 3.6.9 for ubuntu 18.04 and 3.8.10 for ubuntu 20.04):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">install</span> <span class="mf">3.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>Double check your work:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">versions</span>
+</pre></div>
+</div>
+<p>To use Python 3.x only for this specific project change directory to the cloned git repo and type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">local</span> <span class="mf">3.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-a-virtual-environment-with-pyenv">
+<h2>Creating a Virtual Environment with Pyenv<a class="headerlink" href="#creating-a-virtual-environment-with-pyenv" title="Permalink to this headline"></a></h2>
+<p>In order to clutter your system as little as possible all further packages will be installed inside a virtual environment, which can be easily removed at any time. The recommended way to configure your own custom Python environment is via <cite>Virtualenv</cite>.</p>
+<ol class="arabic">
+<li><p>Clone virtualenv from <a class="reference external" href="https://github.com/pyenv/pyenv-virtualenv">https://github.com/pyenv/pyenv-virtualenv</a> into the pyenv-plugin directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+</pre></div>
+</div>
+</li>
+<li><p>Add pyenv virtualenv-init to your shell to enable auto-activation of virtualenvs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">&#39;eval &quot;$(pyenv virtualenv-init -)&quot;&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
+</pre></div>
+</div>
+</li>
+<li><p>Restart your shell to enable pyenv-virtualenv:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exec</span> <span class="s2">&quot;$SHELL&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>To create a new virtual environment, e.g. named simple-pendulum with Python 3.6.9 run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">virtualenv</span> <span class="mf">3.6.9</span> <span class="n">simple</span><span class="o">-</span><span class="n">pendulum</span>
+</pre></div>
+</div>
+</li>
+<li><p>Activate the new virtual environment with the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">activate</span> <span class="n">simple</span><span class="o">-</span><span class="n">pendulum</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>The name of the current virtual environment <cite>(venv)</cite> appears to the left of the prompt, indicating that you are now working inside a virtual environment. When finished working in the virtual environment, you can deactivate it by running the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">deactivate</span>
+</pre></div>
+</div>
+<p>In case that you don’t need the virtual environment anymore, you can deactivate it and remove it together with all previously installed packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">uninstall</span> <span class="n">simple</span><span class="o">-</span><span class="n">pendulum</span>
+</pre></div>
+</div>
+</section>
+<section id="installing-pip3">
+<h2>Installing pip3<a class="headerlink" href="#installing-pip3" title="Permalink to this headline"></a></h2>
+<p>Update the package list inside your recently created virtual environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+</pre></div>
+</div>
+<p>and install pip3 via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+</pre></div>
+</div>
+<p>If you like, you can update pip and verify your the installation by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">pip</span>
+<span class="n">pip3</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+</section>
+<section id="install-requirements-for-this-repository">
+<h2>Install Requirements for this Repository<a class="headerlink" href="#install-requirements-for-this-repository" title="Permalink to this headline"></a></h2>
+<p>Navigate inside your cloned git repo to <cite>/torque_limited_simple_pendulum/software/python</cite> and make sure your virtual environment is active <cite>pyenv activate simple-pendulum</cite>. Now you can install version specific packages for all required packages from the <cite>requirements.txt</cite> file via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol class="arabic simple">
+<li><p>You can generate your own requirements.txt file with this command: <cite>pip freeze &gt; requirements.txt</cite></p></li>
+<li><p>You can skip this step and directly install this package with the setup.py file as described in the next line. This will install the requirement packages as well. The setup.py will not install specific versions of the requirements, that have been tested by us, but instead, it will install the latest version.</p></li>
+</ol>
+</div>
+<p>This package then can be installed from the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python">software/python</a> directory by typing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>This was the final installation step. Your system is now prepared to run all code snippets from this repo. Have fun exploring all kind of different simple pendulum controllers!</p>
+</section>
+<section id="optional-gepetto-viewer">
+<h2>OPTIONAL: Gepetto Viewer<a class="headerlink" href="#optional-gepetto-viewer" title="Permalink to this headline"></a></h2>
+<p>The optimal control library <a class="reference external" href="https://github.com/loco-3d/crocoddyl">Crocoddyl</a> has an interface to the gepetto-viewer for visualization. For installing the gepetto viewer we refer to their <a class="reference external" href="https://github.com/Gepetto/gepetto-viewer-corba">github repository</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../intro.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="01.usage_instructions.html" class="btn btn-neutral float-right" title="Usage Instructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

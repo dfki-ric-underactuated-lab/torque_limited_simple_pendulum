@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Replay Buffer &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Soft Actor Critic (SAC) Training" href="simple_pendulum.reinforcement_learning.sac.html" />
+    <link rel="prev" title="Noise" href="simple_pendulum.reinforcement_learning.ddpg.noise.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="simple_pendulum.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.html">Deep Determininstic Policy Gradient (DDPG) Training</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.agent.html">Agent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.ddpg.html">DDPG Trainer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.noise.html">Noise</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Replay Buffer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.reinforcement_learning.sac.html">Soft Actor Critic (SAC) Training</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.simulation.html"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.utilities.html"><code class="docutils literal notranslate"><span class="pre">Utilities</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="simple_pendulum.html">API Reference</a> &raquo;</li>
+          <li><a href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a> &raquo;</li>
+          <li><a href="simple_pendulum.reinforcement_learning.ddpg.html">Deep Determininstic Policy Gradient (DDPG) Training</a> &raquo;</li>
+      <li>Replay Buffer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/simple_pendulum.reinforcement_learning.ddpg.replay_buffer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-simple_pendulum.reinforcement_learning.ddpg.replay_buffer"></span><section id="replay-buffer">
+<h1>Replay Buffer<a class="headerlink" href="#replay-buffer" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ReplayBuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Replay buffer class to store experiences for a
+reinforcement learning agent.</p>
+<dl class="simple">
+<dt>max_size: int</dt><dd><p>maximum number of experiences to store in the repleay buffer.
+When adding experiences beyond this limit, the first entry
+is deleted.</p>
+</dd>
+<dt>num_state: int</dt><dd><p>the dimension of the state space</p>
+</dd>
+<dt>num_actions: int</dt><dd><p>the dimension of the action space</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs_tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.append" title="Permalink to this definition"></a></dt>
+<dd><p>Add an experience to the replay buffer.
+When adding experiences beyond the max_size limit,
+the first entry is deleted.
+An observation consists of (state, action, next_state, reward, done)</p>
+<dl class="simple">
+<dt>obs_tuple: array-like</dt><dd><p>an observation (s,a,s’,r,d) to store in the buffer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.sample_batch">
+<span class="sig-name descname"><span class="pre">sample_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.sample_batch" title="Permalink to this definition"></a></dt>
+<dd><p>Sample a batch from the replay buffer.</p>
+<dl class="simple">
+<dt>batch_size: int</dt><dd><p>number of samples in the returned batch</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>tuple</dt><dd><p>(s_batch,a_batch,s’_batch,r_batch,d_batch)
+a tuple of batches of state, action, reward, next_state, done</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.clear" title="Permalink to this definition"></a></dt>
+<dd><p>Clear the Replay Buffer.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simple_pendulum.reinforcement_learning.ddpg.noise.html" class="btn btn-neutral float-left" title="Noise" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.reinforcement_learning.sac.html" class="btn btn-neutral float-right" title="Soft Actor Critic (SAC) Training" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

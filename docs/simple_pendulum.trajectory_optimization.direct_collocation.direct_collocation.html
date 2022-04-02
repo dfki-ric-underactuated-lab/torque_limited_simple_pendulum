@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Direct Collocation Calculator &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Unit Tests" href="simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html" />
+    <link rel="prev" title="Direct Collocation" href="simple_pendulum.trajectory_optimization.direct_collocation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="simple_pendulum.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.simulation.html"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ddp.html">DDP</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.html">Direct Collocation</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Direct Collocation Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html">Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.html">iLQR</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.utilities.html"><code class="docutils literal notranslate"><span class="pre">Utilities</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="simple_pendulum.html">API Reference</a> &raquo;</li>
+          <li><a href="simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a> &raquo;</li>
+          <li><a href="simple_pendulum.trajectory_optimization.direct_collocation.html">Direct Collocation</a> &raquo;</li>
+      <li>Direct Collocation Calculator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation"></span><section id="direct-collocation-calculator">
+<h1>Direct Collocation Calculator<a class="headerlink" href="#direct-collocation-calculator" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DirectCollocationCalculator</span></span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to calculate a control trajectory with direct collocation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.init_pendulum">
+<span class="sig-name descname"><span class="pre">init_pendulum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.57288</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.init_pendulum" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the pendulum parameters.</p>
+<dl class="simple">
+<dt>mass<span class="classifier">float, default=0.57288</span></dt><dd><p>mass of the pendulum [kg]</p>
+</dd>
+<dt>length<span class="classifier">float, default=0.5</span></dt><dd><p>length of the pendulum [m]</p>
+</dd>
+<dt>damping<span class="classifier">float, default=0.15</span></dt><dd><p>damping factor of the pendulum [kg m/s]</p>
+</dd>
+<dt>gravity<span class="classifier">float, default=9.81</span></dt><dd><p>gravity (positive direction points down) [m/s^2]</p>
+</dd>
+<dt>torque_limit<span class="classifier">float, default=2.0</span></dt><dd><p>the torque_limit of the pendulum actuator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.compute_trajectory">
+<span class="sig-name descname"><span class="pre">compute_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.0,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3.141592653589793,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_x_trajectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.compute_trajectory" title="Permalink to this definition"></a></dt>
+<dd><p>Compute a trajectory from a start state to a goal state
+for the pendulum.</p>
+<dl class="simple">
+<dt>N<span class="classifier">int, default=21</span></dt><dd><p>number of collocation points</p>
+</dd>
+<dt>max_dt<span class="classifier">float, default=0.5</span></dt><dd><p>maximum allowed timestep between collocation points</p>
+</dd>
+<dt>start_state<span class="classifier">array_like, default=[0.0, 0.0]</span></dt><dd><p>the start state of the pendulum [position, velocity]</p>
+</dd>
+<dt>goal_state<span class="classifier">array_like, default=[np.pi, 0.0]</span></dt><dd><p>the goal state for the trajectory</p>
+</dd>
+<dt>initial_x_trajectory<span class="classifier">array-like, default=None</span></dt><dd><p>initial guess for the state space trajectory
+ignored if None</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x_trajectory<span class="classifier">pydrake.trajectories.PiecewisePolynomial</span></dt><dd><p>trajectory in state space</p>
+</dd>
+<dt>dircol<span class="classifier">pydrake.systems.trajectory_optimization.DirectCollocation</span></dt><dd><p>DirectCollocation pydrake object</p>
+</dd>
+<dt>result<span class="classifier">pydrake.solvers.mathematicalprogram.MathematicalProgramResult</span></dt><dd><p>MathematicalProgramResult pydrake object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.plot_phase_space_trajectory">
+<span class="sig-name descname"><span class="pre">plot_phase_space_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_trajectory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.plot_phase_space_trajectory" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the computed trajectory in phase space.</p>
+<dl class="simple">
+<dt>x_trajectory<span class="classifier">pydrake.trajectories.PiecewisePolynomial</span></dt><dd><p>the trajectory returned from the compute_trajectory function.</p>
+</dd>
+<dt>save_to<span class="classifier">string, default=None</span></dt><dd><p>string pointing to the location where the figure is supposed
+to be stored. If save_to==None, the figure is not stored but shown
+in a window instead.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.extract_trajectory">
+<span class="sig-name descname"><span class="pre">extract_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_trajectory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dircol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">801</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.extract_trajectory" title="Permalink to this definition"></a></dt>
+<dd><p>Extract time, position, velocity and control trajectories from
+the outputs of the compute_trajectory function.</p>
+<dl class="simple">
+<dt>x_trajectory<span class="classifier">pydrake.trajectories.PiecewisePolynomial</span></dt><dd><p>trajectory in state space</p>
+</dd>
+<dt>dircol<span class="classifier">pydrake.systems.trajectory_optimization.DirectCollocation</span></dt><dd><p>DirectCollocation pydrake object</p>
+</dd>
+<dt>result<span class="classifier">pydrake.solvers.mathematicalprogram.MathematicalProgramResult</span></dt><dd><p>MathematicalProgramResult pydrake object</p>
+</dd>
+<dt>N<span class="classifier">int, default=801</span></dt><dd><p>The number of sampling points of the returned trajectories</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>time_traj<span class="classifier">array_like</span></dt><dd><p>the time trajectory</p>
+</dd>
+<dt>theta<span class="classifier">array_like</span></dt><dd><p>the position trajectory</p>
+</dd>
+<dt>theta_dot<span class="classifier">array_like</span></dt><dd><p>the velocity trajectory</p>
+</dd>
+<dt>torque_traj<span class="classifier">array_like</span></dt><dd><p>the control (torque) trajectory</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simple_pendulum.trajectory_optimization.direct_collocation.html" class="btn btn-neutral float-left" title="Direct Collocation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html" class="btn btn-neutral float-right" title="Unit Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

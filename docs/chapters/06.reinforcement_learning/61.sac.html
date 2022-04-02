@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soft Actor Critic Training &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Deep Deterministic Policy Gradient Training" href="62.ddpg.html" />
+    <link rel="prev" title="Reinforcement Learning" href="../06.reinforcement_learning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="../../_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../06.reinforcement_learning.html">Reinforcement Learning</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Soft Actor Critic Training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="62.ddpg.html">Deep Deterministic Policy Gradient Training</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../06.reinforcement_learning.html">Reinforcement Learning</a> &raquo;</li>
+      <li>Soft Actor Critic Training</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/chapters/06.reinforcement_learning/61.sac.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="soft-actor-critic-training">
+<h1>Soft Actor Critic Training<a class="headerlink" href="#soft-actor-critic-training" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Type: Closed loop, learning based, model free</p>
+<p>State/action space constraints: None</p>
+<p>Optimal: Yes</p>
+<p>Versatility: Swing-up and stabilization</p>
+</div>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<p>The soft actor critic (SAC) algorithm is a reinforcement learning (RL)
+method. It belongs to the class of so called ‘model free’
+methods, i.e. no knowledge about the system to be controlled is
+assumed. Instead, the controller is trained via interaction with
+the system, such that a (sub-)optimal mapping from state space
+to control command is learned. The learning process is guided by
+a reward function that encodes the task, similar to the usage of
+cost functions in optimal control.</p>
+<p>SAC has two defining features.
+Firstly, the mapping from state space to control command is probabilistic.
+Secondly, the entropy of the contol output is maximized along with the reward
+function during training.
+In theory, this leads to robust controllers and reduces the probability of
+ending up in suboptimal local minima.</p>
+<p>For more information on SAC please refer to the original paper <a class="reference external" href="https://arxiv.org/abs/1801.01290">[1]</a>:</p>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<p>The sac trainer can be initialized with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">sac_trainer</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;log_data/sac_training&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>During and after the training process the trainer will save logging data as well the best model in the directory provided via the <code class="docutils literal notranslate"><span class="pre">log_dir</span></code> parameter.</p>
+<p>Before the training can be started the following three initialisations have to be made:</p>
+<blockquote>
+<div><p>trainer.init_pendulum()
+trainer.init_environment()
+trainer.init_agent()</p>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Attention</strong> Make sure to call these functions in this order as they build upon another.</p>
+</div>
+<p>The parameters of <code class="docutils literal notranslate"><span class="pre">init_pendulum</span></code> are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mass</span></code>: mass of the pendulum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">length</span></code>: length of the pendulum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inertia</span></code>: inertia of the pendulum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">damping</span></code>: damping of the pendulum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coulomb_friction</span></code>: coulomb_friction of the pendulum</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gravity</span></code>: gravity</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torque_limit</span></code>: torque limit of the pendulum</p></li>
+</ul>
+<p>The parameters of <code class="docutils literal notranslate"><span class="pre">init_environment</span></code> are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dt</span></code>: timestep in seconds</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">integrator</span></code>: which integrator to use (<code class="docutils literal notranslate"><span class="pre">euler</span></code> or <code class="docutils literal notranslate"><span class="pre">runge_kutta</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_steps</span></code>: maximum number of timesteps the agent can take in one episode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reward_type</span></code>: Type of reward to use receive from the environment (<code class="docutils literal notranslate"><span class="pre">continuous</span></code>, <code class="docutils literal notranslate"><span class="pre">discrete</span></code>, <code class="docutils literal notranslate"><span class="pre">soft_binary</span></code>, <code class="docutils literal notranslate"><span class="pre">soft_binary_with_repellor</span></code> and <code class="docutils literal notranslate"><span class="pre">open_ai_gym</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>: the target state ([np.pi, 0] for swingup)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state_target_epsilon</span></code>: the region around the target which is considered as target</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">random_init</span></code>: How the pendulum is initialized in the beginning of each episode (<code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">start_vicinity</span></code>, <code class="docutils literal notranslate"><span class="pre">everywhere</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">state_representation</span></code>: How to represent the state of the pendulum (should be 2 or 3). 2 for regular representation (position, velocity). 3 for trigonometric representation (cos(position), sin(position), velocity).</p></li>
+</ul>
+<p>The parameters of <code class="docutils literal notranslate"><span class="pre">init_agent</span></code> are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>: learning_rate of the agent</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warm_start</span></code>: whether to warm_start the agent</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warm_start_path</span></code>: path to a model to load for warm starting</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>: Whether to print training information to the terminal</p></li>
+</ul>
+<p>After these initialisations the training can be started with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_timesteps</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span>
+              <span class="n">reward_threshold</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+              <span class="n">eval_frequency</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+              <span class="n">n_eval_episodes</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+              <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where the parameters are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">training_timesteps</span></code>: Number of timesteps to train</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reward_threshold</span></code>: Validation threshold to stop training early</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eval_frequency</span></code>: evaluate the model every <code class="docutils literal notranslate"><span class="pre">eval_frequency</span></code> timesteps</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_eval_episodes</span></code>: number of evaluation episodes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code>: Whether to print training information to the terminal</p></li>
+</ul>
+<p>When finished the train method will save the best model in the <code class="docutils literal notranslate"><span class="pre">log_dir</span></code> of the trainer object.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Attention</strong>: when training is started,
+the log_dir will be deleted. So if you want to keep a trained
+model, move the saved files somewhere else.</p>
+</div>
+<p>The training progress can be observed with tensorboard. Start a new terminal and start the tensorboard with the correct path, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$&gt; tensorboard --logdir log_data/sac_training/tb_logs
+</pre></div>
+</div>
+<p>The default reward function used during training is <code class="docutils literal notranslate"><span class="pre">soft_binary_with_repellor</span></code></p>
+<div class="math">
+<p><img src="../../_images/math/7328ec6727beeeb4d7287c124940654fb81c813d.svg" alt="r =  \exp{-(\theta - \pi)^2/(2*0.25^2)} - \exp{-(\theta - 0)^2/(2*0.25^2)}"/></p>
+</div><p>This encourages moving away from the stable fixed point of the system
+at <img class="math" src="../../_images/math/109ffdd25f4d03b396550bcee7b0a44b1d1ae8a6.svg" alt="\theta = 0"/> and spending most time at the target, the unstable
+fixed point <img class="math" src="../../_images/math/1184d7371127cddc7d82dacb13faacc5959d91e0.svg" alt="\theta = \pi"/>. Different reward functions can be used.
+Novel reward funcitons can be implemented by modifying the <em>swingup_reward</em> method of the training environment with
+an appropriate <em>if</em> clause, and then selecting this reward function in
+the init_environment parameters under the key <em>‘reward_type’</em>. The training
+enviroment is located in <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/simulation/gym_environment.py">gym_environment</a></p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<p>For an example of how to train a sac model see the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/train_sac.py">train_sac.py</a> script in the examples folder.</p>
+<p>The trained model can be used with the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/sac">sac controller</a>.</p>
+</section>
+<section id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
+<p>Todo: comments on training convergence stability</p>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Stable Baselines 3 (<a class="reference external" href="https://github.com/DLR-RM/stable-baselines3">https://github.com/DLR-RM/stable-baselines3</a>)</p></li>
+<li><p>Numpy</p></li>
+<li><p>PyYaml</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<p>[1] [Haarnoja, Tuomas, et al. “Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor.” International conference on machine learning. PMLR, 2018.](<a class="reference external" href="https://arxiv.org/abs/1801.01290">https://arxiv.org/abs/1801.01290</a>)</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../06.reinforcement_learning.html" class="btn btn-neutral float-left" title="Reinforcement Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="62.ddpg.html" class="btn btn-neutral float-right" title="Deep Deterministic Policy Gradient Training" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

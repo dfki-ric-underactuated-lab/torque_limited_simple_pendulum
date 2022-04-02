@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controller Analysis &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Simulator" href="10.simulation.html" />
+    <link rel="prev" title="LQR Control" href="08.policy_based_controllers/83.lqr.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="../_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controller Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#controller-benchmarking">Controller Benchmarking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-controllers">Plotting Controllers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simple_pendulum.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Controller Analysis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/chapters/09.analysis.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="controller-analysis">
+<h1>Controller Analysis<a class="headerlink" href="#controller-analysis" title="Permalink to this headline"></a></h1>
+<section id="controller-benchmarking">
+<h2>Controller Benchmarking<a class="headerlink" href="#controller-benchmarking" title="Permalink to this headline"></a></h2>
+<p>The controller benchmarking class can benchmark the controllers in simulation with respect to a predefined properties.</p>
+<section id="definitions">
+<h3>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline"></a></h3>
+<p>The controller benchmark currently computes the following properties</p>
+<ul class="simple">
+<li><p><strong>Controller Frequency</strong>: How fast can the controller process a pendulum state and return a control output. Measured in calls per second (Hz).</p></li>
+<li><p><strong>Swingup time</strong>: How long does it take for the controller to swing-up the pendulum from the lower fixpoint to the upper fixpoint. Units: Seconds (s)</p></li>
+<li><p><strong>Energy consumption</strong>: How much energy does the controller use during the swingup motion and holding the pendulum stable afterwards. Energy usage is measured by comparing the energy level of the actuated pendulum with a free falling pendulum. Units: Joule (J).</p></li>
+<li><p><strong>Smoothness</strong> measures how much the controller changes the control output during execution. The calculated value is the standard deviation of the differences of all consecutive control signals.</p></li>
+<li><p><strong>Consistency</strong> measures if the controller is able to drive the pendulum to the unstable fixpoint for varying starting positions and velocities. The start position is randomly chosen between [-pi, pi] and the velocity is drawn from the intervall [-3pi/s, 3pi/s].</p></li>
+<li><p><strong>Robustness</strong> tests the controller abilities to recover from perturbations during the swingup motions. The controller is perturbed four times for 1 entire second with a random amount of torque.</p></li>
+<li><p><strong>Sensitivity</strong>: Here the pendulum parameters (mass, length, friction) are modified without using this knowledge in the controller. This tests how sensitive the controller is to the model parameters.</p></li>
+<li><p><strong>Reduced torque limit</strong>: This test checks a list of torque limits to find the minimal torque limit with which the controller is still able to swing-up the pendulum.</p></li>
+</ul>
+</section>
+<section id="api">
+<h3>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h3>
+<p>To initialize the benchmark class do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">simple_pendulum.analysis.benchmark</span> <span class="kn">import</span> <span class="n">benchmarker</span>
+
+<span class="n">ben</span> <span class="o">=</span> <span class="n">benchmarker</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span>
+                  <span class="n">max_time</span><span class="o">=</span><span class="n">max_time</span><span class="p">,</span>
+                  <span class="n">integrator</span><span class="o">=</span><span class="n">integrator</span><span class="p">,</span>
+                  <span class="n">benchmark_iterations</span><span class="o">=</span><span class="n">benchmark_iterations</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where dt is the control frequency, max_time the time of a single motion, integrator the integrator to be used (“euler” or “runge_kutta”, see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/simulation">simulator</a>) and benchmark_iterations is the number iterations that are used to do the benchmark test.</p>
+<p>The parameters of the pendulum can be parsed to the benchmark class with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ben</span><span class="o">.</span><span class="n">init_pendulum</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="n">mass</span><span class="p">,</span>
+                  <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span>
+                  <span class="n">inertia</span><span class="o">=</span><span class="n">inertia</span><span class="p">,</span>
+                  <span class="n">damping</span><span class="o">=</span><span class="n">damping</span><span class="p">,</span>
+                  <span class="n">coulomb_friction</span><span class="o">=</span><span class="n">coulomb_fric</span><span class="p">,</span>
+                  <span class="n">gravity</span><span class="o">=</span><span class="n">gravity</span><span class="p">,</span>
+                  <span class="n">torque_limit</span><span class="o">=</span><span class="n">torque_limit</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The controller to be tested has to be set by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ben</span><span class="o">.</span><span class="n">set_controller</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where controller is a controller inheriting from the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/abstract_controller.py">abstract controller class</a>.</p>
+<p>The benmark calculations are then started with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ben</span><span class="o">.</span><span class="n">benchmark</span><span class="p">(</span><span class="n">check_speed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">check_energy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">check_time</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">check_smoothness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">check_consistency</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">check_robustness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">check_sensitivity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">check_torque_limit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">save_path</span><span class="o">=</span><span class="s2">&quot;benchmark.yml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The individual checks can be turned off. The results will be stored in the filed specified in save_path.</p>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h3>
+<p>An example usage can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a> in the <a href="#id5"><span class="problematic" id="id6">`benchmark_controller.py &lt;https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/benchmark_controller.py`_</span></a> script.</p>
+</section>
+</section>
+<section id="plotting-controllers">
+<h2>Plotting Controllers<a class="headerlink" href="#plotting-controllers" title="Permalink to this headline"></a></h2>
+<p>Controllers can be plotted by plotting their control signal in the pendulum’s state space.</p>
+<section id="id1">
+<h3>API<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<p>A controller inheriting from the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/abstract_controller.py">abstract controller class</a> can be plotted by using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">simple_pendulum.analysis.plot_policy</span> <span class="kn">import</span> <span class="n">plot_policy</span>
+
+<span class="n">plot_policy</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span>
+            <span class="n">position_range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">3.14</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">],</span>
+            <span class="n">velocity_range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">2.</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="n">samples_per_dim</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+            <span class="n">plotstyle</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">,</span>
+            <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The plotstyle can also be set to “2d”. If a save_path is specified the plot will be stored in that location.</p>
+</section>
+<section id="id3">
+<h3>Usage<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<p>An example usage can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a> in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/plot_controller.py">plot_controller.py</a> script.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="08.policy_based_controllers/83.lqr.html" class="btn btn-neutral float-left" title="LQR Control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="10.simulation.html" class="btn btn-neutral float-right" title="Simulator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

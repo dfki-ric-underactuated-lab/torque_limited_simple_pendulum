@@ -1,0 +1,4 @@
+.. automodule:: simple_pendulum.model.system_identification
+    :members:
+    :undoc-members:
+    :show-inheritance:

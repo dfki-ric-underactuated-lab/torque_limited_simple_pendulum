@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Open Loop Control" href="simple_pendulum.controllers.open_loop.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.lqr.roa.sos.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="simple_pendulum.html">API Reference</a> &raquo;</li>
+          <li><a href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a> &raquo;</li>
+          <li><a href="simple_pendulum.controllers.lqr.html">Linear Quadratic Regulator (LQR)</a> &raquo;</li>
+          <li><a href="simple_pendulum.controllers.lqr.roa.html">&lt;no title&gt;</a> &raquo;</li>
+      <li>&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/simple_pendulum.controllers.lqr.roa.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-simple_pendulum.controllers.lqr.roa.utils"></span><dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.utils.direct_sphere">
+<span class="sig-name descname"><span class="pre">direct_sphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_o</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.utils.direct_sphere" title="Permalink to this definition"></a></dt>
+<dd><p>Direct Sampling from the d Ball based on Krauth, Werner. Statistical Mechanics: Algorithms and Computations. Oxford Master Series in Physics 13. Oxford: Oxford University Press, 2006. page 42</p>
+<dl class="simple">
+<dt>d<span class="classifier">int</span></dt><dd><p>dimension of the ball</p>
+</dd>
+<dt>r_i<span class="classifier">int, optional</span></dt><dd><p>inner radius, by default 0</p>
+</dd>
+<dt>r_o<span class="classifier">int, optional</span></dt><dd><p>outer radius, by default 1</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>np.array</dt><dd><p>random vector directly sampled from the solid d Ball</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.utils.sample_from_ellipsoid">
+<span class="sig-name descname"><span class="pre">sample_from_ellipsoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_o</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.utils.sample_from_ellipsoid" title="Permalink to this definition"></a></dt>
+<dd><p>sample directly from the ellipsoid defined by xT M x.</p>
+<dl class="simple">
+<dt>M<span class="classifier">np.array</span></dt><dd><p>Matrix M such that xT M x leq rho defines the hyperellipsoid to sample from</p>
+</dd>
+<dt>rho<span class="classifier">float</span></dt><dd><p>rho such that xT M x leq rho defines the hyperellipsoid to sample from</p>
+</dd>
+<dt>r_i<span class="classifier">int, optional</span></dt><dd><p>inner radius, by default 0</p>
+</dd>
+<dt>r_o<span class="classifier">int, optional</span></dt><dd><p>outer radius, by default 1</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>np.array</dt><dd><p>random vector from within the hyperellipsoid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.utils.quad_form">
+<span class="sig-name descname"><span class="pre">quad_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.utils.quad_form" title="Permalink to this definition"></a></dt>
+<dd><p>Helper function to compute quadratic forms such as x^TMx</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.utils.vol_ellipsoid">
+<span class="sig-name descname"><span class="pre">vol_ellipsoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.utils.vol_ellipsoid" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the Volume of a Hyperellipsoid
+Volume of the Hyperllipsoid according to <a class="reference external" href="https://math.stackexchange.com/questions/332391/volume-of-hyperellipsoid/332434">https://math.stackexchange.com/questions/332391/volume-of-hyperellipsoid/332434</a>
+Intuition: <a class="reference external" href="https://textbooks.math.gatech.edu/ila/determinants-volumes.html">https://textbooks.math.gatech.edu/ila/determinants-volumes.html</a>
+Volume of n-Ball <a class="reference external" href="https://en.wikipedia.org/wiki/Volume_of_an_n-ball">https://en.wikipedia.org/wiki/Volume_of_an_n-ball</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.utils.rhoVerification">
+<span class="sig-name descname"><span class="pre">rhoVerification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pendulum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.utils.rhoVerification" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>SOS Verification of the Lyapunov conditions for a given rho in order to obtain an estimate  of the RoA for the closed loop dynamics.</dt><dd><p>This method is described by Russ Tedrake in “Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation”, 
+Course Notes for MIT 6.832, 2022, “<a class="reference external" href="http://underactuated.mit.edu">http://underactuated.mit.edu</a>”, sec. 9.3.2: “Basic region of attraction formulation”.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>rho: float</dt><dd><p>value of rho to be verified</p>
+</dd>
+<dt>pendulum<span class="classifier">simple_pendulum.model.pendulum_plant</span></dt><dd><p>configured pendulum plant object</p>
+</dd>
+<dt>controller<span class="classifier">simple_pendulum.controllers.lqr.lqr_controller</span></dt><dd><p>configured lqr controller object</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>result<span class="classifier">boolean</span></dt><dd><p>result of the verification</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PendulumPlantApprox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coulomb_fric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taylorApprox_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The PendulumPlantApprox class contains the taylor-approximated dynamics
+of the simple pendulum.</p>
+<dl class="simple">
+<dt>The state of the pendulum in this class is described by</dt><dd><p>state = [angle, angular velocity]
+(array like with len(state)=2)
+in units: rad and rad/s</p>
+</dd>
+</dl>
+<p>The zero state of the angle corresponds to the pendulum hanging down.
+The plant expects an actuation input (tau) either as float or
+array like in units Nm.
+(in which case the first entry is used (which should be a float))</p>
+<dl class="simple">
+<dt>mass<span class="classifier">float, default=1.0</span></dt><dd><p>pendulum mass, unit: kg</p>
+</dd>
+<dt>length<span class="classifier">float, default=0.5</span></dt><dd><p>pendulum length, unit: m</p>
+</dd>
+<dt>damping<span class="classifier">float, default=0.1</span></dt><dd><p>damping factor (proportional to velocity), unit: kg*m/s</p>
+</dd>
+<dt>gravity<span class="classifier">float, default=9.81</span></dt><dd><p>gravity (positive direction points down), unit: m/s^2</p>
+</dd>
+<dt>coulomb_fric<span class="classifier">float, default=0.0</span></dt><dd><p>friction term, (independent of magnitude of velocity), unit: Nm</p>
+</dd>
+<dt>inertia<span class="classifier">float, default=None</span></dt><dd><p>inertia of the pendulum (defaults to point mass inertia)
+unit: kg*m^2</p>
+</dd>
+<dt>torque_limit: float, default=np.inf</dt><dd><p>maximum torque that the motor can apply, unit: Nm</p>
+</dd>
+<dt>taylorApprox_order: int, default=1</dt><dd><p>order of the taylor approximation of the sine term</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox.forward_dynamics">
+<span class="sig-name descname"><span class="pre">forward_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox.forward_dynamics" title="Permalink to this definition"></a></dt>
+<dd><p>Computes forward dynamics</p>
+<dl class="simple">
+<dt>state<span class="classifier">array like</span></dt><dd><p>len(state)=2
+The state of the pendulum [angle, angular velocity]
+floats, units: rad, rad/s</p>
+</dd>
+<dt>tau<span class="classifier">float</span></dt><dd><p>motor torque, unit: Nm</p>
+</dd>
+</dl>
+<blockquote>
+<div><ul class="simple">
+<li><p>float, angular acceleration, unit: rad/s^2</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox.rhs">
+<span class="sig-name descname"><span class="pre">rhs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox.rhs" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the integrand of the equations of motion.</p>
+<dl class="simple">
+<dt>t<span class="classifier">float</span></dt><dd><p>time, not used (the dynamics of the pendulum are time independent)</p>
+</dd>
+<dt>state<span class="classifier">array like</span></dt><dd><p>len(state)=2
+The state of the pendulum [angle, angular velocity]
+floats, units: rad, rad/s</p>
+</dd>
+<dt>tau<span class="classifier">float or array like</span></dt><dd><p>motor torque, unit: Nm</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>res<span class="classifier">array like</span></dt><dd><p>the integrand, contains [angular velocity, angular acceleration]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simple_pendulum.controllers.lqr.roa.sos.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.controllers.open_loop.html" class="btn btn-neutral float-right" title="Open Loop Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

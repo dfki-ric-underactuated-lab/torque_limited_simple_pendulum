@@ -1,0 +1,4 @@
+.. automodule:: simple_pendulum.utilities.filters.butterworth
+    :members:
+    :undoc-members:
+    :show-inheritance:

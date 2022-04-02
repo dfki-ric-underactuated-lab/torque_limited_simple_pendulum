@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Direct Optimal Control based on the FDDP algorithm &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reinforcement Learning" href="../06.reinforcement_learning.html" />
+    <link rel="prev" title="Iterative Linear Quadratic Requlator (iLQR)" href="52.iLQR.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="../../_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05.trajectory_optimization.html">Trajectory Optimization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="51.direct_collocation.html">Trajectory optimization using direct collocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="52.iLQR.html">Iterative Linear Quadratic Requlator (iLQR)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Direct Optimal Control based on the FDDP algorithm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../05.trajectory_optimization.html">Trajectory Optimization</a> &raquo;</li>
+      <li>Direct Optimal Control based on the FDDP algorithm</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/chapters/05.trajectory_optimization/53.fddp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="direct-optimal-control-based-on-the-fddp-algorithm">
+<h1>Direct Optimal Control based on the FDDP algorithm<a class="headerlink" href="#direct-optimal-control-based-on-the-fddp-algorithm" title="Permalink to this headline"></a></h1>
+<p>In this package, the single pendulum swing-up is performed using the direct optimal control based on the FDDP algorithm <a class="reference external" href="https://arxiv.org/abs/1909.04947">(C. Mastalli, 2019)</a>.</p>
+<p>The script uses FDDP, BOXFddp can also be used with the same weights.
+BOXFddp allows to enforce the system’s torque limits.</p>
+<p>The urdf model is modified to fit a pinocchio model.</p>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<p>The costs functions for the <strong>Running model</strong> is written as</p>
+<div class="math">
+<p><img src="../../_images/math/28f23d46d5d33d3fa2ba6c620842efb319391a73.svg" alt="l = {\sum}_{n=1}^{T-1} \alpha_n \Phi_n(q,\dot{q},\mathrm{T})"/></p>
+</div><p>With the following costs and weights, <img class="math" src="../../_images/math/e0d5eedab4c227de4dcfb98e2481ed57e4867a29.svg" alt="t_s"/> denoting the final time horizon.</p>
+<ul>
+<li><p><strong>Torque minimization</strong>: Minimization of the joint torques for realistic dynamic motions.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/eee6723bd2215b462f078fdc321de39d929891d0.svg" alt="\Phi_{1} =  \parallel \mathrm{T} (t) \parallel ^{2}_2,  \quad \alpha_1 = 1e-4"/></p>
+</div></div></blockquote>
+</li>
+<li><p><strong>Posture regularization</strong>:  giving as input only the final reference posture.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/59ecbaeb3323fbd70a825535d5b1beee3013a7e8.svg" alt="\Phi_{2} = \parallel q(t)-q^{ref}(t_{s-1})\parallel ^{2}_2 ,  \quad \alpha_2 = 1e-5"/></p>
+</div></div></blockquote>
+</li>
+<li><p>The costs functions for the <strong>Terminal model</strong> are applied to only one node (the terminal node) and is written as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/4a929ee788a8e241a5bdd0ea0d2e97bdb89a564d.svg" alt="l_T =  \alpha_T \Phi_T(q,\dot{q})"/></p>
+</div></div></blockquote>
+</li>
+</ul>
+<p>With the following cost and weight, <img class="math" src="../../_images/math/c7ee6ddc6a498dd31a05d0939bf13eaa412871ea.svg" alt="T = t_{final}"/> the final time horizon.</p>
+<ul>
+<li><p><strong>Posture regularization</strong>: giving as input only the final reference posture.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/309c1cb7a0465f74429b118beb9839af0d08f0be.svg" alt="\Phi_{3} = \parallel q(T)-q^{ref}(T)\parallel^{2}_{2}, \quad  \alpha_{3} = 10^{10}"/></p>
+</div></div></blockquote>
+</li>
+</ul>
+<p>The weights <img class="math" src="../../_images/math/bc58c6693b4ac49be11f139916296dcbc22c3191.svg" alt="\alpha_i"/> for this optimization problem are determined experimentally.</p>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<p>The BOXFDDP algorithm can be executed with the boxfddp_calculator class. It can be initialized with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ddp</span> <span class="o">=</span> <span class="n">boxfddp_calculator</span><span class="p">(</span><span class="n">urdf_path</span><span class="o">=</span><span class="n">urdf_path</span><span class="p">,</span>
+                        <span class="n">enable_gui</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;log_data/ddp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The urdf_path should point to the urdf of the pendulum in a format that pinochio accepts. The urdf for a simple pendulum can be found in the data folder of this repository: <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/data/urdf/simplependul_dfki_pino_Modi.urdf">simplependul_dfki_pino_Modi.urdf</a>. enable_gui can be set to True if the trajectory shall be visualized with pinocchio after computation. In the log_dir a urdf with modified pendulum parameters will be stored.</p>
+<p>To set the correct pendulum parameters in the urdf with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ddp</span><span class="o">.</span><span class="n">init_pendulum</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="n">mass</span><span class="p">,</span>
+                  <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span>
+                  <span class="n">inertia</span><span class="o">=</span><span class="n">inertia</span><span class="p">,</span>
+                  <span class="n">damping</span><span class="o">=</span><span class="n">damping</span><span class="p">,</span>
+                  <span class="n">coulomb_friction</span><span class="o">=</span><span class="n">coulomb_fric</span><span class="p">,</span>
+                  <span class="n">torque_limit</span><span class="o">=</span><span class="n">torque_limit</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After that the trajectory can be computed with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="p">,</span> <span class="n">TH</span><span class="p">,</span> <span class="n">THD</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">ddp</span><span class="o">.</span><span class="n">compute_trajectory</span><span class="p">(</span><span class="n">start_state</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
+                                       <span class="n">goal_state</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
+                                       <span class="n">weights</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="p">),</span>
+                                       <span class="n">dt</span><span class="o">=</span><span class="mf">4e-2</span><span class="p">,</span>
+                                       <span class="n">T</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+                                       <span class="n">running_cost_state</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
+                                       <span class="n">running_cost_torque</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+                                       <span class="n">final_cost_state</span><span class="o">=</span><span class="mf">1e10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where weights contains the weights of the terminal and the running cost model. dt is the timestep length, T is the number of timesteps. running_cost_state, running_cost_torque and final_cost_state are the individal cost weights. The method returns the time trajectory T, the positiontrajectory TH, the velocity trajectory THD and the control trajectory U.</p>
+<p>The trajectory can be plotted with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ddp</span><span class="o">.</span><span class="n">plot_trajectory</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>or simulated with gepetto with (for this enable_gui has to be set to True during the initialization):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ddp</span><span class="o">.</span><span class="n">simulate_trajectory_gepetto</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<p>An example script for the pendulum can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples</a> directory. It can be started with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">compute_BOXFDDP_swingup</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://github.com/loco-3d/crocoddyl">Crocoddyl</a></p>
+<p><a class="reference external" href="https://github.com/stack-of-tasks/pinocchio">Pinocchio</a></p>
+<p>For the display, <a class="reference external" href="https://github.com/Gepetto/gepetto-viewer">Gepetto</a></p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<p>[1] Mastalli, Carlos, et al. “Crocoddyl: An efficient and versatile framework for multi-contact optimal control.” 2020 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2020. <a class="reference external" href="https://arxiv.org/abs/1909.04947">arxiv link</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="52.iLQR.html" class="btn btn-neutral float-left" title="Iterative Linear Quadratic Requlator (iLQR)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../06.reinforcement_learning.html" class="btn btn-neutral float-right" title="Reinforcement Learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

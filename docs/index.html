@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to the Torque-limited Simple Pendulum documentation! &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to the Torque-limited Simple Pendulum documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-the-project-documentation">
+<h1>Welcome to the Torque-limited Simple Pendulum documentation!<a class="headerlink" href="#welcome-to-the-project-documentation" title="Permalink to this headline"></a></h1>
+<p><a class="reference internal" href="_images/simple_pendulum_CAD.png"><img alt="pic1" src="_images/simple_pendulum_CAD.png" style="width: 45%;" /></a> <a class="reference internal" href="_images/pendulum_light_painting.jpg"><img alt="pic2" src="_images/pendulum_light_painting.jpg" style="width: 45%;" /></a></p>
+<p>The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a <strong>torque-limited simple pendulum</strong> built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the <em>offline</em> and <em>online</em> control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it. <a class="reference external" href="https://www.youtube.com/watch?v=JVvwMGYiH3A">See the simple pendulum in action!</a></p>
+<a class="reference internal image-reference" href="_images/Logo_Underactuated_Lab.gif"><img alt="_images/Logo_Underactuated_Lab.gif" class="align-center" src="_images/Logo_Underactuated_Lab.gif" style="width: 100%;" /></a>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#overview-of-methods">Overview of Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#safety-notes">Safety Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#citation">Citation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/00.installation_guide.html#installing-this-python-package">Installing this Python Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/00.installation_guide.html#instructions-for-ubuntu-18-04-5-and-20-04-2-0-lts">Instructions for Ubuntu (18.04.5 and 20.04.2.0 LTS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/00.installation_guide.html#pyenv-virtual-environment-for-python">Pyenv: Virtual environment for Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/00.installation_guide.html#installing-python-into-pyenv">Installing Python into Pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/00.installation_guide.html#creating-a-virtual-environment-with-pyenv">Creating a Virtual Environment with Pyenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/00.installation_guide.html#installing-pip3">Installing pip3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/00.installation_guide.html#install-requirements-for-this-repository">Install Requirements for this Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/00.installation_guide.html#optional-gepetto-viewer">OPTIONAL: Gepetto Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/01.usage_instructions.html#installing-python-driver-for-t-motor-ak80-6-actuator">Installing Python Driver for T-Motor AK80-6 Actuator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/01.usage_instructions.html#setting-up-the-can-interface">Setting up the CAN interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/01.usage_instructions.html#testing-communication">Testing Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/01.usage_instructions.html#using-different-controllers-for-the-swing-up">Using different Controllers for the Swing-Up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/01.usage_instructions.html#saving-results">Saving Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/03.model.html">The Physics of a Simple Pendulum</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/03.model.html#equation-of-motion">Equation of Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/03.model.html#energy-of-the-pendulum">Energy of the Pendulum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/03.model.html#pendulumplant"><code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/03.model.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/03.model.html#parameter-identification">Parameter Identification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/03.model.html#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/04.hardware.html">Hardware Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/04.hardware/41.motor_configuration.html">Motor Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/41.motor_configuration.html#tutorials">Tutorials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/41.motor_configuration.html#uart-connection-r-link-module">UART Connection: R-Link module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/41.motor_configuration.html#instructions-r-link-config-tool">Instructions: R-Link Config Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/41.motor_configuration.html#debugging">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/41.motor_configuration.html#pd-controller">PD-Controller</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/04.hardware/42.testbench_description.html">Hardware &amp; Testbench Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/42.testbench_description.html#physical-parameters-of-the-pendulum">Physical Parameters of the Pendulum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/42.testbench_description.html#physical-parameters-of-the-actuator">Physical Parameters of the Actuator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/42.testbench_description.html#motor-constants">Motor Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/42.testbench_description.html#electrical-setup">Electrical Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/04.hardware/42.testbench_description.html#backemf">backEMF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/04.hardware/42.testbench_description.html#communication-can-bus-wiring">Communication: CAN Bus wiring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/05.trajectory_optimization.html">Trajectory Optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/05.trajectory_optimization/51.direct_collocation.html">Trajectory optimization using direct collocation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/51.direct_collocation.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/51.direct_collocation.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/51.direct_collocation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/51.direct_collocation.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/05.trajectory_optimization/52.iLQR.html">Iterative Linear Quadratic Requlator (iLQR)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/52.iLQR.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/52.iLQR.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/52.iLQR.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/52.iLQR.html#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/52.iLQR.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/52.iLQR.html#notes">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/52.iLQR.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/05.trajectory_optimization/53.fddp.html">Direct Optimal Control based on the FDDP algorithm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/53.fddp.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/53.fddp.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/53.fddp.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/53.fddp.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/05.trajectory_optimization/53.fddp.html#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/06.reinforcement_learning.html">Reinforcement Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/06.reinforcement_learning/61.sac.html">Soft Actor Critic Training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/61.sac.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/61.sac.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/61.sac.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/61.sac.html#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/61.sac.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/61.sac.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/06.reinforcement_learning/62.ddpg.html">Deep Deterministic Policy Gradient Training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/62.ddpg.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/62.ddpg.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/62.ddpg.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/62.ddpg.html#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/62.ddpg.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/06.reinforcement_learning/62.ddpg.html#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/07.trajectory_based_controllers/71.open_loop.html">Open Loop Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/71.open_loop.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/71.open_loop.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/71.open_loop.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/71.open_loop.html#comments">Comments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/07.trajectory_based_controllers/72.pid.html">Proportional-Integral-Derivative (PID) Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/72.pid.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/72.pid.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/72.pid.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/72.pid.html#comments">Comments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/07.trajectory_based_controllers/73.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/73.tvlqr.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/73.tvlqr.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/73.tvlqr.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/73.tvlqr.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/73.tvlqr.html#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/73.tvlqr.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/07.trajectory_based_controllers/74.ilqr.html">iLQR Model Predictive Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/74.ilqr.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/74.ilqr.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/74.ilqr.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/74.ilqr.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/07.trajectory_based_controllers/74.ilqr.html#comments">Comments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/08.policy_based_controllers.html">Policy-based Controllers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/08.policy_based_controllers/81.gravity_compensation.html">Gravity Compensation Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/08.policy_based_controllers/81.gravity_compensation.html#theory">Theory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/08.policy_based_controllers/82.energy%20shaping.html">Energy Shaping Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/08.policy_based_controllers/82.energy%20shaping.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/08.policy_based_controllers/82.energy%20shaping.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/08.policy_based_controllers/82.energy%20shaping.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/08.policy_based_controllers/83.lqr.html">LQR Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/08.policy_based_controllers/83.lqr.html#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/08.policy_based_controllers/83.lqr.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/08.policy_based_controllers/83.lqr.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/08.policy_based_controllers/83.lqr.html#comments">Comments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/09.analysis.html#controller-benchmarking">Controller Benchmarking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/09.analysis.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/09.analysis.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/09.analysis.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/09.analysis.html#plotting-controllers">Plotting Controllers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/09.analysis.html#id1">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/09.analysis.html#id3">Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/10.simulation.html#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/10.simulation.html#the-simulator">The simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/10.simulation.html#the-gym-environment">The gym environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/10.simulation.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.analysis.benchmark.html">Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.analysis.plot_policy.html">Policy Plots</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html">Abstract Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.motor_control_loop.html">Motor Control Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.ddpg.html">Deep Deterministic Policy Gradient Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.ddpg.ddpg_controller.html">DDPG Controller</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.html">Energy Shaping Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.energy_shaping_controller.html">Energy Shaping Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.unit_test.html">Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.gravity_compensation.html">Gravity Compensation Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.gravity_compensation.gravity_compensation.html">Gravity Compensation Controller</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.ilqr.html">iLQR Model Predictive Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.html">iLQR MPC Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.ilqr.unit_test.html">Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.lqr.html">Linear Quadratic Regulator (LQR)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr.html">LQR solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html">LQR Controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.open_loop.html">Open Loop Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.open_loop.open_loop.html">Open Loop Controller</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.pid.html">Proportional-Integral-Derivative (PID) Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.pid.pid.html">PID Controller</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.sac.html">Soft Actor Critic (SAC) Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.sac.sac_controller.html">SAC Controller</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.tvlqr.html">tvLQR Controller</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.model.parameters.html">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.model.pendulum_plant.html">Pendulum Plant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.model.unit_test.html">Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.html">Deep Determininstic Policy Gradient (DDPG) Training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.agent.html">Agent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.ddpg.html">DDPG Trainer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.models.html">Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.noise.html">Noise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.html">Replay Buffer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.reinforcement_learning.sac.html">Soft Actor Critic (SAC) Training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.sac.sac.html">SAC Trainer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.simulation.html"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.simulation.gym_environment.html">Gym Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.simulation.simulation.html">Simulator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ddp.html">DDP</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.html">Direct Collocation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.html">Direct Collocation Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html">Unit Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.html">iLQR</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.ilqr.html">iLQR Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.html">Symbolic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html">Pendulum Dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.unit_test.html">Unit Tests</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.utilities.html"><code class="docutils literal notranslate"><span class="pre">Utilities</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.parse.html">Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.performance_profiler.html">Performance Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.plot.html">Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.process_data.html">Data Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.unit_conversion.html">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.filters.html">Filters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.utilities.filters.fast_fourier_transform.html">Fast Fourier Transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.utilities.filters.low_pass.html">Low-pass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.utilities.filters.running_mean.html">Moving Average</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.utilities.filters.savitzky_golay.html">Savitzky-Golay</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="intro.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

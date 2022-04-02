@@ -1,0 +1,4 @@
+.. automodule:: simple_pendulum.trajectory_optimization.ddp.unit_test
+    :members:
+    :undoc-members:
+    :show-inheritance:
