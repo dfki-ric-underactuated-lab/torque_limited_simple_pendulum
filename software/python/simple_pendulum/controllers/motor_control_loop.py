@@ -1,32 +1,43 @@
+"""
+Motor Control Loop
+==================
+
+The motor control loop only contains the minimum of code necessary to 
+send commands to and receive measurement data from the motor control 
+board in real time over CAN bus. It specifies the outgoing CAN port and 
+the CAN ID of the motor on the CAN bus and transfers this information to 
+the motor driver. It furthermore requires the following arguments:
+
+* ``control_method``
+    Calls the controller, which executes the respective 
+    control policy and returns the input torques
+* ``name``
+    Needed for print outs
+* ``attribute``
+    Needed to differentiate between open and closed loop methods.
+* ``params``
+    parameter stored in .yaml files, although most 
+    parameters like gravity constant, link length and gear 
+    ratio, remain the same for all controllers some 
+    parameter are controller specific like e.g. reward type, 
+    integrator or learning rate for the Soft Actor Critic 
+    Controller
+* ``data_dict``
+    the data dictionary contains position, velocity and 
+    torque data for each time step of the trajectory. It 
+    includes commanded as well as measured data.
+
+The return values start, end and meas_dt are required to monitor if 
+desired and measured time steps match.
+"""
+
+
 # Global imports
 import time
 import numpy as np
 # driver for t-motors AK80-6
 from motor_driver.canmotorlib import CanMotorController
 
-"""
-The motor control loop only contains the minimum of code necessary to 
-send commands to and receive measurement data from the motor control 
-board in real time over CAN bus. It specifies the outgoing CAN port and 
-the CAN ID of the motor on the CAN bus and transfers this information to 
-the motor driver. It furthermore requires the following arguments:
-    control method = calls the controller, which executes the respective 
-                     control policy and returns the input torques
-    name =      needed for print outs
-    attribute = needed to differentiate between open and closed loop 
-                methods.
-    params =    parameter stored in .yaml files, although most 
-                parameters like gravity constant, link length and gear 
-                ratio, remain the same for all controllers some 
-                parameter are controller specific like e.g. reward type, 
-                integrator or learning rate for the Soft Actor Critic 
-                Controller
-    data_dict = the data dictionary contains position, velocity and 
-                torque data for each time step of the trajectory. It 
-                includes commanded as well as measured data.
-The return values start, end and meas_dt are required to monitor if 
-desired and measured time steps match.
-"""
 
 def ak80_6(control_method, name, attribute, params, data_dict,
            motor_id="0x01", can_port='can0'):

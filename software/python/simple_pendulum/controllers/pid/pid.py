@@ -1,3 +1,9 @@
+"""
+PID Controller
+==============
+"""
+
+
 # Global imports
 import numpy as np
 

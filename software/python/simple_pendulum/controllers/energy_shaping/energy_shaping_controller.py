@@ -1,3 +1,9 @@
+"""
+Energy Shaping Controller
+=========================
+"""
+
+
 # Other imports
 import numpy as np
 
@@ -21,8 +27,8 @@ class EnergyShapingController(AbstractController):
         """
         Controller which swings up the pendulum by regulating its energy.
 
-        Parameters
-        ----------
+        **Parameters**
+        
         mass : float, default=1.0
             mass of the pendulum [kg]
         length : float, default=0.5

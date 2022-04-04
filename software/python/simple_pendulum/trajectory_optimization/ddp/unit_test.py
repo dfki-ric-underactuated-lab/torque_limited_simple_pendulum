@@ -1,3 +1,9 @@
+"""
+Unit Tests
+==========
+"""
+
+
 import eigenpy
 # Matrix deprecated -> this should ensure that everything
 # is treated/converted in array
@@ -15,7 +21,6 @@ from crocoddyl.utils.pendulum import ActuationModelDoublePendulum
 # pinocchio imports
 from pinocchio.robot_wrapper import RobotWrapper
 from pinocchio.utils import *
-
 
 
 class Test(unittest.TestCase):

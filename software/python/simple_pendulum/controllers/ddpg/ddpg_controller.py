@@ -1,3 +1,9 @@
+"""
+DDPG Controller
+===============
+"""
+
+
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import load_model
@@ -8,6 +14,9 @@ tf.compat.v1.disable_eager_execution()
 
 
 class ddpg_controller(AbstractController):
+    """
+    DDPG controller class
+    """
     def __init__(self, model_path, torque_limit, state_representation=3):
         self.model = load_model(model_path)
         self.torque_limit = torque_limit

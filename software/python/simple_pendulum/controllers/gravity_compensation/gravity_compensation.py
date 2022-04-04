@@ -1,3 +1,9 @@
+"""
+Gravity Compensation Controller
+===============================
+"""
+
+
 # Other imports
 import math
 

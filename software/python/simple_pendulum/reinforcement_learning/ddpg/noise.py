@@ -1,3 +1,9 @@
+"""
+Noise
+=====
+"""
+
+
 import numpy as np
 
 

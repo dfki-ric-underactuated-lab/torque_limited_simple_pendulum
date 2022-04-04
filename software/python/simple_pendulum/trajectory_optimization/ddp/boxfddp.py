@@ -1,3 +1,9 @@
+"""
+FDDP Calculator
+===============
+"""
+
+
 import os
 import time
 import subprocess

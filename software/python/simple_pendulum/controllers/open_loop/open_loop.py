@@ -1,3 +1,9 @@
+"""
+Open Loop Controller
+====================
+"""
+
+
 # Global imports
 import numpy as np
 

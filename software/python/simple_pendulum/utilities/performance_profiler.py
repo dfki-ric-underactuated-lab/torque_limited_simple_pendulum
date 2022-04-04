@@ -1,7 +1,14 @@
+"""
+Performance Profiling
+=====================
+"""
+
+
 import cProfile
 import time
 import numpy as np
 from motor_driver.canmotorlib import CanMotorController
+
 
 def motor_send_n_commands(numTimes):
     global motor

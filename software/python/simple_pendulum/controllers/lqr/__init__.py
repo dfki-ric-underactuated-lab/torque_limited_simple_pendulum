@@ -1,0 +1,4 @@
+"""
+Linear Quadratic Regulator (LQR)
+================================
+"""

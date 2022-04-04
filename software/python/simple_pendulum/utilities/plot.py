@@ -1,3 +1,9 @@
+"""
+Plotting
+========
+"""
+
+
 # global imports
 import os
 import numpy as np

@@ -1,3 +1,9 @@
+"""
+Pendulum Plant
+==============
+"""
+
+
 import numpy as np
 import yaml
 

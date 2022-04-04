@@ -1,9 +1,15 @@
-# global imports
+"""
+System Identification
+=====================
+"""
+
+
+# Global imports
 import numpy as np
 import os
 from scipy import optimize
 
-# local imports
+# Local imports
 from simple_pendulum.model.parameters import earth
 from simple_pendulum.utilities.filters import fast_fourier_transform as fft
 from simple_pendulum.utilities.filters import butterworth as butter

@@ -1,4 +1,9 @@
-# large parts taken from https://github.com/RussTedrake/underactuated
+"""
+Symbolic
+========
+
+Large parts taken from `Russ Tedrake <https://github.com/RussTedrake/underactuated>`_.
+"""
 
 import numpy as np
 import sympy as smp

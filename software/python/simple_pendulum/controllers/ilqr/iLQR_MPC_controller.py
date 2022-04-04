@@ -1,3 +1,9 @@
+"""
+iLQR MPC Controller
+===================
+"""
+
+
 # Other imports
 import numpy as np
 from functools import partial

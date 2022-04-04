@@ -1,3 +1,9 @@
+"""
+tvLQR Controller
+================
+"""
+
+
 # Global imports
 import numpy as np
 from pydrake.all import FiniteHorizonLinearQuadraticRegulatorOptions, \

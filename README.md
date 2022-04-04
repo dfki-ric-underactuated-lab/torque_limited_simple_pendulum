@@ -5,11 +5,15 @@
 
 <div align="center">
 <img width="400" src="hardware/simple_pendulum_CAD.png">
-<img width="300" src="docs/pendulum_light_painting.jpg">
+<img width="300" src="docs/reference/source/figures/pendulum_light_painting.jpg">
 </div>
 
 ## Introduction #
-The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a **torque-limited simple pendulum** built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
+<div align="left">
+<img src="cov/ub18cov.svg">
+<img src="cov/ub20cov.svg">
+</div>
+The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a torque limited simple pendulum built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
 
 **See the simple pendulum in action:** 
 
@@ -17,23 +21,26 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 ## Documentation
 
-The [hardware setup](hardware/testbench_description.md) and the [motor configuration](hardware/motor_configuration.md) are described in their respective readme files. We additionally uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: 
+The full website based documentation for this repository can be found [here](https://dfki-ric-underactuated-lab.github.io/torque_limited_simple_pendulum/). A pdf based printable report is available [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/reference/torque_limited_simple_pendulum.pdf).
+
+As a quick start, we refer to the following readme files:
+
+* [Software Installation Guide](docs/reference/source/chapters/00.installation_guide.rst)
+* [Code Testing](docs/reference/source/chapters/02.code_testing.rst)
+* [Pendulum Dynamics](docs/reference/source/chapters/03.model.rst)
+* [Hardware & Testbench Description](hardware/testbench_description.md)
+* [Motor Configuration](hardware/motor_configuration.md)
+* [Hardware Usage Instructions](docs/reference/source/chapters/01.usage_instructions.rst)
+
+Additionally, we uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: 
 
 * [grabcad.com/simple_pendulum](https://grabcad.com/library/simple_pendulum-1)
 
-In order to work with this repository you can [get started here](docs/installation_guide.md) and read the [usage instructions here](docs/usage_instructions.md) for a description of how to use this repository on a real system. The dynamics of the pendulum are explained [here](docs/sp_equations.md). The instructions for testing the code can be found [here](docs/code_testing.md).
-
-
-* [Hardware & Testbench Description](hardware/testbench_description.md)
-* [Motor Configuration](hardware/motor_configuration.md)
-* [Software Installation Guide](docs/installation_guide.md)
-* [Usage Instructions](docs/usage_instructions.md)
-* [Code Testing](docs/code_testing.md)
 
 ## Overview of Methods #
 
 <div align="center">
-<img width="450" src="docs/controller_overview.png">
+<img width="450" src="docs/reference/source/figures/controller_overview.png">
 </div>
 
 **Trajectory Optimization** tries to find a trajectory of control inputs and states that is feasible for the system while minimizing a cost function. The cost function can for example include terms which drive the system to a desired goal state and penalize the usage of high torques. The following trajectory optimization algorithms are implemented:
@@ -121,7 +128,7 @@ The controllers can be benchmarked in simulation with a set of predefined [crite
 
 ## Authors #
 
-<img align="right" img width="500" src="docs/pendulum_swingup_animation.gif" />
+<img align="right" img width="500" src="docs/reference/source/figures/pendulum_swingup_animation.gif" />
 
 * [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
 * [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html) (Software Maintainer)
@@ -158,7 +165,7 @@ When working with a real system be careful and mind the following safety measure
 ## Acknowledgements #
 This work has been performed in the VeryHuman project funded by the German Aerospace Center (DLR) with federal funds (Grant Number: FKZ 01IW20004) from the Federal Ministry of Education and Research (BMBF) and is additionally supported with project funds from the federal state of Bremen for setting up the Underactuated Robotics Lab (Grant Number: 201-001-10-3/2021-3-2).
 
-<img width="500" src="docs/underactuated_lab_animation.gif" />
+<img width="500" src="docs/reference/source/figures/Logo_Underactuated_Lab.gif" />
 
 
 ## License

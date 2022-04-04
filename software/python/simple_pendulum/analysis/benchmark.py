@@ -1,3 +1,8 @@
+"""
+Benchmarks
+==========
+"""
+
 import time
 import yaml
 import numpy as np
@@ -7,6 +12,9 @@ from simple_pendulum.simulation.simulation import Simulator
 
 
 def modify_pendulum_parameter(par):
+    """
+    Randomly modify a given parameter
+    """
     mod_par = np.copy(par)
     mod_par += np.random.rand()*0.1
     mod_par *= np.random.rand()*1.0 + 0.5
@@ -19,7 +27,9 @@ class benchmarker():
                  max_time=10.0,
                  integrator="runge_kutta",
                  benchmark_iterations=10):
-
+        """
+        Benchmark class
+        """
         self.dt = dt
         self.max_time = max_time
         self.max_steps = int(self.max_time / self.dt)

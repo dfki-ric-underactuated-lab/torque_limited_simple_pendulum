@@ -1,3 +1,9 @@
+"""
+Unit Tests
+==========
+"""
+
+
 import unittest
 import numpy as np
 from functools import partial
