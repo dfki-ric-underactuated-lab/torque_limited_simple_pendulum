@@ -11,7 +11,7 @@ Furthermore, any sublevel set of a Lyapunov function is also an invariant set. T
 
 First, the simple pendulum plant has been put in polynomial form via Taylor approximation around the up-right position, which will be the goal of the LQR controller. From different tests it seems that at least the third order approximation is necessary to obtain a satisfying result.
 
-The LQR controller has been initialized to stabilize our closed-loop system around the up-right position. From that it has been obtained a state feedback matrix K and a matrix S, which is the solution of the matrix Lyapunov equation. The last one is very usefull because it can be used to ontain the Lyapunov function as <img src="https://render.githubusercontent.com/render/math?math=V(x) = x^TSx">  
+The LQR controller has been initialized to stabilize our closed-loop system around the up-right position. From that it has been obtained a state feedback matrix K and a matrix S, which is the solution of the matrix Lyapunov equation. The last one is very usefull because it can be used to obtain the Lyapunov function as <img src="https://render.githubusercontent.com/render/math?math=V(x) = x^TSx">  
 After obtaining the Lyapunov function the feasibility problem can be formulated as   
 <img src="https://render.githubusercontent.com/render/math?math=-\dot{V}(x) + \lambda(x)(V(x)-\rho)\ is\ SOS\quad and \quad \lambda(x)\ is\ SOS ">  
 This is coming from the so called "S-procedure" which makes use of the concept of Lagrangian multiplier to fomulate the Lyapunov conditions.  
