@@ -121,8 +121,7 @@ used.
 
 ## Region of Attraction estimation
 
-The Region of Atttraction estimation procedure is described [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/lqr/roa).   
-The pendulum parameters are fixed to mass = 0.57288, length = 0.5, 
+The Region of Atttraction estimation procedure is described [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/lqr/roa). The pendulum parameters are fixed to mass = 0.57288, length = 0.5, 
 damping = 0.15, gravity = 9.81, coulomb_fric = 0.0. Also the goal position is fixed to the up-right position.
 
 The different used methods can be compared in simulation with
@@ -140,6 +139,8 @@ Furthermore, the effects of the Taylor approximation on the closed-loop dynamics
     python taylorApprox_roa_sos.py
 where the maximum approximation order has been fixed to 7, enough to see the interesting results. The torque limit has been fixed to 8, the high value is due to the need of analyzing the all range of angles fro 0 to pi.
 
+The RoA estimation plots can be found in the result folder [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots).
+
 ## Analysis
 
 ### Plotting
@@ -149,8 +150,6 @@ The policies of the energy shaping, LQR, SAC and DDPG controllers can be plotted
     python plot_controller.py
 
 The controller to be plotted can be specified in the script.
-
-The RoA estimation plots can be found in the result folder [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots).
 
 ### Benchmarking
 
