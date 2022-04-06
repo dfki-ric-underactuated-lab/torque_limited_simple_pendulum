@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LQR Control &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+  <title>Region of Attraction (RoA) estimation &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Region of Attraction (RoA) estimation" href="83.roa.html" />
-    <link rel="prev" title="Energy Shaping Control" href="82.energy%20shaping.html" /> 
+    <link rel="next" title="Controller Analysis" href="../09.analysis.html" />
+    <link rel="prev" title="LQR Control" href="83.lqr.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,24 +52,18 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../08.policy_based_controllers.html">Policy-based Controllers</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="81.gravity_compensation.html">Gravity Compensation Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="82.energy%20shaping.html">Energy Shaping Control</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">LQR Control</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#comments">Comments</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#region-of-attraction-roa-estimation">Region of Attraction (RoA) estimation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="83.lqr.html">LQR Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="83.lqr.html#region-of-attraction-roa-estimation">Region of Attraction (RoA) estimation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Region of Attraction (RoA) estimation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sos-method">SOS method</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#maximization-of-math-rho-simple-line-search">Maximization of :math:’rho’ : Simple line search</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#maximization-of-math-rho-equality-constrained-formulation">Maximization of :math:’rho’ : Equality-constrained formulation</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#probabilistic-method">Probabilistic Method</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comments">Comments</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="83.roa.html">Region of Attraction (RoA) estimation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../09.analysis.html">Controller Analysis</a></li>
@@ -93,9 +87,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../08.policy_based_controllers.html">Policy-based Controllers</a> &raquo;</li>
-      <li>LQR Control</li>
+      <li>Region of Attraction (RoA) estimation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/chapters/08.policy_based_controllers/83.lqr.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/chapters/08.policy_based_controllers/83.roa.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -103,70 +97,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="lqr-control">
-<h1>LQR Control<a class="headerlink" href="#lqr-control" title="Permalink to this headline"></a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Type: Closed loop control</p>
-<p>State/action space contraints: No</p>
-<p>Optimal: Yes</p>
-<p>Versatility: Stabilization only</p>
-</div>
-<section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
-<p>A linear quadratic regulator (LQR) can be used to stabilize the pendulum at the unstable fixpoint. For a linear system of the form</p>
-<div class="math">
-<p><img src="../../_images/math/87d84894e3b490cf034e87195a2c115628d12740.svg" alt="\dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}"/></p>
-</div><p>and a infinite horizon cost function in quadratic form:</p>
-<div class="math">
-<p><img src="../../_images/math/671a76afb5183c53fb14b483ec513be932729fb8.svg" alt="J = \int_0^{\infty} \left( \mathbf{x}^T \mathbf{Q}\mathbf{x} + \mathbf{u}^T \mathbf{R} \mathbf{u} \right)\text{d}t, \quad \mathbf{Q} = \mathbf{Q} \succeq 0, \, \mathbf{R} = \mathbf{R} \succeq 0"/></p>
-</div><p>the (provably) optimal controller is</p>
-<div class="math">
-<p><img src="../../_images/math/1e36bba45f11c1ab3aa2daabe4a1dd0e6c247630.svg" alt="u(\mathbf{x}) = -\mathbf{R}^{-1}\mathbf{B}^{T}\mathbf{S} \mathbf{x} = -\mathbf{K} \mathbf{x}"/></p>
-</div><p>where <img class="math" src="../../_images/math/f1d8d254182790e09d0e2127717a635ab620c4b3.svg" alt="\mathbf{S}"/> has to fulfill the algebraic Riccati equation</p>
-<div class="math">
-<p><img src="../../_images/math/6e219568604deb4aa8395fcace35725e57d87e60.svg" alt="\mathbf{SA} + \mathbf{A}^{T}\mathbf{S} - \mathbf{SBR}^{-1}\mathbf{B}\mathbf{S} + \mathbf{Q} = 0"/></p>
-</div><p>There are many solvers for the algebraic Riccati equation. In this library the solver from the scipy package is used.</p>
-</section>
-<section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
-<p>The controller needs pendulum parameters as input during initialization:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LQRController</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">damping</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gravity</span><span class="o">=</span><span class="mf">9.81</span><span class="p">,</span> <span class="n">torque_limit</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
-    <span class="n">inputs</span><span class="p">:</span>
-        <span class="n">mass</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="mf">1.0</span>
-        <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="mf">0.5</span>
-        <span class="n">damping</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="mf">0.1</span>
-        <span class="n">gravity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="mf">9.81</span>
-        <span class="n">torque_limit</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-</pre></div>
-</div>
-<p>The control output <img class="math" src="../../_images/math/c060527a11ec7497d93173e49380f661196c94e1.svg" alt="\mathbf{u}(\mathbf{x})"/> can be obtained with the API of the abstract controller class:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LQRController</span><span class="o">.</span><span class="n">get_control_output</span><span class="p">(</span><span class="n">mean_pos</span><span class="p">,</span> <span class="n">mean_vel</span><span class="p">,</span> <span class="n">meas_tau</span><span class="p">,</span> <span class="n">meas_time</span><span class="p">)</span>
-    <span class="n">inputs</span><span class="p">:</span>
-        <span class="n">meas_pos</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">pendulum</span>
-        <span class="n">meas_vel</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">velocity</span> <span class="n">of</span> <span class="n">the</span> <span class="n">pendulum</span>
-        <span class="n">meas_tau</span><span class="p">:</span> <span class="ow">not</span> <span class="n">used</span>
-        <span class="n">meas_time</span><span class="p">:</span> <span class="ow">not</span> <span class="n">used</span>
-    <span class="n">returns</span><span class="p">:</span>
-        <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">u</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">get_control_output</span></code> returns None for the desired position and desired velocity (the LQR controller is a pure torque controller). The returned torque u is the result of equation (3).
-If the calculated torque is out of bounds of the pendulum’s torque limits the controller will return u=None as torque.</p>
-</section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
-<p>A usage example can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a>. The controller can be tested in simulation with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">sim_lqr</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-</section>
-<section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
-<p>Without torque limits the LQR controller can drive the pendulum up from any position in a straight way. In practice this controller should only be used for stabilizing the pendulum at the unstable fixpoint. If the controller would require a torque larger than the pendulums torque limit, the controller returns None instead. This makes it possible to combine this controller with another controller and only use the LQR control if the output is not None. The region of attraction where this controller is able to stabilize the pendulum depends on the pendulum parameters and especially its torque limits.</p>
-</section>
-</section>
-<section id="region-of-attraction-roa-estimation">
+  <section id="region-of-attraction-roa-estimation">
 <h1>Region of Attraction (RoA) estimation<a class="headerlink" href="#region-of-attraction-roa-estimation" title="Permalink to this headline"></a></h1>
 <p>The RoA estimation is a process that can be applied to the closed-loop dynamics of a system, i.e. Plant + Controller, in order to analize its state-space behaviour. Two different methods have been implemented here for studying the dynamics of the underactuated pendulum coupled with an LQR controller.</p>
 <section id="sos-method">
@@ -669,8 +600,8 @@ Transcript written on math.log.
 <p>Where  :math:’bar{mathbf{x}} =mathbf{x} - mathbf{x}^star’ denotes the deviation from the fixed point :math:’mathbf{x}^star’</p>
 <p>A random initial condition :math:’V(hat{mathbf{x}})’ is sampled from :math:’mathcal{B}’ and the Lyapunov conditions (:math:’V(hat{mathbf{x}}) &gt; 0$’ and :math:’dot{V}(hat{mathbf{x}}) = nabla V mathbf{f}(mathbf{hat{x}}) &lt; 0’) are evaluated. If these conditions are satisfied, the next initial state is sampled. However, if these conditions are not met, the estimate is shrunk, such that :math:’rho = V(hat{mathbf{x}})’</p>
 </section>
-<section id="id1">
-<h2>Comments<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<section id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
 <p>Further possible improvements:</p>
 <ul class="simple">
 <li><p>Verifying the dynamics in implicit form will be necessary for more complex systems where the mass is not a scalar value. The SOS framework premitts it and would be usefull to try.</p></li>
@@ -684,8 +615,8 @@ Transcript written on math.log.
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="82.energy%20shaping.html" class="btn btn-neutral float-left" title="Energy Shaping Control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="83.roa.html" class="btn btn-neutral float-right" title="Region of Attraction (RoA) estimation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="83.lqr.html" class="btn btn-neutral float-left" title="LQR Control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../09.analysis.html" class="btn btn-neutral float-right" title="Controller Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
