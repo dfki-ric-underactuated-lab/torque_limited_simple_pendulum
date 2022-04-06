@@ -44,19 +44,6 @@ Where  <img src="https://render.githubusercontent.com/render/math?math=\bar{\mat
 
 A random initial condition <img src="https://render.githubusercontent.com/render/math?math=V(\hat{\mathbf{x}})"> is sampled from <img src="https://render.githubusercontent.com/render/math?math=\mathcal{B}"> and the Lyapunov conditions (<img src="https://render.githubusercontent.com/render/math?math=V(\hat{\mathbf{x}}) > 0$"> and <img src="https://render.githubusercontent.com/render/math?math=\dot{V}(\hat{\mathbf{x}}) = \nabla V \mathbf{f}(\mathbf{\hat{x}}) < 0">) are evaluated. If these conditions are satisfied, the next initial state is sampled. However, if these conditions are not met, the estimate is shrunk, such that <img src="https://render.githubusercontent.com/render/math?math=\rho = V(\hat{\mathbf{x}})">
 
-## Usage 
-Some usage example can be found in the [examples folder](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples). The different methods can be compared in simulation with
-
-    python plot_roa_estimations.py
-
-The RoA certification reliability can be verified with
-
-    python verify_roa_estimation.py
-
-Furthermore, the effects of the Taylor approximation on the closed-loop dynamics can be seen with
-
-    python taylorApprox_roa_sos.py
-
 ## Comments 
 Further possible improvements:
 

@@ -14,7 +14,7 @@ from simple_pendulum.controllers.lqr.roa.utils import sample_from_ellipsoid
 roa_estimation_methods  = [najafi_based_sampling, SOSequalityConstrained, SOSlineSearch]
 linestyles              = ["-",":","--"]
 
-torque_limit = 4 # tactuator orque limit
+torque_limit = 4 # actuator torque limit
 init_num = 500 # number of random initial conditions to check
 
 mass = 0.57288
