@@ -1,6 +1,6 @@
 <div align="center">
 
-# Torque Limited Simple Pendulum
+# [Torque Limited Simple Pendulum](https://dfki-ric-underactuated-lab.github.io/torque_limited_simple_pendulum/)
 </div>
 
 <div align="center">
