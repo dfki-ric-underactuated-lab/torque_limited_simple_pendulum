@@ -19,10 +19,10 @@ It is important to highlight that other contraints are needed to include the tor
 
 Eventually, the above problem only verify one-sublevel set of the Lyapunov function. In order to obtain the best estimation, searching for the largest rho  that can satisfy these conditions is necessary. The two different methods that have been implemented are described below.
 
-###  <img src="https://render.githubusercontent.com/render/math?math=\rho">  maximization: Simple line search 
+###  Maximization of <img src="https://render.githubusercontent.com/render/math?math=\rho">: Simple line search 
 Since the problem is convex with rho fixed, and rho is just a scalar, a simple line search on <img src="https://render.githubusercontent.com/render/math?math=\rho"> can be performed to find the maximum for which the convex optimization returns a feasible solution. In particular, a bisection-like algorithm has been implemented here for such a purpose. However, since this formulation can be computationally heavy then other formulations might be considered.
 
-### <img src="https://render.githubusercontent.com/render/math?math=\rho"> maximization: Equality-constrained formulation 
+### Maximization of <img src="https://render.githubusercontent.com/render/math?math=\rho"> : Equality-constrained formulation 
 This is an important variation since it makes use of the "S-procedure" to make the problem be jointly convex in <img src="https://render.githubusercontent.com/render/math?math=\lambda(x)"> and <img src="https://render.githubusercontent.com/render/math?math=\rho">, so a single convex optimization is needed.  
 Under the assumption that <img src="https://render.githubusercontent.com/render/math?math=\dot{V}(x)"> is negative-definite at the fixed point, the problem can be written as
 
