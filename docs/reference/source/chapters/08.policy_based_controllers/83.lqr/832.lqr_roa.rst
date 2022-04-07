@@ -15,7 +15,7 @@ Furthermore, any sublevel set of a Lyapunov function is also an invariant set. T
 
 First, the simple pendulum plant has been put in polynomial form via Taylor approximation around the up-right position, which will be the goal of the LQR controller. From different tests it seems that at least the third order approximation is necessary to obtain a satisfying result.
 
-The LQR controller has been initialized to stabilize our closed-loop system around the up-right position. From that it has been obtained a state feedback matrix K and a matrix S, which is the solution of the matrix Lyapunov equation. The last one is very usefull because it can be used to obtain the Lyapunov function as :math:'x^TSx'  
+The LQR controller has been initialized to stabilize our closed-loop system around the up-right position. From that it has been obtained a state feedback matrix K and a matrix S, which is the solution of the matrix Lyapunov equation. The last one is very usefull because it can be used to obtain the Lyapunov function as :math:`x^TSx`  
 After obtaining the Lyapunov function the feasibility problem can be formulated as  
 
 .. math::
@@ -27,22 +27,23 @@ It is important to highlight that other contraints are needed to include the tor
 
 Eventually, the above problem only verify one-sublevel set of the Lyapunov function. In order to obtain the best estimation, searching for the largest rho  that can satisfy these conditions is necessary. The two different methods that have been implemented are described below.
 
-Maximization of :math:'\rho' : Simple line search 
+Maximization of :math:`\rho`: Simple line search 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Since the problem is convex with rho fixed, and :math:'\rho' is just a scalar, a simple line search on :math:'\rho' can be performed to find the maximum for which the convex optimization returns a feasible solution. In particular, a bisection-like algorithm has been implemented here for such a purpose. However, since this formulation can be computationally heavy then other formulations might be considered.
+Since the problem is convex with rho fixed, and :math:`\rho` is just a scalar, a simple line search on :math:`\rho` can be performed to find the maximum for which the convex optimization returns a feasible solution. In particular, a bisection-like algorithm has been implemented here for such a purpose. However, since this formulation can be computationally heavy then other formulations might be considered.
 
-Maximization of :math:'\rho' : Equality-constrained formulation 
+Maximization of :math:`\rho`: Equality-constrained formulation 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is an important variation since it makes use of the "S-procedure" to make the problem be jointly convex in :math:'\lambda(x)' and :math:'\rho', so a single convex optimization is needed.  
-Under the assumption that :math:'\dot{V}(x)' is negative-definite at the fixed point, the problem can be written as
+This is an important variation since it makes use of the "S-procedure" to make the problem be jointly convex in :math:`\lambda(x)` and :math:`\rho`, so a single convex optimization is needed.  
+Under the assumption that :math:`\dot{V}(x)` is negative-definite at the fixed point, the problem can be written as
 
 .. math::
+    :nowrap:
 
     \begin{equation*}\begin{aligned} 
-    & \max_{\rho,\lambda} \quad \rho  
-    & \quad (x^Tx)^d(V(x) - \rho) + \lambda(x)\dot{V}(x)\ \ \ is \ \ \ SOS\\
+    & \max_{\rho,\lambda} \quad \rho \\
+    & \quad (x^Tx)^d(V(x) - \rho) + \lambda(x)\dot{V}(x) \quad is \quad SOS
     \end{aligned}\end{equation*}
 
 Also in this case, input limits have then to be included to obtain the desired result.
@@ -58,11 +59,11 @@ The RoA is estimated by a sublevel set of a quadratic Lyapunov function:
 
 .. math::
 
-    \begin{align*}\mathcal{B}%20=%20\left\{%20\mathbf{x}%20\vert%20V(\mathbf{x})%20%3C%20\rho%20\right\} = \left\{%20\mathbf{x}%20\vert%20V \bar{\mathbf{x}}^{\mathrm{T}} \mathbf{S} \bar{\mathbf{x}} <\rho \right\}.\end{align*}
+    \begin{align*}\mathcal{B} = \left\{ \mathbf{x} \vert V(\mathbf{x}) < \rho \right\} = \left\{ \mathbf{x} \vert V \bar{\mathbf{x}}^{\mathrm{T}} \mathbf{S} \bar{\mathbf{x}} <\rho \right\}.\end{align*}
 
-Where  :math:'\bar{\mathbf{x}} =\mathbf{x} - \mathbf{x}^\star' denotes the deviation from the fixed point :math:'\mathbf{x}^\star'
+Where :math:`\mathbf{\bar{x}} = \mathbf{x} - \mathbf{x}^\star` denotes the deviation from the fixed point :math:`\mathbf{x}^\star`
 
-A random initial condition :math:'V(\hat{\mathbf{x}})' is sampled from :math:'\mathcal{B}' and the Lyapunov conditions (:math:'V(\hat{\mathbf{x}}) > 0$' and :math:'\dot{V}(\hat{\mathbf{x}}) = \nabla V \mathbf{f}(\mathbf{\hat{x}}) < 0') are evaluated. If these conditions are satisfied, the next initial state is sampled. However, if these conditions are not met, the estimate is shrunk, such that :math:'\rho = V(\hat{\mathbf{x}})'
+A random initial condition :math:`V(\hat{\mathbf{x}})` is sampled from :math:`\mathcal{B}` and the Lyapunov conditions (:math:`V(\hat{\mathbf{x}}) > 0` and :math:`\dot{V}(\hat{\mathbf{x}}) = \nabla V \mathbf{f}(\mathbf{\hat{x}}) < 0`) are evaluated. If these conditions are satisfied, the next initial state is sampled. However, if these conditions are not met, the estimate is shrunk, such that :math:`\rho = V(\hat{\mathbf{x}})`
 
 Comments 
 --------
