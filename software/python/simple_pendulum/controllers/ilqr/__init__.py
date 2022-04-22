@@ -1,4 +1,0 @@
-"""
-iLQR Model Predictive Control
-=============================
-"""

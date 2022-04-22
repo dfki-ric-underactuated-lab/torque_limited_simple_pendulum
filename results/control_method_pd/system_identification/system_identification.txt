@@ -1,7 +1,0 @@
-System Identification:  Simple Pendulum
-J          = +6.259e-02
-m*cx       = +1.022e-01
-Fv         = +4.707e-02
-Fc         = +1.839e-01
-offset     = -7.586e-02
-tau = J * qdotdot + m*cx * g*sin(q) + Fv * qdot + Fc * atan(100*qdot) + offset * 1

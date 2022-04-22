@@ -1,4 +1,0 @@
-"""
-Gravity Compensation Control
-============================
-"""
