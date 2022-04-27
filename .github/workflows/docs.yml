@@ -185,4 +185,4 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git pull
         git add $pdfdir/${{ github.event.repository.name }}.pdf && git commit --allow-empty -m "Updated Report"
-        git push -u origin master
+        git push -u origin ${{ github.event.repository.default_branch }}
