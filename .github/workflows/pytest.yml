@@ -130,7 +130,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git pull
         git add cov/ub18cov.svg && git commit --allow-empty -m "Badge updated"
-        git push -u
+        git push -u origin ${GITHUB_REF##*/}
     - name: Close
       if: steps.tests.outcome != 'success'
       run: |
@@ -250,7 +250,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git pull
         git add cov/ub20cov.svg && git commit --allow-empty -m "Badge updated"
-        git push -u
+        git push -u origin ${GITHUB_REF##*/}
     - name: Close
       if: steps.tests.outcome != 'success'
       run: |
