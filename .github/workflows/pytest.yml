@@ -7,8 +7,6 @@ on:                       # Run action when changes are pushed or pull requests 
   pull_request:
     branches-ignore:
       - 'docs'            # Run on pull requests to any branch except the doc hosting branch
-  release:
-    types: [ published ]
 
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -130,7 +128,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git pull
         git add cov/ub18cov.svg && git commit --allow-empty -m "Badge updated"
-        git push -u origin master
+        git push -u origin ${{ github.event.repository.default_branch }}
     - name: Close
       if: steps.tests.outcome != 'success'
       run: |
@@ -250,7 +248,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git pull
         git add cov/ub20cov.svg && git commit --allow-empty -m "Badge updated"
-        git push -u origin master
+        git push -u origin ${{ github.event.repository.default_branch }}
     - name: Close
       if: steps.tests.outcome != 'success'
       run: |
