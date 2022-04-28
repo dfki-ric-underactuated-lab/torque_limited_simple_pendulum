@@ -12,7 +12,11 @@
 <div align="left">
 <img src="cov/ub18cov.svg">
 <img src="cov/ub20cov.svg">
-[<img src="cov/zenodo.6498036.svg">](https://zenodo.org/record/6498036)
+<a href="https://zenodo.org/record/6498036" target="_blank">
+	
+![Zenodo Badge](cov/zenodo.6498036.svg)
+	
+</a>
 </div>
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a torque limited simple pendulum built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
 
