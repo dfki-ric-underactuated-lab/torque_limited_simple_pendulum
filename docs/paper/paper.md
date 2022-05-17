@@ -179,7 +179,7 @@ Both methods, are model-free, i.e. they use the dynamics of the system as a blac
 
 Feedforward and PID controller operate model independent, while the TVLQR and iLQR MPC controllers utilize knowledge about the pendulum model. In contrast to the others, the iLQR MPC controller optimizes over a predefined horizon at every timestep.
 
-**Policy-based Controllers** take the state of the system as input and ouput a control signal. In contrast to trajectory optimization, these controllers do not compute just a single trajectory. Instead, they react to the current state of the pendulum and because of this they can cope with perturbations during the execution. The following policy-based controllers are implemented:
+**Policy-based Controllers** take the state of the system as input and output a control signal. In contrast to trajectory optimization, these controllers do not compute just a single trajectory. Instead, they react to the current state of the pendulum and because of this they can cope with perturbations during the execution. The following policy-based controllers are implemented:
 
 - Energy Shaping
 - Linear Quadratic Regulator (LQR)
@@ -207,7 +207,7 @@ The benchmark criteria are:
 - **Insensitivity**: The pendulum parameters (mass, length, friction, inertia) are modified without using this knowledge in the controller.
 - **Reduced torque limit**: The minimal torque limit with which the controller is still able to swing-up the pendulum.
 
-The results shown in \autoref{fig:benchmark} are the average of 100 repetitions for every controller and criterium. In the case of consistency, robustness and insensitivity the percentage refers to the ratio of successfull swingup motions of the 100 repetitions.
+The results shown in \autoref{fig:benchmark} are the average of 100 repetitions for every controller and criterion. In the case of consistency, robustness and insensitivity the percentage refers to the ratio of successful swingup motions of the 100 repetitions.
 
 ![Benchmark results. \label{fig:benchmark}](figures/benchmark_barplot.png){#id .class height=1100px}
 
