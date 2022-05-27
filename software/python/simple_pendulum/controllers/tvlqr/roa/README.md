@@ -21,10 +21,10 @@ Except for the given first and last values, rho is initially fixed to an N-dimen
 Now, after computing the nominal trajectory and the related TVLQR controller that bring to the goal we can start the estimation process.
 Iterating backward in the knot points, we can exploit the knowledge of the final rho from the time-invariant case. The "previous" and the "next" ellipse have been considered. We sample random initial states from the "previous" ellipse and we simulate them until the "next" one. In doing so, we can check if the simulated trajectory exits from the "next" ellipse. The condition is the following one:
 
-<img src="https://render.githubusercontent.com/render/math?math=\bar{\mathbf{x}}^{\mathrm{T}} \mathbf{S} \bar{\mathbf{x}} <\rho">
+<img src="latex_img/RoAcondition.png">
 
 If a simulated trajectory triggers this condition, the algorithm shrinks the "previous" ellipse using the value of the computed optimal cost to go:
 
-<img src="https://render.githubusercontent.com/render/math?math=\rho_{new} = \min (\rho_{old}, ctg)">   
+<img src="latex_img/RoArhoUpdate.png">   
 
 An implementation detail gives the possibility to reduce the time consumption. The estimation of each ellipse has been considered done after a maximum number of successful simulations.
