@@ -132,7 +132,7 @@ jobs:
     - name: Close
       if: steps.tests.outcome != 'success'
       run: |
-        exit 1
+        exit 0
   # ===========================
   #
   #         Ubuntu 20
