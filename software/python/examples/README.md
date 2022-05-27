@@ -121,6 +121,8 @@ used.
 
 ## Region of Attraction estimation
 
+### Time-invariant estimation
+
 The Region of Atttraction estimation procedure is described [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/lqr/roa). The pendulum parameters are fixed to mass = 0.57288, length = 0.5, 
 damping = 0.15, gravity = 9.81, coulomb_fric = 0.0. Also the goal position is fixed to the up-right position.
 
@@ -140,6 +142,18 @@ Furthermore, the effects of the Taylor approximation on the closed-loop dynamics
 where the maximum approximation order has been fixed to 7, enough to see the interesting results. The torque limit has been fixed to 8, the high value is due to the need of analyzing the all range of angles fro 0 to pi.
 
 The RoA estimation plots can be found in the result folder [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots).
+
+### Time-varying estimation
+
+The time-varying version of the Region of Atttraction estimation procedure is described [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/tvlqr/roa). The pendulum parameters are fixed to mass = 0.57288, length = 0.5, 
+damping = 0.15, gravity = 9.81, coulomb_fric = 0.0, torque limit = 1.5. Also the goal position is fixed to the up-right position. Furthermore, the other estimation parameters has been chosen to be: number of knot points = 30, number of simulations for the estimation = 50, number of simulations for the verification = 50.
+
+The verification of the estimation procedure can be obtained with
+
+    python verify_tvlqr_roa.py
+where a verification function will check the estimation for some knot points (0,12,24). This last procedure takes some time.
+
+The RoA estimation and verification plots can be found in the result folder [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots).
 
 ## Analysis
 

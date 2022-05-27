@@ -51,6 +51,9 @@ class TVLQRController(AbstractController):
         torque_limit : float, default=np.inf
             the torque_limit of the pendulum actuator
         """
+
+        self.Qf = np.array([None]) # Useful only for RoA purposes
+
         # load the trajectory
         self.traj_time = data_dict["des_time_list"]
         self.traj_pos = data_dict["des_pos_list"]
@@ -114,8 +117,12 @@ class TVLQRController(AbstractController):
                                           linearized_pendulum.B(),
                                           self.Q_tilqr,
                                           self.R_tilqr)
-        self.options.Qf = S
 
+        if (not self.Qf.all() == None):
+            self.options.Qf = self.Qf # Useful only for RoA purposes
+        else:
+            self.options.Qf = S  
+        
         self.tvlqr = FiniteHorizonLinearQuadraticRegulator(
                         self.plant,
                         self.context,
@@ -184,3 +191,16 @@ class TVLQRController(AbstractController):
         des_tau = np.clip(des_tau, -self.torque_limit, self.torque_limit)
 
         return des_pos, des_vel, des_tau
+
+    def set_Qf(self, Qf):
+        """
+        This function is useful only for RoA purposes. Used to set the
+        final S-matrix of the tvlqr controller.
+
+        Parameters
+        ----------
+        Qf : matrix
+            the S-matrix from time-invariant RoA estimation around the 
+            up-right position.
+        """
+        self.Qf = Qf
