@@ -96,16 +96,16 @@ class DirectCollocationCalculator():
         initial_state = PendulumState()
         initial_state.set_theta(start_state[0])
         initial_state.set_thetadot(start_state[1])
-        dircol.AddBoundingBoxConstraint(initial_state.get_value(),
-                                        initial_state.get_value(),
-                                        dircol.initial_state())
+        dircol.prog().AddBoundingBoxConstraint(initial_state.get_value(),
+                                               initial_state.get_value(),
+                                               dircol.initial_state())
 
         final_state = PendulumState()
         final_state.set_theta(goal_state[0])
         final_state.set_thetadot(goal_state[1])
-        dircol.AddBoundingBoxConstraint(final_state.get_value(),
-                                        final_state.get_value(),
-                                        dircol.final_state())
+        dircol.prog().AddBoundingBoxConstraint(final_state.get_value(),
+                                               final_state.get_value(),
+                                               dircol.final_state())
 
         R = 10.0  # Cost on input "effort".
         dircol.AddRunningCost(R * u[0]**2)
@@ -114,7 +114,7 @@ class DirectCollocationCalculator():
             dircol.SetInitialTrajectory(PiecewisePolynomial(),
                                         initial_x_trajectory)
 
-        result = Solve(dircol)
+        result = Solve(dircol.prog())
         assert result.is_success()
 
         x_trajectory = dircol.ReconstructStateTrajectory(result)
