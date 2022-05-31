@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -89,13 +90,13 @@
            <div itemprop="articleBody">
              
   <section id="simulator">
-<h1>Simulator<a class="headerlink" href="#simulator" title="Permalink to this headline"></a></h1>
+<h1>Simulator<a class="headerlink" href="#simulator" title="Permalink to this heading"></a></h1>
 <p>The simulator class can simulate and animate the pendulum motion forward in time.
 The gym environment can be used for reinforcement learning.</p>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <section id="the-simulator">
-<h3>The simulator<a class="headerlink" href="#the-simulator" title="Permalink to this headline"></a></h3>
+<h3>The simulator<a class="headerlink" href="#the-simulator" title="Permalink to this heading"></a></h3>
 <p>The simulator should by initialized with a plant (here the <code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code>) as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pendulum</span> <span class="o">=</span> <span class="n">PendulumPlant</span><span class="p">()</span>
 <span class="n">sim</span> <span class="o">=</span> <span class="n">Simulator</span><span class="p">(</span><span class="n">plant</span><span class="o">=</span><span class="n">pendulum</span><span class="p">)</span>
@@ -157,7 +158,7 @@ The gym environment can be used for reinforcement learning.</p>
 </ul>
 </section>
 <section id="the-gym-environment">
-<h3>The gym environment<a class="headerlink" href="#the-gym-environment" title="Permalink to this headline"></a></h3>
+<h3>The gym environment<a class="headerlink" href="#the-gym-environment" title="Permalink to this heading"></a></h3>
 <p>The environment can be initialized with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pendulum</span> <span class="o">=</span> <span class="n">PendulumPlant</span><span class="p">()</span>
 <span class="n">sim</span> <span class="o">=</span> <span class="n">Simulator</span><span class="p">(</span><span class="n">plant</span><span class="o">=</span><span class="n">pendulum</span><span class="p">)</span>
@@ -245,7 +246,7 @@ Options: <code class="docutils literal notranslate"><span class="pre">euler</spa
 </section>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>For examples of usages of the simulator class check out the scripts in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a>.</p>
 <p>The gym environment is used for example in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/reinforcement_learning/ddpg">ddpg training</a>.</p>
 </section>

@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -96,7 +97,7 @@
            <div itemprop="articleBody">
              
   <section id="iterative-linear-quadratic-requlator-ilqr">
-<h1>Iterative Linear Quadratic Requlator (iLQR)<a class="headerlink" href="#iterative-linear-quadratic-requlator-ilqr" title="Permalink to this headline"></a></h1>
+<h1>Iterative Linear Quadratic Requlator (iLQR)<a class="headerlink" href="#iterative-linear-quadratic-requlator-ilqr" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Trajectory Optimization</p>
@@ -105,7 +106,7 @@
 <p>Versatility: Swingup and stabilization</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>The <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/6907001">iterative linear quadratic regularizer (iLQR) `[1]</a> is an extension of the LQR controller. The LQR controller linearizes the dynamics at a given state and and assumes that these linear dynamics are valid at every other system state as well. In contrast to that, the iLQR optimization method has the ability to take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs.</p>
 <p>The algorithm can be described as:</p>
 <ol class="arabic simple">
@@ -120,7 +121,7 @@
 <p>If the cost is below a specified threshold the algorithm stops.</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The iLQR algorithm is computed in the iLQR_Calculator class. The class can be used as follows:</p>
 <p>The iLQR calculator has to be initialized with the dimension of the state space (<code class="docutils literal notranslate"><span class="pre">n_x</span></code>) and the dimension of the actuation space (<code class="docutils literal notranslate"><span class="pre">n_u</span></code>) of the system:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iLQR</span> <span class="o">=</span> <span class="n">iLQR_Calculator</span><span class="p">(</span><span class="n">n_x</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_u</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -179,26 +180,26 @@
 <p>Besides the state space trajectory <code class="docutils literal notranslate"><span class="pre">x_trj</span></code> and the control trajectory <code class="docutils literal notranslate"><span class="pre">u_trj</span></code> the calculation also returns the traces of the cost, regularization factor, the ratio of the cost reduction and the expected cost reduction and the cost reduction.</p>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>An example script for the pendulum can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples directory</a>. It can be started with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">compute_iLQR_swingup</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </section>
 <section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
 <p>The iLQR algorithm in this form cannot respect joint and torque limits. Instead, those  have to be enforced by penalizing unwanted values in the cost function.</p>
 </section>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
 <p>Optional: <a class="reference external" href="https://drake.mit.edu/">pydrake [2]</a> (see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md">getting_started</a>)</p>
 </section>
 <section id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline"></a></h2>
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading"></a></h2>
 <p>The calculations with the pydrake symbolic library are about 30% faster than the calculations based on the sympy library in these implementations.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
 <p>[1] Y. Tassa, N. Mansard and E. Todorov, “Control-limited differential dynamic programming,” 2014 IEEE International Conference on Robotics and Automation (ICRA), 2014, pp. 1168-1175, doi: <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/6907001">10.1109/ICRA.2014.6907001</a>.</p>
 <p>[2] <a class="reference external" href="https://drake.mit.edu/">Model-Based Design and Verification for Robotics</a></p>
 </section>

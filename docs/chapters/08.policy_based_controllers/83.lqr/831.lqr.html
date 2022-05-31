@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -102,7 +103,7 @@
 <p>Versatility: Stabilization only</p>
 </div>
 <section id="theory">
-<h1>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h1>
+<h1>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h1>
 <p>A linear quadratic regulator (LQR) can be used to stabilize the pendulum at the unstable fixpoint. For a linear system of the form</p>
 <div class="math">
 <p><img src="../../../_images/math/87d84894e3b490cf034e87195a2c115628d12740.svg" alt="\dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}"/></p>
@@ -118,7 +119,7 @@
 </div><p>There are many solvers for the algebraic Riccati equation. In this library the solver from the scipy package is used.</p>
 </section>
 <section id="api">
-<h1>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h1>
+<h1>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h1>
 <p>The controller needs pendulum parameters as input during initialization:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LQRController</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">damping</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gravity</span><span class="o">=</span><span class="mf">9.81</span><span class="p">,</span> <span class="n">torque_limit</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
     <span class="n">inputs</span><span class="p">:</span>
@@ -144,14 +145,14 @@
 If the calculated torque is out of bounds of the pendulum’s torque limits the controller will return u=None as torque.</p>
 </section>
 <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h1>
 <p>A usage example can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a>. The controller can be tested in simulation with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">sim_lqr</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </section>
 <section id="comments">
-<h1>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h1>
+<h1>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h1>
 <p>Without torque limits the LQR controller can drive the pendulum up from any position in a straight way. In practice this controller should only be used for stabilizing the pendulum at the unstable fixpoint. If the controller would require a torque larger than the pendulums torque limit, the controller returns None instead. This makes it possible to combine this controller with another controller and only use the LQR control if the output is not None. The region of attraction where this controller is able to stabilize the pendulum depends on the pendulum parameters and especially its torque limits.</p>
 </section>
 

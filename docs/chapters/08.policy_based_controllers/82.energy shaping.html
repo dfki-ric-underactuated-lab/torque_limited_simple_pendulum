@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -92,7 +93,7 @@
            <div itemprop="articleBody">
              
   <section id="energy-shaping-control">
-<h1>Energy Shaping Control<a class="headerlink" href="#energy-shaping-control" title="Permalink to this headline"></a></h1>
+<h1>Energy Shaping Control<a class="headerlink" href="#energy-shaping-control" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Closed loop control</p>
@@ -101,7 +102,7 @@
 <p>Versatility: Swingup only, additional stabilization needed at the upright unstable fixed point via LQR controller</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>The energy of a simple pendulum in state <img class="math" src="../../_images/math/3d29e9399b9d51da8fbc5f8205fa00ad02f15cb1.svg" alt="x = [\theta, \dot{\theta}]"/> is given by:</p>
 <div class="math">
 <p><img src="../../_images/math/0aec7e813e3f8dc620c0b6688d4f87bab61aff4f.svg" alt="E(\theta, \dot{\theta}) = \frac{1}{2}ml^2\dot{\theta}^2 - mgl\cos(\theta)"/></p>
@@ -121,7 +122,7 @@ In the standing upright position <cite>[pi, 0]</cite> the whole energy of the pe
 <p>In order to stabilize the pendulum at the unstable fixpoint, energy-shaping control can be combined with a stabilizing controller such as the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/lqr">LQR controller</a>.</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The controller needs pendulum parameters as well as the control term <code class="docutils literal notranslate"><span class="pre">k</span></code> (see equation (3)) as input during initialization:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EnergyShapingController</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">damping</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gravity</span><span class="o">=</span><span class="mf">9.81</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
     <span class="n">inputs</span><span class="p">:</span>
@@ -153,7 +154,7 @@ In the standing upright position <cite>[pi, 0]</cite> the whole energy of the pe
 <p><code class="docutils literal notranslate"><span class="pre">get_control_output</span></code> returns <code class="docutils literal notranslate"><span class="pre">None</span></code> for the desired position and desired velocity (the energy shaping controller is a pure torque controller). The returned torque u is the result of equation (3).</p>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>A usage example can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a>. Start a simulation with energy-shaping control for pendulum swingup and lqr control stabilization at the unstable fixpoint:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">sim_energy_shaping</span><span class="o">.</span><span class="n">py</span>
 </pre></div>

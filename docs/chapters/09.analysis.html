@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -94,12 +95,12 @@
            <div itemprop="articleBody">
              
   <section id="controller-analysis">
-<h1>Controller Analysis<a class="headerlink" href="#controller-analysis" title="Permalink to this headline"></a></h1>
+<h1>Controller Analysis<a class="headerlink" href="#controller-analysis" title="Permalink to this heading"></a></h1>
 <section id="controller-benchmarking">
-<h2>Controller Benchmarking<a class="headerlink" href="#controller-benchmarking" title="Permalink to this headline"></a></h2>
+<h2>Controller Benchmarking<a class="headerlink" href="#controller-benchmarking" title="Permalink to this heading"></a></h2>
 <p>The controller benchmarking class can benchmark the controllers in simulation with respect to a predefined properties.</p>
 <section id="definitions">
-<h3>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline"></a></h3>
+<h3>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading"></a></h3>
 <p>The controller benchmark currently computes the following properties</p>
 <ul class="simple">
 <li><p><strong>Controller Frequency</strong>: How fast can the controller process a pendulum state and return a control output. Measured in calls per second (Hz).</p></li>
@@ -113,7 +114,7 @@
 </ul>
 </section>
 <section id="api">
-<h3>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h3>
+<h3>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h3>
 <p>To initialize the benchmark class do:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">simple_pendulum.analysis.benchmark</span> <span class="kn">import</span> <span class="n">benchmarker</span>
 
@@ -154,15 +155,15 @@
 <p>The individual checks can be turned off. The results will be stored in the filed specified in save_path.</p>
 </section>
 <section id="usage">
-<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h3>
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h3>
 <p>An example usage can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a> in the <a href="#id5"><span class="problematic" id="id6">`benchmark_controller.py &lt;https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/benchmark_controller.py`_</span></a> script.</p>
 </section>
 </section>
 <section id="plotting-controllers">
-<h2>Plotting Controllers<a class="headerlink" href="#plotting-controllers" title="Permalink to this headline"></a></h2>
+<h2>Plotting Controllers<a class="headerlink" href="#plotting-controllers" title="Permalink to this heading"></a></h2>
 <p>Controllers can be plotted by plotting their control signal in the pendulum’s state space.</p>
 <section id="id1">
-<h3>API<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<h3>API<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <p>A controller inheriting from the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/abstract_controller.py">abstract controller class</a> can be plotted by using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">simple_pendulum.analysis.plot_policy</span> <span class="kn">import</span> <span class="n">plot_policy</span>
 
@@ -177,7 +178,7 @@
 <p>The plotstyle can also be set to “2d”. If a save_path is specified the plot will be stored in that location.</p>
 </section>
 <section id="id3">
-<h3>Usage<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<h3>Usage<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <p>An example usage can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a> in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/plot_controller.py">plot_controller.py</a> script.</p>
 </section>
 </section>

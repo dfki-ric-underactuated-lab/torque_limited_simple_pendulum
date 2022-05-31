@@ -14,6 +14,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -109,11 +110,11 @@
            <div itemprop="articleBody">
              
   <span class="target" id="module-simple_pendulum.controllers.sac.sac_controller"></span><section id="sac-controller">
-<h1>SAC Controller<a class="headerlink" href="#sac-controller" title="Permalink to this headline"></a></h1>
+<h1>SAC Controller<a class="headerlink" href="#sac-controller" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.sac.sac_controller.SacController">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SacController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_symmetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.sac.sac_controller.SacController" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html#simple_pendulum.controllers.abstract_controller.AbstractController" title="simple_pendulum.controllers.abstract_controller.AbstractController"><code class="xref py py-class docutils literal notranslate"><span class="pre">simple_pendulum.controllers.abstract_controller.AbstractController</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html#simple_pendulum.controllers.abstract_controller.AbstractController" title="simple_pendulum.controllers.abstract_controller.AbstractController"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractController</span></code></a></p>
 <p>Controller which acts on a policy which has been learned with sac.</p>
 <dl class="simple">
 <dt>model_path<span class="classifier">string</span></dt><dd><p>path to the trained model in zip format</p>

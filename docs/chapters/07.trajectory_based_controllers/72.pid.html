@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -94,7 +95,7 @@
            <div itemprop="articleBody">
              
   <section id="proportional-integral-derivative-pid-control">
-<h1>Proportional-Integral-Derivative (PID) Control<a class="headerlink" href="#proportional-integral-derivative-pid-control" title="Permalink to this headline"></a></h1>
+<h1>Proportional-Integral-Derivative (PID) Control<a class="headerlink" href="#proportional-integral-derivative-pid-control" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Closed loop control</p>
@@ -103,7 +104,7 @@
 <p>Versatility: -</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>This controller is designed to follow a precomputed trajectory from of a csv file to the simulator or the real pendulum.
 Particulary, the controller can process trajectories that have been found with help of the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/trajectory_optimization">trajectory optimization</a> methods.</p>
 <p>The torque processed by the PID control terms via (with feed forward torque):</p>
@@ -115,7 +116,7 @@ Without feed forward torque, the torque from the precomputed trajectory file is 
 <p><img src="../../_images/math/8c49818845a39ea156d7add5a9fbf8da66db72b6.svg" alt="u(t) = K_p e(t) K_i \int_0^t e(t') \text{d}t' K_d \frac{\text{d}e(t)}{\text{d}t}"/></p>
 </div></section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The controller needs pendulum parameters as input during initialization:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PIDController</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">Kp</span><span class="p">,</span> <span class="n">Ki</span><span class="p">,</span> <span class="n">Kd</span><span class="p">,</span> <span class="n">use_feed_forward</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">inputs</span><span class="p">:</span>
@@ -158,12 +159,12 @@ Without feed forward torque, the torque from the precomputed trajectory file is 
 <p>The index counter is incremeted by 1 every time the <code class="docutils literal notranslate"><span class="pre">get_control_output</span></code> function is called.</p>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>Before using this controller, first a trajectory has to be defined/calculated
 and stored to csv file in a suitable format.</p>
 </section>
 <section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
 <p>The controller will not scale the trajectory according to the time values in the csv file. All it does is process the rows of the file one by one with each call of get_control_output.</p>
 </section>
 </section>

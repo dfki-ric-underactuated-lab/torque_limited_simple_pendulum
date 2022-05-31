@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -91,9 +92,9 @@
            <div itemprop="articleBody">
              
   <section id="the-physics-of-a-simple-pendulum">
-<h1>The Physics of a Simple Pendulum<a class="headerlink" href="#the-physics-of-a-simple-pendulum" title="Permalink to this headline"></a></h1>
+<h1>The Physics of a Simple Pendulum<a class="headerlink" href="#the-physics-of-a-simple-pendulum" title="Permalink to this heading"></a></h1>
 <section id="equation-of-motion">
-<h2>Equation of Motion<a class="headerlink" href="#equation-of-motion" title="Permalink to this headline"></a></h2>
+<h2>Equation of Motion<a class="headerlink" href="#equation-of-motion" title="Permalink to this heading"></a></h2>
 <div class="math">
 <p><img src="../_images/math/8596a70f2289a4ae00b600adcded1a0f7c493095.svg" alt="I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\theta) = \tau"/></p>
 </div><a class="reference internal image-reference" href="../_images/pendulum.png"><img alt="../_images/pendulum.png" class="align-center" src="../_images/pendulum.png" style="height: 200px;" /></a>
@@ -111,7 +112,7 @@
 <p>The pendulum has two fixpoints, one of them being stable (the pendulum hanging down) and the other being unstable (the pendulum pointing upwards). A challenge from the control point of view is to swing the pendulum up to the unstable fixpoint and stabilize the pendulum in that state.</p>
 </section>
 <section id="energy-of-the-pendulum">
-<h2>Energy of the Pendulum<a class="headerlink" href="#energy-of-the-pendulum" title="Permalink to this headline"></a></h2>
+<h2>Energy of the Pendulum<a class="headerlink" href="#energy-of-the-pendulum" title="Permalink to this heading"></a></h2>
 <ul>
 <li><p>Kinetic Energy (<cite>K</cite>)</p>
 <blockquote>
@@ -134,7 +135,7 @@
 </ul>
 </section>
 <section id="pendulumplant">
-<h2><code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code><a class="headerlink" href="#pendulumplant" title="Permalink to this headline"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code><a class="headerlink" href="#pendulumplant" title="Permalink to this heading"></a></h2>
 <p>The PendulumPlant class contains the kinematics and dynamics functions of the simple, torque limited pendulum.</p>
 <p>The pendulum plant can be initialized as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pendulum</span> <span class="o">=</span> <span class="n">PendulumPlant</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
@@ -174,11 +175,11 @@
 <p>returns the integrand of the equaitons of motion, i.e. the object that can be calculated with a time step to obtain the forward evolution of the system. The API of the function is written to match the API requested inside the simulator class.
 <cite>t</cite> is the time which is not used in the pendulum dynamics (the dynamics do not change with time). state again is the pendulum state and tau the motor torque. res is a numpy array with shape np.shape(res)=(2,) and res = [<img class="math" src="../_images/math/c84a2dc91172042b08b15f0ffa46c39497c52a96.svg" alt="\dot{\theta}, \ddot{theta}"/>].</p>
 <section id="usage">
-<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h3>
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h3>
 <p>The class is inteded to be used inside the simulator class.</p>
 </section>
 <section id="parameter-identification">
-<h3>Parameter Identification<a class="headerlink" href="#parameter-identification" title="Permalink to this headline"></a></h3>
+<h3>Parameter Identification<a class="headerlink" href="#parameter-identification" title="Permalink to this heading"></a></h3>
 <p>The rigid-body model derived from a-priori known geometry as described previously has the form</p>
 <div class="math">
 <p><img src="../_images/math/fb9075e4f79331fb67fb0659068542bcfa637c08.svg" alt="\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot \theta(t)\right) \; \lambda"/></p>
@@ -190,7 +191,7 @@ A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained b
 </div><p>where <img class="math" src="../_images/math/cd763575d2149a4ef8224766bbe64412460dbe37.svg" alt="\mathit{\Phi}"/> denotes the identiﬁcation matrix.</p>
 </section>
 <section id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h3>
+<h3>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>Bruno Siciliano et al.</strong> <em>Robotics</em>. Red. by Michael J. Grimble and Michael A. Johnson. Advanced Textbooks in Control and Signal Processing. London: Springer  London,  2009. <a class="reference external" href="http://link.springer.com/10.1007/978-1-84628-642-1">ISBN:  978-1-84628-641-4  978-1-84628-642-1. DOI: 10.1007/978-1-84628-642-1 (visited on 09/27/2021)</a>.</p></li>
 <li><p><strong>Vinzenz Bargsten, José de Gea Fernández, and Yohannes Kassahun.</strong> <em>Experimental Robot Inverse Dynamics Identification Using Classical and Machine Learning Techniques</em>. In: <a class="reference external" href="https://www.dfki.de/fileadmin/user_upload/import/8264_ISR16_Dynamics_Identification.pdf">ed. by International Symposium on Robotics. OCLC: 953281127. 2016. (visited on 09/27/2021)</a>.</p></li>

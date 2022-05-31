@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -94,14 +95,14 @@
            <div itemprop="articleBody">
              
   <section id="hardware-testbench-description">
-<h1>Hardware &amp; Testbench Description<a class="headerlink" href="#hardware-testbench-description" title="Permalink to this headline"></a></h1>
+<h1>Hardware &amp; Testbench Description<a class="headerlink" href="#hardware-testbench-description" title="Permalink to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">/hardware</span></code> directory contains all information about the hardware that is used to built the simple pednulum test bench, including a bill of materials, step files of the CAD model along with wiring diagrams for the complete set up as well as the CAN bus.</p>
 <p>We additionally uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: <a class="reference external" href="https://grabcad.com/library/simple_pendulum-1">grabcad.com/simple_pendulum</a></p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/simple_pendulum_CAD.png"><img alt="../../_images/simple_pendulum_CAD.png" src="../../_images/simple_pendulum_CAD.png" style="width: 80%;" /></a>
 </figure>
 <section id="physical-parameters-of-the-pendulum">
-<h2>Physical Parameters of the Pendulum<a class="headerlink" href="#physical-parameters-of-the-pendulum" title="Permalink to this headline"></a></h2>
+<h2>Physical Parameters of the Pendulum<a class="headerlink" href="#physical-parameters-of-the-pendulum" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Point mass: <img class="math" src="../../_images/math/97a7cd31a8cce0783be5ee58b8ccb21154eb1cf6.svg" alt="m_p"/> = 0.546 Kg</p></li>
 <li><p>Mass of rod, mounting parts and screws: <img class="math" src="../../_images/math/598a1637fb588a964254ea258f5e6ff0c0c1a9cf.svg" alt="m_r"/> = 0.13 Kg</p></li>
@@ -113,7 +114,7 @@
 <p><img src="../../_images/math/4f0aad2e984dded7293f8bc42d608ff739945245.svg" alt="l_{COM} = \frac{m_pl 0.5 m_r l}{m_p m_r}"/></p>
 </div></section>
 <section id="physical-parameters-of-the-actuator">
-<h2>Physical Parameters of the Actuator<a class="headerlink" href="#physical-parameters-of-the-actuator" title="Permalink to this headline"></a></h2>
+<h2>Physical Parameters of the Actuator<a class="headerlink" href="#physical-parameters-of-the-actuator" title="Permalink to this heading"></a></h2>
 <p>The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft. The motor is equipped with an absolute 12 bit rotary encoder and an internal PD torque control loop. The motor controller is basically the same as the one used for MIT Mini-Cheetah, which is described <a class="reference external" href="https://docs.google.com/document/d/1dzNVzblz6mqB3eZVEMyi2MtSngALHdgpTaDJIW_BpS4/edit">Ben Katz’s MIT Mini-Cheetah Documentation</a></p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/ak80-6_img.jpg"><img alt="../../_images/ak80-6_img.jpg" src="../../_images/ak80-6_img.jpg" style="width: 60%;" /></a>
@@ -131,7 +132,7 @@
 </ul>
 </section>
 <section id="motor-constants">
-<h2>Motor Constants<a class="headerlink" href="#motor-constants" title="Permalink to this headline"></a></h2>
+<h2>Motor Constants<a class="headerlink" href="#motor-constants" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Before the transmission</p>
@@ -151,7 +152,7 @@
 </ul>
 </section>
 <section id="electrical-setup">
-<h2>Electrical Setup<a class="headerlink" href="#electrical-setup" title="Permalink to this headline"></a></h2>
+<h2>Electrical Setup<a class="headerlink" href="#electrical-setup" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We do not give any safety warranties on the electrical wiring. All experiments and reproductions of our test bed are at your own risk.</p>
@@ -170,7 +171,7 @@
 </ul>
 </section>
 <section id="backemf">
-<h2>backEMF<a class="headerlink" href="#backemf" title="Permalink to this headline"></a></h2>
+<h2>backEMF<a class="headerlink" href="#backemf" title="Permalink to this heading"></a></h2>
 <p>The reverse current resulting from switching motor speeds from high to low is called backEMF (Electro Magnetic Force). When the motor speed decreases the motor works as a generator, which converts mechanical energy into electrical energy and hence the additional current needs some path to flow. The energy recycled back into the input power supply causes a voltage spike and potential risk. It is necessary to add enough input capacitance to absorb this energy. A sufficiently large input capacitance is important in the desgin of the electric curcuit. It is beneficial to have more bulk capacitance, but the disadvantages are increased cost and physical size.</p>
 <p>If the power source were a perfect battery, then energy would flow back into the battery and be recycled. However, in our case the power source is a DC power supply. Especially power supplies with an inverse-polarity protection diode can only source current and cannot sink current, hence the only place the energy can go is into the bulk capacitor. The amount of energy stored in the bulk capacitor can be calculated with</p>
 <div class="math">
@@ -190,7 +191,7 @@
 </section>
 </section>
 <section id="communication-can-bus-wiring">
-<h1>Communication: CAN Bus wiring<a class="headerlink" href="#communication-can-bus-wiring" title="Permalink to this headline"></a></h1>
+<h1>Communication: CAN Bus wiring<a class="headerlink" href="#communication-can-bus-wiring" title="Permalink to this heading"></a></h1>
 <p>Along the CAN bus proper grounding and isolation is required. It is important to not connect ground pins on the CAN bus connectors between different actuators, since this would cause a critical ground loop. The ground pin should only be used to connect to systems with a ground isolated from the power ground. Additionally, isolation between the main pc and the actuators improves the signal quality. When daisy-chaining multiple actuators, only the CAN-High and CAN-Low pins between the drives must be connected. At the end of the chain a 120 Ohm resistor between CAN-H and CAN-L is used to absorb the signals. It prevents the signals from being reflected at the wire ends. The CAN protocol is differential, hence no additional ground reference is needed. The diagram below displays the wiring of the CAN bus.</p>
 <figure class="align-default">
 <img alt="../../_images/can_bus.png" src="../../_images/can_bus.png" />

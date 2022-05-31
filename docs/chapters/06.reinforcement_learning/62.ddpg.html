@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -94,7 +95,7 @@
            <div itemprop="articleBody">
              
   <section id="deep-deterministic-policy-gradient-training">
-<h1>Deep Deterministic Policy Gradient Training<a class="headerlink" href="#deep-deterministic-policy-gradient-training" title="Permalink to this headline"></a></h1>
+<h1>Deep Deterministic Policy Gradient Training<a class="headerlink" href="#deep-deterministic-policy-gradient-training" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Closed loop, learning based, model free</p>
@@ -103,7 +104,7 @@
 <p>Versatility: Swing-up and stabilization</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>The Deep deterministic Policy Gradient (DDPG) algorithm is a reinforcement learning (RL) method. DDPG is a model-free off-policy algorithm.  The controller is trained via interaction with
 the system, such that a (sub-)optimal mapping from state space
 to control command is learned. The learning process is guided by
@@ -120,7 +121,7 @@ For more information on DDPG please refer to the original paper <a class="refere
 <p>This implementation losely follows the <a class="reference external" href="https://keras.io/examples/rl/ddpg_pendulum/">keras guide [2]</a>.</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The ddpg trainer can be initialized with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">ddpg_trainer</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
                        <span class="n">validate_every</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
@@ -207,22 +208,22 @@ the init_environment parameters under the key <em>‘reward_type’</em>. The tr
 enviroment is located in <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/simulation">gym_environment</a></p>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>For an example of how to train a sac model see the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/sim_ddpg.py">train_ddpg.py</a> script in the examples folder.</p>
 <p>The trained model can be used with the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/ddpg">ddpg controller</a>.</p>
 </section>
 <section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
 <p>Todo: comments on training convergence stability</p>
 </section>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Tensorflow 2.x</p></li>
 </ul>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
 <p>[1] Lillicrap, Timothy P., et al. “Continuous control with deep reinforcement learning.” arXiv preprint <a class="reference external" href="https://arxiv.org/abs/1509.02971v6">arXiv:1509.02971 (2015).</a></p>
 <p>[2] <a class="reference external" href="https://keras.io/examples/rl/ddpg_pendulum/">reras guide</a></p>
 </section>

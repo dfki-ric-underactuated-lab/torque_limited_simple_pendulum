@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -94,28 +95,28 @@
            <div itemprop="articleBody">
              
   <section id="motor-configuration">
-<h1>Motor Configuration<a class="headerlink" href="#motor-configuration" title="Permalink to this headline"></a></h1>
+<h1>Motor Configuration<a class="headerlink" href="#motor-configuration" title="Permalink to this heading"></a></h1>
 <p>The R-LINK Configuration Tool is used to configure the AK80-6 from T-Motors. Before starting to use the R-Link device make sure you have downloaded the <cite>CP210x Universal Windows Driver</cite> from silabs. If this isn’t working properly follow the instructions at sparkfun on how to install ch340 drivers. You have to download the <cite>CH 341SER (EXE)</cite> file from the sparkfun webpage. Notice that you first have to select uninstall in the CH341 driver menu to uninstall old drivers before you are able to install the new driver. The configuration tool software for the R-LINK module can be downloaded on the T-Motors website.</p>
 <ul class="simple">
 <li><p><strong>Silabs:</strong> <a class="reference external" href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers">CP210x Universal Windows Driver</a></p></li>
 <li><p><strong>CH341:</strong> <a class="reference external" href="https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all">Sparkfun - How to install CH340 drivers</a></p></li>
 </ul>
 <section id="tutorials">
-<h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline"></a></h2>
+<h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=hbqQCgebaF8">T-MOTOR</a></p></li>
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=HzY9vzgPZkA">Skyentific</a></p></li>
 </ul>
 </section>
 <section id="uart-connection-r-link-module">
-<h2>UART Connection: R-Link module<a class="headerlink" href="#uart-connection-r-link-module" title="Permalink to this headline"></a></h2>
+<h2>UART Connection: R-Link module<a class="headerlink" href="#uart-connection-r-link-module" title="Permalink to this heading"></a></h2>
 <p>R-LINK is a USB to serial port module, specially designed for CubeMars A Series of dynamical modular motors. It is possible to calibrate the encoder in the module, change CAN ID settings, PID settings, as well as to control position, torque and speed of the motor within the configuration software tool.</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/r-link_module.jpg"><img alt="../../_images/r-link_module.jpg" src="../../_images/r-link_module.jpg" style="width: 50%;" /></a>
 </figure>
 </section>
 <section id="instructions-r-link-config-tool">
-<h2>Instructions: R-Link Config Tool<a class="headerlink" href="#instructions-r-link-config-tool" title="Permalink to this headline"></a></h2>
+<h2>Instructions: R-Link Config Tool<a class="headerlink" href="#instructions-r-link-config-tool" title="Permalink to this heading"></a></h2>
 <p><strong>User manual &amp; configuration tool:</strong> <a class="reference external" href="https://store-en.tmotor.com/goods.php?id=1085">store-en.tmotor.com</a></p>
 <ol class="arabic">
 <li><p>Wire the R-LINK module as shown in the figure below. A USB to micro USB cable connects a pc with the R-LINK module and the 5pin cable goes between the R-LINK module and the Motor.</p>
@@ -163,12 +164,12 @@ before the setting changes actually apply on the motor.</p>
 </ol>
 </section>
 <section id="debugging">
-<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h2>
+<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this heading"></a></h2>
 <p>Error messages that showed up during the configuration procedure, such as <cite>UVLO</cite> (VM undervoltage lockout) and <cite>OTW</cite> (Thermal warning and shutdown), could be interpreted with the help of the datasheet for the DRV8353M 100-V Three-Phase Smart Gate Driver from Texas Instruments:</p>
 <p><strong>Datasheet:</strong> <a class="reference external" href="https://www.ti.com/lit/ds/symlink/drv8353m.pdf">DRV8353M</a> (on the first Page under: 1. Features)</p>
 </section>
 <section id="pd-controller">
-<h2>PD-Controller<a class="headerlink" href="#pd-controller" title="Permalink to this headline"></a></h2>
+<h2>PD-Controller<a class="headerlink" href="#pd-controller" title="Permalink to this heading"></a></h2>
 <p>A proportional-derivative controller, which is based on the MIT Mini-Cheetah Motor, is implemented on the motor controller board. The control block diagram of this closed loop controller is shown below. It can bee seen that the control method is flexible, as pure position, speed, feedforward torque control or any combination of those is possible.</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/pd_controller.png"><img alt="../../_images/pd_controller.png" src="../../_images/pd_controller.png" style="width: 80%;" /></a>

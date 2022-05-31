@@ -9,4 +9,8 @@
        :maxdepth: 1
 
        simple_pendulum.controllers.tvlqr.tvlqr
+    .. toctree::
+       :maxdepth: 1
+
+       simple_pendulum.controllers.tvlqr.roa
 

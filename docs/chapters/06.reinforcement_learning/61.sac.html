@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -94,7 +95,7 @@
            <div itemprop="articleBody">
              
   <section id="soft-actor-critic-training">
-<h1>Soft Actor Critic Training<a class="headerlink" href="#soft-actor-critic-training" title="Permalink to this headline"></a></h1>
+<h1>Soft Actor Critic Training<a class="headerlink" href="#soft-actor-critic-training" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Closed loop, learning based, model free</p>
@@ -103,7 +104,7 @@
 <p>Versatility: Swing-up and stabilization</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>The soft actor critic (SAC) algorithm is a reinforcement learning (RL)
 method. It belongs to the class of so called ‘model free’
 methods, i.e. no knowledge about the system to be controlled is
@@ -121,7 +122,7 @@ ending up in suboptimal local minima.</p>
 <p>For more information on SAC please refer to the original paper <a class="reference external" href="https://arxiv.org/abs/1801.01290">[1]</a>:</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The sac trainer can be initialized with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">sac_trainer</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;log_data/sac_training&quot;</span><span class="p">)</span>
 </pre></div>
@@ -204,16 +205,16 @@ the init_environment parameters under the key <em>‘reward_type’</em>. The tr
 enviroment is located in <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/simulation/gym_environment.py">gym_environment</a></p>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>For an example of how to train a sac model see the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/train_sac.py">train_sac.py</a> script in the examples folder.</p>
 <p>The trained model can be used with the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/sac">sac controller</a>.</p>
 </section>
 <section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
 <p>Todo: comments on training convergence stability</p>
 </section>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Stable Baselines 3 (<a class="reference external" href="https://github.com/DLR-RM/stable-baselines3">https://github.com/DLR-RM/stable-baselines3</a>)</p></li>
 <li><p>Numpy</p></li>
@@ -221,7 +222,7 @@ enviroment is located in <a class="reference external" href="https://github.com/
 </ul>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
 <p>[1] [Haarnoja, Tuomas, et al. “Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor.” International conference on machine learning. PMLR, 2018.](<a class="reference external" href="https://arxiv.org/abs/1801.01290">https://arxiv.org/abs/1801.01290</a>)</p>
 </section>
 </section>

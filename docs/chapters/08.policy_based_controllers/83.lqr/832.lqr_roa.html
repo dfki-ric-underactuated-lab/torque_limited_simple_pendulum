@@ -14,6 +14,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -100,10 +101,10 @@
            <div itemprop="articleBody">
              
   <section id="region-of-attraction-roa-estimation">
-<h1>Region of Attraction (RoA) estimation<a class="headerlink" href="#region-of-attraction-roa-estimation" title="Permalink to this headline"></a></h1>
+<h1>Region of Attraction (RoA) estimation<a class="headerlink" href="#region-of-attraction-roa-estimation" title="Permalink to this heading"></a></h1>
 <p>The RoA estimation is a process that can be applied to the closed-loop dynamics of a system, i.e. Plant + Controller, in order to analize its state-space behaviour. Two different methods have been implemented here for studying the dynamics of the underactuated pendulum coupled with an LQR controller.</p>
 <section id="sos-method">
-<h2>SOS method<a class="headerlink" href="#sos-method" title="Permalink to this headline"></a></h2>
+<h2>SOS method<a class="headerlink" href="#sos-method" title="Permalink to this heading"></a></h2>
 <p>The implementation here is based on</p>
 <blockquote>
 <div><p>Tedrake, Russ, Ian R. Manchester, Mark Tobenkin, and John W. Roberts. “LQR-Trees: Feedback Motion Planning via Sums-of-Squares Verification.” The International Journal of Robotics Research 29, no. 8 (July 2010): 1038–52. <a class="reference external" href="https://doi.org/10.1177/0278364910369189">https://doi.org/10.1177/0278364910369189</a>.</p>
@@ -119,11 +120,11 @@ After obtaining the Lyapunov function the feasibility problem can be formulated 
 It is important to highlight that other contraints are needed to include the torque inputs limits in the optimization problem.</p>
 <p>Eventually, the above problem only verify one-sublevel set of the Lyapunov function. In order to obtain the best estimation, searching for the largest rho  that can satisfy these conditions is necessary. The two different methods that have been implemented are described below.</p>
 <section id="maximization-of-rho-simple-line-search">
-<h3>Maximization of <img class="math" src="../../../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.svg" alt="\rho"/>: Simple line search<a class="headerlink" href="#maximization-of-rho-simple-line-search" title="Permalink to this headline"></a></h3>
+<h3>Maximization of <img class="math" src="../../../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.svg" alt="\rho"/>: Simple line search<a class="headerlink" href="#maximization-of-rho-simple-line-search" title="Permalink to this heading"></a></h3>
 <p>Since the problem is convex with rho fixed, and <img class="math" src="../../../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.svg" alt="\rho"/> is just a scalar, a simple line search on <img class="math" src="../../../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.svg" alt="\rho"/> can be performed to find the maximum for which the convex optimization returns a feasible solution. In particular, a bisection-like algorithm has been implemented here for such a purpose. However, since this formulation can be computationally heavy then other formulations might be considered.</p>
 </section>
 <section id="maximization-of-rho-equality-constrained-formulation">
-<h3>Maximization of <img class="math" src="../../../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.svg" alt="\rho"/>: Equality-constrained formulation<a class="headerlink" href="#maximization-of-rho-equality-constrained-formulation" title="Permalink to this headline"></a></h3>
+<h3>Maximization of <img class="math" src="../../../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.svg" alt="\rho"/>: Equality-constrained formulation<a class="headerlink" href="#maximization-of-rho-equality-constrained-formulation" title="Permalink to this heading"></a></h3>
 <p>This is an important variation since it makes use of the “S-procedure” to make the problem be jointly convex in <img class="math" src="../../../_images/math/247195f40f41330cdecfab82935779df903cbb90.svg" alt="\lambda(x)"/> and <img class="math" src="../../../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.svg" alt="\rho"/>, so a single convex optimization is needed.
 Under the assumption that <img class="math" src="../../../_images/math/aaa509fb276da7ce0af605c3758bc7e577d0196a.svg" alt="\dot{V}(x)"/> is negative-definite at the fixed point, the problem can be written as</p>
 <div class="math">
@@ -135,7 +136,7 @@ Under the assumption that <img class="math" src="../../../_images/math/aaa509fb2
 </section>
 </section>
 <section id="probabilistic-method">
-<h2>Probabilistic Method<a class="headerlink" href="#probabilistic-method" title="Permalink to this headline"></a></h2>
+<h2>Probabilistic Method<a class="headerlink" href="#probabilistic-method" title="Permalink to this heading"></a></h2>
 <p>For simple systems, such as the torque limited simple pendulum under LQR control, the RoA can be estimated by just evaluating the Lyapunov conditions for initial states from a continuously shrinking estimate of the ROA. This approach was introduced in:</p>
 <blockquote>
 <div><ol class="upperalpha simple" start="5">
@@ -149,7 +150,7 @@ Under the assumption that <img class="math" src="../../../_images/math/aaa509fb2
 <p>A random initial condition <img class="math" src="../../../_images/math/6c7b18a86c21860a18a4daf4aa7e6eca01c773fc.svg" alt="V(\hat{\mathbf{x}})"/> is sampled from <img class="math" src="../../../_images/math/7b91a307a74efeda98331a2de35279463987f8d3.svg" alt="\mathcal{B}"/> and the Lyapunov conditions (<img class="math" src="../../../_images/math/83ce8d7a2985d266c7c1d9ea39e45a8dffed80d5.svg" alt="V(\hat{\mathbf{x}}) &gt; 0"/> and <img class="math" src="../../../_images/math/bbbc03ca712afffa896c40612b5495dcf03fc3d2.svg" alt="\dot{V}(\hat{\mathbf{x}}) = \nabla V \mathbf{f}(\mathbf{\hat{x}}) &lt; 0"/>) are evaluated. If these conditions are satisfied, the next initial state is sampled. However, if these conditions are not met, the estimate is shrunk, such that <img class="math" src="../../../_images/math/5357e9a5931c1bc4098343f7c696d49d6039e1eb.svg" alt="\rho = V(\hat{\mathbf{x}})"/></p>
 </section>
 <section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
 <p>Further possible improvements:</p>
 <ul class="simple">
 <li><p>Verifying the dynamics in implicit form will be necessary for more complex systems where the mass is not a scalar value. The SOS framework premitts it and would be usefull to try.</p></li>

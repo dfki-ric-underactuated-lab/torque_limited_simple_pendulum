@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -95,7 +96,7 @@
            <div itemprop="articleBody">
              
   <section id="ilqr-model-predictive-control">
-<h1>iLQR Model Predictive Control<a class="headerlink" href="#ilqr-model-predictive-control" title="Permalink to this headline"></a></h1>
+<h1>iLQR Model Predictive Control<a class="headerlink" href="#ilqr-model-predictive-control" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Model Predictive Control</p>
@@ -104,15 +105,15 @@
 <p>Versatility: Swingup and stabilization</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>This controller uses the trajectory optimization from the iLQR algorithm (see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/trajectory_optimization/ilqr/README.md">iLQR</a>) in an MPC setting. This means that this controller recomputes an optimal trajectory (including the optimal sequence of control inputs) at every time step. The first control input of this solution is returned as control input for the current state. As the optimization happens every timestep the iLQR algorithm is only executed with one forward and one backward pass. As initial trajectory the solution of the previous timestep is parsed to the iLQR solver.</p>
 </section>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
 <p>pydrake (see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md">getting_started</a>)</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The controller can be initialized as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">controller</span> <span class="o">=</span> <span class="n">iLQRMPCController</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                                <span class="n">length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
@@ -179,14 +180,14 @@ Alternatively, it is possible to compute a new initial guess with:</p>
 <p><code class="docutils literal notranslate"><span class="pre">get_control_output</span></code> returns None for the desired position and desired velocity (the iLQR controller is a pure torque controller). <code class="docutils literal notranslate"><span class="pre">u</span></code> is the first control input of the computed control sequence. as described in the Theory section.</p>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>The controller can be tested in simulation with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">sim_ilqrMPC</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </section>
 <section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
 <p>For coulomb_fricitons != 0 the optimization gets considerably slower.</p>
 </section>
 </section>

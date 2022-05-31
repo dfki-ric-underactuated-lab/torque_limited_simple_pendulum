@@ -13,6 +13,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
@@ -215,7 +216,11 @@
       <li><a href="simple_pendulum.utilities.unit_conversion.html#simple_pendulum.utilities.unit_conversion.deg_to_rad">deg_to_rad() (in module simple_pendulum.utilities.unit_conversion)</a>
 </li>
       <li><a href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.direct_sphere">direct_sphere() (in module simple_pendulum.controllers.lqr.roa.utils)</a>
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.direct_sphere">(in module simple_pendulum.controllers.tvlqr.roa.utils)</a>
 </li>
+      </ul></li>
       <li><a href="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.html#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator">DirectCollocationCalculator (class in simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation)</a>
 </li>
       <li><a href="simple_pendulum.controllers.lqr.lqr.html#simple_pendulum.controllers.lqr.lqr.dlqr">dlqr() (in module simple_pendulum.controllers.lqr.lqr)</a>
@@ -307,9 +312,17 @@
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.models.html#simple_pendulum.reinforcement_learning.ddpg.models.get_critic">get_critic() (in module simple_pendulum.reinforcement_learning.ddpg.models)</a>
 </li>
       <li><a href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_params">get_ellipse_params() (in module simple_pendulum.controllers.lqr.roa.plot)</a>
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.get_ellipse_params">(in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
 </li>
+      </ul></li>
       <li><a href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch">get_ellipse_patch() (in module simple_pendulum.controllers.lqr.roa.plot)</a>
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.get_ellipse_patch">(in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
 </li>
+      </ul></li>
       <li><a href="simple_pendulum.controllers.ddpg.ddpg_controller.html#simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller.get_observation">get_observation() (ddpg_controller method)</a>
 
       <ul>
@@ -323,6 +336,8 @@
       <li><a href="simple_pendulum.simulation.simulation.html#simple_pendulum.simulation.simulation.Simulator.get_state">get_state() (Simulator method)</a>
 </li>
       <li><a href="simple_pendulum.simulation.gym_environment.html#simple_pendulum.simulation.gym_environment.SimplePendulumEnv.get_state_from_observation">get_state_from_observation() (SimplePendulumEnv method)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.getEllipseContour">getEllipseContour() (in module simple_pendulum.controllers.tvlqr.roa.utils)</a>
 </li>
       <li><a href="simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.grav_comp">grav_comp() (in module simple_pendulum.utilities.plot)</a>
 </li>
@@ -518,6 +533,14 @@
 </li>
         <li><a href="simple_pendulum.controllers.tvlqr.html#module-simple_pendulum.controllers.tvlqr">simple_pendulum.controllers.tvlqr</a>
 </li>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.html#module-simple_pendulum.controllers.tvlqr.roa">simple_pendulum.controllers.tvlqr.roa</a>
+</li>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#module-simple_pendulum.controllers.tvlqr.roa.plot">simple_pendulum.controllers.tvlqr.roa.plot</a>
+</li>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html#module-simple_pendulum.controllers.tvlqr.roa.probabilistic">simple_pendulum.controllers.tvlqr.roa.probabilistic</a>
+</li>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#module-simple_pendulum.controllers.tvlqr.roa.utils">simple_pendulum.controllers.tvlqr.roa.utils</a>
+</li>
         <li><a href="simple_pendulum.controllers.tvlqr.tvlqr.html#module-simple_pendulum.controllers.tvlqr.tvlqr">simple_pendulum.controllers.tvlqr.tvlqr</a>
 </li>
         <li><a href="simple_pendulum.model.html#module-simple_pendulum.model">simple_pendulum.model</a>
@@ -651,17 +674,29 @@
 </li>
       <li><a href="simple_pendulum.model.pendulum_plant.html#simple_pendulum.model.pendulum_plant.PendulumPlant">PendulumPlant (class in simple_pendulum.model.pendulum_plant)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox">PendulumPlantApprox (class in simple_pendulum.controllers.lqr.roa.utils)</a>
 </li>
       <li><a href="simple_pendulum.controllers.pid.pid.html#simple_pendulum.controllers.pid.pid.PIDController">PIDController (class in simple_pendulum.controllers.pid.pid)</a>
 </li>
       <li><a href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse">plot_ellipse() (in module simple_pendulum.controllers.lqr.roa.plot)</a>
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plot_ellipse">(in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
 </li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.html#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.plot_phase_space_trajectory">plot_phase_space_trajectory() (DirectCollocationCalculator method)</a>
 </li>
       <li><a href="simple_pendulum.analysis.plot_policy.html#simple_pendulum.analysis.plot_policy.plot_policy">plot_policy() (in module simple_pendulum.analysis.plot_policy)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFirstLastEllipses">plotFirstLastEllipses() (in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel">plotFunnel() (in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel3d">plotFunnel3d() (in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotRhoEvolution">plotRhoEvolution() (in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
 </li>
       <li><a href="simple_pendulum.model.pendulum_plant.html#simple_pendulum.model.pendulum_plant.PendulumPlant.potential_energy">potential_energy() (PendulumPlant method)</a>
 </li>
@@ -672,6 +707,8 @@
       <li><a href="simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.prepare_trajectory">prepare_trajectory() (in module simple_pendulum.utilities.process_data)</a>
 </li>
       <li><a href="simple_pendulum.utilities.performance_profiler.html#simple_pendulum.utilities.performance_profiler.profiler">profiler() (in module simple_pendulum.utilities.performance_profiler)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.projectedEllipseFromCostToGo">projectedEllipseFromCostToGo() (in module simple_pendulum.controllers.tvlqr.roa.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -684,7 +721,11 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.quad_form">quad_form() (in module simple_pendulum.controllers.lqr.roa.utils)</a>
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.quad_form">(in module simple_pendulum.controllers.tvlqr.roa.utils)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -740,7 +781,11 @@
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.html#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.sample_batch">sample_batch() (ReplayBuffer method)</a>
 </li>
       <li><a href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.sample_from_ellipsoid">sample_from_ellipsoid() (in module simple_pendulum.controllers.lqr.roa.utils)</a>
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.sample_from_ellipsoid">(in module simple_pendulum.controllers.tvlqr.roa.utils)</a>
 </li>
+      </ul></li>
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.save">save() (ddpg_trainer method)</a>
 
       <ul>
@@ -786,6 +831,8 @@
 </li>
       </ul></li>
       <li><a href="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.html#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.set_initial_guess">set_initial_guess() (iLQRMPCController method)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.tvlqr.html#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController.set_Qf">set_Qf() (TVLQRController method)</a>
 </li>
       <li><a href="simple_pendulum.trajectory_optimization.ilqr.ilqr.html#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_stage_cost">set_stage_cost() (iLQR_Calculator method)</a>, <a href="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.html#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_stage_cost">[1]</a>
 </li>
@@ -1017,13 +1064,41 @@
         <li><a href="simple_pendulum.controllers.sac.sac_controller.html#module-simple_pendulum.controllers.sac.sac_controller">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     simple_pendulum.controllers.tvlqr
 
       <ul>
         <li><a href="simple_pendulum.controllers.tvlqr.html#module-simple_pendulum.controllers.tvlqr">module</a>
+</li>
+      </ul></li>
+      <li>
+    simple_pendulum.controllers.tvlqr.roa
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.html#module-simple_pendulum.controllers.tvlqr.roa">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    simple_pendulum.controllers.tvlqr.roa.plot
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.plot.html#module-simple_pendulum.controllers.tvlqr.roa.plot">module</a>
+</li>
+      </ul></li>
+      <li>
+    simple_pendulum.controllers.tvlqr.roa.probabilistic
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html#module-simple_pendulum.controllers.tvlqr.roa.probabilistic">module</a>
+</li>
+      </ul></li>
+      <li>
+    simple_pendulum.controllers.tvlqr.roa.utils
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#module-simple_pendulum.controllers.tvlqr.roa.utils">module</a>
 </li>
       </ul></li>
       <li>
@@ -1352,10 +1427,10 @@
 </li>
       <li><a href="simple_pendulum.trajectory_optimization.ilqr.unit_test.html#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx3">test_0_iLQR_computation_nx3() (Test method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.trajectory_optimization.ilqr.unit_test.html#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx3_sympy">test_0_iLQR_computation_nx3_sympy() (Test method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.controllers.ilqr.unit_test.html#simple_pendulum.controllers.ilqr.unit_test.Test.test_0_iLQR_MPC_swingup_nx2">test_0_iLQR_MPC_swingup_nx2() (Test method)</a>
 </li>
       <li><a href="simple_pendulum.model.unit_test.html#simple_pendulum.model.unit_test.Test.test_0_kinematics">test_0_kinematics() (Test method)</a>
@@ -1379,6 +1454,10 @@
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.agent.html#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.train_on">train_on() (Agent method)</a>
 </li>
       <li><a href="simple_pendulum.controllers.tvlqr.tvlqr.html#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController">TVLQRController (class in simple_pendulum.controllers.tvlqr.tvlqr)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html#simple_pendulum.controllers.tvlqr.roa.probabilistic.TVprobRhoComputation">TVprobRhoComputation() (in module simple_pendulum.controllers.tvlqr.roa.probabilistic)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html#simple_pendulum.controllers.tvlqr.roa.probabilistic.TVprobRhoVerification">TVprobRhoVerification() (in module simple_pendulum.controllers.tvlqr.roa.probabilistic)</a>
 </li>
   </ul></td>
 </tr></table>

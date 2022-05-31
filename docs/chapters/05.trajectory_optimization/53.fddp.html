@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -94,13 +95,13 @@
            <div itemprop="articleBody">
              
   <section id="direct-optimal-control-based-on-the-fddp-algorithm">
-<h1>Direct Optimal Control based on the FDDP algorithm<a class="headerlink" href="#direct-optimal-control-based-on-the-fddp-algorithm" title="Permalink to this headline"></a></h1>
+<h1>Direct Optimal Control based on the FDDP algorithm<a class="headerlink" href="#direct-optimal-control-based-on-the-fddp-algorithm" title="Permalink to this heading"></a></h1>
 <p>In this package, the single pendulum swing-up is performed using the direct optimal control based on the FDDP algorithm <a class="reference external" href="https://arxiv.org/abs/1909.04947">(C. Mastalli, 2019)</a>.</p>
 <p>The script uses FDDP, BOXFddp can also be used with the same weights.
 BOXFddp allows to enforce the system’s torque limits.</p>
 <p>The urdf model is modified to fit a pinocchio model.</p>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>The costs functions for the <strong>Running model</strong> is written as</p>
 <div class="math">
 <p><img src="../../_images/math/28f23d46d5d33d3fa2ba6c620842efb319391a73.svg" alt="l = {\sum}_{n=1}^{T-1} \alpha_n \Phi_n(q,\dot{q},\mathrm{T})"/></p>
@@ -137,7 +138,7 @@ BOXFddp allows to enforce the system’s torque limits.</p>
 <p>The weights <img class="math" src="../../_images/math/bc58c6693b4ac49be11f139916296dcbc22c3191.svg" alt="\alpha_i"/> for this optimization problem are determined experimentally.</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The BOXFDDP algorithm can be executed with the boxfddp_calculator class. It can be initialized with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ddp</span> <span class="o">=</span> <span class="n">boxfddp_calculator</span><span class="p">(</span><span class="n">urdf_path</span><span class="o">=</span><span class="n">urdf_path</span><span class="p">,</span>
                         <span class="n">enable_gui</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -176,20 +177,20 @@ BOXFddp allows to enforce the system’s torque limits.</p>
 </div>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>An example script for the pendulum can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples</a> directory. It can be started with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">compute_BOXFDDP_swingup</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </section>
 <section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="https://github.com/loco-3d/crocoddyl">Crocoddyl</a></p>
 <p><a class="reference external" href="https://github.com/stack-of-tasks/pinocchio">Pinocchio</a></p>
 <p>For the display, <a class="reference external" href="https://github.com/Gepetto/gepetto-viewer">Gepetto</a></p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
 <p>[1] Mastalli, Carlos, et al. “Crocoddyl: An efficient and versatile framework for multi-contact optimal control.” 2020 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2020. <a class="reference external" href="https://arxiv.org/abs/1909.04947">arxiv link</a></p>
 </section>
 </section>

@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -96,7 +97,7 @@
            <div itemprop="articleBody">
              
   <section id="time-varying-linear-quadratic-regulator-tvlqr">
-<h1>Time-varying Linear Quadratic Regulator (TVLQR)<a class="headerlink" href="#time-varying-linear-quadratic-regulator-tvlqr" title="Permalink to this headline"></a></h1>
+<h1>Time-varying Linear Quadratic Regulator (TVLQR)<a class="headerlink" href="#time-varying-linear-quadratic-regulator-tvlqr" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Closed loop control</p>
@@ -105,7 +106,7 @@
 <p>Versatility: -</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>This controller is designed to follow a precomputed trajectory from of a csv file to the simulator or the real pendulum.
 Particulary, the controller can process trajectories that have been found with help of the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/trajectory_optimization">trajectory optimization</a> methods.</p>
 <p>The Time-varying Linear Quadratic Regulator (TVLQR) is an extension to the regular <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/lqr">LQR controller</a>. The LQR formalization is used for a time-varying linear dynamics function</p>
@@ -117,7 +118,7 @@ Particulary, the controller can process trajectories that have been found with h
 </div><p>For further reading, we recommend chapter 8 of this <a class="reference external" href="http://underactuated.mit.edu/">Underactuated Robotics [1]</a> lecture.</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The controller needs pendulum parameters as input during initialization:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TVLQRController</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">damping</span><span class="p">,</span> <span class="n">gravity</span><span class="p">,</span> <span class="n">torque_limit</span><span class="p">)</span>
     <span class="n">inputs</span><span class="p">:</span>
@@ -153,19 +154,19 @@ Particulary, the controller can process trajectories that have been found with h
 <p>The index counter is incremeted by 1 every time the get_control_output function is called.</p>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>Before using this controller, first a trajectory has to be defined/calculated and stored to csv file or dictionary in a suitable format.</p>
 </section>
 <section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
 <p>The trajectory optimization using direct collocation for the pendulum swing-up is accomplished by taking advantage of <a class="reference external" href="https://drake.mit.edu/">Drake toolbox [2]</a>.</p>
 </section>
 <section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline"></a></h2>
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
 <p>The controller will not scale the trajectory according to the time values in the csv file. All it does is process the rows of the file one by one with each call of get_control_output.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="http://underactuated.mit.edu/">[1] Russ Tedrake. Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation (Course Notes for MIT 6.832).</a></p>
 <p><a class="reference external" href="https://drake.mit.edu/">[2] Model-Based Design and Verification for Robotics</a>.</p>
 </section>

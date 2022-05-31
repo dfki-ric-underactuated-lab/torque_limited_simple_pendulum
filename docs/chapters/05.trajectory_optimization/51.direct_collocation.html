@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -93,7 +94,7 @@
            <div itemprop="articleBody">
              
   <section id="trajectory-optimization-using-direct-collocation">
-<h1>Trajectory optimization using direct collocation<a class="headerlink" href="#trajectory-optimization-using-direct-collocation" title="Permalink to this headline"></a></h1>
+<h1>Trajectory optimization using direct collocation<a class="headerlink" href="#trajectory-optimization-using-direct-collocation" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Trajectory Optimization</p>
@@ -102,7 +103,7 @@
 <p>Versatility: Swingup and stabilization</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline"></a></h2>
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>Direct collocation is an approach from <strong>collocation methods</strong> , which transforms the optimal control problem into a mathematical programming problem. The numerical solution can be achieved directly by solving the new problem using sequential quadratic programming <a class="reference external" href="https://arc.aiaa.org/doi/pdf/10.2514/3.20223">[1]</a> <a class="reference external" href="http://underactuated.mit.edu/trajopt.html">[2]</a>.
 The formulation of the optimization problem at the collocation points is as follows:</p>
 <div class="math">
@@ -130,7 +131,7 @@ The formulation of the optimization problem at the collocation points is as foll
 <p>Minimum and a maximum spacing between sample times set to 0.05 and 0.5`s`. It assumes a <strong>first-order hold</strong> on the input trajectory, in which the signal is reconstructed as a piecewise linear approximation to the original sampled signal.</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h2>
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
 <p>The direct collocation algorithm explained above can be executed by using the <code class="docutils literal notranslate"><span class="pre">DirectCollocationCalculator</span></code> class:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dircal</span> <span class="o">=</span> <span class="n">DirectCollocationCalculator</span><span class="p">()</span>
 </pre></div>
@@ -162,11 +163,11 @@ The formulation of the optimization problem at the collocation points is as foll
 <p>If a string with a path to a file location is parsed with ‘save_to’ the plot is saved there.</p>
 </section>
 <section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
 <p>The trajectory optimization using direct collocation for the pendulum swing-up is accomplished by taking advantage of <a class="reference external" href="https://drake.mit.edu/">Drake toolbox [3]</a>.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="https://arc.aiaa.org/doi/pdf/10.2514/3.20223">[1] Hargraves, Charles R., and Stephen W. Paris. “Direct trajectory optimization using nonlinear programming and collocation.” Journal of guidance, control, and dynamics 10.4 (1987): 338-342</a></p>
 <p><a class="reference external" href="http://underactuated.mit.edu/">[2] Russ Tedrake. Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation (Course Notes for MIT 6.832).</a></p>
 <p><cite>[3] Model-Based Design and Verification for Robotics &lt;https://drake.mit.edu/&gt;</cite></p>
