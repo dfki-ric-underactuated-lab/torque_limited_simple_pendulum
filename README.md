@@ -14,10 +14,13 @@
 <img src="cov/ub20cov.svg">
 <a href="https://zenodo.org/record/6498036" target="_blank">
 	
-![Zenodo Badge](cov/zenodo.6498036.svg)
-	
+![Zenodo Badge](cov/zenodo.6498036.svg)	
+</a>
+<a style="border-width:0" href="https://doi.org/10.21105/joss.03884">
+  <img src="https://joss.theoj.org/papers/10.21105/joss.03884/status.svg" alt="DOI badge" >
 </a>
 </div>
+
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a torque limited simple pendulum built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
 
 **See the simple pendulum in action:** 
@@ -179,6 +182,6 @@ This work has been released under the BSD 3-Clause License. Details and terms of
 
 ## Citation
 
-Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner. Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. In: Journal of Open Source Software (JOSS). (submitted)
+Wiebe et al., (2022). Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. Journal of Open Source Software, 7(74), 3884, https://doi.org/10.21105/joss.03884
 
 -----------------------------------------------------------------------------------------------------------------------------
