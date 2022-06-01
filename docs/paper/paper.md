@@ -190,11 +190,11 @@ All of these controllers utilize model knowledge. Additionally, the control poli
 The implementations of direct collocation and TVLQR make use of Drake [@drake], iLQR makes use of either the symbolic library of Drake or sympy, FDDP makes use of Crocoddyl [@mastalli2020crocoddyl], SAC uses stable-baselines3 [@stable-baselines3], and DDPG is implemented in TensorFlow [@tensorflow2015-whitepaper]. The other methods use only standard libraries.
 This repository is designed to welcome contributions in form of novel optimization methods/controllers/learning algorithms to extend this list.
 
-To get an understanding of the functionality of the implemented controllers, they can be visualized in the pendulum's state space. Example visualizations of the energy shaping controller and the policy learned with DDPG are shown in figure \autoref{fig:controller_plots}.
+To get an understanding of the functionality of the implemented controllers, they can be visualized in the pendulum's state space. Example visualizations of the energy shaping controller and the policy learned with DDPG are shown in \autoref{fig:controller_plots}.
 
 ![Energy Shaping Controller and DDPG Policy. \label{fig:controller_plots}](figures/energy_and_ddpg.png){height=600px}
 
-Furthermore, the swing-up controllers can be benchmarked in simulation, where how fast, efficient, consistent, stable and sensitive the controller is during the swing-up is evaluated. See Figure \autoref{fig:benchmark} for a comparison of the different controllers' benchmark results.
+Furthermore, the swing-up controllers can be benchmarked in simulation, where how fast, efficient, consistent, stable and sensitive the controller is during the swing-up is evaluated. See \autoref{fig:benchmark} for a comparison of the different controllers' benchmark results.
 
 The benchmark criteria are:
 
