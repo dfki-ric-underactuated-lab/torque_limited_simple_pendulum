@@ -63,7 +63,7 @@ The pendulum has a stable (downward configuration) and unstable (upward configur
 
 ## Mechanical Setup
 
-![Simple Pendulum. The physical variables are introduced in \autoref{eq:eom}. \label{fig:pendulum}](figures/simple_pendulum_CAD.png){#id .class height=500px}
+![Simple Pendulum. The physical variables are introduced in \autoref{eq:eom}. \label{fig:pendulum}](figures/simple_pendulum_CAD.png){height=500px}
 
 The pendulum (\autoref{fig:pendulum}) is constructed by mounting a motor to a fixed frame, attaching a rod to the motor and a weight to the other end of the rod. The motor used in this setup is the AK80-6 actuator from T-Motor [@tmotors_manual], which is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft.
 
@@ -77,7 +77,7 @@ The pendulum (\autoref{fig:pendulum}) is constructed by mounting a motor to a fi
 * Max. torque to weight ratio = 24 $`Nm/kg`$ (after the transmission)
 * Max. velocity = 38.2 $`rad/s`$ = 365 $`rpm`$ (after the transmission)
 
-![Actuator T-Motor AK80-6. \label{fig:motor}](figures/ak80-6_img.jpg){#id .class height=400px}
+![Actuator T-Motor AK80-6. \label{fig:motor}](figures/ak80-6_img.jpg){height=400px}
 
 The physical parameters of the pendulum are:
 
@@ -92,14 +92,14 @@ The physical parameters of the pendulum are:
 
 The schematic below (\autoref{fig:electrical_schematic}) displays the electrial setup of the testbench. A main PC is connected to a motor controller board (CubeMars_AK_V1.1, see [@tmotors_manual]) mounted on the actuator. The communication takes place on a CAN bus with a maximum signal frequency of 1Mbit/sec with the 'classical' CAN protocol. Furthermore, a USB to CAN interface is needed, if the main PC doesn't feature a PCI CAN card. The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps for peak torque. The power supply in our test setup is the EA-PS 9032-40 from Elektro-Automatik. The capacitor filters back EMF coming from the actuator and protects the power supply from high voltage peaks. An emergency stop button serves as additional safety measure.
 
-![Electrical setup. \label{fig:electrical_schematic}](figures/wiring_diagram.png){#id .class height=800px}
+![Electrical setup. \label{fig:electrical_schematic}](figures/wiring_diagram.png){height=800px}
 
 <!--
 ## CAN bus wiring
 
 Along the CAN bus proper grounding and isolation is required. It is important to not connect ground pins on the CAN bus connectors between different actuators, since this would cause a critical ground loop. The ground pin should only be used to connect to systems with a ground isolated from the power ground. Additionally, isolation between the main pc and the actuators improves the signal quality. When daisy-chaining multiple actuators, only the CAN-High and CAN-Low pins between the drives must be connected. At the end of the chain a 120 Ohm resistor between CAN-H and CAN-L is used to absorb the signals. It prevents the signals from being reflected at the wire ends. The CAN protocol is differential, hence no additional ground reference is needed. The diagram below displays the wiring of the CAN bus.
 
-![CAN Bus.](figures/can_bus.png){#id .class height=200px}
+![CAN Bus.](figures/can_bus.png){height=200px}
 -->
 
 ## Pendulum Dynamics
@@ -151,7 +151,7 @@ where $\mathit{\Phi}$ denotes the identiﬁcation matrix.A sufﬁciently rich, p
 
 The swing-up with a limited motor torque $\tau$ serves as a benchmark for various control algorithms. If the torque limit is set low enough, the pendulum is no longer able to simply go up to the unstable fixpoint but instead the pendulum has to swing and built up energy in the system.
 
-![Control Software Structure. \label{fig:software_structure}](figures/controller_overview.png){#id .class height=1100px}
+![Control Software Structure. \label{fig:software_structure}](figures/controller_overview.png){height=1100px}
 
 The control methods that are currently implemented in this library (see also \autoref{fig:software_structure}) can be grouped in four categories:
 
@@ -192,7 +192,7 @@ This repository is designed to welcome contributions in form of novel optimizati
 
 To get an understanding of the functionality of the implemented controllers they can be visualized in the pendulum's state space. Example visualizations of the energy shaping controller and the policy learned with DDPG are shown in figure \autoref{fig:controller_plots}.
 
-![Energy Shaping Controller and DDPG Policy. \label{fig:controller_plots}](figures/energy_and_ddpg.png){#id .class height=600px}
+![Energy Shaping Controller and DDPG Policy. \label{fig:controller_plots}](figures/energy_and_ddpg.png){height=600px}
 
 Furthermore, the swing-up controllers can be benchmarked in simulation, where it is evaluated how fast, efficient, consistent, stable and sensitive the controller is during the swing-up. See figure \autoref{fig:benchmark} for a comparison of the different controllers' benchmark results.
 
@@ -209,7 +209,7 @@ The benchmark criteria are:
 
 The results shown in \autoref{fig:benchmark} are the average of 100 repetitions for every controller and criterion. In the case of consistency, robustness and insensitivity the percentage refers to the ratio of successful swingup motions of the 100 repetitions.
 
-![Benchmark results. \label{fig:benchmark}](figures/benchmark_barplot.png){#id .class height=1100px}
+![Benchmark results. \label{fig:benchmark}](figures/benchmark_barplot.png){height=1100px}
 
 Trajectory optimization (iLQR, direct collocation, ddp) produces smooth trajectories, which swing up the pendulum relatively quickly. But they do require a trajectory following control loop (PID, TVLQR) to make them more consistent, robust and insensitive. This can become a problem for large deviations from the nominal trajectory. RL policies perform well on consistency, robustness, insensitivity and are able to perform fast swingup motions. Their drawback is that their output can fluctuate which can result in rougher motions. The model predictive iLQR controller has an overall good performance but has the disadvantage that is it comparatively slow due to the optimization at every timestep. The energy shaping plus LQR controller, despite its simplicity, shows very satisfying results in all benchmark categories.
 
