@@ -17,8 +17,8 @@ lqr-trees”, SAGE, 2016, https://groups.csail.mit.edu/robotics-center/public_pa
 However, his implementation is strictly related to the LQR-Tree algorithm while we will focus on the region of attraction estimation.
 
 First we have to fix the number of knot points N.
-Except for the given first and last values, rho is initially fixed to an N-dimensional array of infinity. The last value of rho comes from the  [time-invariant region of attraction estimation](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/lqr/roa), while the first one has to be fixed big enough to overcome its "real" value.
-Now, after computing the nominal trajectory and the related TVLQR controller that bring to the goal we can start the estimation process.
+Except for the given last value, rho is initially fixed to an N-dimensional array of infinity. The last value of rho comes from the [time-invariant region of attraction estimation](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/lqr/roa), while the other ones have to be fixed big enough to overcome its "real" value.
+Now, after computing the nominal trajectory and the related TVLQR controller that bring to the goal the estimation process can start.
 Iterating backward in the knot points, we can exploit the knowledge of the final rho from the time-invariant case. The "previous" and the "next" ellipse have been considered. We sample random initial states from the "previous" ellipse and we simulate them until the "next" one. In doing so, we can check if the simulated trajectory exits from the "next" ellipse. The condition is the following one:
 
 <img src="latex_img/RoAcondition.png">
