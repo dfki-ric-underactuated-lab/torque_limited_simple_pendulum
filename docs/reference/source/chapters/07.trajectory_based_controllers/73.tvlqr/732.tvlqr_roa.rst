@@ -23,7 +23,7 @@ Estimation procedure
 ~~~~~~~~~~~~~~~~~~~~
 
 First we have to fix the number of knot points N.
-Except for the given last value, rho is initially fixed to an N-dimensional array of infinity. The last value of rho comes from the time-invariant region of attraction estimation, while the other ones have to be fixed big enough to overcome its "real" value.
+Except for the given last value, rho is  initially fixed to an N-dimensional array of infinity. The last value of rho comes from the time-invariant region of attraction estimation, while the other ones have to be fixed big enough to overcome its "real" value.
 Now, after computing the nominal trajectory and the related TVLQR controller that bring to the goal the estimation process can start.
 Iterating backward in the knot points, we can exploit the knowledge of the final rho from the time-invariant case. The "previous" and the "next" ellipse have been considered. We sample random initial states from the "previous" ellipse and we simulate them until the "next" one. In doing so, we can check if the simulated trajectory exits from the "next" ellipse. The condition is the following one:
 
