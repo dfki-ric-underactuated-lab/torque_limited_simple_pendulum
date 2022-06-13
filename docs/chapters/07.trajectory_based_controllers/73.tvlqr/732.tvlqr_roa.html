@@ -18,7 +18,9 @@
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="iLQR Model Predictive Control" href="../74.ilqr.html" />
+    <link rel="prev" title="Theory" href="731.tvlqr.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +40,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../00.installation_guide.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../01.usage_instructions.html">Usage Instructions</a></li>
@@ -47,7 +49,25 @@
 <li class="toctree-l1"><a class="reference internal" href="../../04.hardware.html">Hardware Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../05.trajectory_optimization.html">Trajectory Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../06.reinforcement_learning.html">Reinforcement Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../07.trajectory_based_controllers.html">Trajectory-based Controllers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../71.open_loop.html">Open Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../72.pid.html">Proportional-Integral-Derivative (PID) Control</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../73.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="731.tvlqr.html">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="731.tvlqr.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="731.tvlqr.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="731.tvlqr.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="731.tvlqr.html#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="731.tvlqr.html#references">References</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Region of Attraction (RoA) estimation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#probabilistic-method">Probabilistic method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../74.ilqr.html">iLQR Model Predictive Control</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../08.policy_based_controllers.html">Policy-based Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../09.analysis.html">Controller Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../10.simulation.html">Simulator</a></li>
@@ -69,6 +89,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../07.trajectory_based_controllers.html">Trajectory-based Controllers</a> &raquo;</li>
+          <li><a href="../73.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a> &raquo;</li>
       <li>Region of Attraction (RoA) estimation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/chapters/07.trajectory_based_controllers/73.tvlqr/732.tvlqr_roa.rst.txt" rel="nofollow"> View page source</a>
@@ -119,7 +141,10 @@ Iterating backward in the knot points, we can exploit the knowledge of the final
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="731.tvlqr.html" class="btn btn-neutral float-left" title="Theory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../74.ilqr.html" class="btn btn-neutral float-right" title="iLQR Model Predictive Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

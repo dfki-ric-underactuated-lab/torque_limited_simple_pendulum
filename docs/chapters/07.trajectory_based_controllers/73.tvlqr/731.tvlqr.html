@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Time-varying Linear Quadratic Regulator (TVLQR) &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+  <title>Theory &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,9 @@
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Region of Attraction (RoA) estimation" href="732.tvlqr_roa.html" />
+    <link rel="prev" title="Time-varying Linear Quadratic Regulator (TVLQR)" href="../73.tvlqr.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +40,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../00.installation_guide.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../01.usage_instructions.html">Usage Instructions</a></li>
@@ -47,7 +49,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../../04.hardware.html">Hardware Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../05.trajectory_optimization.html">Trajectory Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../06.reinforcement_learning.html">Reinforcement Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../07.trajectory_based_controllers.html">Trajectory-based Controllers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../71.open_loop.html">Open Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../72.pid.html">Proportional-Integral-Derivative (PID) Control</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../73.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="732.tvlqr_roa.html">Region of Attraction (RoA) estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../74.ilqr.html">iLQR Model Predictive Control</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../08.policy_based_controllers.html">Policy-based Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../09.analysis.html">Controller Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../10.simulation.html">Simulator</a></li>
@@ -69,7 +86,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Time-varying Linear Quadratic Regulator (TVLQR)</li>
+          <li><a href="../../07.trajectory_based_controllers.html">Trajectory-based Controllers</a> &raquo;</li>
+          <li><a href="../73.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a> &raquo;</li>
+      <li>Theory</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/chapters/07.trajectory_based_controllers/73.tvlqr/731.tvlqr.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,9 +98,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="time-varying-linear-quadratic-regulator-tvlqr">
-<h1>Time-varying Linear Quadratic Regulator (TVLQR)<a class="headerlink" href="#time-varying-linear-quadratic-regulator-tvlqr" title="Permalink to this heading"></a></h1>
-<div class="admonition note">
+  <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Type: Closed loop control</p>
 <p>State/action space contraints: -</p>
@@ -89,7 +106,7 @@
 <p>Versatility: -</p>
 </div>
 <section id="theory">
-<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
+<h1>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h1>
 <p>This controller is designed to follow a precomputed trajectory from of a csv file to the simulator or the real pendulum.
 Particulary, the controller can process trajectories that have been found with help of the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/trajectory_optimization">trajectory optimization</a> methods.</p>
 <p>The Time-varying Linear Quadratic Regulator (TVLQR) is an extension to the regular <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/lqr">LQR controller</a>. The LQR formalization is used for a time-varying linear dynamics function</p>
@@ -101,7 +118,7 @@ Particulary, the controller can process trajectories that have been found with h
 </div><p>For further reading, we recommend chapter 8 of this <a class="reference external" href="http://underactuated.mit.edu/">Underactuated Robotics [1]</a> lecture.</p>
 </section>
 <section id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
+<h1>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h1>
 <p>The controller needs pendulum parameters as input during initialization:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TVLQRController</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">damping</span><span class="p">,</span> <span class="n">gravity</span><span class="p">,</span> <span class="n">torque_limit</span><span class="p">)</span>
     <span class="n">inputs</span><span class="p">:</span>
@@ -137,28 +154,30 @@ Particulary, the controller can process trajectories that have been found with h
 <p>The index counter is incremeted by 1 every time the get_control_output function is called.</p>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h1>
 <p>Before using this controller, first a trajectory has to be defined/calculated and stored to csv file or dictionary in a suitable format.</p>
 </section>
 <section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h1>
 <p>The trajectory optimization using direct collocation for the pendulum swing-up is accomplished by taking advantage of <a class="reference external" href="https://drake.mit.edu/">Drake toolbox [2]</a>.</p>
 </section>
 <section id="comments">
-<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
+<h1>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h1>
 <p>The controller will not scale the trajectory according to the time values in the csv file. All it does is process the rows of the file one by one with each call of get_control_output.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
+<h1>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://underactuated.mit.edu/">[1] Russ Tedrake. Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation (Course Notes for MIT 6.832).</a></p>
 <p><a class="reference external" href="https://drake.mit.edu/">[2] Model-Based Design and Verification for Robotics</a>.</p>
-</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../73.tvlqr.html" class="btn btn-neutral float-left" title="Time-varying Linear Quadratic Regulator (TVLQR)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="732.tvlqr_roa.html" class="btn btn-neutral float-right" title="Region of Attraction (RoA) estimation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
