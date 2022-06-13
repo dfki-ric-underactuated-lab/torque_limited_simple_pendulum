@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Region of Attraction (RoA) estimation &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Torque-limited Simple Pendulum
+            <img src="../../../_static/logo.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Region of Attraction (RoA) estimation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/chapters/07.trajectory_based_controllers/73.tvlqr/732.tvlqr_roa.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="region-of-attraction-roa-estimation">
+<h1>Region of Attraction (RoA) estimation<a class="headerlink" href="#region-of-attraction-roa-estimation" title="Permalink to this heading"></a></h1>
+<p>The region of attraction estimation is an offline process that can be applied to the closed-loop dynamics of a system (Plant and Controller) in order to analyze the control behaviour. The time-varying version of this analysis offers a very interesting point of view to understand how much the state can vary with respect to a nominal trajectory that brings a fixed initial state to a desired state. Hence, this process results in a very powerful tool to verify the robustness of a time-varying controller.</p>
+<section id="probabilistic-method">
+<h2>Probabilistic method<a class="headerlink" href="#probabilistic-method" title="Permalink to this heading"></a></h2>
+<p>For simple systems, such as the torque limited simple pendulum under TVLQR control, the RoA can be estimated by a very intuitive simulation-based method.
+The implemented solution takes inspiration from some related works that has been studied and extended.
+E. Najafi proposed a computationally effective sampling approach to estimate the DoAs of nonlinear systems in real time:</p>
+<blockquote>
+<div><ol class="upperalpha simple" start="5">
+<li><p>Najafi, R. Babuška, and G. A. D. Lopes, “A fast sampling method for estimating the domain of attraction,” Nonlinear Dyn, vol. 86, no. 2, pp. 823–834, Oct. 2016, doi: 10.1007/11071-016-2926-7.</p></li>
+</ol>
+</div></blockquote>
+<p>He used this method for estimating a time-invariant region of attraction in two different ways: “memoryless sampling” and “sampling with memory”. We have exploited his results from the memoryless version by extending the study to the time-varying case.
+This extension has been already somehow addressed by P. Reist which included it in a simulation-based variant of the LQR-Tree feedback-motion-planning approach:</p>
+<blockquote>
+<div><ol class="upperalpha simple" start="16">
+<li><p>Reist, P. V. Preiswerk, and R. Tedrake, “Feedback-motion-planning with simulation-based lqr-trees”, SAGE, 2016, <a class="reference external" href="https://groups.csail.mit.edu/robotics-center/public_papers/Reist15.pdf">https://groups.csail.mit.edu/robotics-center/public_papers/Reist15.pdf</a>.</p></li>
+</ol>
+</div></blockquote>
+<p>However, his implementation is strictly related to the LQR-Tree algorithm while we will focus on the region of attraction estimation.</p>
+<section id="estimation-procedure">
+<h3>Estimation procedure<a class="headerlink" href="#estimation-procedure" title="Permalink to this heading"></a></h3>
+<p>First we have to fix the number of knot points N.
+Except for the given last value, rho is  initially fixed to an N-dimensional array of infinity. The last value of rho comes from the time-invariant region of attraction estimation, while the other ones have to be fixed big enough to overcome its “real” value.
+Now, after computing the nominal trajectory and the related TVLQR controller that bring to the goal the estimation process can start.
+Iterating backward in the knot points, we can exploit the knowledge of the final rho from the time-invariant case. The “previous” and the “next” ellipse have been considered. We sample random initial states from the “previous” ellipse and we simulate them until the “next” one. In doing so, we can check if the simulated trajectory exits from the “next” ellipse. The condition is the following one:</p>
+<div class="math">
+<p><img src="../../../_images/math/1e80a8a3eadde9e8d3557a275c4a917b6e7296cf.svg" alt="x^T S x &lt; \rho"/></p>
+</div><p>If a simulated trajectory triggers this condition, the algorithm shrinks the “previous” ellipse using the value of the computed optimal cost to go:</p>
+<div class="math">
+<p><img src="../../../_images/math/705846e2c1712a84862c8538a1c348eca6d6ce3c.svg" alt="\rho_{new} = min ( \rho_{old} , ctg )"/></p>
+</div><p>An implementation detail gives the possibility to reduce the time consumption. The estimation of each ellipse has been considered done after a maximum number of successful simulations.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
