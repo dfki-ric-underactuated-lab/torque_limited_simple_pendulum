@@ -183,5 +183,18 @@ This work has been released under the BSD 3-Clause License. Details and terms of
 ## Citation
 
 Wiebe et al., (2022). Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. Journal of Open Source Software, 7(74), 3884, https://doi.org/10.21105/joss.03884
-
+```
+@article{Wiebe2022,
+  doi = {10.21105/joss.03884},
+  url = {https://doi.org/10.21105/joss.03884},
+  year = {2022},
+  publisher = {The Open Journal},
+  volume = {7},
+  number = {74},
+  pages = {3884},
+  author = {Felix Wiebe and Jonathan Babel and Shivesh Kumar and Shubham Vyas and Daniel Harnack and Melya Boukheddimi and Mihaela Popescu and Frank Kirchner},
+  title = {Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics},
+  journal = {Journal of Open Source Software}
+}
+```
 -----------------------------------------------------------------------------------------------------------------------------
