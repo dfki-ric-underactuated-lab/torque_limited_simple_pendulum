@@ -52,8 +52,6 @@ class TVLQRController(AbstractController):
             the torque_limit of the pendulum actuator
         """
 
-        self.Qf = np.array([None]) # Useful only for RoA purposes
-
         # load the trajectory
         self.traj_time = data_dict["des_time_list"]
         self.traj_pos = data_dict["des_pos_list"]
@@ -118,10 +116,7 @@ class TVLQRController(AbstractController):
                                           self.Q_tilqr,
                                           self.R_tilqr)
 
-        if (not self.Qf.all() == None):
-            self.options.Qf = self.Qf # Useful only for RoA purposes
-        else:
-            self.options.Qf = S  
+        self.options.Qf = S  
         
         self.tvlqr = FiniteHorizonLinearQuadraticRegulator(
                         self.plant,
