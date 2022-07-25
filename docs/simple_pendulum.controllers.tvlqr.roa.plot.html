@@ -104,22 +104,26 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.plot.plotFirstLastEllipses">
-<span class="sig-name descname"><span class="pre">plotFirstLastEllipses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0_traj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.plotFirstLastEllipses" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plotFirstLastEllipses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">funnel_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.plotFirstLastEllipses" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.plot.plotRhoEvolution">
-<span class="sig-name descname"><span class="pre">plotRhoEvolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0_traj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.plotRhoEvolution" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plotRhoEvolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">funnel_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.plotRhoEvolution" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel3d">
-<span class="sig-name descname"><span class="pre">plotFunnel3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel3d" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plotFunnel3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel3d" title="Permalink to this definition"></a></dt>
 <dd><p>Function to draw a discrete 3d funnel plot. Basically we are plotting a 3d ellipse patch in each 
-knot point.</p>
+knot point.
+Parameters
+———-
+rho : np.array</p>
+<blockquote>
+<div><p>array that contains the estimated rho value for all the knot points</p>
+</div></blockquote>
 <dl class="simple">
-<dt>rho<span class="classifier">np.array</span></dt><dd><p>array that contains the estimated rho value for all the knot points</p>
-</dd>
 <dt>S: np.array</dt><dd><p>array of matrices that define ellipses in all the knot points, from tvlqr controller.</p>
 </dd>
 <dt>x0: np.array </dt><dd><p>pre-computed nominal trajectory</p>
@@ -133,12 +137,16 @@ knot point.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel">
-<span class="sig-name descname"><span class="pre">plotFunnel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plotFunnel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">funnel_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel" title="Permalink to this definition"></a></dt>
 <dd><p>Function to draw a continue 2d funnel plot. This implementation makes use of the convex hull concept
-as done in the MATLAB code of the Robot Locomotion Group (<a class="reference external" href="https://groups.csail.mit.edu/locomotion/software.html">https://groups.csail.mit.edu/locomotion/software.html</a>).</p>
+as done in the MATLAB code of the Robot Locomotion Group (<a class="reference external" href="https://groups.csail.mit.edu/locomotion/software.html">https://groups.csail.mit.edu/locomotion/software.html</a>).
+Parameters
+———-
+rho : np.array</p>
+<blockquote>
+<div><p>array that contains the estimated rho value for all the knot points</p>
+</div></blockquote>
 <dl class="simple">
-<dt>rho<span class="classifier">np.array</span></dt><dd><p>array that contains the estimated rho value for all the knot points</p>
-</dd>
 <dt>S: np.array</dt><dd><p>array of matrices that define ellipses in all the knot points, from tvlqr controller.</p>
 </dd>
 <dt>x0: np.array </dt><dd><p>pre-computed nominal trajectory</p>
@@ -147,6 +155,37 @@ as done in the MATLAB code of the Robot Locomotion Group (<a class="reference ex
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.plot.TVrhoVerification">
+<span class="sig-name descname"><span class="pre">TVrhoVerification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pendulum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">funnel_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nSimulations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ver_idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.TVrhoVerification" title="Permalink to this definition"></a></dt>
+<dd><p>Function to verify the time-variant RoA estimation. This implementation permitts also to choose
+which knot has to be tested. Furthermore the a 3d funnel plot has been implemented.</p>
+<dl class="simple">
+<dt>pendulum: simple_pendulum.model.pendulum_plant</dt><dd><p>configured pendulum plant object</p>
+</dd>
+<dt>controller: simple_pendulum.controllers.tvlqr.tvlqr</dt><dd><p>configured tvlqr controller object</p>
+</dd>
+<dt>x0_t: np.array </dt><dd><p>pre-computed nominal trajectory</p>
+</dd>
+<dt>time: np.array</dt><dd><p>time array related to the nominal trajectory</p>
+</dd>
+<dt>nSimulations: int</dt><dd><p>number of simulations for the verification</p>
+</dd>
+<dt>ver_idx: int</dt><dd><p>knot point to be verified</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.plot.funnel2DComparison">
+<span class="sig-name descname"><span class="pre">funnel2DComparison</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_pathFunnelSos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_pathFunnelProb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.funnel2DComparison" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.plot.rhoComparison">
+<span class="sig-name descname"><span class="pre">rhoComparison</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_pathFunnelSos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_pathFunnelProb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.plot.rhoComparison" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 
 

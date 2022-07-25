@@ -4,7 +4,7 @@
 .. currentmodule:: utils
 
 .. automodule:: simple_pendulum.controllers.tvlqr.roa.utils
-    :members: direct_sphere, getEllipseContour, projectedEllipseFromCostToGo, quad_form, sample_from_ellipsoid
+    :members: TVmultSearch, TVrhoSearch, direct_sphere, getEllipseContour, projectedEllipseFromCostToGo, quad_form, sample_from_ellipsoid
     :undoc-members:
     :show-inheritance:
     :member-order: bysource

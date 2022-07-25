@@ -4,7 +4,7 @@
 .. currentmodule:: probabilistic
 
 .. automodule:: simple_pendulum.controllers.tvlqr.roa.probabilistic
-    :members: TVprobRhoComputation, TVprobRhoVerification
+    :members: TVprobRhoComputation
     :undoc-members:
     :show-inheritance:
     :member-order: bysource

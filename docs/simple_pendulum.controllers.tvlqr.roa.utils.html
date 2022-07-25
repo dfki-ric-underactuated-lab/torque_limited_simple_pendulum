@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Model" href="simple_pendulum.model.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html" /> 
+    <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.tvlqr.roa.sos.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -153,12 +153,64 @@
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.utils.TVrhoSearch">
+<span class="sig-name descname"><span class="pre">TVrhoSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pendulum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">knot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho_t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.utils.TVrhoSearch" title="Permalink to this definition"></a></dt>
+<dd><p>V step of the bilinear alternationturn used in the SOS funnel estimation.</p>
+<dl class="simple">
+<dt>pendulum: simple_pendulum.model.pendulum_plant</dt><dd><p>configured pendulum plant object</p>
+</dd>
+<dt>controller: simple_pendulum.controllers.tvlqr.tvlqr</dt><dd><p>configured tvlqr controller object</p>
+</dd>
+<dt>knot: int</dt><dd><p>number of considered knot point</p>
+</dd>
+<dt>time: np.array</dt><dd><p>time array related to the nominal trajectory</p>
+</dd>
+<dt>h_map: Dict[pydrake.symbolic.Monomial, pydrake.symbolic.Expression]</dt><dd><p>map of the coefficients of the multiplier obtained from the multiplier step</p>
+</dd>
+<dt>rho_t: np.array</dt><dd><p>array that contains the evolving estimation of the rho values for each knot point</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>fail<span class="classifier">boolean</span></dt><dd><p>gives info about the correctness of the optimization problem</p>
+</dd>
+<dt>rho_opt: float</dt><dd><p>optimized rho value for this knot point</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.utils.TVmultSearch">
+<span class="sig-name descname"><span class="pre">TVmultSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pendulum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">knot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho_t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.utils.TVmultSearch" title="Permalink to this definition"></a></dt>
+<dd><p>Multiplier step of the bilinear alternationturn used in the SOS funnel estimation.</p>
+<dl class="simple">
+<dt>pendulum: simple_pendulum.model.pendulum_plant</dt><dd><p>configured pendulum plant object</p>
+</dd>
+<dt>controller: simple_pendulum.controllers.tvlqr.tvlqr</dt><dd><p>configured tvlqr controller object</p>
+</dd>
+<dt>knot: int</dt><dd><p>number of considered knot point</p>
+</dd>
+<dt>time: np.array</dt><dd><p>time array related to the nominal trajectory</p>
+</dd>
+<dt>rho_t: np.array</dt><dd><p>array that contains the evolving estimation of the rho values for each knot point</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>fail<span class="classifier">boolean</span></dt><dd><p>gives info about the correctness of the optimization problem</p>
+</dd>
+<dt>h_map: Dict[pydrake.symbolic.Monomial, pydrake.symbolic.Expression]</dt><dd><p>map of the coefficients of the multiplier obtained from the multiplier step</p>
+</dd>
+<dt>eps: float</dt><dd><p>optimal cost of the optimization problem that can be useful in the V step</p>
+</dd>
+</dl>
+</dd></dl>
+
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.controllers.tvlqr.roa.sos.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="simple_pendulum.model.html" class="btn btn-neutral float-right" title="Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

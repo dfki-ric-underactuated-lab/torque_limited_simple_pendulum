@@ -4,7 +4,7 @@
 .. currentmodule:: plot
 
 .. automodule:: simple_pendulum.controllers.tvlqr.roa.plot
-    :members: get_ellipse_params, get_ellipse_patch, plotFirstLastEllipses, plotFunnel, plotFunnel3d, plotRhoEvolution, plot_ellipse
+    :members: TVrhoVerification, funnel2DComparison, get_ellipse_params, get_ellipse_patch, plotFirstLastEllipses, plotFunnel, plotFunnel3d, plotRhoEvolution, plot_ellipse, rhoComparison
     :undoc-members:
     :show-inheritance:
     :member-order: bysource

@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="simple_pendulum.controllers.tvlqr.roa.sos.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.tvlqr.roa.plot.html" /> 
+    <link rel="next" title="&lt;no title&gt;" href="simple_pendulum.controllers.tvlqr.roa.utils.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -77,7 +77,7 @@
           <li><a href="simple_pendulum.controllers.tvlqr.roa.html">&lt;no title&gt;</a> &raquo;</li>
       <li>&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/simple_pendulum.controllers.tvlqr.roa.probabilistic.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/simple_pendulum.controllers.tvlqr.roa.sos.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -85,30 +85,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <span class="target" id="module-simple_pendulum.controllers.tvlqr.roa.probabilistic"></span><dl class="py function">
-<dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.probabilistic.TVprobRhoComputation">
-<span class="sig-name descname"><span class="pre">TVprobRhoComputation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pendulum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nSimulations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhof</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.probabilistic.TVprobRhoComputation" title="Permalink to this definition"></a></dt>
-<dd><p>Function to perform the time-variant RoA estimation. This implementation has been inpired by 
-“Feedback-Motion-Planning with Simulation-Based LQR-Trees” by Philipp Reist, Pascal V. Preiswerk 
-and Russ Tedrake (<a class="reference external" href="https://groups.csail.mit.edu/robotics-center/public_papers/Reist15.pdf">https://groups.csail.mit.edu/robotics-center/public_papers/Reist15.pdf</a>).</p>
+  <span class="target" id="module-simple_pendulum.controllers.tvlqr.roa.sos"></span><dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.sos.TVsosRhoComputation">
+<span class="sig-name descname"><span class="pre">TVsosRhoComputation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pendulum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhof</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.sos.TVsosRhoComputation" title="Permalink to this definition"></a></dt>
+<dd><p>Bilinear alternationturn used for the SOS funnel estimation.</p>
 <dl class="simple">
 <dt>pendulum: simple_pendulum.model.pendulum_plant</dt><dd><p>configured pendulum plant object</p>
 </dd>
 <dt>controller: simple_pendulum.controllers.tvlqr.tvlqr</dt><dd><p>configured tvlqr controller object</p>
 </dd>
-<dt>x0_t: np.array </dt><dd><p>pre-computed nominal trajectory</p>
-</dd>
 <dt>time: np.array</dt><dd><p>time array related to the nominal trajectory</p>
 </dd>
 <dt>N: int</dt><dd><p>number of considered knot points</p>
-</dd>
-<dt>nSimulations: int</dt><dd><p>max number of simulations for each ellipse estimation</p>
 </dd>
 <dt>rhof: float</dt><dd><p>final rho value, from the time-invariant RoA estimation</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt>rho<span class="classifier">np.array</span></dt><dd><p>array that contains the estimated rho value for all the knot points</p>
+<dt>rho_t<span class="classifier">np.array</span></dt><dd><p>array that contains the estimated rho value for all the knot points</p>
 </dd>
 <dt>S: np.array</dt><dd><p>array that contains the S matrix in each knot point</p>
 </dd>
@@ -120,8 +114,8 @@ and Russ Tedrake (<a class="reference external" href="https://groups.csail.mit.e
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simple_pendulum.controllers.tvlqr.roa.plot.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="simple_pendulum.controllers.tvlqr.roa.sos.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.controllers.tvlqr.roa.utils.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

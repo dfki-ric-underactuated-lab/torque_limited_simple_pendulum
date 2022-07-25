@@ -4,7 +4,7 @@
 .. currentmodule:: process_data
 
 .. automodule:: simple_pendulum.utilities.process_data
-    :members: cut, prepare_empty, prepare_trajectory, read, save
+    :members: cut, getEllipseFromCsv, prepare_empty, prepare_trajectory, read, save, saveFunnel
     :undoc-members:
     :show-inheritance:
     :member-order: bysource
