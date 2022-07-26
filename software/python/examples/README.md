@@ -146,14 +146,22 @@ The RoA estimation plots can be found in the result folder [here](https://github
 ### Time-varying estimation
 
 The time-varying version of the Region of Atttraction estimation procedure is described [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/controllers/tvlqr/roa). The pendulum parameters are fixed to mass = 0.57288, length = 0.5, 
-damping = 0.15, gravity = 9.81, coulomb_fric = 0.0, torque limit = 1.5. Also the goal position is fixed to the up-right position. Furthermore, the other estimation parameters has been chosen to be: number of knot points = 30, number of simulations for the estimation = 50, number of simulations for the verification = 50.
+damping = 0.15, gravity = 9.81, coulomb_fric = 0.0, torque limit = 2. Also the goal position is fixed to the up-right position. Furthermore, the other estimation parameters has been chosen to be: number of knot points = 60, number of simulations for the estimation = 100, number of simulations for the verification = 50.
 
 The verification of the estimation procedure can be obtained with
 
-    python verify_tvlqr_roa.py
-where a verification function will check the estimation for some knot points (0,12,24). This last procedure takes some time.
+    python verify_tvlqr_roa.py -prob
+if we want to observe the probabilistic method behaviour or with
 
-The RoA estimation and verification plots can be found in the result folder [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots).
+    python verify_tvlqr_roa.py -sos
+if we want to analyse the SOS Method for estimating the RoA. In both cases a verification function will check the estimation for some knot points (0,20,40). This procedure takes some time.
+
+Furthermore, by running
+
+    python verify_tvlqr_roa.py -compare
+the comparison between the two estimations will be shown with some plots ad hoc.
+
+The RoA estimation, verification and comparison plots can be found in the result folder [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots).
 
 ## Analysis
 

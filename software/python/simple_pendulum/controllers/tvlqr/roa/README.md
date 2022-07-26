@@ -11,8 +11,8 @@ E. Najafi proposed a computationally effective sampling approach to estimate the
 
 He used this method for estimating a time-invariant region of attraction in two different ways: "memoryless sampling" and "sampling with memory". We have exploited his results from the memoryless version by extending the study to the time-varying case.
 This extension has been already somehow addressed by P. Reist which included it in a simulation-based variant of the LQR-Tree feedback-motion-planning approach:
-> P. Reist, P. V. Preiswerk, and R. Tedrake, “Feedback-motion-planning with simulation-based
-lqr-trees”, SAGE, 2016, https://groups.csail.mit.edu/robotics-center/public_papers/Reist15.pdf. 
+> [P. Reist, P. V. Preiswerk, and R. Tedrake, “Feedback-motion-planning with simulation-based
+lqr-trees”, SAGE, 2016](https://groups.csail.mit.edu/robotics-center/public_papers/Reist15.pdf) 
 
 However, his implementation is strictly related to the LQR-Tree algorithm while we will focus on the region of attraction estimation.
 
@@ -28,3 +28,15 @@ If a simulated trajectory triggers this condition, the algorithm shrinks the "pr
 <img src="latex_img/RoArhoUpdate.png">   
 
 An implementation detail gives the possibility to reduce the time consumption. The estimation of each ellipse has been considered done after a maximum number of successful simulations.
+
+## SOS Method
+
+For the class of systems with polynomial dynamics f (x) , this problem can be formulated as a convex optimization problem using sums-of-squares (SOS) optimization. This different approach has very interesting advantages in terms of Scalability and it doesn’t need any Discretization in the time domain. Furthermore, it allows to reason about the RoA algebraically and does not require numerical simulations, that can be expensive.
+On the other hand, it requires to express the closed-loop dynamics in a polynomial form. This might need some approximation, via Taylor series for examples, of the dynamics that can cause some difference between the simulation and the real behaviour.
+<img src="latex_img/optProblem.png">
+The above image shows the optimization problem that has to be solved in order to obtain the value of rho. The Lyapunov condition has been imposed by exploiting the so-called S-procedure. Unfortunately, this formulation is not convex in rho, so that it has to be solved with a bilinear alternation by fixing at each step the lagrangian multiplier or rho.
+
+My implementation of this estimation method is based on:
+- ["Invariant Funnels around Trajectories using Sum-of-Squares Programming", Mark M. Tobenkin, Ian R. Manchester, Russ Tedrake](https://doi.org/10.3182/20110828-6-IT-1002.03098)
+- ["Funnel libraries for real-time robust feedback motion planning", Anirudha Majumdar, Russ Tedrake](https://doi.org/10.1177/0278364917712421)
+- ["Trajectory Optimization and Time-Varying LQR Stabilization of Airplane Longitudinal Dynamics", Benjamin Thomsen](https://github.com/benthomsen/mit-6832-project/blob/master/bthomsen-6832-report.pdf)
