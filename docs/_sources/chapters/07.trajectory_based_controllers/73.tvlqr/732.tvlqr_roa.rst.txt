@@ -38,3 +38,26 @@ If a simulated trajectory triggers this condition, the algorithm shrinks the "pr
     \rho_{new} = min ( \rho_{old} , ctg )
 
 An implementation detail gives the possibility to reduce the time consumption. The estimation of each ellipse has been considered done after a maximum number of successful simulations.   
+
+SOS method
+--------------------
+
+For the class of systems with polynomial dynamics f (x) , this problem can be formulated as a convex optimization problem using sums-of-squares (SOS) optimization. This different approach has very interesting advantages in terms of Scalability and it doesn't need any Discretization in the time domain. Furthermore, it allows to reason about the RoA algebraically and does not require numerical simulations, that can be expensive.
+On the other hand, it requires to express the closed-loop dynamics in a polynomial form. This might need some approximation, via Taylor series for examples, of the dynamics that can cause some difference between the simulation and the real behaviour.
+
+My implementation of this estimation method is based on:
+
+- Invariant Funnels around Trajectories using Sum-of-Squares Programming", Mark M. Tobenkin, Ian R. Manchester, Russ Tedrake (https://doi.org/10.3182/20110828-6-IT-1002.03098)
+- Funnel libraries for real-time robust feedback motion planning", Anirudha Majumdar, Russ Tedrake (https://doi.org/10.1177/0278364917712421)
+- Trajectory Optimization and Time-Varying LQR Stabilization of Airplane Longitudinal Dynamics" (https://github.com/benthomsen/mit-6832-project/blob/master/bthomsen-6832-report.pdf)
+
+Estimation procedure 
+~~~~~~~~~~~~~~~~~~~~
+
+.. image:: roa_img/optProblem.png
+  :width: 400
+  :alt: Alternative text
+
+This is the optimization problem that has to be solved in order to obtain the value of rho. The Lyapunov condition has been imposed by exploiting the so-called S-procedure. Unfortunately, this formulation is not convex in rho, so that it has to be solved with a bilinear alternation by fixing at each step the Lagrangian multiplier or rho.
+
+Furthermore, it is worthwhile to mention the consequences of considering the input saturation constraint. It can be addressed by using some Lagrangian multipliers. However, this can lead to add a number of SOS conditions that grows exponentially with the number of inputs. Hence, this has to be considered in systems where there is a big number of inputs.

@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="731.tvlqr.html#references">References</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Region of Attraction (RoA) estimation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#probabilistic-method">Probabilistic method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sos-method">SOS method</a></li>
 </ul>
 </li>
 </ul>
@@ -134,6 +135,23 @@ Iterating backward in the knot points, we can exploit the knowledge of the final
 <div class="math">
 <p><img src="../../../_images/math/705846e2c1712a84862c8538a1c348eca6d6ce3c.svg" alt="\rho_{new} = min ( \rho_{old} , ctg )"/></p>
 </div><p>An implementation detail gives the possibility to reduce the time consumption. The estimation of each ellipse has been considered done after a maximum number of successful simulations.</p>
+</section>
+</section>
+<section id="sos-method">
+<h2>SOS method<a class="headerlink" href="#sos-method" title="Permalink to this heading"></a></h2>
+<p>For the class of systems with polynomial dynamics f (x) , this problem can be formulated as a convex optimization problem using sums-of-squares (SOS) optimization. This different approach has very interesting advantages in terms of Scalability and it doesn’t need any Discretization in the time domain. Furthermore, it allows to reason about the RoA algebraically and does not require numerical simulations, that can be expensive.
+On the other hand, it requires to express the closed-loop dynamics in a polynomial form. This might need some approximation, via Taylor series for examples, of the dynamics that can cause some difference between the simulation and the real behaviour.</p>
+<p>My implementation of this estimation method is based on:</p>
+<ul class="simple">
+<li><p>Invariant Funnels around Trajectories using Sum-of-Squares Programming”, Mark M. Tobenkin, Ian R. Manchester, Russ Tedrake (<a class="reference external" href="https://doi.org/10.3182/20110828-6-IT-1002.03098">https://doi.org/10.3182/20110828-6-IT-1002.03098</a>)</p></li>
+<li><p>Funnel libraries for real-time robust feedback motion planning”, Anirudha Majumdar, Russ Tedrake (<a class="reference external" href="https://doi.org/10.1177/0278364917712421">https://doi.org/10.1177/0278364917712421</a>)</p></li>
+<li><p>Trajectory Optimization and Time-Varying LQR Stabilization of Airplane Longitudinal Dynamics” (<a class="reference external" href="https://github.com/benthomsen/mit-6832-project/blob/master/bthomsen-6832-report.pdf">https://github.com/benthomsen/mit-6832-project/blob/master/bthomsen-6832-report.pdf</a>)</p></li>
+</ul>
+<section id="id1">
+<h3>Estimation procedure<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<a class="reference internal image-reference" href="../../../_images/optProblem.png"><img alt="Alternative text" src="../../../_images/optProblem.png" style="width: 400px;" /></a>
+<p>This is the optimization problem that has to be solved in order to obtain the value of rho. The Lyapunov condition has been imposed by exploiting the so-called S-procedure. Unfortunately, this formulation is not convex in rho, so that it has to be solved with a bilinear alternation by fixing at each step the Lagrangian multiplier or rho.</p>
+<p>Furthermore, it is worthwhile to mention the consequences of considering the input saturation constraint. It can be addressed by using some Lagrangian multipliers. However, this can lead to add a number of SOS conditions that grows exponentially with the number of inputs. Hence, this has to be considered in systems where there is a big number of inputs.</p>
 </section>
 </section>
 </section>
