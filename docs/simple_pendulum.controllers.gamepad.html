@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Motor Control Loop &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+  <title>Controllers &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Deep Deterministic Policy Gradient Control" href="simple_pendulum.controllers.ddpg.html" />
-    <link rel="prev" title="Abstract Controller" href="simple_pendulum.controllers.abstract_controller.html" /> 
+    <link rel="next" title="&lt;no title&gt;" href="simple_pendulum.controllers.gamepad.gamepad.html" />
+    <link rel="prev" title="Unit Tests" href="simple_pendulum.controllers.energy_shaping.unit_test.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -58,10 +58,12 @@
 <li class="toctree-l2"><a class="reference internal" href="simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html">Abstract Controller</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Motor Control Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.motor_control_loop.html">Motor Control Loop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.ddpg.html">Deep Deterministic Policy Gradient Control</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.html">Energy Shaping Control</a></li>
-<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.gamepad.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.gravity_compensation.html">Gravity Compensation Control</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.ilqr.html">iLQR Model Predictive Control</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.lqr.html">Linear Quadratic Regulator (LQR)</a></li>
@@ -96,9 +98,9 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="simple_pendulum.html">API Reference</a> &raquo;</li>
           <li><a href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a> &raquo;</li>
-      <li>Motor Control Loop</li>
+      <li><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/simple_pendulum.controllers.motor_control_loop.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/simple_pendulum.controllers.gamepad.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,63 +108,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <span class="target" id="module-simple_pendulum.controllers.motor_control_loop"></span><section id="motor-control-loop">
-<h1>Motor Control Loop<a class="headerlink" href="#motor-control-loop" title="Permalink to this heading"></a></h1>
-<p>The motor control loop only contains the minimum of code necessary to 
-send commands to and receive measurement data from the motor control 
-board in real time over CAN bus. It specifies the outgoing CAN port and 
-the CAN ID of the motor on the CAN bus and transfers this information to 
-the motor driver. It furthermore requires the following arguments:</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">control_method</span></code></dt><dd><p>Calls the controller, which executes the respective 
-control policy and returns the input torques</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p>Needed for print outs</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">attribute</span></code></dt><dd><p>Needed to differentiate between open and closed loop methods.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">params</span></code></dt><dd><p>parameter stored in .yaml files, although most 
-parameters like gravity constant, link length and gear 
-ratio, remain the same for all controllers some 
-parameter are controller specific like e.g. reward type, 
-integrator or learning rate for the Soft Actor Critic 
-Controller</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">data_dict</span></code></dt><dd><p>the data dictionary contains position, velocity and 
-torque data for each time step of the trajectory. It 
-includes commanded as well as measured data.</p>
-</dd>
-</dl>
-</li>
-</ul>
-<p>The return values start, end and meas_dt are required to monitor if 
-desired and measured time steps match.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="simple_pendulum.controllers.motor_control_loop.ak80_6">
-<span class="sig-name descname"><span class="pre">ak80_6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control_method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">motor_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0x01'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">can_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'can0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.motor_control_loop.ak80_6" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+  <span class="target" id="module-simple_pendulum.controllers.gamepad"></span><section id="controllers">
+<h1><code class="docutils literal notranslate"><span class="pre">Controllers</span></code><a class="headerlink" href="#controllers" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simple_pendulum.controllers.abstract_controller.html" class="btn btn-neutral float-left" title="Abstract Controller" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="simple_pendulum.controllers.ddpg.html" class="btn btn-neutral float-right" title="Deep Deterministic Policy Gradient Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simple_pendulum.controllers.energy_shaping.unit_test.html" class="btn btn-neutral float-left" title="Unit Tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.controllers.gamepad.gamepad.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

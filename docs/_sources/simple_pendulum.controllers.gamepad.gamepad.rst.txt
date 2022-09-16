@@ -1,0 +1,4 @@
+.. automodule:: simple_pendulum.controllers.gamepad.gamepad
+    :members:
+    :undoc-members:
+    :show-inheritance:

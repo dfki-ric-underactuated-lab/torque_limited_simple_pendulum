@@ -15,6 +15,7 @@
 
        simple_pendulum.controllers.ddpg
        simple_pendulum.controllers.energy_shaping
+       simple_pendulum.controllers.gamepad
        simple_pendulum.controllers.gravity_compensation
        simple_pendulum.controllers.ilqr
        simple_pendulum.controllers.lqr
