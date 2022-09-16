@@ -16,6 +16,7 @@ setup(
         'sympy',
         'mini-cheetah-motor-driver-socketcan',
         'eigenpy',
+        'inputs',
 
         # optimal control
         'drake',
