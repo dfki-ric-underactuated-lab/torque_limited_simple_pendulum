@@ -18,10 +18,8 @@ def read(WORK_DIR, params_file, urdf_file, csv_file):
     return urdf_path, params_path, csv_path, data, n
 
 
-def prepare_empty(params):
-    dt = params['dt']
-    t = params['runtime']
-    n = int(t/dt)
+def prepare_empty(dt, tf):
+    n = int(tf/dt)
 
     # create 4 empty numpy array, where measured data can be stored
     des_time_list = np.zeros(n)
@@ -46,7 +44,7 @@ def prepare_empty(params):
                  "vel_filt_list": vel_filt_list,
                  "n": n,
                  "dt": dt,
-                 "t": t}
+                 "t": tf}
     return data_dict
 
 

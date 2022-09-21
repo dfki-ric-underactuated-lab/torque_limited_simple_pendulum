@@ -15,6 +15,7 @@ from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
 from simple_pendulum.controllers.gravity_compensation.gravity_compensation import GravityCompController
 from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingAndLQRController
 from simple_pendulum.controllers.ilqr.iLQR_MPC_controller import iLQRMPCController
+#from simple_pendulum.controllers.tvlqr.roa.utils import RoAController, CLFController, EnergyCLFController
 
 try:
     from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
@@ -45,7 +46,7 @@ kp, kd).
 """
 
 # set motor parameters
-motor_id = "0x02"
+motor_id = 0x09
 can_port = 'can0'
 
 # run syntax parser
@@ -174,7 +175,7 @@ if args.gravity:
     params_file = "sp_parameters_gravity.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params)
+    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = GravityCompController(params)
 
@@ -195,7 +196,7 @@ if args.sac:
     params_file = "sp_parameters_sac.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params)
+    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = SacController(model_path=os.path.join(WORK_DIR, params['model_path']),
                                    torque_limit=params['torque_limit'],
@@ -215,7 +216,7 @@ if args.ddpg:
     params_file = "sp_parameters_ddpg.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params)
+    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = ddpg_controller(model_path=os.path.join(WORK_DIR, params['model_path']),
                                    torque_limit=params['torque_limit'],
@@ -238,12 +239,13 @@ if args.energy:
     params_file = "sp_parameters_energy.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params)
+    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = EnergyShapingAndLQRController(
                                         mass=params['mass'],
-                                        length=params['length'],
+                                        length=0.4,
                                         damping=params['damping'],
+                                        coulomb_fric=0.19,
                                         gravity=params['gravity'],
                                         torque_limit=params['torque_limit'],
                                         k=params['k'])
@@ -267,7 +269,7 @@ if args.ilqrmpc:
     params_file = "sp_parameters_ilqr.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params)
+    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = iLQRMPCController(
                                 mass=params['mass'],
@@ -292,11 +294,69 @@ if args.ilqrmpc:
     control_method.set_goal(np.array([np.pi, 0]))
     control_method.init(x0=np.array(params["x0"]))
 
+# if args.clf:
+#     """
+#         simple clf
+#     """
+#     name = "clf"
+#     folder_name = "clf"
+#     attribute = "motorfft"
+# 
+#     # get parameters
+#     params_file = "sp_parameters_energy.yaml"
+#     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
+#     params = get_params(params_path)
+#     data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
+# 
+#     control_method = EnergyCLFController(mass=params['mass'],
+#                                         length=params['length'],
+#                                         damping=params['damping'],
+#                                         gravity=params['gravity'],
+#                                         torque_limit=params['torque_limit'],
+#                                         k=params['k'])
+#     control_method.set_goal([np.pi, 0])
+# 
+#     data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
+# 
+# if args.roa:
+#     """
+#         RoA verification
+#     """
+#     name = "RoA verification"
+#     folder_name = "roaVerification"
+#     attribute = "motorfft"
+# 
+# 
+#     # get parameters
+#     params_file = "sp_parameters_roa.yaml"
+#     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
+#     params = get_params(params_path)
+#     data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
+# 
+#     # initial condition and trajectory from funnelComputation
+#     x0 = [0.1,  0.  ]
+#     csv_path = "log_data/direct_collocation/trajectory.csv"
+#     traj_dict = prepare_trajectory(csv_path)
+# 
+#     ## Going to the initial position and then activating the tvlqr
+#     # TODO: now x_i has velocity zero but it should be random
+#     control_method = RoAController(mass=params['mass'], length=params['length'],
+#                                 damping=params['damping'], gravity=params['gravity'],
+#                                 torque_limit=params['torque_limit_control'], x_i= x0, traj_dict = traj_dict)
+#    #control_method.set_goal([np.pi, 0.0])  # final point must be stable point
+#                        
+#    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
+
 # start control loop for ak80_6
 start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
-                                                           name, attribute,
-                                                           params, data_dict,
-                                                           motor_id, can_port)
+                                                           kp=params["kp"],
+                                                           kd=params["kd"],
+                                                           torque_limit=params["torque_limit"],
+                                                           dt=params["dt"],
+                                                           tf=params["runtime"],
+                                                           motor_id=motor_id,
+                                                           motor_type='AK80_6_V1p1',
+                                                           can_port=can_port)
 
 # performance profiler
 profiler(data_dict, start, end, meas_dt)
@@ -307,4 +367,4 @@ if args.save:
     process_data.save(output_folder, data_dict)
 
 # plot data
-plot.swingup(args, output_folder, data_dict)
+plot.swingup(args.save, output_folder, data_dict)

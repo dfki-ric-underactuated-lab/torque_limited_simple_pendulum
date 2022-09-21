@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from simple_pendulum.utilities.filters import running_mean as rm
 
 
-def swingup(args, output_folder, data_dict):
+def swingup(save, output_folder, data_dict):
     print("Making data plots.")
 
     des_time = data_dict["des_time_list"]
@@ -34,7 +34,7 @@ def swingup(args, output_folder, data_dict):
     plt.title("Position (rad) vs Time (s)")
     plt.legend(['position_measured', 'position_desired'])
     plt.draw()
-    if args.save:
+    if save:
         plt.savefig(output_folder + '/swingup_pos.pdf')
     plt.show()
 
@@ -47,7 +47,7 @@ def swingup(args, output_folder, data_dict):
     plt.legend(['velocity_measured', 'velocity_desired'])
     plt.title("Velocity (rad/s) vs Time (s)")
     plt.draw()
-    if args.save:
+    if save:
         plt.savefig(output_folder + '/swingup_vel.pdf')
     plt.show()
 
@@ -59,7 +59,7 @@ def swingup(args, output_folder, data_dict):
     plt.title("Torque (Nm) vs Time (s)")
     plt.legend(['Measured Torque', 'Desired Torque'])
     plt.draw()
-    if args.save:
+    if save:
         plt.savefig(output_folder + '/swingup_tau.pdf')
     plt.show()
 

@@ -126,7 +126,7 @@ class EnergyShapingAndLQRController(AbstractController):
     Controller which swings up the pendulum with the energy shaping
     controller and stabilizes the pendulum with the lqr controller.
     """
-    def __init__(self, mass=1.0, length=0.5, damping=0.1,
+    def __init__(self, mass=1.0, length=0.5, damping=0.1, coulomb_fric=0.0,
                  gravity=9.81, torque_limit=np.inf, k=1.0):
         """
         Controller which swings up the pendulum with the energy shaping
@@ -140,6 +140,8 @@ class EnergyShapingAndLQRController(AbstractController):
             length of the pendulum [m]
         damping : float, default=0.1
             damping factor of the pendulum [kg m/s]
+        coulomb_fric : float, default=0.0
+            friction term, (independent of magnitude of velocity), unit: Nm
         gravity : float, default=9.81
             gravity (positive direction points down) [m/s^2]
         torque_limit : float, default=np.inf
@@ -152,6 +154,7 @@ class EnergyShapingAndLQRController(AbstractController):
         self.m = mass
         self.l = length
         self.b = damping
+        self.cf = coulomb_fric
         self.g = gravity
 
         self.energy_shaping_controller = EnergyShapingController(mass,
@@ -163,6 +166,7 @@ class EnergyShapingAndLQRController(AbstractController):
         self.lqr_controller = LQRController(mass,
                                             length,
                                             damping,
+                                            coulomb_fric,
                                             gravity,
                                             torque_limit)
 

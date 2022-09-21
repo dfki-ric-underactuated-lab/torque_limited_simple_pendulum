@@ -16,8 +16,8 @@ class LQRController(AbstractController):
     """
     Controller which stabilizes the pendulum at its instable fixpoint.
     """
-    def __init__(self, mass=1.0, length=0.5, damping=0.1,
-                 gravity=9.81, torque_limit=np.inf):
+    def __init__(self, mass=1.0, length=0.5, damping=0.1, coulomb_fric=0.0,
+                 gravity=9.81, torque_limit=np.inf, Q = np.diag((10, 1)), R = np.array([[1]])):
         """
         Controller which stabilizes the pendulum at its instable fixpoint.
 
@@ -29,6 +29,8 @@ class LQRController(AbstractController):
             length of the pendulum [m]
         damping : float, default=0.1
             damping factor of the pendulum [kg m/s]
+        coulomb_fric : float, default=0.0
+            friction term, (independent of magnitude of velocity), unit: Nm
         gravity : float, default=9.81
             gravity (positive direction points down) [m/s^2]
         torque_limit : float, default=np.inf
@@ -37,14 +39,15 @@ class LQRController(AbstractController):
         self.m = mass
         self.len = length
         self.b = damping
+        self.cf = coulomb_fric
         self.g = gravity
         self.torque_limit = torque_limit
 
         self.A = np.array([[0, 1],
                            [self.g/self.len, -self.b/(self.m*self.len**2.0)]])
         self.B = np.array([[0, 1./(self.m*self.len**2.0)]]).T
-        self.Q = np.diag((10, 1))
-        self.R = np.array([[1]])
+        self.Q = Q
+        self.R = R
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
@@ -95,6 +98,7 @@ class LQRController(AbstractController):
         y = np.asarray([th, vel])
 
         u = np.asarray(-self.K.dot(y))[0]
+        u += np.sign(vel)*self.cf
 
         if not self.clip_out:
             if np.abs(u) > self.torque_limit:
