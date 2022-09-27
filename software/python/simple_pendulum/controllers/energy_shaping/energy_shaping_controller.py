@@ -102,7 +102,7 @@ class EnergyShapingController(AbstractController):
         pos = float(np.squeeze(meas_pos))
         vel = float(np.squeeze(meas_vel))
 
-        if pos == 0.0 and vel == 0.0:
+        if np.abs(pos) < 0.01 and np.abs(vel) < 0.01:
             des_tau = 0.1*self.torque_limit
         else:
             total_energy = self.plant.total_energy([pos, vel])

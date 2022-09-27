@@ -10,6 +10,8 @@ import numpy as np
 # Local imports
 from simple_pendulum.controllers.lqr.lqr import lqr
 from simple_pendulum.controllers.abstract_controller import AbstractController
+from simple_pendulum.model.pendulum_plant import PendulumPlant
+from simple_pendulum.controllers.lqr.roa.sos import SOSequalityConstrained, SOSlineSearch
 
 
 class LQRController(AbstractController):
@@ -17,7 +19,7 @@ class LQRController(AbstractController):
     Controller which stabilizes the pendulum at its instable fixpoint.
     """
     def __init__(self, mass=1.0, length=0.5, damping=0.1, coulomb_fric=0.0,
-                 gravity=9.81, torque_limit=np.inf, Q = np.diag((10, 1)), R = np.array([[1]])):
+                 gravity=9.81, torque_limit=np.inf, Q=np.diag((10, 1)), R=np.array([[1]])):
         """
         Controller which stabilizes the pendulum at its instable fixpoint.
 
@@ -50,6 +52,18 @@ class LQRController(AbstractController):
         self.R = R
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
+
+        # RoA calculation
+        pendulum = PendulumPlant(mass=self.m,
+                         length=self.len,
+                         damping=self.b,
+                         gravity=self.g,
+                         coulomb_fric=self.cf,
+                         inertia=self.m*self.len**2.0,
+                         torque_limit=self.torque_limit)
+
+        #self.rho, _ = SOSequalityConstrained(pendulum, self)
+        self.rho, _ = SOSlineSearch(pendulum, self)
 
         self.clip_out = False
 
@@ -101,7 +115,8 @@ class LQRController(AbstractController):
         u += np.sign(vel)*self.cf
 
         if not self.clip_out:
-            if np.abs(u) > self.torque_limit:
+            #if np.abs(u) > self.torque_limit:
+            if y.dot(self.S.dot(y)) > self.rho:
                 u = None
 
         else:

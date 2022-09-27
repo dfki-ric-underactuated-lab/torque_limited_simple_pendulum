@@ -9,12 +9,15 @@ from simple_pendulum.controllers.gamepad.gamepad_controller import GamepadContro
 
 
 mass = 0.57288
-length = 0.5
-damping = 0.15
+length = 0.4
+damping = 0.05
 gravity = 9.81
-coulomb_fric = 0.0
-torque_limit = 2.0
+coulomb_fric = 0.19
+torque_limit = 1.0
 inertia = mass*length*length
+
+dt = 0.005
+t_final = 60.0
 
 pendulum = PendulumPlant(mass=mass,
                          length=length,
@@ -27,10 +30,15 @@ pendulum = PendulumPlant(mass=mass,
 sim = Simulator(plant=pendulum)
 
 controller = GamepadController(torque_limit=torque_limit,
-                               gamepad_name="Logitech Logitech RumblePad 2 USB")
+                               gamepad_name="Logitech Logitech RumblePad 2 USB",
+                               #gamepad_name="Logitech WingMan Cordless Gamepad",
+                               mass=mass,
+                               length=length,
+                               damping=damping,
+                               gravity=gravity,
+                               dt=dt,
+                               rumble=True)
 
-dt = 0.01
-t_final = 30.0
 
 T, X, U = sim.simulate_and_animate(t0=0.0,
                                    x0=[0.0, 0.0],

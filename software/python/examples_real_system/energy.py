@@ -1,19 +1,21 @@
 import os
 from datetime import datetime
 from pathlib import Path
+import numpy as np
 import matplotlib.pyplot as plt
 
 from simple_pendulum.utilities import plot, process_data
 from simple_pendulum.utilities.performance_profiler import profiler
 from simple_pendulum.controllers import motor_control_loop
-from simple_pendulum.controllers.gamepad.gamepad_controller import GamepadController
+from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingAndLQRController
+
 
 # set motor parameters
 motor_id = 0x09
 can_port = 'can0'
 
 # pendulum parameters
-mass = 0.57288
+mass = 0.57288 #0.6755
 length = 0.4
 damping = 0.15
 gravity = 9.81
@@ -23,24 +25,24 @@ inertia = mass*length*length
 # set your workspace
 WORK_DIR = Path(Path(os.path.abspath(__file__)).parents[3])
 TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
-folder_name = "gamepad"
+folder_name = "energy"
 output_folder = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + folder_name
 
 # controller parameters
 dt = 0.005
-t_final = 60.
+t_final = 10.
 torque_limit = 0.5
+k = 1.0
 
-controller = GamepadController(torque_limit=torque_limit,
-                               gamepad_name="Logitech Logitech RumblePad 2 USB",
-                               #gamepad_name="Logitech WingMan Cordless Gamepad",
-                               mass=mass,
-                               length=length,
-                               damping=damping,
-                               gravity=gravity,
-                               lqr_torque_limit=2.0,
-                               max_vel=10.0,
-                               rumble=True)
+controller = EnergyShapingAndLQRController(
+                                    mass=mass,
+                                    length=length,
+                                    damping=damping,
+                                    coulomb_fric=coulomb_fric,
+                                    gravity=gravity,
+                                    torque_limit=torque_limit,
+                                    k=k)
+controller.set_goal([np.pi, 0])
 
 # start control loop for ak80_6
 start, end, meas_dt, data_dict = motor_control_loop.ak80_6(controller,
@@ -52,8 +54,6 @@ start, end, meas_dt, data_dict = motor_control_loop.ak80_6(controller,
                                                            motor_id=motor_id,
                                                            motor_type='AK80_6_V1p1',
                                                            can_port=can_port)
-
-print("\n Your swing-up time was: ", controller.get_swingup_time(), "s\n")
 
 ## performance profiler
 #profiler(data_dict, start, end, meas_dt)
