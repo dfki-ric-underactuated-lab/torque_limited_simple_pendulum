@@ -16,6 +16,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -54,25 +55,189 @@
 <li class="toctree-l1"><a class="reference internal" href="chapters/09.analysis.html">Controller Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/10.simulation.html">Simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/11.contributing.html">How to Contribute</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="simple_pendulum.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.simulation.html"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ddp.html">DDP</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.html">Direct Collocation</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Direct Collocation Calculator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.analysis.benchmark.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.analysis.benchmark.html#simple_pendulum.analysis.benchmark.modify_pendulum_parameter"><code class="docutils literal notranslate"><span class="pre">modify_pendulum_parameter()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.analysis.benchmark.html#simple_pendulum.analysis.benchmark.benchmarker"><code class="docutils literal notranslate"><span class="pre">benchmarker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.analysis.plot_policy.html">Policy Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.analysis.plot_policy.html#simple_pendulum.analysis.plot_policy.plot_policy"><code class="docutils literal notranslate"><span class="pre">plot_policy()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html">Abstract Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html#simple_pendulum.controllers.abstract_controller.AbstractController"><code class="docutils literal notranslate"><span class="pre">AbstractController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.motor_control_loop.html"><code class="docutils literal notranslate"><span class="pre">ak80_6()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.ddpg.html">Deep Deterministic Policy Gradient Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.ddpg.ddpg_controller.html">DDPG Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.ddpg.ddpg_controller.html#simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller"><code class="docutils literal notranslate"><span class="pre">ddpg_controller</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.html">Energy Shaping Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.energy_shaping_controller.html">Energy Shaping Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.energy_shaping_controller.html#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingController"><code class="docutils literal notranslate"><span class="pre">EnergyShapingController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.energy_shaping_controller.html#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController"><code class="docutils literal notranslate"><span class="pre">EnergyShapingAndLQRController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.unit_test.html">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.energy_shaping.unit_test.html#simple_pendulum.controllers.energy_shaping.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.gamepad.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.gravity_compensation.html">Gravity Compensation Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.gravity_compensation.gravity_compensation.html">Gravity Compensation Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.gravity_compensation.gravity_compensation.html#simple_pendulum.controllers.gravity_compensation.gravity_compensation.GravityCompController"><code class="docutils literal notranslate"><span class="pre">GravityCompController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.ilqr.html">iLQR Model Predictive Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.html">iLQR MPC Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.html#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController"><code class="docutils literal notranslate"><span class="pre">iLQRMPCController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.ilqr.unit_test.html">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.ilqr.unit_test.html#simple_pendulum.controllers.ilqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.html">Linear Quadratic Regulator (LQR)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr.html">LQR solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr.html#simple_pendulum.controllers.lqr.lqr.lqr"><code class="docutils literal notranslate"><span class="pre">lqr()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr.html#simple_pendulum.controllers.lqr.lqr.dlqr"><code class="docutils literal notranslate"><span class="pre">dlqr()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html">LQR Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.sampling.html"><code class="docutils literal notranslate"><span class="pre">najafi_based_sampling()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.sos.html"><code class="docutils literal notranslate"><span class="pre">SOSequalityConstrained()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.sos.html#simple_pendulum.controllers.lqr.roa.sos.SOSlineSearch"><code class="docutils literal notranslate"><span class="pre">SOSlineSearch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.utils.html"><code class="docutils literal notranslate"><span class="pre">direct_sphere()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.sample_from_ellipsoid"><code class="docutils literal notranslate"><span class="pre">sample_from_ellipsoid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.quad_form"><code class="docutils literal notranslate"><span class="pre">quad_form()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.vol_ellipsoid"><code class="docutils literal notranslate"><span class="pre">vol_ellipsoid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.rhoVerification"><code class="docutils literal notranslate"><span class="pre">rhoVerification()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox"><code class="docutils literal notranslate"><span class="pre">PendulumPlantApprox</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.open_loop.html">Open Loop Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.open_loop.open_loop.html">Open Loop Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.open_loop.open_loop.html#simple_pendulum.controllers.open_loop.open_loop.OpenLoopController"><code class="docutils literal notranslate"><span class="pre">OpenLoopController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.open_loop.open_loop.html#simple_pendulum.controllers.open_loop.open_loop.OpenLoopAndLQRController"><code class="docutils literal notranslate"><span class="pre">OpenLoopAndLQRController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.pid.html">Proportional-Integral-Derivative (PID) Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.pid.pid.html">PID Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.pid.pid.html#simple_pendulum.controllers.pid.pid.PIDController"><code class="docutils literal notranslate"><span class="pre">PIDController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.sac.html">Soft Actor Critic (SAC) Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.sac.sac_controller.html">SAC Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.sac.sac_controller.html#simple_pendulum.controllers.sac.sac_controller.SacController"><code class="docutils literal notranslate"><span class="pre">SacController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.tvlqr.html">tvLQR Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.tvlqr.html#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController"><code class="docutils literal notranslate"><span class="pre">TVLQRController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFirstLastEllipses"><code class="docutils literal notranslate"><span class="pre">plotFirstLastEllipses()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotRhoEvolution"><code class="docutils literal notranslate"><span class="pre">plotRhoEvolution()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel3d"><code class="docutils literal notranslate"><span class="pre">plotFunnel3d()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel"><code class="docutils literal notranslate"><span class="pre">plotFunnel()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.TVrhoVerification"><code class="docutils literal notranslate"><span class="pre">TVrhoVerification()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.funnel2DComparison"><code class="docutils literal notranslate"><span class="pre">funnel2DComparison()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.rhoComparison"><code class="docutils literal notranslate"><span class="pre">rhoComparison()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.probabilistic.html"><code class="docutils literal notranslate"><span class="pre">TVprobRhoComputation()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.sos.html"><code class="docutils literal notranslate"><span class="pre">TVsosRhoComputation()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.utils.html"><code class="docutils literal notranslate"><span class="pre">direct_sphere()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.sample_from_ellipsoid"><code class="docutils literal notranslate"><span class="pre">sample_from_ellipsoid()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.quad_form"><code class="docutils literal notranslate"><span class="pre">quad_form()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.projectedEllipseFromCostToGo"><code class="docutils literal notranslate"><span class="pre">projectedEllipseFromCostToGo()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.getEllipseContour"><code class="docutils literal notranslate"><span class="pre">getEllipseContour()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.TVrhoSearch"><code class="docutils literal notranslate"><span class="pre">TVrhoSearch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.TVmultSearch"><code class="docutils literal notranslate"><span class="pre">TVmultSearch()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.parameters.html">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.get_params"><code class="docutils literal notranslate"><span class="pre">get_params()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Robot"><code class="docutils literal notranslate"><span class="pre">Robot</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Joints"><code class="docutils literal notranslate"><span class="pre">Joints</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Links"><code class="docutils literal notranslate"><span class="pre">Links</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Actuators"><code class="docutils literal notranslate"><span class="pre">Actuators</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.pendulum_plant.html">Pendulum Plant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.pendulum_plant.html#simple_pendulum.model.pendulum_plant.PendulumPlant"><code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.unit_test.html">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.model.unit_test.html#simple_pendulum.model.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.html">Deep Determininstic Policy Gradient (DDPG) Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.agent.html">Agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.agent.html#simple_pendulum.reinforcement_learning.ddpg.agent.Agent"><code class="docutils literal notranslate"><span class="pre">Agent</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.ddpg.html">DDPG Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer"><code class="docutils literal notranslate"><span class="pre">ddpg_trainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.models.html#simple_pendulum.reinforcement_learning.ddpg.models.get_actor"><code class="docutils literal notranslate"><span class="pre">get_actor()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.models.html#simple_pendulum.reinforcement_learning.ddpg.models.get_critic"><code class="docutils literal notranslate"><span class="pre">get_critic()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.noise.html">Noise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.noise.html#simple_pendulum.reinforcement_learning.ddpg.noise.OUActionNoise"><code class="docutils literal notranslate"><span class="pre">OUActionNoise</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.html">Replay Buffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.html#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.sac.html">Soft Actor Critic (SAC) Training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.sac.sac.html">SAC Trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.reinforcement_learning.sac.sac.html#simple_pendulum.reinforcement_learning.sac.sac.sac_trainer"><code class="docutils literal notranslate"><span class="pre">sac_trainer</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.simulation.html"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.simulation.gym_environment.html">Gym Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.simulation.gym_environment.html#simple_pendulum.simulation.gym_environment.SimplePendulumEnv"><code class="docutils literal notranslate"><span class="pre">SimplePendulumEnv</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.simulation.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.simulation.simulation.html#simple_pendulum.simulation.simulation.Simulator"><code class="docutils literal notranslate"><span class="pre">Simulator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.simulation.simulation.html#simple_pendulum.simulation.simulation.get_arrow"><code class="docutils literal notranslate"><span class="pre">get_arrow()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.simulation.simulation.html#simple_pendulum.simulation.simulation.set_arrow_properties"><code class="docutils literal notranslate"><span class="pre">set_arrow_properties()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ddp.html">DDP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.html">Direct Collocation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Direct Collocation Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator"><code class="docutils literal notranslate"><span class="pre">DirectCollocationCalculator</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.init_pendulum"><code class="docutils literal notranslate"><span class="pre">DirectCollocationCalculator.init_pendulum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.compute_trajectory"><code class="docutils literal notranslate"><span class="pre">DirectCollocationCalculator.compute_trajectory()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.plot_phase_space_trajectory"><code class="docutils literal notranslate"><span class="pre">DirectCollocationCalculator.plot_phase_space_trajectory()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.extract_trajectory"><code class="docutils literal notranslate"><span class="pre">DirectCollocationCalculator.extract_trajectory()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.html">iLQR</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.utilities.html"><code class="docutils literal notranslate"><span class="pre">Utilities</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html#simple_pendulum.trajectory_optimization.direct_collocation.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.html">iLQR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.ilqr.html">iLQR Calculator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.ilqr.html#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator"><code class="docutils literal notranslate"><span class="pre">iLQR_Calculator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.html">Symbolic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.html#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator"><code class="docutils literal notranslate"><span class="pre">iLQR_Calculator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html">Pendulum Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.check_type"><code class="docutils literal notranslate"><span class="pre">check_type()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_continuous_dynamics"><code class="docutils literal notranslate"><span class="pre">pendulum_continuous_dynamics()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_discrete_dynamics_euler"><code class="docutils literal notranslate"><span class="pre">pendulum_discrete_dynamics_euler()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_discrete_dynamics_rungekutta"><code class="docutils literal notranslate"><span class="pre">pendulum_discrete_dynamics_rungekutta()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_swingup_stage_cost"><code class="docutils literal notranslate"><span class="pre">pendulum_swingup_stage_cost()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_swingup_final_cost"><code class="docutils literal notranslate"><span class="pre">pendulum_swingup_final_cost()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_discrete_dynamics_euler"><code class="docutils literal notranslate"><span class="pre">pendulum3_discrete_dynamics_euler()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_discrete_dynamics_rungekutta"><code class="docutils literal notranslate"><span class="pre">pendulum3_discrete_dynamics_rungekutta()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_swingup_stage_cost"><code class="docutils literal notranslate"><span class="pre">pendulum3_swingup_stage_cost()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_swingup_final_cost"><code class="docutils literal notranslate"><span class="pre">pendulum3_swingup_final_cost()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.unit_test.html">Unit Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.trajectory_optimization.ilqr.unit_test.html#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.html"><code class="docutils literal notranslate"><span class="pre">Utilities</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.parse.html">Parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.parse.html#simple_pendulum.utilities.parse.syntax"><code class="docutils literal notranslate"><span class="pre">syntax()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.performance_profiler.html">Performance Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.performance_profiler.html#simple_pendulum.utilities.performance_profiler.motor_send_n_commands"><code class="docutils literal notranslate"><span class="pre">motor_send_n_commands()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.performance_profiler.html#simple_pendulum.utilities.performance_profiler.motor_speed_test"><code class="docutils literal notranslate"><span class="pre">motor_speed_test()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.performance_profiler.html#simple_pendulum.utilities.performance_profiler.profiler"><code class="docutils literal notranslate"><span class="pre">profiler()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.plot.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.swingup"><code class="docutils literal notranslate"><span class="pre">swingup()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.grav_comp"><code class="docutils literal notranslate"><span class="pre">grav_comp()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.sys_id_unified"><code class="docutils literal notranslate"><span class="pre">sys_id_unified()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.sys_id_comparison"><code class="docutils literal notranslate"><span class="pre">sys_id_comparison()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.sys_id_result"><code class="docutils literal notranslate"><span class="pre">sys_id_result()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.process_data.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.read"><code class="docutils literal notranslate"><span class="pre">read()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.prepare_empty"><code class="docutils literal notranslate"><span class="pre">prepare_empty()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.prepare_trajectory"><code class="docutils literal notranslate"><span class="pre">prepare_trajectory()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.cut"><code class="docutils literal notranslate"><span class="pre">cut()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.saveFunnel"><code class="docutils literal notranslate"><span class="pre">saveFunnel()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.getEllipseFromCsv"><code class="docutils literal notranslate"><span class="pre">getEllipseFromCsv()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.unit_conversion.html">Units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.unit_conversion.html#simple_pendulum.utilities.unit_conversion.rad_to_deg"><code class="docutils literal notranslate"><span class="pre">rad_to_deg()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.unit_conversion.html#simple_pendulum.utilities.unit_conversion.deg_to_rad"><code class="docutils literal notranslate"><span class="pre">deg_to_rad()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.fast_fourier_transform.html">Fast Fourier Transform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.fast_fourier_transform.html#simple_pendulum.utilities.filters.fast_fourier_transform.fast_fourier_transform"><code class="docutils literal notranslate"><span class="pre">fast_fourier_transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.fast_fourier_transform.html#simple_pendulum.utilities.filters.fast_fourier_transform.scipy_fft"><code class="docutils literal notranslate"><span class="pre">scipy_fft()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.low_pass.html">Low-pass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.low_pass.html#simple_pendulum.utilities.filters.low_pass.online_filter"><code class="docutils literal notranslate"><span class="pre">online_filter()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.running_mean.html">Moving Average</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.running_mean.html#simple_pendulum.utilities.filters.running_mean.data_filter"><code class="docutils literal notranslate"><span class="pre">data_filter()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.running_mean.html#simple_pendulum.utilities.filters.running_mean.data_filter_realtime_1"><code class="docutils literal notranslate"><span class="pre">data_filter_realtime_1()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.running_mean.html#simple_pendulum.utilities.filters.running_mean.data_filter_realtime_2"><code class="docutils literal notranslate"><span class="pre">data_filter_realtime_2()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.savitzky_golay.html">Savitzky-Golay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.utilities.filters.savitzky_golay.html#simple_pendulum.utilities.filters.savitzky_golay.savitzky_golay_filter"><code class="docutils literal notranslate"><span class="pre">savitzky_golay_filter()</span></code></a></li>
 </ul>
 
         </div>
@@ -102,9 +267,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <span class="target" id="module-simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation"></span><section id="direct-collocation-calculator">
+  <section id="direct-collocation-calculator">
 <h1>Direct Collocation Calculator<a class="headerlink" href="#direct-collocation-calculator" title="Permalink to this heading"></a></h1>
-<dl class="py class">
+</section>
+<span class="target" id="module-simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation"></span><dl class="py class">
 <dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DirectCollocationCalculator</span></span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -198,7 +364,6 @@ the outputs of the compute_trajectory function.</p>
 
 </dd></dl>
 
-</section>
 
 
            </div>
