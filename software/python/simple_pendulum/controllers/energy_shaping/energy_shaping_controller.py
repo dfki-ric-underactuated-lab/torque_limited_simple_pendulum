@@ -127,7 +127,8 @@ class EnergyShapingAndLQRController(AbstractController):
     controller and stabilizes the pendulum with the lqr controller.
     """
     def __init__(self, mass=1.0, length=0.5, damping=0.1, coulomb_fric=0.0,
-                 gravity=9.81, torque_limit=np.inf, k=1.0):
+                 gravity=9.81, torque_limit=np.inf, k=1.0,
+                 Q=np.diag((10, 1)), R=np.array([[1]]), compute_RoA=False):
         """
         Controller which swings up the pendulum with the energy shaping
         controller and stabilizes the pendulum with the lqr controller.
@@ -147,8 +148,15 @@ class EnergyShapingAndLQRController(AbstractController):
         torque_limit : float, default=np.inf
             the torque_limit of the pendulum actuator
         k : float, default=1.0
-            the weight determining the output torque with respect to the
-            current energy level.
+            (energy controller) the weight determining the output torque with
+            respect to the current energy level.
+        Q : array-like, default=np.diag(10, 1)
+            (LQR controller) the state cost matrix, np.shape(Q) = (2,2)
+        R : array-like, default=np.array([[1]])
+            (LQR controller) the control cost matrix, np.shape(R) = (1,1)
+        compute_RoA : bool, default=False
+            (LQR controller) whether to compute the region of attraction of the
+            LQR controller (requires drake)
         """
 
         self.m = mass
@@ -157,18 +165,21 @@ class EnergyShapingAndLQRController(AbstractController):
         self.cf = coulomb_fric
         self.g = gravity
 
-        self.energy_shaping_controller = EnergyShapingController(mass,
-                                                                 length,
-                                                                 damping,
-                                                                 gravity,
-                                                                 torque_limit,
+        self.energy_shaping_controller = EnergyShapingController(mass=mass,
+                                                                 length=length,
+                                                                 damping=damping,
+                                                                 gravity=gravity,
+                                                                 torque_limit=torque_limit,
                                                                  k=k)
-        self.lqr_controller = LQRController(mass,
-                                            length,
-                                            damping,
-                                            coulomb_fric,
-                                            gravity,
-                                            torque_limit)
+        self.lqr_controller = LQRController(mass=mass,
+                                            length=length,
+                                            damping=damping,
+                                            coulomb_fric=coulomb_fric,
+                                            gravity=gravity,
+                                            torque_limit=torque_limit,
+                                            Q=Q,
+                                            R=R,
+                                            compute_RoA=compute_RoA)
 
         self.active_controller = "none"
 

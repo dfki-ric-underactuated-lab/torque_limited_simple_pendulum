@@ -36,8 +36,12 @@ class Test(unittest.TestCase):
         controller = LQRController(mass=mass,
                                    length=length,
                                    damping=damping,
+                                   coulomb_fric=coulomb_fric,
                                    gravity=gravity,
-                                   torque_limit=torque_limit)
+                                   torque_limit=torque_limit,
+                                   Q=np.diag([10, 1]),
+                                   R=np.array([[1]]),
+                                   compute_RoA=True)
 
         controller.set_goal([np.pi, 0])
 

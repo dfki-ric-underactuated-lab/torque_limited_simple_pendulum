@@ -11,7 +11,11 @@ import numpy as np
 from simple_pendulum.controllers.lqr.lqr import lqr
 from simple_pendulum.controllers.abstract_controller import AbstractController
 from simple_pendulum.model.pendulum_plant import PendulumPlant
-from simple_pendulum.controllers.lqr.roa.sos import SOSequalityConstrained, SOSlineSearch
+try:
+    from simple_pendulum.controllers.lqr.roa.sos import SOSequalityConstrained, SOSlineSearch
+except ModuleNotFoundError:
+    # drake not installed
+    pass
 
 
 class LQRController(AbstractController):
@@ -19,7 +23,8 @@ class LQRController(AbstractController):
     Controller which stabilizes the pendulum at its instable fixpoint.
     """
     def __init__(self, mass=1.0, length=0.5, damping=0.1, coulomb_fric=0.0,
-                 gravity=9.81, torque_limit=np.inf, Q=np.diag((10, 1)), R=np.array([[1]])):
+                 gravity=9.81, torque_limit=np.inf, Q=np.diag((10, 1)), R=np.array([[1]]),
+                 compute_RoA=False):
         """
         Controller which stabilizes the pendulum at its instable fixpoint.
 
@@ -37,6 +42,13 @@ class LQRController(AbstractController):
             gravity (positive direction points down) [m/s^2]
         torque_limit : float, default=np.inf
             the torque_limit of the pendulum actuator
+        Q : array-like, default=np.diag(10, 1)
+            the state cost matrix, np.shape(Q) = (2,2)
+        R : array-like, default=np.array([[1]])
+            the control cost matrix, np.shape(R) = (1,1)
+        compute_RoA : bool, default=False
+            whether to compute the region of attraction of the LQR controller
+            (requires drake)
         """
         self.m = mass
         self.len = length
@@ -54,16 +66,19 @@ class LQRController(AbstractController):
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
         # RoA calculation
-        pendulum = PendulumPlant(mass=self.m,
-                         length=self.len,
-                         damping=self.b,
-                         gravity=self.g,
-                         coulomb_fric=self.cf,
-                         inertia=self.m*self.len**2.0,
-                         torque_limit=self.torque_limit)
+        if compute_RoA:
+            pendulum = PendulumPlant(mass=self.m,
+                             length=self.len,
+                             damping=self.b,
+                             gravity=self.g,
+                             coulomb_fric=self.cf,
+                             inertia=self.m*self.len**2.0,
+                             torque_limit=self.torque_limit)
 
-        #self.rho, _ = SOSequalityConstrained(pendulum, self)
-        self.rho, _ = SOSlineSearch(pendulum, self)
+            #self.rho, _ = SOSequalityConstrained(pendulum, self)
+            self.rho, _ = SOSlineSearch(pendulum, self)
+        else:
+            self.rho = None
 
         self.clip_out = False
 
@@ -115,14 +130,15 @@ class LQRController(AbstractController):
         u += np.sign(vel)*self.cf
 
         if not self.clip_out:
-            #if np.abs(u) > self.torque_limit:
-            if y.dot(self.S.dot(y)) > self.rho:
-                u = None
+            if self.rho is not None:
+                if y.dot(self.S.dot(y)) > self.rho:
+                    u = None
+            else:
+                if np.abs(u) > self.torque_limit:
+                    u = None
 
         else:
             u = np.clip(u, -self.torque_limit, self.torque_limit)
-
-        
 
         # since this is a pure torque controller,
         # set des_pos and des_pos to None

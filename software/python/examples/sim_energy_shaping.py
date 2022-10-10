@@ -32,7 +32,10 @@ controller = EnergyShapingAndLQRController(mass=mass,
                                            coulomb_fric=coulomb_fric,
                                            gravity=gravity,
                                            torque_limit=torque_limit,
-                                           k=1.0)
+                                           k=1.0,
+                                           Q=np.diag([10, 1]),
+                                           R=np.array([[1]]),
+                                           compute_RoA=False)
 controller.set_goal([np.pi, 0])
 
 dt = 0.01

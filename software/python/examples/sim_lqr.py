@@ -29,8 +29,12 @@ sim = Simulator(plant=pendulum)
 controller = LQRController(mass=mass,
                            length=length,
                            damping=damping,
+                           coulomb_fric=coulomb_fric,
                            gravity=gravity,
-                           torque_limit=torque_limit)
+                           torque_limit=torque_limit,
+                           Q=np.diag([10, 1]),
+                           R=np.array([[1]]),
+                           compute_RoA=False)
 
 controller.set_goal([np.pi, 0])
 
