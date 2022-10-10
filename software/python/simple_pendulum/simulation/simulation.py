@@ -358,7 +358,7 @@ class Simulator:
         self.animation_plots = []
 
         for link in range(self.plant.n_links):
-            ee_plot, = self.animation_ax.plot([], [], "ro",
+            ee_plot, = self.animation_ax.plot([], [], "o",
                                               markersize=25.0, color="blue")
             self.animation_plots.append(ee_plot)
             bar_plot, = self.animation_ax.plot([], [], "-",

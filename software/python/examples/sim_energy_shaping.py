@@ -26,11 +26,13 @@ pendulum = PendulumPlant(mass=mass,
                          torque_limit=torque_limit)
 
 # controller = EnergyShapingController(mass, length, damping, gravity)
-controller = EnergyShapingAndLQRController(mass,
-                                           length,
-                                           damping,
-                                           gravity,
-                                           torque_limit)
+controller = EnergyShapingAndLQRController(mass=mass,
+                                           length=length,
+                                           damping=damping,
+                                           coulomb_fric=coulomb_fric,
+                                           gravity=gravity,
+                                           torque_limit=torque_limit,
+                                           k=1.0)
 controller.set_goal([np.pi, 0])
 
 dt = 0.01
