@@ -102,6 +102,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -280,21 +283,21 @@
 </div>
 <section id="theory">
 <h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
-<p>The energy of a simple pendulum in state <img class="math" src="../../_images/math/3d29e9399b9d51da8fbc5f8205fa00ad02f15cb1.svg" alt="x = [\theta, \dot{\theta}]"/> is given by:</p>
+<p>The energy of a simple pendulum in state <img class="math" src="_images/math/3d29e9399b9d51da8fbc5f8205fa00ad02f15cb1.svg" alt="x = [\theta, \dot{\theta}]"/> is given by:</p>
 <div class="math">
-<p><img src="../../_images/math/0aec7e813e3f8dc620c0b6688d4f87bab61aff4f.svg" alt="E(\theta, \dot{\theta}) = \frac{1}{2}ml^2\dot{\theta}^2 - mgl\cos(\theta)"/></p>
+<p><img src="_images/math/0aec7e813e3f8dc620c0b6688d4f87bab61aff4f.svg" alt="E(\theta, \dot{\theta}) = \frac{1}{2}ml^2\dot{\theta}^2 - mgl\cos(\theta)"/></p>
 </div><p>where the first term is the kinetic energy of the system and the second term is the potential energy.
 In the standing upright position <cite>[pi, 0]</cite> the whole energy of the pendulum is potential energy and the kinetic energy is zero. As that is the goal state of a swingup motion, the desired energy can be defined as the energy of that state:</p>
 <div class="math">
-<p><img src="../../_images/math/fc3ee8adf983787b230bdb8fe40af615f286b1f8.svg" alt="E_{des} = mgl"/></p>
+<p><img src="_images/math/fc3ee8adf983787b230bdb8fe40af615f286b1f8.svg" alt="E_{des} = mgl"/></p>
 </div><p>The idea behind energy-shaping control is simple:</p>
 <ul class="simple">
-<li><p>If <img class="math" src="../../_images/math/ede46a3bbc3849022a26184b00839167922aebf6.svg" alt="E &lt; E_{des}"/>, the controller adds energy to the system by outputting torque in the direction of motion.</p></li>
-<li><p>If <img class="math" src="../../_images/math/687436b7f3eefa9d9a7e05de53971d27db92e76c.svg" alt="E &gt; E_{des}"/>, the controller subtracts energy from the system by outputting torque in the opposite direction of the direction of motion.</p></li>
+<li><p>If <img class="math" src="_images/math/ede46a3bbc3849022a26184b00839167922aebf6.svg" alt="E &lt; E_{des}"/>, the controller adds energy to the system by outputting torque in the direction of motion.</p></li>
+<li><p>If <img class="math" src="_images/math/687436b7f3eefa9d9a7e05de53971d27db92e76c.svg" alt="E &gt; E_{des}"/>, the controller subtracts energy from the system by outputting torque in the opposite direction of the direction of motion.</p></li>
 </ul>
 <p>Consequently, the control function reads:</p>
 <div class="math">
-<p><img src="../../_images/math/28a7fdedc145b8b35a67c82a540de8431ef96df9.svg" alt="u(\theta, \dot{\theta}) = -k \dot{\theta} \left( E(\theta, \dot{\theta}) - E_{des} \right), \quad k &amp;gt; 0"/></p>
+<p><img src="_images/math/28a7fdedc145b8b35a67c82a540de8431ef96df9.svg" alt="u(\theta, \dot{\theta}) = -k \dot{\theta} \left( E(\theta, \dot{\theta}) - E_{des} \right), \quad k &amp;gt; 0"/></p>
 </div><p>This controller is applicable in the whole state space of the pendulum, i.e. it will always push the system towards the upright position. Note however, that the controller does not stabilize the upright position! If the pendulum overshoots the unstable fixpoint, the controller will make the pendulum turn another round.</p>
 <p>In order to stabilize the pendulum at the unstable fixpoint, energy-shaping control can be combined with a stabilizing controller such as the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/lqr">LQR controller</a>.</p>
 </section>
@@ -317,7 +320,7 @@ In the standing upright position <cite>[pi, 0]</cite> the whole energy of the pe
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">x</span></code> is the desired goal state. This function sets the desired energy for the output calculation.</p>
-<p>The control output <img class="math" src="../../_images/math/c060527a11ec7497d93173e49380f661196c94e1.svg" alt="\mathbf{u}(\mathbf{x})"/> can be obtained with the API of the abstract controller class:</p>
+<p>The control output <img class="math" src="_images/math/c060527a11ec7497d93173e49380f661196c94e1.svg" alt="\mathbf{u}(\mathbf{x})"/> can be obtained with the API of the abstract controller class:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EnergyShapingController</span><span class="o">.</span><span class="n">get_control_output</span><span class="p">(</span><span class="n">mean_pos</span><span class="p">,</span> <span class="n">mean_vel</span><span class="p">,</span> <span class="n">meas_tau</span><span class="p">,</span> <span class="n">meas_time</span><span class="p">)</span>
     <span class="n">inputs</span><span class="p">:</span>
         <span class="n">meas_pos</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">pendulum</span>

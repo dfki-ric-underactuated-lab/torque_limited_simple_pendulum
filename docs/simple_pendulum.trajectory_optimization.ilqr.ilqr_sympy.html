@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -289,6 +292,8 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to calculate an optimal trajectory with an iterative
 linear quadratic regulator (iLQR). This implementation uses sympy.</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>n_x<span class="classifier">int, default=2</span></dt><dd><p>The size of the state space.</p>
 </dd>
@@ -299,20 +304,26 @@ linear quadratic regulator (iLQR). This implementation uses sympy.</p>
 <dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_start">
 <span class="sig-name descname"><span class="pre">set_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_start" title="Permalink to this definition"></a></dt>
 <dd><p>Set the start state for the trajectory.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>x0<span class="classifier">array-like</span></dt><dd><p>the start state. Should have the shape of (n_x,)</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_discrete_dynamics">
 <span class="sig-name descname"><span class="pre">set_discrete_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamics_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_discrete_dynamics" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the dynamics function for the iLQR calculation.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>danamics_func<span class="classifier">function</span></dt><dd><p>dynamics_func should be a function with inputs (x, u) and output xd</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -324,22 +335,28 @@ linear quadratic regulator (iLQR). This implementation uses sympy.</p>
 <dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_stage_cost">
 <span class="sig-name descname"><span class="pre">set_stage_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_cost_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_stage_cost" title="Permalink to this definition"></a></dt>
 <dd><p>Set the stage cost (running cost) for the ilqr optimization.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>stage_cost_func<span class="classifier">function</span></dt><dd><p>stage_cost_func should be a function with inputs (x, u)
 and output cost</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_final_cost">
 <span class="sig-name descname"><span class="pre">set_final_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">final_cost_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_final_cost" title="Permalink to this definition"></a></dt>
 <dd><p>Set the final cost for the ilqr optimization.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>final_cost_func<span class="classifier">function</span></dt><dd><p>final_cost_func should be a function with inputs x
 and output cost</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -398,6 +415,8 @@ and output cost</p>
 <span class="sig-name descname"><span class="pre">run_ilqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_u_trj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_x_trj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">break_cost_redu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regu_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.run_ilqr" title="Permalink to this definition"></a></dt>
 <dd><p>Run the iLQR optimization and receive a optimal trajectory for the
 defined cost function.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>N<span class="classifier">int, default=50</span></dt><dd><p>The number of waypoints for the trajectory</p>
 </dd>
@@ -417,6 +436,9 @@ ignored if None</p>
 <dt>regu_init<span class="classifier">float, default=100</span></dt><dd><p>initialization value for the regularizer</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>x_trj<span class="classifier">array-like</span></dt><dd><p>state space trajectory</p>
 </dd>
@@ -434,8 +456,10 @@ ignored if None</p>
 <dt>redu_trace<span class="classifier">array-like</span></dt><dd><p>trace of the cost reduction development during the optimization</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 

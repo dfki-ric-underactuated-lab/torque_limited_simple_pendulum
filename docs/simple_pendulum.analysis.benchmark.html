@@ -103,6 +103,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -289,6 +292,8 @@
 <dt class="sig sig-object py" id="simple_pendulum.analysis.benchmark.benchmarker.init_pendulum">
 <span class="sig-name descname"><span class="pre">init_pendulum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.57288</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coulomb_friction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.benchmark.benchmarker.init_pendulum" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the pendulum parameters.</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>mass<span class="classifier">float, default=0.57288</span></dt><dd><p>mass of the pendulum [kg]</p>
 </dd>
@@ -306,6 +311,7 @@ defaults to point mass inertia (mass*length^2)</p>
 <dt>torque_limit<span class="classifier">float, default=2.0</span></dt><dd><p>the torque_limit of the pendulum actuator</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">

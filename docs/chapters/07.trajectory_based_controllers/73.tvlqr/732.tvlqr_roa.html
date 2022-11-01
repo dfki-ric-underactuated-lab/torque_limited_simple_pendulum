@@ -111,6 +111,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -307,10 +310,10 @@ Except for the given last value, rho is  initially fixed to an N-dimensional arr
 Now, after computing the nominal trajectory and the related TVLQR controller that bring to the goal the estimation process can start.
 Iterating backward in the knot points, we can exploit the knowledge of the final rho from the time-invariant case. The “previous” and the “next” ellipse have been considered. We sample random initial states from the “previous” ellipse and we simulate them until the “next” one. In doing so, we can check if the simulated trajectory exits from the “next” ellipse. The condition is the following one:</p>
 <div class="math">
-<p><img src="../../../_images/math/1e80a8a3eadde9e8d3557a275c4a917b6e7296cf.svg" alt="x^T S x &lt; \rho"/></p>
+<p><img src="_images/math/1e80a8a3eadde9e8d3557a275c4a917b6e7296cf.svg" alt="x^T S x &lt; \rho"/></p>
 </div><p>If a simulated trajectory triggers this condition, the algorithm shrinks the “previous” ellipse using the value of the computed optimal cost to go:</p>
 <div class="math">
-<p><img src="../../../_images/math/705846e2c1712a84862c8538a1c348eca6d6ce3c.svg" alt="\rho_{new} = min ( \rho_{old} , ctg )"/></p>
+<p><img src="_images/math/705846e2c1712a84862c8538a1c348eca6d6ce3c.svg" alt="\rho_{new} = min ( \rho_{old} , ctg )"/></p>
 </div><p>An implementation detail gives the possibility to reduce the time consumption. The estimation of each ellipse has been considered done after a maximum number of successful simulations.</p>
 </section>
 </section>

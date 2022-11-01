@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+  <title>Parameters &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="simple_pendulum.controllers.lqr.roa.sos.html" />
+    <link rel="next" title="Parameters" href="simple_pendulum.controllers.lqr.roa.sos.html" />
     <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.lqr.roa.plot.html" /> 
 </head>
 
@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -252,7 +255,7 @@
           <li><a href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a> &raquo;</li>
           <li><a href="simple_pendulum.controllers.lqr.html">Linear Quadratic Regulator (LQR)</a> &raquo;</li>
           <li><a href="simple_pendulum.controllers.lqr.roa.html">&lt;no title&gt;</a> &raquo;</li>
-      <li>&lt;no title&gt;</li>
+      <li>Parameters</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/simple_pendulum.controllers.lqr.roa.sampling.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -266,6 +269,8 @@
 <dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.roa.sampling.najafi_based_sampling">
 <span class="sig-name descname"><span class="pre">najafi_based_sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_star</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([3.14159265,</span> <span class="pre">0.0])</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.roa.sampling.najafi_based_sampling" title="Permalink to this definition"></a></dt>
 <dd><p>Estimate the RoA for the closed loop dynamics using the method introduced in Najafi, E., Babuška, R. &amp; Lopes, G.A.D. A fast sampling method for estimating the domain of attraction. Nonlinear Dyn 86, 823–834 (2016). <a class="reference external" href="https://doi.org/10.1007/s11071-016-2926-7">https://doi.org/10.1007/s11071-016-2926-7</a></p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>plant<span class="classifier">simple_pendulum.model.pendulum_plant</span></dt><dd><p>configured pendulum plant object</p>
 </dd>
@@ -280,12 +285,16 @@
 <dt>x_star<span class="classifier">np.array, optional</span></dt><dd><p>nominal position (fixed point of the nonlinear dynamics)</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h1>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>rho<span class="classifier">float</span></dt><dd><p>estimated value of rho</p>
 </dd>
 <dt>M<span class="classifier">np.array</span></dt><dd><p>M</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 
@@ -294,7 +303,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="simple_pendulum.controllers.lqr.roa.plot.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="simple_pendulum.controllers.lqr.roa.sos.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simple_pendulum.controllers.lqr.roa.sos.html" class="btn btn-neutral float-right" title="Parameters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

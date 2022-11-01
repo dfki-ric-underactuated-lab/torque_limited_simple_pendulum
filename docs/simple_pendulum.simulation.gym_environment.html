@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -280,6 +283,8 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimplePendulumEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3.141592653589793,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_target_epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01,</span> <span class="pre">0.01]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'continuous'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runge_kutta'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validation_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_action</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'False'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.simulation.gym_environment.SimplePendulumEnv" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
 <p>An environment for reinforcement learning.</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <p>simulator : simulator object
 max_steps : int, default=5000</p>
 <blockquote>
@@ -330,10 +335,15 @@ If True the model is expected so return values in the intervall
 <dt class="sig sig-object py" id="simple_pendulum.simulation.gym_environment.SimplePendulumEnv.step">
 <span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.simulation.gym_environment.SimplePendulumEnv.step" title="Permalink to this definition"></a></dt>
 <dd><p>Take a step in the environment.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>action<span class="classifier">float</span></dt><dd><p>the torque that is applied to the pendulum</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>observation<span class="classifier">array-like</span></dt><dd><p>the observation from the environment after the step</p>
 </dd>
@@ -345,6 +355,7 @@ If True the model is expected so return values in the intervall
 (empty at the moment)</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -353,6 +364,8 @@ If True the model is expected so return values in the intervall
 <dd><p>Reset the environment. The pendulum is initialized with a random state
 in the vicinity of the stable fixpoint
 (position and velocity are in the range[-0.31, 0.31])</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <dl>
 <dt>state<span class="classifier">array-like, default=None</span></dt><dd><p>the state to which the environment is reset
 if state==None it defaults to the random initialisation</p>
@@ -370,15 +383,22 @@ if None, defaults to self.random_init
 </dl>
 </dd>
 </dl>
+</section>
+<section id="id3">
+<h2>Returns<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>observation<span class="classifier">array-like</span></dt><dd><p>the state the pendulum has been initilized to</p>
 </dd>
 </dl>
+</section>
+<section id="raises">
+<h2>Raises:<a class="headerlink" href="#raises" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>NotImplementedError</dt><dd><p>when state==None and random_init does not indicate
 one of the implemented initializations</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -441,14 +461,20 @@ garbage collected or when the program exits.</p>
 wrapping the position to the observation space.
 If state_representation==3 also transforms the state to the
 trigonometric value form.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>state<span class="classifier">array-like</span></dt><dd><p>state as output by the simulator</p>
 </dd>
 </dl>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>observation<span class="classifier">array-like</span></dt><dd><p>observation in environment format</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -458,14 +484,20 @@ trigonometric value form.</p>
 Does nothing for state_representation==2.
 If state_representation==3 transforms trigonometric form
 back to regular form.</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>obs<span class="classifier">array-like</span></dt><dd><p>observation as received from get_observation</p>
 </dd>
 </dl>
+</section>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>state<span class="classifier">array-like</span></dt><dd><p>state in simulator form</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -474,18 +506,27 @@ back to regular form.</p>
 <dd><p>Calculate the reward for the pendulum for swinging up to the instable
 fixpoint. The reward function is selected based on the reward type
 defined during the object inizialization.</p>
+<section id="id8">
+<h2>Parameters<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>state<span class="classifier">array-like</span></dt><dd><p>the observation that has been received from the environment</p>
 </dd>
 </dl>
+</section>
+<section id="id9">
+<h2>Returns<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>reward<span class="classifier">float</span></dt><dd><p>the reward for swinging up</p>
 </dd>
 </dl>
+</section>
+<section id="id10">
+<h2>Raises<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>NotImplementedError</dt><dd><p>when the requested reward_type is not implemented</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -494,10 +535,13 @@ defined during the object inizialization.</p>
 <dd><p>Checks whether a terminating condition has been met.
 The only terminating condition for the pendulum is if the maximum
 number of steps has been reached.</p>
+<section id="id11">
+<h2>Returns<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>done<span class="classifier">bool</span></dt><dd><p>whether a terminating condition has been met</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -506,14 +550,20 @@ number of steps has been reached.</p>
 <dd><p>Checks whether an observation is in the goal region.
 The goal region is specified by the target and state_target_epsilon
 parameters in the class initialization.</p>
+<section id="id12">
+<h2>Parameters<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>obs<span class="classifier">array-like</span></dt><dd><p>observation as received from get_observation</p>
 </dd>
 </dl>
+</section>
+<section id="id13">
+<h2>Returns<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>goal<span class="classifier">bool</span></dt><dd><p>whether to observation is in the goal region</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -525,6 +575,8 @@ The validation criterion is fulfilled if the mean of the
 validation_rewards id greater than criterion.
 If final obs is also given, at least 90% of the observations
 have to be in the goal region.</p>
+<section id="id14">
+<h2>Parameters<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>validation_rewards<span class="classifier">array-like</span></dt><dd><p>A list of rewards (floats).</p>
 </dd>
@@ -534,12 +586,17 @@ If None final observations are not considered.</p>
 <dt>criterion: float, default=None</dt><dd><p>The reward limit which has to be surpassed.</p>
 </dd>
 </dl>
+</section>
+<section id="id15">
+<h2>Returns<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>passed<span class="classifier">bool</span></dt><dd><p>Whether the rewards pass the validation test</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 

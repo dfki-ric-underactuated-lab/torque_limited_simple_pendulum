@@ -104,6 +104,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -281,38 +284,38 @@ BOXFddp allows to enforce the system’s torque limits.</p>
 <h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>The costs functions for the <strong>Running model</strong> is written as</p>
 <div class="math">
-<p><img src="../../_images/math/28f23d46d5d33d3fa2ba6c620842efb319391a73.svg" alt="l = {\sum}_{n=1}^{T-1} \alpha_n \Phi_n(q,\dot{q},\mathrm{T})"/></p>
-</div><p>With the following costs and weights, <img class="math" src="../../_images/math/e0d5eedab4c227de4dcfb98e2481ed57e4867a29.svg" alt="t_s"/> denoting the final time horizon.</p>
+<p><img src="_images/math/28f23d46d5d33d3fa2ba6c620842efb319391a73.svg" alt="l = {\sum}_{n=1}^{T-1} \alpha_n \Phi_n(q,\dot{q},\mathrm{T})"/></p>
+</div><p>With the following costs and weights, <img class="math" src="_images/math/e0d5eedab4c227de4dcfb98e2481ed57e4867a29.svg" alt="t_s"/> denoting the final time horizon.</p>
 <ul>
 <li><p><strong>Torque minimization</strong>: Minimization of the joint torques for realistic dynamic motions.</p>
 <blockquote>
 <div><div class="math">
-<p><img src="../../_images/math/eee6723bd2215b462f078fdc321de39d929891d0.svg" alt="\Phi_{1} =  \parallel \mathrm{T} (t) \parallel ^{2}_2,  \quad \alpha_1 = 1e-4"/></p>
+<p><img src="_images/math/eee6723bd2215b462f078fdc321de39d929891d0.svg" alt="\Phi_{1} =  \parallel \mathrm{T} (t) \parallel ^{2}_2,  \quad \alpha_1 = 1e-4"/></p>
 </div></div></blockquote>
 </li>
 <li><p><strong>Posture regularization</strong>:  giving as input only the final reference posture.</p>
 <blockquote>
 <div><div class="math">
-<p><img src="../../_images/math/59ecbaeb3323fbd70a825535d5b1beee3013a7e8.svg" alt="\Phi_{2} = \parallel q(t)-q^{ref}(t_{s-1})\parallel ^{2}_2 ,  \quad \alpha_2 = 1e-5"/></p>
+<p><img src="_images/math/59ecbaeb3323fbd70a825535d5b1beee3013a7e8.svg" alt="\Phi_{2} = \parallel q(t)-q^{ref}(t_{s-1})\parallel ^{2}_2 ,  \quad \alpha_2 = 1e-5"/></p>
 </div></div></blockquote>
 </li>
 <li><p>The costs functions for the <strong>Terminal model</strong> are applied to only one node (the terminal node) and is written as</p>
 <blockquote>
 <div><div class="math">
-<p><img src="../../_images/math/4a929ee788a8e241a5bdd0ea0d2e97bdb89a564d.svg" alt="l_T =  \alpha_T \Phi_T(q,\dot{q})"/></p>
+<p><img src="_images/math/4a929ee788a8e241a5bdd0ea0d2e97bdb89a564d.svg" alt="l_T =  \alpha_T \Phi_T(q,\dot{q})"/></p>
 </div></div></blockquote>
 </li>
 </ul>
-<p>With the following cost and weight, <img class="math" src="../../_images/math/c7ee6ddc6a498dd31a05d0939bf13eaa412871ea.svg" alt="T = t_{final}"/> the final time horizon.</p>
+<p>With the following cost and weight, <img class="math" src="_images/math/c7ee6ddc6a498dd31a05d0939bf13eaa412871ea.svg" alt="T = t_{final}"/> the final time horizon.</p>
 <ul>
 <li><p><strong>Posture regularization</strong>: giving as input only the final reference posture.</p>
 <blockquote>
 <div><div class="math">
-<p><img src="../../_images/math/309c1cb7a0465f74429b118beb9839af0d08f0be.svg" alt="\Phi_{3} = \parallel q(T)-q^{ref}(T)\parallel^{2}_{2}, \quad  \alpha_{3} = 10^{10}"/></p>
+<p><img src="_images/math/309c1cb7a0465f74429b118beb9839af0d08f0be.svg" alt="\Phi_{3} = \parallel q(T)-q^{ref}(T)\parallel^{2}_{2}, \quad  \alpha_{3} = 10^{10}"/></p>
 </div></div></blockquote>
 </li>
 </ul>
-<p>The weights <img class="math" src="../../_images/math/bc58c6693b4ac49be11f139916296dcbc22c3191.svg" alt="\alpha_i"/> for this optimization problem are determined experimentally.</p>
+<p>The weights <img class="math" src="_images/math/bc58c6693b4ac49be11f139916296dcbc22c3191.svg" alt="\alpha_i"/> for this optimization problem are determined experimentally.</p>
 </section>
 <section id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>

@@ -95,6 +95,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -288,6 +291,8 @@ method should be adapted. Unused inputs/outputs can be set to None.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">meas_time</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The collapsed time [s]</p>
 </dd>
 </dl>
+<section id="returns">
+<h1>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">des_pos</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The desired position of the pendulum [rad]</p>
 </dd>
@@ -296,6 +301,7 @@ method should be adapted. Unused inputs/outputs can be set to None.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">des_tau</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The torque supposed to be applied by the actuator [Nm]</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 </dd></dl>

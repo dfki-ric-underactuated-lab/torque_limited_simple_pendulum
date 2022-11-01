@@ -89,6 +89,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -288,11 +291,13 @@
 </li>
       <li><a href="simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Actuators">Actuators (class in simple_pendulum.model.parameters)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.agent.html#simple_pendulum.reinforcement_learning.ddpg.agent.Agent">Agent (class in simple_pendulum.reinforcement_learning.ddpg.agent)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.controllers.motor_control_loop.html#simple_pendulum.controllers.motor_control_loop.ak80_6">ak80_6() (in module simple_pendulum.controllers.motor_control_loop)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa">analytic_roa (class in simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa)</a>
 </li>
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.html#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.append">append() (ReplayBuffer method)</a>
 </li>
@@ -684,6 +689,12 @@
 </li>
         <li><a href="simple_pendulum.controllers.lqr.html#module-simple_pendulum.controllers.lqr">simple_pendulum.controllers.lqr</a>
 </li>
+        <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.html#module-simple_pendulum.controllers.lqr.analytic_roa_estimation">simple_pendulum.controllers.lqr.analytic_roa_estimation</a>
+</li>
+        <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#module-simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa">simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa</a>
+</li>
+        <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html#module-simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle">simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle</a>
+</li>
         <li><a href="simple_pendulum.controllers.lqr.lqr.html#module-simple_pendulum.controllers.lqr.lqr">simple_pendulum.controllers.lqr.lqr</a>
 </li>
         <li><a href="simple_pendulum.controllers.lqr.lqr_controller.html#module-simple_pendulum.controllers.lqr.lqr_controller">simple_pendulum.controllers.lqr.lqr_controller</a>
@@ -818,6 +829,10 @@
       <li><a href="simple_pendulum.controllers.lqr.roa.sampling.html#simple_pendulum.controllers.lqr.roa.sampling.najafi_based_sampling">najafi_based_sampling() (in module simple_pendulum.controllers.lqr.roa.sampling)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.najafi_oracle">najafi_oracle (class in simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="O">O</h2>
@@ -903,14 +918,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.html#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.Q_terms">Q_terms() (iLQR_Calculator method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.quad_form">quad_form() (in module simple_pendulum.controllers.lqr.roa.utils)</a>
 
       <ul>
         <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.quad_form">(in module simple_pendulum.controllers.tvlqr.roa.utils)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.najafi_oracle.query">query() (najafi_oracle method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -973,6 +990,10 @@
         <li><a href="simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.sample_from_ellipsoid">(in module simple_pendulum.controllers.tvlqr.roa.utils)</a>
 </li>
       </ul></li>
+      <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory">satisfies_theory() (analytic_roa method)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory_full">satisfies_theory_full() (analytic_roa method)</a>
+</li>
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.save">save() (ddpg_trainer method)</a>
 
       <ul>
@@ -1156,6 +1177,27 @@
 </li>
       </ul></li>
       <li>
+    simple_pendulum.controllers.lqr.analytic_roa_estimation
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.html#module-simple_pendulum.controllers.lqr.analytic_roa_estimation">module</a>
+</li>
+      </ul></li>
+      <li>
+    simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#module-simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa">module</a>
+</li>
+      </ul></li>
+      <li>
+    simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle
+
+      <ul>
+        <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html#module-simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle">module</a>
+</li>
+      </ul></li>
+      <li>
     simple_pendulum.controllers.lqr.lqr
 
       <ul>
@@ -1253,6 +1295,8 @@
         <li><a href="simple_pendulum.controllers.sac.html#module-simple_pendulum.controllers.sac">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     simple_pendulum.controllers.sac.sac_controller
 
@@ -1267,8 +1311,6 @@
         <li><a href="simple_pendulum.controllers.tvlqr.html#module-simple_pendulum.controllers.tvlqr">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     simple_pendulum.controllers.tvlqr.roa
 
@@ -1636,10 +1678,10 @@
 </li>
       <li><a href="simple_pendulum.model.unit_test.html#simple_pendulum.model.unit_test.Test.test_0_kinematics">test_0_kinematics() (Test method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test.test_0_LQR_stabilization">test_0_LQR_stabilization() (Test method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.model.unit_test.html#simple_pendulum.model.unit_test.Test.test_1_dynamics">test_1_dynamics() (Test method)</a>
 </li>
       <li><a href="simple_pendulum.controllers.ilqr.unit_test.html#simple_pendulum.controllers.ilqr.unit_test.Test.test_1_iLQR_MPC_swingup_nx3">test_1_iLQR_MPC_swingup_nx3() (Test method)</a>
@@ -1655,6 +1697,10 @@
 </li>
       </ul></li>
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.agent.html#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.train_on">train_on() (Agent method)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.transform">transform() (in module simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa)</a>
+</li>
+      <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.tstar">tstar() (analytic_roa method)</a>
 </li>
       <li><a href="simple_pendulum.controllers.tvlqr.tvlqr.html#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController">TVLQRController (class in simple_pendulum.controllers.tvlqr.tvlqr)</a>
 </li>
@@ -1673,6 +1719,10 @@
 
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.u">u() (analytic_roa method)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simple_pendulum.reinforcement_learning.ddpg.agent.html#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.update_target_weights">update_target_weights() (Agent method)</a>
 </li>

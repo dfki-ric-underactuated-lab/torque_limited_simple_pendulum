@@ -104,6 +104,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -302,7 +305,7 @@ Particulary, the controller can process trajectories that have been found with h
 </pre></div>
 </div>
 <p>The values are assumed to be in SI units, i.e. time in s, position in rad, velocity in rad/s, torque in Nm.</p>
-<p>The control output <img class="math" src="../../_images/math/c060527a11ec7497d93173e49380f661196c94e1.svg" alt="\mathbf{u}(\mathbf{x})"/> can be obtained with the API of the abstract controller class:</p>
+<p>The control output <img class="math" src="_images/math/c060527a11ec7497d93173e49380f661196c94e1.svg" alt="\mathbf{u}(\mathbf{x})"/> can be obtained with the API of the abstract controller class:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OpenLoopController</span><span class="o">.</span><span class="n">get_control_output</span><span class="p">(</span><span class="n">mean_pos</span><span class="p">,</span> <span class="n">mean_vel</span><span class="p">,</span> <span class="n">meas_tau</span><span class="p">,</span> <span class="n">meas_time</span><span class="p">)</span>
     <span class="n">inputs</span><span class="p">:</span>
         <span class="n">meas_pos</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">pendulum</span>

@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -290,6 +293,8 @@ in units: rad and rad/s</p>
 The plant expects an actuation input (tau) either as float or
 array like in units Nm.
 (in which case the first entry is used (which should be a float))</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>mass<span class="classifier">float, default=1.0</span></dt><dd><p>pendulum mass, unit: kg</p>
 </dd>
@@ -311,44 +316,61 @@ unit: kg*m^2</p>
 <dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.load_params_from_file">
 <span class="sig-name descname"><span class="pre">load_params_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.load_params_from_file" title="Permalink to this definition"></a></dt>
 <dd><p>Load the pendulum parameters from a yaml file.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>filepath<span class="classifier">string</span></dt><dd><p>path to yaml file</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.forward_kinematics">
 <span class="sig-name descname"><span class="pre">forward_kinematics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.forward_kinematics" title="Permalink to this definition"></a></dt>
 <dd><p>Computes the forward kinematics.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <p>pos : float, angle of the pendulum</p>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>list<span class="classifier">A list containing one list (for one end-effector)</span></dt><dd><p>The inner list contains the x and y coordinates
 for the end-effector of the pendulum</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.inverse_kinematics">
 <span class="sig-name descname"><span class="pre">inverse_kinematics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ee_pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.inverse_kinematics" title="Permalink to this definition"></a></dt>
 <dd><p>Comutes inverse kinematics</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>ee_pos<span class="classifier">array like,</span></dt><dd><p>len(state)=2
 contains the x and y position of the end_effector
 floats, units: m</p>
 </dd>
 </dl>
+</section>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>pos<span class="classifier">float</span></dt><dd><p>angle of the pendulum, unit: rad</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.forward_dynamics">
 <span class="sig-name descname"><span class="pre">forward_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.forward_dynamics" title="Permalink to this definition"></a></dt>
 <dd><p>Computes forward dynamics</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>state<span class="classifier">array like</span></dt><dd><p>len(state)=2
 The state of the pendulum [angle, angular velocity]
@@ -357,17 +379,23 @@ floats, units: rad, rad/s</p>
 <dt>tau<span class="classifier">float</span></dt><dd><p>motor torque, unit: Nm</p>
 </dd>
 </dl>
+</section>
+<section id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>float, angular acceleration, unit: rad/s^2</p></li>
 </ul>
 </div></blockquote>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.inverse_dynamics">
 <span class="sig-name descname"><span class="pre">inverse_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.inverse_dynamics" title="Permalink to this definition"></a></dt>
 <dd><p>Computes inverse dynamics</p>
+<section id="id7">
+<h2>Parameters<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>state<span class="classifier">array like</span></dt><dd><p>len(state)=2
 The state of the pendulum [angle, angular velocity]
@@ -376,16 +404,22 @@ floats, units: rad, rad/s</p>
 <dt>accn<span class="classifier">float</span></dt><dd><p>angular acceleration, unit: rad/s^2</p>
 </dd>
 </dl>
+</section>
+<section id="id8">
+<h2>Returns<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>tau<span class="classifier">float</span></dt><dd><p>motor torque, unit: Nm</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.model.pendulum_plant.PendulumPlant.rhs">
 <span class="sig-name descname"><span class="pre">rhs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.rhs" title="Permalink to this definition"></a></dt>
 <dd><p>Computes the integrand of the equations of motion.</p>
+<section id="id9">
+<h2>Parameters<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>t<span class="classifier">float</span></dt><dd><p>time, not used (the dynamics of the pendulum are time independent)</p>
 </dd>
@@ -396,10 +430,14 @@ floats, units: rad, rad/s</p>
 <dt>tau<span class="classifier">float or array like</span></dt><dd><p>motor torque, unit: Nm</p>
 </dd>
 </dl>
+</section>
+<section id="id10">
+<h2>Returns<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>res<span class="classifier">array like</span></dt><dd><p>the integrand, contains [angular velocity, angular acceleration]</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -417,6 +455,7 @@ floats, units: rad, rad/s</p>
 <span class="sig-name descname"><span class="pre">total_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.model.pendulum_plant.PendulumPlant.total_energy" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+</section>
 </dd></dl>
 
 

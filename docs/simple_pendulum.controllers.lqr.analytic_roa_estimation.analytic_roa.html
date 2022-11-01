@@ -20,8 +20,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Gravity Compensation Control" href="simple_pendulum.controllers.gravity_compensation.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.gamepad.gamepad.html" /> 
+    <link rel="next" title="&lt;no title&gt;" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +41,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/00.installation_guide.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/01.usage_instructions.html">Usage Instructions</a></li>
@@ -92,8 +92,14 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.tstar"><code class="docutils literal notranslate"><span class="pre">analytic_roa.tstar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.u"><code class="docutils literal notranslate"><span class="pre">analytic_roa.u()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory"><code class="docutils literal notranslate"><span class="pre">analytic_roa.satisfies_theory()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory_full"><code class="docutils literal notranslate"><span class="pre">analytic_roa.satisfies_theory_full()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
@@ -253,10 +259,11 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="simple_pendulum.html">API Reference</a> &raquo;</li>
           <li><a href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a> &raquo;</li>
-          <li><a href="simple_pendulum.controllers.gamepad.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a> &raquo;</li>
+          <li><a href="simple_pendulum.controllers.lqr.html">Linear Quadratic Regulator (LQR)</a> &raquo;</li>
+          <li><a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.html">&lt;no title&gt;</a> &raquo;</li>
       <li>&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/simple_pendulum.controllers.gamepad.gamepad_controller.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -264,13 +271,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <span class="target" id="module-simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa"></span><dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.transform" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">analytic_roa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_11</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_22</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.tstar">
+<span class="sig-name descname"><span class="pre">tstar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.tstar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.u">
+<span class="sig-name descname"><span class="pre">u</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.u" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory">
+<span class="sig-name descname"><span class="pre">satisfies_theory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory_full">
+<span class="sig-name descname"><span class="pre">satisfies_theory_full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory_full" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simple_pendulum.controllers.gamepad.gamepad.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="simple_pendulum.controllers.gravity_compensation.html" class="btn btn-neutral float-right" title="Gravity Compensation Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

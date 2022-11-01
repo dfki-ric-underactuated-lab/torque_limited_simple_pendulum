@@ -100,6 +100,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -280,8 +283,8 @@
 <h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
 <p>A controller compensating the gravitational force acting on the pendulum. The control function is given by:</p>
 <div class="math">
-<p><img src="../../_images/math/576e3b7bddc085c3abf6c435e14070baf81e66bb.svg" alt="u(\theta) = mgl \sin(\theta)"/></p>
-</div><p>where <cite>u</cite> is commanded torque, <cite>m</cite>  is a weight of <cite>0,5 kg</cite> attached to the rod together with the mass of the rod and the mounting parts, <cite>l</cite> is the length of <cite>0,5 m</cite> of the rod, <cite>g</cite> is  gravitational acceleration on earth of <img class="math" src="../../_images/math/84e6689f6af824023ae9b1b76c3d7cac75197825.svg" alt="9.81 \, ms^{-2}"/>  and <img class="math" src="../../_images/math/8a87f04e7d7cca18343c084cceca5237fae62491.svg" alt="\theta"/> is the current position of the pendulum.</p>
+<p><img src="_images/math/576e3b7bddc085c3abf6c435e14070baf81e66bb.svg" alt="u(\theta) = mgl \sin(\theta)"/></p>
+</div><p>where <cite>u</cite> is commanded torque, <cite>m</cite>  is a weight of <cite>0,5 kg</cite> attached to the rod together with the mass of the rod and the mounting parts, <cite>l</cite> is the length of <cite>0,5 m</cite> of the rod, <cite>g</cite> is  gravitational acceleration on earth of <img class="math" src="_images/math/84e6689f6af824023ae9b1b76c3d7cac75197825.svg" alt="9.81 \, ms^{-2}"/>  and <img class="math" src="_images/math/8a87f04e7d7cca18343c084cceca5237fae62491.svg" alt="\theta"/> is the current position of the pendulum.</p>
 <p>While the controller is running it actively compensates for the gravitational force acting on the pendulum, therefore the pendulum can be moved as if it was in zero-g.</p>
 </section>
 </section>

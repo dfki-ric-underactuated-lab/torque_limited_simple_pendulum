@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+  <title>Motor Control Loop &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -250,7 +253,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="simple_pendulum.html">API Reference</a> &raquo;</li>
           <li><a href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a> &raquo;</li>
-      <li>&lt;no title&gt;</li>
+      <li>Motor Control Loop</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/simple_pendulum.controllers.motor_control_loop.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -263,13 +266,17 @@
   <span class="target" id="module-simple_pendulum.controllers.motor_control_loop"></span><dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.motor_control_loop.ak80_6">
 <span class="sig-name descname"><span class="pre">ak80_6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">motor_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">motor_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'AK80_6_V1p1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">can_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'can0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.motor_control_loop.ak80_6" title="Permalink to this definition"></a></dt>
-<dd><p>The motor control loop only contains the minimum of code necessary to 
+<dd><section id="motor-control-loop">
+<h1>Motor Control Loop<a class="headerlink" href="#motor-control-loop" title="Permalink to this heading"></a></h1>
+<p>The motor control loop only contains the minimum of code necessary to 
 send commands to and receive measurement data from the motor control 
 board in real time over CAN bus. It specifies the outgoing CAN port and 
 the CAN ID of the motor on the CAN bus and transfers this information to 
 the motor driver. It furthermore requires the following arguments:</p>
 <p>The return values start, end and meas_dt are required to monitor if 
 desired and measured time steps match.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>controller<span class="classifier">controller object inheriting from the abstract controller class</span></dt><dd><p>Calls the controller, which executes the respective 
 control policy and returns the input torques</p>
@@ -291,6 +298,9 @@ control policy and returns the input torques</p>
 <dt>can_port<span class="classifier">string, default=’can0’</span></dt><dd><p>can port for motor communication</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>start<span class="classifier">float,</span></dt><dd><p>start time of experiment</p>
 </dd>
@@ -301,6 +311,8 @@ control policy and returns the input torques</p>
 <dt>data_dict<span class="classifier">dict</span></dt><dd><p>dictionary containing the recorded data</p>
 </dd>
 </dl>
+</section>
+</section>
 </dd></dl>
 
 

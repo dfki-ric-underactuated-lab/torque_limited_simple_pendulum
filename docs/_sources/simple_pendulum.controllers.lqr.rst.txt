@@ -14,5 +14,6 @@
     .. toctree::
        :maxdepth: 1
 
+       simple_pendulum.controllers.lqr.analytic_roa_estimation
        simple_pendulum.controllers.lqr.roa
 

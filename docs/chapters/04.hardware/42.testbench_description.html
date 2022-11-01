@@ -104,6 +104,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -281,14 +284,14 @@
 <section id="physical-parameters-of-the-pendulum">
 <h2>Physical Parameters of the Pendulum<a class="headerlink" href="#physical-parameters-of-the-pendulum" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>Point mass: <img class="math" src="../../_images/math/97a7cd31a8cce0783be5ee58b8ccb21154eb1cf6.svg" alt="m_p"/> = 0.546 Kg</p></li>
-<li><p>Mass of rod, mounting parts and screws: <img class="math" src="../../_images/math/598a1637fb588a964254ea258f5e6ff0c0c1a9cf.svg" alt="m_r"/> = 0.13 Kg</p></li>
-<li><p>Overall mass: <img class="math" src="../../_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.svg" alt="m"/> = 0.676 Kg</p></li>
-<li><p>Length to point mass: <img class="math" src="../../_images/math/470aa65888a2971c9346e573f12b37ea406b8ec9.svg" alt="l"/> = 0.5 m</p></li>
-<li><p>Length to COM: <img class="math" src="../../_images/math/c114fd23cec263ffcbad226cc05d7a026a84de39.svg" alt="l_{COM}"/> = 0.45 m</p></li>
+<li><p>Point mass: <img class="math" src="_images/math/97a7cd31a8cce0783be5ee58b8ccb21154eb1cf6.svg" alt="m_p"/> = 0.546 Kg</p></li>
+<li><p>Mass of rod, mounting parts and screws: <img class="math" src="_images/math/598a1637fb588a964254ea258f5e6ff0c0c1a9cf.svg" alt="m_r"/> = 0.13 Kg</p></li>
+<li><p>Overall mass: <img class="math" src="_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.svg" alt="m"/> = 0.676 Kg</p></li>
+<li><p>Length to point mass: <img class="math" src="_images/math/470aa65888a2971c9346e573f12b37ea406b8ec9.svg" alt="l"/> = 0.5 m</p></li>
+<li><p>Length to COM: <img class="math" src="_images/math/c114fd23cec263ffcbad226cc05d7a026a84de39.svg" alt="l_{COM}"/> = 0.45 m</p></li>
 </ul>
 <div class="math">
-<p><img src="../../_images/math/4f0aad2e984dded7293f8bc42d608ff739945245.svg" alt="l_{COM} = \frac{m_pl 0.5 m_r l}{m_p m_r}"/></p>
+<p><img src="_images/math/4f0aad2e984dded7293f8bc42d608ff739945245.svg" alt="l_{COM} = \frac{m_pl 0.5 m_r l}{m_p m_r}"/></p>
 </div></section>
 <section id="physical-parameters-of-the-actuator">
 <h2>Physical Parameters of the Actuator<a class="headerlink" href="#physical-parameters-of-the-actuator" title="Permalink to this heading"></a></h2>
@@ -297,14 +300,14 @@
 <a class="reference internal image-reference" href="../../_images/ak80-6_img.jpg"><img alt="../../_images/ak80-6_img.jpg" src="../../_images/ak80-6_img.jpg" style="width: 60%;" /></a>
 </figure>
 <ul class="simple">
-<li><p>Voltage = 24 <img class="math" src="../../_images/math/e4762cec46619bf7781cae62216214f909395368.svg" alt="V"/></p></li>
-<li><p>Current = rated 12 <img class="math" src="../../_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.svg" alt="A"/>, peak 24 <img class="math" src="../../_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.svg" alt="A"/></p></li>
-<li><p>Torque = rated 6 <img class="math" src="../../_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/>, peak 12 <img class="math" src="../../_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/> (after the transmission)</p></li>
+<li><p>Voltage = 24 <img class="math" src="_images/math/e4762cec46619bf7781cae62216214f909395368.svg" alt="V"/></p></li>
+<li><p>Current = rated 12 <img class="math" src="_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.svg" alt="A"/>, peak 24 <img class="math" src="_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.svg" alt="A"/></p></li>
+<li><p>Torque = rated 6 <img class="math" src="_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/>, peak 12 <img class="math" src="_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/> (after the transmission)</p></li>
 <li><p>Transmission N = 6 : 1</p></li>
-<li><p>Weight = 485 <img class="math" src="../../_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.svg" alt="g"/></p></li>
-<li><p>Dimensions = ⌀ 98 <img class="math" src="../../_images/math/42bde47631503e70c4e8b5eb6125ce7ce1f3f02e.svg" alt="mm"/> x 38,5 <img class="math" src="../../_images/math/42bde47631503e70c4e8b5eb6125ce7ce1f3f02e.svg" alt="mm"/></p></li>
-<li><p>Max. torque to weight ratio = 24 <img class="math" src="../../_images/math/e496e22b9066d5d62ba0bfd494ef130b1a43d392.svg" alt="kg"/> (after the transmission)</p></li>
-<li><p>Max. velocity = 38.2 <img class="math" src="../../_images/math/106b04b320e75010b1d8029e59244f234f75e6f9.svg" alt="s"/> = 365 <img class="math" src="../../_images/math/7cd90d08e6307cd6526157e78bb4f46ad2ca5ccd.svg" alt="rpm"/> (after the transmission)</p></li>
+<li><p>Weight = 485 <img class="math" src="_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.svg" alt="g"/></p></li>
+<li><p>Dimensions = ⌀ 98 <img class="math" src="_images/math/42bde47631503e70c4e8b5eb6125ce7ce1f3f02e.svg" alt="mm"/> x 38,5 <img class="math" src="_images/math/42bde47631503e70c4e8b5eb6125ce7ce1f3f02e.svg" alt="mm"/></p></li>
+<li><p>Max. torque to weight ratio = 24 <img class="math" src="_images/math/e496e22b9066d5d62ba0bfd494ef130b1a43d392.svg" alt="kg"/> (after the transmission)</p></li>
+<li><p>Max. velocity = 38.2 <img class="math" src="_images/math/106b04b320e75010b1d8029e59244f234f75e6f9.svg" alt="s"/> = 365 <img class="math" src="_images/math/7cd90d08e6307cd6526157e78bb4f46ad2ca5ccd.svg" alt="rpm"/> (after the transmission)</p></li>
 <li><p>Backlash (accuracy) = 0.15° degrees</p></li>
 </ul>
 </section>
@@ -315,17 +318,17 @@
 <p>Before the transmission</p>
 </div>
 <ul class="simple">
-<li><p>Motor constant <img class="math" src="../../_images/math/b784dcb1578573444c62319a33e085707d39ddfa.svg" alt="km"/> = 0.2206 <img class="math" src="../../_images/math/9a8ab0bb738e06679d1b078e72face201ee1fdbb.svg" alt="Nm/\sqrt{W}"/></p></li>
-<li><p>Electric constant <img class="math" src="../../_images/math/a2a5f2ef417ae9d4d9fc245758459bc28c4864f6.svg" alt="ke"/> = 0.009524 <img class="math" src="../../_images/math/875085cd70ec23c2f28617a54dcf19cfdd42a6b2.svg" alt="V/rpm"/></p></li>
-<li><p>Torque constant <img class="math" src="../../_images/math/859c6b4977485eed8916b2dfb6f02527badab18a.svg" alt="kt"/> = 0.091 <img class="math" src="../../_images/math/2cf12f7853ca118d151e4b6e3b94329209b22c3f.svg" alt="Nm/A"/></p></li>
-<li><p>Torque = rated 1,092 <img class="math" src="../../_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/>, peak 2,184 <img class="math" src="../../_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/></p></li>
-<li><p>Velocity / back-EMF constant <img class="math" src="../../_images/math/21f17f1df278db6e4dafe7cbfd1d732966cda44d.svg" alt="kv"/> = 100 <img class="math" src="../../_images/math/6c2b7e19d093231a209d52fef1df2e98872561d0.svg" alt="rpm/V"/></p></li>
-<li><p>Max. velocity at 24 <img class="math" src="../../_images/math/e4762cec46619bf7781cae62216214f909395368.svg" alt="V"/> = 251.2 <img class="math" src="../../_images/math/f9f5cc84488b1dc007a58fc9ded8922d18e5c1bb.svg" alt="rad/s"/> = 2400 <img class="math" src="../../_images/math/7cd90d08e6307cd6526157e78bb4f46ad2ca5ccd.svg" alt="rpm"/></p></li>
-<li><p>Motor wiring in <img class="math" src="../../_images/math/bb3d9e9b0298d335dede11ae3be7d6df30bbc804.svg" alt="\nabla"/>-delta configuration</p></li>
+<li><p>Motor constant <img class="math" src="_images/math/b784dcb1578573444c62319a33e085707d39ddfa.svg" alt="km"/> = 0.2206 <img class="math" src="_images/math/9a8ab0bb738e06679d1b078e72face201ee1fdbb.svg" alt="Nm/\sqrt{W}"/></p></li>
+<li><p>Electric constant <img class="math" src="_images/math/a2a5f2ef417ae9d4d9fc245758459bc28c4864f6.svg" alt="ke"/> = 0.009524 <img class="math" src="_images/math/875085cd70ec23c2f28617a54dcf19cfdd42a6b2.svg" alt="V/rpm"/></p></li>
+<li><p>Torque constant <img class="math" src="_images/math/859c6b4977485eed8916b2dfb6f02527badab18a.svg" alt="kt"/> = 0.091 <img class="math" src="_images/math/2cf12f7853ca118d151e4b6e3b94329209b22c3f.svg" alt="Nm/A"/></p></li>
+<li><p>Torque = rated 1,092 <img class="math" src="_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/>, peak 2,184 <img class="math" src="_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/></p></li>
+<li><p>Velocity / back-EMF constant <img class="math" src="_images/math/21f17f1df278db6e4dafe7cbfd1d732966cda44d.svg" alt="kv"/> = 100 <img class="math" src="_images/math/6c2b7e19d093231a209d52fef1df2e98872561d0.svg" alt="rpm/V"/></p></li>
+<li><p>Max. velocity at 24 <img class="math" src="_images/math/e4762cec46619bf7781cae62216214f909395368.svg" alt="V"/> = 251.2 <img class="math" src="_images/math/f9f5cc84488b1dc007a58fc9ded8922d18e5c1bb.svg" alt="rad/s"/> = 2400 <img class="math" src="_images/math/7cd90d08e6307cd6526157e78bb4f46ad2ca5ccd.svg" alt="rpm"/></p></li>
+<li><p>Motor wiring in <img class="math" src="_images/math/bb3d9e9b0298d335dede11ae3be7d6df30bbc804.svg" alt="\nabla"/>-delta configuration</p></li>
 <li><p>Number of pole pairs = 21</p></li>
-<li><p>Resistance phase to phase = 170 <img class="math" src="../../_images/math/c1b04b17db55f1b4279eba10c6244b33b4673748.svg" alt="\pm"/> 5 <img class="math" src="../../_images/math/2bcdad4eab04bea5aafc233d459d0bdf1ae056b7.svg" alt="m\Omega"/></p></li>
-<li><p>Inductance phase to phase = 57 <img class="math" src="../../_images/math/c00230696e97cb3d6f6c5726accf4632a02c68bd.svg" alt="pm"/> 10 <img class="math" src="../../_images/math/7797167aa53d68bfb81725a6f145dfd6a870d85e.svg" alt="\mu H"/></p></li>
-<li><p>Rotor inertia Ir = 0.000060719 <img class="math" src="../../_images/math/adea87eab121c076be211d75e7aa13c20af16b0f.svg" alt="kg/m^2"/></p></li>
+<li><p>Resistance phase to phase = 170 <img class="math" src="_images/math/c1b04b17db55f1b4279eba10c6244b33b4673748.svg" alt="\pm"/> 5 <img class="math" src="_images/math/2bcdad4eab04bea5aafc233d459d0bdf1ae056b7.svg" alt="m\Omega"/></p></li>
+<li><p>Inductance phase to phase = 57 <img class="math" src="_images/math/c00230696e97cb3d6f6c5726accf4632a02c68bd.svg" alt="pm"/> 10 <img class="math" src="_images/math/7797167aa53d68bfb81725a6f145dfd6a870d85e.svg" alt="\mu H"/></p></li>
+<li><p>Rotor inertia Ir = 0.000060719 <img class="math" src="_images/math/adea87eab121c076be211d75e7aa13c20af16b0f.svg" alt="kg/m^2"/></p></li>
 </ul>
 </section>
 <section id="electrical-setup">
@@ -352,10 +355,10 @@
 <p>The reverse current resulting from switching motor speeds from high to low is called backEMF (Electro Magnetic Force). When the motor speed decreases the motor works as a generator, which converts mechanical energy into electrical energy and hence the additional current needs some path to flow. The energy recycled back into the input power supply causes a voltage spike and potential risk. It is necessary to add enough input capacitance to absorb this energy. A sufficiently large input capacitance is important in the desgin of the electric curcuit. It is beneficial to have more bulk capacitance, but the disadvantages are increased cost and physical size.</p>
 <p>If the power source were a perfect battery, then energy would flow back into the battery and be recycled. However, in our case the power source is a DC power supply. Especially power supplies with an inverse-polarity protection diode can only source current and cannot sink current, hence the only place the energy can go is into the bulk capacitor. The amount of energy stored in the bulk capacitor can be calculated with</p>
 <div class="math">
-<p><img src="../../_images/math/041adf89aaf0bdbae1030c9071730d3fb5517ba6.svg" alt="E = \frac{1}{2} \cdot C \cdot (V_{max}^2 - V_{nom}^2)"/></p>
+<p><img src="_images/math/041adf89aaf0bdbae1030c9071730d3fb5517ba6.svg" alt="E = \frac{1}{2} \cdot C \cdot (V_{max}^2 - V_{nom}^2)"/></p>
 </div><p>where <strong>C</strong> is the capacitance and <strong>V</strong> is the voltage. In the case of a Simple Pendulum max. backEMF can be estimated from the kinetic energy of the pendulum</p>
 <div class="math">
-<p><img src="../../_images/math/652d01c82c9ede7bad129d59ebe331a0199175cf.svg" alt="E_kin = \frac{1}{2}  m \cdot v^2"/></p>
+<p><img src="_images/math/652d01c82c9ede7bad129d59ebe331a0199175cf.svg" alt="E_kin = \frac{1}{2}  m \cdot v^2"/></p>
 </div><p>where <strong>m</strong> is the payload attached to the rod and <strong>v</strong> is the velocity of the payload. The voltage across the capacitor increases as energy flows into it, so the capacitor should be sized accordingly to the specific application requirements. Nevertheless tuning a capacitor to the acceptable min. capacity is tricky, because it depends on many factors including:</p>
 <ul class="simple">
 <li><p>External load</p></li>

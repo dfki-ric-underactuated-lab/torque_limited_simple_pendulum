@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -275,6 +278,8 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TVLQRController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html#simple_pendulum.controllers.abstract_controller.AbstractController" title="simple_pendulum.controllers.abstract_controller.AbstractController"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractController</span></code></a></p>
 <p>Controller acts on a predefined trajectory.</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>data_dict<span class="classifier">dictionary</span></dt><dd><p>a dictionary containing the trajectory to follow
 should have the entries:
@@ -298,20 +303,26 @@ data_dict[“des_tau_list”] : desired torques</p>
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController.init">
 <span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController.init" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the controller. May not be necessary.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">x0</span></code>: <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">like</span></code></dt><dd><p>The start state of the pendulum</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController.set_goal">
 <span class="sig-name descname"><span class="pre">set_goal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController.set_goal" title="Permalink to this definition"></a></dt>
 <dd><p>Set the desired state for the controller. May not be necessary.</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">x</span></code>: <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">like</span></code></dt><dd><p>The desired goal state of the controller</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -319,6 +330,8 @@ data_dict[“des_tau_list”] : desired torques</p>
 <span class="sig-name descname"><span class="pre">get_control_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meas_pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_vel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController.get_control_output" title="Permalink to this definition"></a></dt>
 <dd><p>The function to read and send the entries of the loaded trajectory
 as control input to the simulator/real pendulum.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>meas_pos<span class="classifier">float, deault=None</span></dt><dd><p>the position of the pendulum [rad]</p>
 </dd>
@@ -329,6 +342,9 @@ as control input to the simulator/real pendulum.</p>
 <dt>meas_time<span class="classifier">float, deault=None</span></dt><dd><p>the collapsed time [s]</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>des_pos<span class="classifier">float</span></dt><dd><p>the desired position of the pendulum [rad]</p>
 </dd>
@@ -337,6 +353,7 @@ as control input to the simulator/real pendulum.</p>
 <dt>des_tau<span class="classifier">float</span></dt><dd><p>the torque supposed to be applied by the actuator [Nm]</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -344,13 +361,17 @@ as control input to the simulator/real pendulum.</p>
 <span class="sig-name descname"><span class="pre">set_Qf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Qf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController.set_Qf" title="Permalink to this definition"></a></dt>
 <dd><p>This function is useful only for RoA purposes. Used to set the
 final S-matrix of the tvlqr controller.</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>Qf<span class="classifier">matrix</span></dt><dd><p>the S-matrix from time-invariant RoA estimation around the 
 up-right position.</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 

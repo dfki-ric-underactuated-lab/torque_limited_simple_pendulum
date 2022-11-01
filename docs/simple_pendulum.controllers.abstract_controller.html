@@ -20,7 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="simple_pendulum.controllers.motor_control_loop.html" />
+    <link rel="next" title="Motor Control Loop" href="simple_pendulum.controllers.motor_control_loop.html" />
     <link rel="prev" title="Controllers" href="simple_pendulum.controllers.html" /> 
 </head>
 
@@ -97,6 +97,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -292,6 +295,8 @@ method should be adapted. Unused inputs/outputs can be set to None.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">meas_time</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The collapsed time [s]</p>
 </dd>
 </dl>
+<section id="returns">
+<h1>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">des_pos</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The desired position of the pendulum [rad]</p>
 </dd>
@@ -300,26 +305,33 @@ method should be adapted. Unused inputs/outputs can be set to None.</p>
 <dt><code class="docutils literal notranslate"><span class="pre">des_tau</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The torque supposed to be applied by the actuator [Nm]</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.abstract_controller.AbstractController.init">
 <span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.abstract_controller.AbstractController.init" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the controller. May not be necessary.</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">x0</span></code>: <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">like</span></code></dt><dd><p>The start state of the pendulum</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.abstract_controller.AbstractController.set_goal">
 <span class="sig-name descname"><span class="pre">set_goal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.abstract_controller.AbstractController.set_goal" title="Permalink to this definition"></a></dt>
 <dd><p>Set the desired state for the controller. May not be necessary.</p>
+<section id="id1">
+<h1>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">x</span></code>: <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">like</span></code></dt><dd><p>The desired goal state of the controller</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 </dd></dl>
@@ -330,7 +342,7 @@ method should be adapted. Unused inputs/outputs can be set to None.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="simple_pendulum.controllers.html" class="btn btn-neutral float-left" title="Controllers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="simple_pendulum.controllers.motor_control_loop.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simple_pendulum.controllers.motor_control_loop.html" class="btn btn-neutral float-right" title="Motor Control Loop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

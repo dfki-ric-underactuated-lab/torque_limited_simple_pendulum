@@ -103,6 +103,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -284,7 +287,7 @@
 <p>Direct collocation is an approach from <strong>collocation methods</strong> , which transforms the optimal control problem into a mathematical programming problem. The numerical solution can be achieved directly by solving the new problem using sequential quadratic programming <a class="reference external" href="https://arc.aiaa.org/doi/pdf/10.2514/3.20223">[1]</a> <a class="reference external" href="http://underactuated.mit.edu/trajopt.html">[2]</a>.
 The formulation of the optimization problem at the collocation points is as follows:</p>
 <div class="math">
-<p><img src="../../_images/math/956434a503330b8b7bae5235510b0312c2c66164.svg" alt="\begin{align*}
+<p><img src="_images/math/956434a503330b8b7bae5235510b0312c2c66164.svg" alt="\begin{align*}
         \min_{{\bf{x}}[.],{{u}}[.]} \sum_{n_0}^{N-1}&amp;
           h_{n}l({{u}}[n])\\
         \textrm{s.t.} \quad &amp; \dot{{\bf{x}}}(t_{c,n})=f({\bf{x}}(t_{c,n}),u(t_{c,n})), \hspace{0.2cm} \forall n \in [0,N-1] \\
@@ -293,17 +296,17 @@ The formulation of the optimization problem at the collocation points is as foll
           &amp; {\bf{x}}[N] = {\bf{x}}_F
 \end{align*}"/></p>
 </div><ul class="simple">
-<li><p><img class="math" src="../../_images/math/b44d9df9d9bc7c1c7a17c27b12c5d61444ebc8ed.svg" alt="\bf{x}"/> = <img class="math" src="../../_images/math/6f149074859d948edd735993a02f026b98292826.svg" alt="[\theta(.),\dot\theta(.)]^T"/>&gt;: Angular position and velocity are the states of the system</p></li>
+<li><p><img class="math" src="_images/math/b44d9df9d9bc7c1c7a17c27b12c5d61444ebc8ed.svg" alt="\bf{x}"/> = <img class="math" src="_images/math/6f149074859d948edd735993a02f026b98292826.svg" alt="[\theta(.),\dot\theta(.)]^T"/>&gt;: Angular position and velocity are the states of the system</p></li>
 <li><p><cite>u</cite>: Input torque of the system applied by motor</p></li>
 <li><p><cite>N = 21</cite>: Number of break points in the trajectory</p></li>
-<li><p><img class="math" src="../../_images/math/483fccce126ef09911c4e912b34e4f8f38b6ba91.svg" alt="h_k = t_{k} - t_k"/>: Time interval between two breaking points</p></li>
-<li><p><img class="math" src="../../_images/math/0103924e07dd697768fbe0c5f587ddd9d7a58bfe.svg" alt="l(u) = u^T R u"/>: Running cost</p></li>
+<li><p><img class="math" src="_images/math/483fccce126ef09911c4e912b34e4f8f38b6ba91.svg" alt="h_k = t_{k} - t_k"/>: Time interval between two breaking points</p></li>
+<li><p><img class="math" src="_images/math/0103924e07dd697768fbe0c5f587ddd9d7a58bfe.svg" alt="l(u) = u^T R u"/>: Running cost</p></li>
 <li><p><cite>R = 10</cite>: Input weight</p></li>
-<li><p><img class="math" src="../../_images/math/c52df797b814b7c3e83c48bdefe9f691af3b7187.svg" alt="\dot{\bf{x}}(t_{c,n})"/>: <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/model">Nonlinear dynamics of the pendulum</a> considered as equality constraint at collocation point</p></li>
-<li><p><img class="math" src="../../_images/math/39dd342558180b5dd9d7b0eafadec3c4719b52ac.svg" alt="t_{c,k} = \frac{1}{2}\left(t_k t_{k1}\right)"/>: A collocation point at time instant <img class="math" src="../../_images/math/78dacacf3a565f88148f79903ea8b0247e5e3a9d.svg" alt="k,(i.e.,{\bf{x}}[k] = {\bf{x}}(t_k))"/>,in which the collocation constraints depends on the decision variables <img class="math" src="../../_images/math/303139aa7d7624b06e8f03dc4e732b3d1e69e0d9.svg" alt="{\bf{x}}[k], {\bf{x}}[k2, B1], u[k], u[k2, B1]"/></p></li>
-<li><p><img class="math" src="../../_images/math/d594fb12ac5b25f91eabe1ad429c533078da1f1e.svg" alt="u_{max} = 10"/>: Maximum torque limit</p></li>
-<li><p><img class="math" src="../../_images/math/cdf15d1c97032a420372fe9b071576ea41d36b8b.svg" alt="\bf{x}_0 = [\theta = 0, \dot\theta = 0]"/>: Initial state constraint</p></li>
-<li><p><img class="math" src="../../_images/math/8647552c9a5fd609f9cfc6c56da218b6badaafc9.svg" alt="\bf{x}_F = [\theta = \pi,\dot\theta = 0]"/>: Terminal state constraint</p></li>
+<li><p><img class="math" src="_images/math/c52df797b814b7c3e83c48bdefe9f691af3b7187.svg" alt="\dot{\bf{x}}(t_{c,n})"/>: <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/model">Nonlinear dynamics of the pendulum</a> considered as equality constraint at collocation point</p></li>
+<li><p><img class="math" src="_images/math/39dd342558180b5dd9d7b0eafadec3c4719b52ac.svg" alt="t_{c,k} = \frac{1}{2}\left(t_k t_{k1}\right)"/>: A collocation point at time instant <img class="math" src="_images/math/78dacacf3a565f88148f79903ea8b0247e5e3a9d.svg" alt="k,(i.e.,{\bf{x}}[k] = {\bf{x}}(t_k))"/>,in which the collocation constraints depends on the decision variables <img class="math" src="_images/math/303139aa7d7624b06e8f03dc4e732b3d1e69e0d9.svg" alt="{\bf{x}}[k], {\bf{x}}[k2, B1], u[k], u[k2, B1]"/></p></li>
+<li><p><img class="math" src="_images/math/d594fb12ac5b25f91eabe1ad429c533078da1f1e.svg" alt="u_{max} = 10"/>: Maximum torque limit</p></li>
+<li><p><img class="math" src="_images/math/cdf15d1c97032a420372fe9b071576ea41d36b8b.svg" alt="\bf{x}_0 = [\theta = 0, \dot\theta = 0]"/>: Initial state constraint</p></li>
+<li><p><img class="math" src="_images/math/8647552c9a5fd609f9cfc6c56da218b6badaafc9.svg" alt="\bf{x}_F = [\theta = \pi,\dot\theta = 0]"/>: Terminal state constraint</p></li>
 </ul>
 <p>Minimum and a maximum spacing between sample times set to 0.05 and 0.5`s`. It assumes a <strong>first-order hold</strong> on the input trajectory, in which the signal is reconstructed as a piecewise linear approximation to the original sampled signal.</p>
 </section>

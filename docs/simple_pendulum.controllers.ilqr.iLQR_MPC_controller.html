@@ -100,6 +100,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -278,6 +281,8 @@
 <dd><p>Bases: <a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html#simple_pendulum.controllers.abstract_controller.AbstractController" title="simple_pendulum.controllers.abstract_controller.AbstractController"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractController</span></code></a></p>
 <p>Controller which computes an ilqr solution at every timestep and uses
 the first control output.</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>mass<span class="classifier">float, default=1.0</span></dt><dd><p>mass of the pendulum [kg]</p>
 </dd>
@@ -325,16 +330,21 @@ n_x=3 means state = [cos(position), sin(position), velocity]</p>
 <dt class="sig sig-object py" id="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.init">
 <span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.init" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the controller. May not be necessary.</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">x0</span></code>: <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">like</span></code></dt><dd><p>The start state of the pendulum</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.load_initial_guess">
 <span class="sig-name descname"><span class="pre">load_initial_guess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Pendulum_data/trajectory.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.load_initial_guess" title="Permalink to this definition"></a></dt>
 <dd><p>load initial guess trajectory from file</p>
+<section id="id2">
+<h2>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>filepath<span class="classifier">string, default=”Pendulum_data/trajectory.csv”</span></dt><dd><p>path to the csv file containing the initial guess for
 the trajectory</p>
@@ -342,12 +352,15 @@ the trajectory</p>
 <dt>verbose<span class="classifier">bool, default=True</span></dt><dd><p>whether to print from where the initial guess is loaded</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.set_initial_guess">
 <span class="sig-name descname"><span class="pre">set_initial_guess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_trj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_trj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.set_initial_guess" title="Permalink to this definition"></a></dt>
 <dd><p>set initial guess from array like object</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>u_trj<span class="classifier">array-like, default=None</span></dt><dd><p>initial guess for control inputs u
 ignored if u_trj==None</p>
@@ -356,12 +369,15 @@ ignored if u_trj==None</p>
 ignored if x_trj==None</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.compute_initial_guess">
 <span class="sig-name descname"><span class="pre">compute_initial_guess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.compute_initial_guess" title="Permalink to this definition"></a></dt>
 <dd><p>compute initial guess</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>N<span class="classifier">int, default=None</span></dt><dd><p>number of timesteps to plan ahead
 if N==None, N defaults to the number of timesteps that is also
@@ -370,22 +386,28 @@ used during the online optimization (n in the class __init__)</p>
 <dt>verbose<span class="classifier">bool, default=True</span></dt><dd><p>whether to print when the initial guess calculation is finished</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.set_goal">
 <span class="sig-name descname"><span class="pre">set_goal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.set_goal" title="Permalink to this definition"></a></dt>
 <dd><p>Set a goal for the controller. Initializes the cost functions.</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>x<span class="classifier">array-like</span></dt><dd><p>goal state for the pendulum</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.get_control_output">
 <span class="sig-name descname"><span class="pre">get_control_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meas_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_vel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.get_control_output" title="Permalink to this definition"></a></dt>
 <dd><p>The function to compute the control input for the pendulum actuator</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>meas_pos<span class="classifier">float</span></dt><dd><p>the position of the pendulum [rad]</p>
 </dd>
@@ -398,6 +420,9 @@ used during the online optimization (n in the class __init__)</p>
 (not used)</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>des_pos<span class="classifier">float</span></dt><dd><p>the desired position of the pendulum [rad]
 (not used, returns None)</p>
@@ -408,8 +433,10 @@ used during the online optimization (n in the class __init__)</p>
 <dt>des_tau<span class="classifier">float</span></dt><dd><p>the torque supposed to be applied by the actuator [Nm]</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 

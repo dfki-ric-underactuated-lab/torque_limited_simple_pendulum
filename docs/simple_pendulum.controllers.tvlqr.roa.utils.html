@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+  <title>Parameters &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Model" href="simple_pendulum.model.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="simple_pendulum.controllers.tvlqr.roa.sos.html" /> 
+    <link rel="prev" title="Parameters" href="simple_pendulum.controllers.tvlqr.roa.sos.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -252,7 +255,7 @@
           <li><a href="simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a> &raquo;</li>
           <li><a href="simple_pendulum.controllers.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a> &raquo;</li>
           <li><a href="simple_pendulum.controllers.tvlqr.roa.html">&lt;no title&gt;</a> &raquo;</li>
-      <li>&lt;no title&gt;</li>
+      <li>Parameters</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/simple_pendulum.controllers.tvlqr.roa.utils.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -266,6 +269,8 @@
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.utils.direct_sphere">
 <span class="sig-name descname"><span class="pre">direct_sphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_o</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.utils.direct_sphere" title="Permalink to this definition"></a></dt>
 <dd><p>Direct Sampling from the d Ball based on Krauth, Werner. Statistical Mechanics: Algorithms and Computations. Oxford Master Series in Physics 13. Oxford: Oxford University Press, 2006. page 42</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>d<span class="classifier">int</span></dt><dd><p>dimension of the ball</p>
 </dd>
@@ -274,16 +279,22 @@
 <dt>r_o<span class="classifier">int, optional</span></dt><dd><p>outer radius, by default 1</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h1>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>np.array</dt><dd><p>random vector directly sampled from the solid d Ball</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.utils.sample_from_ellipsoid">
 <span class="sig-name descname"><span class="pre">sample_from_ellipsoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_o</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.utils.sample_from_ellipsoid" title="Permalink to this definition"></a></dt>
 <dd><p>sample directly from the ellipsoid defined by xT M x.</p>
+<section id="id1">
+<h1>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>M<span class="classifier">np.array</span></dt><dd><p>Matrix M such that xT M x leq rho defines the hyperellipsoid to sample from</p>
 </dd>
@@ -294,10 +305,14 @@
 <dt>r_o<span class="classifier">int, optional</span></dt><dd><p>outer radius, by default 1</p>
 </dd>
 </dl>
+</section>
+<section id="id2">
+<h1>Returns<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>np.array</dt><dd><p>random vector from within the hyperellipsoid</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py function">
@@ -316,6 +331,8 @@
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.utils.getEllipseContour">
 <span class="sig-name descname"><span class="pre">getEllipseContour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.utils.getEllipseContour" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a certain number(nSamples) of sampled states from the contour of a given ellipse.</p>
+<section id="id3">
+<h1>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>S<span class="classifier">np.array</span></dt><dd><p>Matrix S that define one ellipse</p>
 </dd>
@@ -324,16 +341,22 @@
 <dt>xg<span class="classifier">np.array</span></dt><dd><p>center of the ellipse</p>
 </dd>
 </dl>
+</section>
+<section id="id4">
+<h1>Returns<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>c<span class="classifier">np.array</span></dt><dd><p>random vector of states from the contour of the ellipse</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.utils.TVrhoSearch">
 <span class="sig-name descname"><span class="pre">TVrhoSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pendulum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">knot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho_t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.utils.TVrhoSearch" title="Permalink to this definition"></a></dt>
 <dd><p>V step of the bilinear alternationturn used in the SOS funnel estimation.</p>
+<section id="id5">
+<h1>Parameters<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>pendulum: simple_pendulum.model.pendulum_plant</dt><dd><p>configured pendulum plant object</p>
 </dd>
@@ -348,18 +371,24 @@
 <dt>rho_t: np.array</dt><dd><p>array that contains the evolving estimation of the rho values for each knot point</p>
 </dd>
 </dl>
+</section>
+<section id="id6">
+<h1>Returns<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>fail<span class="classifier">boolean</span></dt><dd><p>gives info about the correctness of the optimization problem</p>
 </dd>
 <dt>rho_opt: float</dt><dd><p>optimized rho value for this knot point</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.tvlqr.roa.utils.TVmultSearch">
 <span class="sig-name descname"><span class="pre">TVmultSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pendulum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">knot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho_t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.tvlqr.roa.utils.TVmultSearch" title="Permalink to this definition"></a></dt>
 <dd><p>Multiplier step of the bilinear alternationturn used in the SOS funnel estimation.</p>
+<section id="id7">
+<h1>Parameters<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>pendulum: simple_pendulum.model.pendulum_plant</dt><dd><p>configured pendulum plant object</p>
 </dd>
@@ -372,6 +401,9 @@
 <dt>rho_t: np.array</dt><dd><p>array that contains the evolving estimation of the rho values for each knot point</p>
 </dd>
 </dl>
+</section>
+<section id="id8">
+<h1>Returns<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>fail<span class="classifier">boolean</span></dt><dd><p>gives info about the correctness of the optimization problem</p>
 </dd>
@@ -380,6 +412,7 @@
 <dt>eps: float</dt><dd><p>optimal cost of the optimization problem that can be useful in the V step</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 
@@ -387,7 +420,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="simple_pendulum.controllers.tvlqr.roa.sos.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.controllers.tvlqr.roa.sos.html" class="btn btn-neutral float-left" title="Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="simple_pendulum.model.html" class="btn btn-neutral float-right" title="Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -104,6 +104,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -291,8 +294,8 @@ cost functions in optimal control.</p>
 It utilizes two networks, an actor and a critic. The actor receives a state and proposes an action. The critic assigns a value to a state action pair. The better an action suits a state the higher the value.</p>
 <p>Further, DDPG makes use of target networks in order to stabilize the training. This means there are a training and a target version of the actor and critic models. The training version is used during training and the target networks are partially updated by polyak averaging:</p>
 <div class="math">
-<p><img src="../../_images/math/53dc7ab59c16fb3a37f76faadaa442001f9eb64d.svg" alt="\phi_{targ} = \tau \phi_{targ} (1 - \tau) \phi_{train}"/></p>
-</div><p>where <img class="math" src="../../_images/math/914b2d4b6659b86d3153d5510839dfb254dfc8a3.svg" alt="\tau"/> is usually small.</p>
+<p><img src="_images/math/53dc7ab59c16fb3a37f76faadaa442001f9eb64d.svg" alt="\phi_{targ} = \tau \phi_{targ} (1 - \tau) \phi_{train}"/></p>
+</div><p>where <img class="math" src="_images/math/914b2d4b6659b86d3153d5510839dfb254dfc8a3.svg" alt="\tau"/> is usually small.</p>
 <p>DDPG also makes use of a replay buffer, which is a set of experiences which have been observed during training. The replay buffer should be large enough to contain a wide range of experiences.
 For more information on DDPG please refer to the original paper <a class="reference external" href="https://arxiv.org/abs/1509.02971v6">[1]</a>:</p>
 <p>This implementation losely follows the <a class="reference external" href="https://keras.io/examples/rl/ddpg_pendulum/">keras guide [2]</a>.</p>
@@ -377,7 +380,7 @@ model, move the saved files somewhere else.</p>
 </div>
 <p>The default reward function used during training is <code class="docutils literal notranslate"><span class="pre">open_ai_gym</span></code></p>
 <div class="math">
-<p><img src="../../_images/math/a6011c731bcb22f093313770ee67ba39071da5f0.svg" alt="r=-(\theta-\pi)^{2}-0.1 (\dot{\theta}-0)^{2}-0.001 u^{2}&quot;"/></p>
+<p><img src="_images/math/a6011c731bcb22f093313770ee67ba39071da5f0.svg" alt="r=-(\theta-\pi)^{2}-0.1 (\dot{\theta}-0)^{2}-0.001 u^{2}&quot;"/></p>
 </div><p>This encourages spending most time at the target (in the equation ([pi, 0]) with actions as small as possible. Different reward functions can be used by changing the reward type in init_environment.
 Novel reward functions can be implemented by modifying the <em>swingup_reward</em> method of the training environment with
 an appropriate <em>if</em> clause, and then selecting this reward function in

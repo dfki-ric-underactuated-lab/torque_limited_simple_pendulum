@@ -104,6 +104,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -283,16 +286,16 @@
 <h1>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h1>
 <p>A linear quadratic regulator (LQR) can be used to stabilize the pendulum at the unstable fixpoint. For a linear system of the form</p>
 <div class="math">
-<p><img src="../../../_images/math/87d84894e3b490cf034e87195a2c115628d12740.svg" alt="\dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}"/></p>
+<p><img src="_images/math/87d84894e3b490cf034e87195a2c115628d12740.svg" alt="\dot{\mathbf{x}} =  \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}"/></p>
 </div><p>and a infinite horizon cost function in quadratic form:</p>
 <div class="math">
-<p><img src="../../../_images/math/671a76afb5183c53fb14b483ec513be932729fb8.svg" alt="J = \int_0^{\infty} \left( \mathbf{x}^T \mathbf{Q}\mathbf{x} + \mathbf{u}^T \mathbf{R} \mathbf{u} \right)\text{d}t, \quad \mathbf{Q} = \mathbf{Q} \succeq 0, \, \mathbf{R} = \mathbf{R} \succeq 0"/></p>
+<p><img src="_images/math/671a76afb5183c53fb14b483ec513be932729fb8.svg" alt="J = \int_0^{\infty} \left( \mathbf{x}^T \mathbf{Q}\mathbf{x} + \mathbf{u}^T \mathbf{R} \mathbf{u} \right)\text{d}t, \quad \mathbf{Q} = \mathbf{Q} \succeq 0, \, \mathbf{R} = \mathbf{R} \succeq 0"/></p>
 </div><p>the (provably) optimal controller is</p>
 <div class="math">
-<p><img src="../../../_images/math/1e36bba45f11c1ab3aa2daabe4a1dd0e6c247630.svg" alt="u(\mathbf{x}) = -\mathbf{R}^{-1}\mathbf{B}^{T}\mathbf{S} \mathbf{x} = -\mathbf{K} \mathbf{x}"/></p>
-</div><p>where <img class="math" src="../../../_images/math/f1d8d254182790e09d0e2127717a635ab620c4b3.svg" alt="\mathbf{S}"/> has to fulfill the algebraic Riccati equation</p>
+<p><img src="_images/math/1e36bba45f11c1ab3aa2daabe4a1dd0e6c247630.svg" alt="u(\mathbf{x}) = -\mathbf{R}^{-1}\mathbf{B}^{T}\mathbf{S} \mathbf{x} = -\mathbf{K} \mathbf{x}"/></p>
+</div><p>where <img class="math" src="_images/math/f1d8d254182790e09d0e2127717a635ab620c4b3.svg" alt="\mathbf{S}"/> has to fulfill the algebraic Riccati equation</p>
 <div class="math">
-<p><img src="../../../_images/math/6e219568604deb4aa8395fcace35725e57d87e60.svg" alt="\mathbf{SA} + \mathbf{A}^{T}\mathbf{S} - \mathbf{SBR}^{-1}\mathbf{B}\mathbf{S} + \mathbf{Q} = 0"/></p>
+<p><img src="_images/math/6e219568604deb4aa8395fcace35725e57d87e60.svg" alt="\mathbf{SA} + \mathbf{A}^{T}\mathbf{S} - \mathbf{SBR}^{-1}\mathbf{B}\mathbf{S} + \mathbf{Q} = 0"/></p>
 </div><p>There are many solvers for the algebraic Riccati equation. In this library the solver from the scipy package is used.</p>
 </section>
 <section id="api">
@@ -307,7 +310,7 @@
         <span class="n">torque_limit</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
 </pre></div>
 </div>
-<p>The control output <img class="math" src="../../../_images/math/c060527a11ec7497d93173e49380f661196c94e1.svg" alt="\mathbf{u}(\mathbf{x})"/> can be obtained with the API of the abstract controller class:</p>
+<p>The control output <img class="math" src="_images/math/c060527a11ec7497d93173e49380f661196c94e1.svg" alt="\mathbf{u}(\mathbf{x})"/> can be obtained with the API of the abstract controller class:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LQRController</span><span class="o">.</span><span class="n">get_control_output</span><span class="p">(</span><span class="n">mean_pos</span><span class="p">,</span> <span class="n">mean_vel</span><span class="p">,</span> <span class="n">meas_tau</span><span class="p">,</span> <span class="n">meas_time</span><span class="p">)</span>
     <span class="n">inputs</span><span class="p">:</span>
         <span class="n">meas_pos</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">pendulum</span>

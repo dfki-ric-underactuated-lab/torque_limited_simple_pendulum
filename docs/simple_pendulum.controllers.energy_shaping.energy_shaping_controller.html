@@ -100,6 +100,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -298,16 +301,21 @@ current energy level.</p>
 <span class="sig-name descname"><span class="pre">set_goal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingController.set_goal" title="Permalink to this definition"></a></dt>
 <dd><p>Set the goal for the controller.
 This function calculates the energy of the goal state.</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>x<span class="classifier">array-like</span></dt><dd><p>the goal state for the pendulum</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingController.get_control_output">
 <span class="sig-name descname"><span class="pre">get_control_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meas_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_vel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingController.get_control_output" title="Permalink to this definition"></a></dt>
 <dd><p>The function to compute the control input for the pendulum actuator</p>
+<section id="id1">
+<h1>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>meas_pos<span class="classifier">float</span></dt><dd><p>the position of the pendulum [rad]</p>
 </dd>
@@ -320,6 +328,9 @@ This function calculates the energy of the goal state.</p>
 (not used)</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h1>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>des_pos<span class="classifier">float</span></dt><dd><p>the desired position of the pendulum [rad]
 (not used, returns None)</p>
@@ -330,6 +341,7 @@ This function calculates the energy of the goal state.</p>
 <dt>des_tau<span class="classifier">float</span></dt><dd><p>the torque supposed to be applied by the actuator [Nm]</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 </dd></dl>
@@ -340,6 +352,8 @@ This function calculates the energy of the goal state.</p>
 <dd><p>Bases: <a class="reference internal" href="simple_pendulum.controllers.abstract_controller.html#simple_pendulum.controllers.abstract_controller.AbstractController" title="simple_pendulum.controllers.abstract_controller.AbstractController"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractController</span></code></a></p>
 <p>Controller which swings up the pendulum with the energy shaping
 controller and stabilizes the pendulum with the lqr controller.</p>
+<section id="id2">
+<h1>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>mass<span class="classifier">float, default=1.0</span></dt><dd><p>mass of the pendulum [kg]</p>
 </dd>
@@ -368,16 +382,21 @@ LQR controller (requires drake)</p>
 <dt class="sig sig-object py" id="simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController.set_goal">
 <span class="sig-name descname"><span class="pre">set_goal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController.set_goal" title="Permalink to this definition"></a></dt>
 <dd><p>Set the goal for the controller.</p>
+<section id="id3">
+<h2>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>x<span class="classifier">array-like</span></dt><dd><p>the goal state for the pendulum</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController.get_control_output">
 <span class="sig-name descname"><span class="pre">get_control_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meas_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_vel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController.get_control_output" title="Permalink to this definition"></a></dt>
 <dd><p>The function to compute the control input for the pendulum actuator</p>
+<section id="id4">
+<h2>Parameters<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>meas_pos<span class="classifier">float</span></dt><dd><p>the position of the pendulum [rad]</p>
 </dd>
@@ -393,6 +412,9 @@ LQR controller (requires drake)</p>
 energy shaping and lqr</p>
 </dd>
 </dl>
+</section>
+<section id="id5">
+<h2>Returns<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <dl class="simple">
 <dt>des_pos<span class="classifier">float</span></dt><dd><p>the desired position of the pendulum [rad]
 (not used, returns None)</p>
@@ -403,8 +425,10 @@ energy shaping and lqr</p>
 <dt>des_tau<span class="classifier">float</span></dt><dd><p>the torque supposed to be applied by the actuator [Nm]</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 

@@ -104,6 +104,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -372,10 +375,10 @@ model, move the saved files somewhere else.</p>
 </div>
 <p>The default reward function used during training is <code class="docutils literal notranslate"><span class="pre">soft_binary_with_repellor</span></code></p>
 <div class="math">
-<p><img src="../../_images/math/7328ec6727beeeb4d7287c124940654fb81c813d.svg" alt="r =  \exp{-(\theta - \pi)^2/(2*0.25^2)} - \exp{-(\theta - 0)^2/(2*0.25^2)}"/></p>
+<p><img src="_images/math/7328ec6727beeeb4d7287c124940654fb81c813d.svg" alt="r =  \exp{-(\theta - \pi)^2/(2*0.25^2)} - \exp{-(\theta - 0)^2/(2*0.25^2)}"/></p>
 </div><p>This encourages moving away from the stable fixed point of the system
-at <img class="math" src="../../_images/math/109ffdd25f4d03b396550bcee7b0a44b1d1ae8a6.svg" alt="\theta = 0"/> and spending most time at the target, the unstable
-fixed point <img class="math" src="../../_images/math/1184d7371127cddc7d82dacb13faacc5959d91e0.svg" alt="\theta = \pi"/>. Different reward functions can be used.
+at <img class="math" src="_images/math/109ffdd25f4d03b396550bcee7b0a44b1d1ae8a6.svg" alt="\theta = 0"/> and spending most time at the target, the unstable
+fixed point <img class="math" src="_images/math/1184d7371127cddc7d82dacb13faacc5959d91e0.svg" alt="\theta = \pi"/>. Different reward functions can be used.
 Novel reward funcitons can be implemented by modifying the <em>swingup_reward</em> method of the training environment with
 an appropriate <em>if</em> clause, and then selecting this reward function in
 the init_environment parameters under the key <em>‘reward_type’</em>. The training

@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
@@ -279,6 +282,8 @@
 <dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.init_pendulum">
 <span class="sig-name descname"><span class="pre">init_pendulum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.57288</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.init_pendulum" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the pendulum parameters.</p>
+<section id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>mass<span class="classifier">float, default=0.57288</span></dt><dd><p>mass of the pendulum [kg]</p>
 </dd>
@@ -291,6 +296,7 @@
 <dt>torque_limit<span class="classifier">float, default=2.0</span></dt><dd><p>the torque_limit of the pendulum actuator</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -298,6 +304,8 @@
 <span class="sig-name descname"><span class="pre">compute_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.0,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3.141592653589793,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_x_trajectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.compute_trajectory" title="Permalink to this definition"></a></dt>
 <dd><p>Compute a trajectory from a start state to a goal state
 for the pendulum.</p>
+<section id="id1">
+<h1>Parameters<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>N<span class="classifier">int, default=21</span></dt><dd><p>number of collocation points</p>
 </dd>
@@ -311,6 +319,9 @@ for the pendulum.</p>
 ignored if None</p>
 </dd>
 </dl>
+</section>
+<section id="returns">
+<h1>Returns<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>x_trajectory<span class="classifier">pydrake.trajectories.PiecewisePolynomial</span></dt><dd><p>trajectory in state space</p>
 </dd>
@@ -319,12 +330,15 @@ ignored if None</p>
 <dt>result<span class="classifier">pydrake.solvers.mathematicalprogram.MathematicalProgramResult</span></dt><dd><p>MathematicalProgramResult pydrake object</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.plot_phase_space_trajectory">
 <span class="sig-name descname"><span class="pre">plot_phase_space_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_trajectory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.plot_phase_space_trajectory" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the computed trajectory in phase space.</p>
+<section id="id2">
+<h1>Parameters<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>x_trajectory<span class="classifier">pydrake.trajectories.PiecewisePolynomial</span></dt><dd><p>the trajectory returned from the compute_trajectory function.</p>
 </dd>
@@ -333,6 +347,7 @@ to be stored. If save_to==None, the figure is not stored but shown
 in a window instead.</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -340,6 +355,8 @@ in a window instead.</p>
 <span class="sig-name descname"><span class="pre">extract_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_trajectory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dircol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">801</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.extract_trajectory" title="Permalink to this definition"></a></dt>
 <dd><p>Extract time, position, velocity and control trajectories from
 the outputs of the compute_trajectory function.</p>
+<section id="id3">
+<h1>Parameters<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>x_trajectory<span class="classifier">pydrake.trajectories.PiecewisePolynomial</span></dt><dd><p>trajectory in state space</p>
 </dd>
@@ -350,6 +367,9 @@ the outputs of the compute_trajectory function.</p>
 <dt>N<span class="classifier">int, default=801</span></dt><dd><p>The number of sampling points of the returned trajectories</p>
 </dd>
 </dl>
+</section>
+<section id="id4">
+<h1>Returns<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h1>
 <dl class="simple">
 <dt>time_traj<span class="classifier">array_like</span></dt><dd><p>the time trajectory</p>
 </dd>
@@ -360,6 +380,7 @@ the outputs of the compute_trajectory function.</p>
 <dt>torque_traj<span class="classifier">array_like</span></dt><dd><p>the control (torque) trajectory</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 </dd></dl>
