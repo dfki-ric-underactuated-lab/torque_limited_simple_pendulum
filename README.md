@@ -182,7 +182,7 @@ This work has been released under the BSD 3-Clause License. Details and terms of
 
 ## Citation
 
-Wiebe et al., (2022). Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. Journal of Open Source Software, 7(74), 3884, https://doi.org/10.21105/joss.03884
+1. Wiebe et al., (2022). Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics. Journal of Open Source Software, 7(74), 3884, https://doi.org/10.21105/joss.03884
 ```
 @article{Wiebe2022,
   doi = {10.21105/joss.03884},
@@ -196,5 +196,19 @@ Wiebe et al., (2022). Torque-limited simple pendulum: A toolkit for getting fami
   title = {Torque-limited simple pendulum: A toolkit for getting familiar with control algorithms in underactuated robotics},
   journal = {Journal of Open Source Software}
 }
+```
+
+2. L. Gross, L. Maywald, S.Kumar, F. Kirchner, C. Lüth, "Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum," 2022 61st IEEE Conference on Decision and Control (CDC), 2022.
+
+```
+@INPROCEEDINGS{2022_Gross_analytic_roa_cdc,
+  author={Gross, Lukas and Maywald, Lasse and Kumar, Shivesh and Kirchner, Frank and Lüth, Christoph},
+  booktitle={2022 61st IEEE Conference on Decision and Control (CDC)}, 
+  title={Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={},
+  doi={}}
 ```
 -----------------------------------------------------------------------------------------------------------------------------
