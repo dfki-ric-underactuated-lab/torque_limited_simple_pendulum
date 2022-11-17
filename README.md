@@ -70,7 +70,7 @@ Both methods, are model-free, i.e. they use the dynamics of the system as a blac
 
 * [Feed-forward torque Controller](software/python/simple_pendulum/controllers/open_loop): Simple forwarding of a control signal from a precomputed trajectory.
 * [Proportional-Integral-Derivative (PID)](software/python/simple_pendulum/controllers/pid): A controller reacting to the position error, integrated error and error derivative to a precomputed trajectory.
-* [Time-varying Linear Quadreatic Regulator (tvLQR)](software/python/simple_pendulum/controllers/tvlqr): A controller which linearizes the system dynamics at every timestep around the precomputed trajectory and uses LQR to drive the system towards this nominal trajectory.
+* [Time-varying Linear Quadreatic Regulator (tvLQR)](software/python/simple_pendulum/controllers/tvlqr): A controller which linearizes the system dynamics at every timestep around the precomputed trajectory and uses LQR to drive the system towards this nominal trajectory. 
 * [Model predictive control with iLQR](software/python/simple_pendulum/controllers/ilqr): A controller which performs an iLQR optimization at every timestep and executes the first control signal of the computed optimal trajectory.
 
 Feedforward and PID controller operate model independent, while the TVLQR and iLQR MPC controllers utilize knowledge about the pendulum model. In contrast to the others, the iLQR MPC controller optimizes over a predefined horizon at every timestep.
@@ -90,6 +90,8 @@ The controllers can be benchmarked in simulation with a set of predefined [crite
 <div align="center">
 <img width="900" src="data/benchmarks/benchmark_barplot.png">
 </div>
+
+**Region of Attraction (ROA)** This project also provides various tools (simulation based, sums of square, analytical) for computing the region of attraction of a torque limited simple pendulum for [time invariant LQR](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/lqr/roa) (fixed point) and [time varying LQR controllers](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/controllers/tvlqr/roa) (trajectory tracking). The LQR ROA results can be found [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots/roa_plots.pdf) and TVLQR ROA results can be found [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots/tv_roa_plots.pdf). Experimental verification on the hardware is documented [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/results/RoA_estimation_plots/tv_roa_realExp.pdf). The analytical estimation of LQR ROA was reported in our CDC 2022 paper. 
 
 <!---
 ## Folder Structure #
