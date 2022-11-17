@@ -14,3 +14,18 @@ pip install scienceplots
 ### Usage
 
 In the folder [notebooks](notebooks) you can find a jupyter notebook called [sim_data_generate](notebooks/sim_data_generate.ipynb) that runs the simulation used to collect numerical data. [analysis_and_plotting](notebooks/analysis_and_plotting.ipynb) does the region of attraction analysis on the data and generates plots, comparing the analytic approach to the sampling based approach. [analytic_roa](analytic_roa.py) contains the code, which implements the oracle-style function using the analytic approach, [najafi_oracle](najafi_oracle.py) implements the sampling-based version. For a more detailed description of the theory, refer to the technical paper.
+
+### Citation
+L. Gross, L. Maywald, S.Kumar, F. Kirchner, C. Lüth, "Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum," 2022 61st IEEE Conference on Decision and Control (CDC), 2022.
+
+```
+@INPROCEEDINGS{2022_Gross_analytic_roa_cdc,
+  author={Gross, Lukas and Maywald, Lasse and Kumar, Shivesh and Kirchner, Frank and Lüth, Christoph},
+  booktitle={2022 61st IEEE Conference on Decision and Control (CDC)}, 
+  title={Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={},
+  doi={}}
+```
