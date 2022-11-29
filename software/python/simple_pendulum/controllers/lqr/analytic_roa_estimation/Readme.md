@@ -1,6 +1,6 @@
 # Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum
 
-This repository contains the Code used in the work on "Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum" of Gross et al. (to be published in Proceedings of IEEE CDC 2022).
+This repository contains the Code used in the work on ["Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum"]{https://arxiv.org/abs/2211.15437} of Gross et al. (to be published in Proceedings of IEEE CDC 2022).
 
 ### Installation
 
