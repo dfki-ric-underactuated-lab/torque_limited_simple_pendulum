@@ -130,7 +130,7 @@ class LQRController(AbstractController):
 
         if not self.clip_out:
             if self.rho is not None:
-                if y.dot(self.S.dot(y - self.goal)) > self.rho:
+                if np.dot(y - self.goal, self.S.dot(y - self.goal)) > self.rho:
                     u = None
             else:
                 if np.abs(u) > self.torque_limit:
