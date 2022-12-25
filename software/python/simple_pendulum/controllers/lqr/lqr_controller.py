@@ -57,9 +57,9 @@ class LQRController(AbstractController):
         self.g = gravity
         self.torque_limit = torque_limit
         self.clip_out = False
-
         self.Q = Q
-        self.R = R        
+        self.R = R                
+        self.compute_RoA = compute_RoA
         
     def set_goal(self, goal):
         self.goal = x
@@ -72,7 +72,7 @@ class LQRController(AbstractController):
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
         # RoA calculation
-        if compute_RoA:
+        if self.compute_RoA:
             pendulum = PendulumPlant(mass=self.m,
                              length=self.len,
                              damping=self.b,
