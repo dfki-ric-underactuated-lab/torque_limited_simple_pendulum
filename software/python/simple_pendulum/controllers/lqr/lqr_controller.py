@@ -27,7 +27,6 @@ class LQRController(AbstractController):
                  compute_RoA=False):
         """
         Controller which stabilizes the pendulum at its instable fixpoint.
-
         Parameters
         ----------
         mass : float, default=1.0
@@ -70,7 +69,7 @@ class LQRController(AbstractController):
         self.goal = goal
 
         self.A = np.array([[0, 1],
-                           [-self.g * np.cos(self.goal[0])/self.len, -self.b/(self.moment_of_inertia)]])
+                           [-self.g * np.cos(self.goal[0])/(2 * self.len), -self.b/(self.moment_of_inertia)]])
         self.B = np.array([[0, 1./(self.moment_of_inertia)]]).T
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
@@ -82,7 +81,7 @@ class LQRController(AbstractController):
                              damping=self.b,
                              gravity=self.g,
                              coulomb_fric=self.cf,
-                             inertia=self.m*self.len**2.0,
+                             inertia=self.moment_of_inertia,
                              torque_limit=self.torque_limit)
 
             #self.rho, _ = SOSequalityConstrained(pendulum, self)
@@ -97,7 +96,6 @@ class LQRController(AbstractController):
                            meas_tau=0, meas_time=0):
         """
         The function to compute the control input for the pendulum actuator
-
         Parameters
         ----------
         meas_pos : float
@@ -110,7 +108,6 @@ class LQRController(AbstractController):
         meas_time : float, default=0
             the collapsed time [s]
             (not used)
-
         Returns
         -------
         des_pos : float
@@ -126,10 +123,7 @@ class LQRController(AbstractController):
         pos = float(np.squeeze(meas_pos))
         vel = float(np.squeeze(meas_vel))
 
-        th = pos + np.pi
-        th = (th + np.pi) % (2*np.pi) - np.pi
-
-        y = np.asarray([th, vel])
+        y = np.asarray([pos, vel])
 
         u = np.asarray(-self.K.dot(y - self.goal))[0]
         u += np.sign(vel)*self.cf
