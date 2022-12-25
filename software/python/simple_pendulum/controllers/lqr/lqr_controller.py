@@ -62,12 +62,11 @@ class LQRController(AbstractController):
         self.compute_RoA = compute_RoA
         
     def set_goal(self, goal):
-        self.goal = x
+        self.goal = goal
 
         self.A = np.array([[0, 1],
-                           [-self.g * np.cos(self.goal)/self.len, -self.b/(self.m*self.len**2.0)]])
+                           [-self.g * np.cos(self.goal[0])/self.len, -self.b/(self.m*self.len**2.0)]])
         self.B = np.array([[0, 1./(self.m*self.len**2.0)]]).T
-
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
