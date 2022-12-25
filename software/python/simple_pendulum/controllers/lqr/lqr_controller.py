@@ -56,12 +56,18 @@ class LQRController(AbstractController):
         self.cf = coulomb_fric
         self.g = gravity
         self.torque_limit = torque_limit
+        self.clip_out = False
+
+        self.Q = Q
+        self.R = R        
+        
+    def set_goal(self, goal):
+        self.goal = x
 
         self.A = np.array([[0, 1],
-                           [self.g/self.len, -self.b/(self.m*self.len**2.0)]])
+                           [-self.g * np.cos(self.goal)/self.len, -self.b/(self.m*self.len**2.0)]])
         self.B = np.array([[0, 1./(self.m*self.len**2.0)]]).T
-        self.Q = Q
-        self.R = R
+
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
@@ -78,13 +84,8 @@ class LQRController(AbstractController):
             #self.rho, _ = SOSequalityConstrained(pendulum, self)
             self.rho, _ = SOSlineSearch(pendulum, self)
         else:
-            self.rho = None
-
-        self.clip_out = False
-
-    def set_goal(self, x):
-        pass
-
+            self.rho = None        
+        
     def set_clip(self):
         self.clip_out = True
 
@@ -126,7 +127,7 @@ class LQRController(AbstractController):
 
         y = np.asarray([th, vel])
 
-        u = np.asarray(-self.K.dot(y))[0]
+        u = np.asarray(-self.K.dot(y - self.goal))[0]
         u += np.sign(vel)*self.cf
 
         if not self.clip_out:
