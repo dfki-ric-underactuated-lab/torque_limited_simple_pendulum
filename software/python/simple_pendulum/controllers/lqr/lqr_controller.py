@@ -22,7 +22,7 @@ class LQRController(AbstractController):
     """
     Controller which stabilizes the pendulum at its instable fixpoint.
     """
-    def __init__(self, mass=1.0, length=0.5, damping=0.1, coulomb_fric=0.0,
+    def __init__(self, mass=1.0, length=0.5, moment_of_inertia = None, damping=0.1, coulomb_fric=0.0,
                  gravity=9.81, torque_limit=np.inf, Q=np.diag((10, 1)), R=np.array([[1]]),
                  compute_RoA=False):
         """
@@ -60,13 +60,18 @@ class LQRController(AbstractController):
         self.Q = Q
         self.R = R                
         self.compute_RoA = compute_RoA
+
+        if (moment_of_inertia == None):
+            self.moment_of_inertia = self.m * (self.len)**2
+        else:
+            self.moment_of_inertia = moment_of_inertia
         
     def set_goal(self, goal):
         self.goal = goal
 
         self.A = np.array([[0, 1],
-                           [-self.g * np.cos(self.goal[0])/self.len, -self.b/(self.m*self.len**2.0)]])
-        self.B = np.array([[0, 1./(self.m*self.len**2.0)]]).T
+                           [-self.g * np.cos(self.goal[0])/self.len, -self.b/(self.moment_of_inertia)]])
+        self.B = np.array([[0, 1./(self.moment_of_inertia)]]).T
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
