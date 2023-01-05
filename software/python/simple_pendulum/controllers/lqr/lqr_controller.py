@@ -69,7 +69,7 @@ class LQRController(AbstractController):
         self.goal = goal
 
         self.A = np.array([[0, 1],
-                           [-self.g * np.cos(self.goal[0])/(2 * self.len), -self.b/(self.moment_of_inertia)]])
+                           [-self.mass*self.g*self.len / self.moment_of_inertia*np.cos(self.goal[0]), -self.b/(self.moment_of_inertia)]])
         self.B = np.array([[0, 1./(self.moment_of_inertia)]]).T
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
@@ -123,7 +123,10 @@ class LQRController(AbstractController):
         pos = float(np.squeeze(meas_pos))
         vel = float(np.squeeze(meas_vel))
 
-        y = np.asarray([pos, vel])
+        th = pos + np.pi
+        th = (th + np.pi) % (2 * np.pi) - np.pi
+        
+        y = np.asarray([th, vel])
 
         u = np.asarray(-self.K.dot(y - self.goal))[0]
         u += np.sign(vel)*self.cf
