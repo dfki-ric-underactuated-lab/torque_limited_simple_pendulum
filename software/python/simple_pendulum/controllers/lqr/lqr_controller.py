@@ -22,7 +22,8 @@ class LQRController(AbstractController):
     """
     Controller which stabilizes the pendulum at its instable fixpoint.
     """
-    def __init__(self, mass=1.0, length=0.5, moment_of_inertia = None, damping=0.1, coulomb_fric=0.0,
+
+    def __init__(self, mass=1.0, length=0.5, inertia=None, damping=0.1, coulomb_fric=0.0,
                  gravity=9.81, torque_limit=np.inf, Q=np.diag((10, 1)), R=np.array([[1]]),
                  compute_RoA=False):
         """
@@ -57,38 +58,38 @@ class LQRController(AbstractController):
         self.torque_limit = torque_limit
         self.clip_out = False
         self.Q = Q
-        self.R = R                
+        self.R = R
         self.compute_RoA = compute_RoA
 
-        if (moment_of_inertia == None):
-            self.moment_of_inertia = self.m * (self.len)**2
+        if (inertia == None):
+            self.inertia = self.m * (self.len)**2
         else:
-            self.moment_of_inertia = moment_of_inertia
-        
+            self.inertia = inertia
+
     def set_goal(self, goal):
         self.goal = goal
 
         self.A = np.array([[0, 1],
-                           [-self.mass*self.g*self.len / self.moment_of_inertia*np.cos(self.goal[0]), -self.b/(self.moment_of_inertia)]])
-        self.B = np.array([[0, 1./(self.moment_of_inertia)]]).T
+                           [-self.m*self.g*self.len / self.inertia*np.cos(self.goal[0]), -self.b/(self.inertia)]])
+        self.B = np.array([[0, 1./(self.inertia)]]).T
 
         self.K, self.S, _ = lqr(self.A, self.B, self.Q, self.R)
 
         # RoA calculation
         if self.compute_RoA:
             pendulum = PendulumPlant(mass=self.m,
-                             length=self.len,
-                             damping=self.b,
-                             gravity=self.g,
-                             coulomb_fric=self.cf,
-                             inertia=self.moment_of_inertia,
-                             torque_limit=self.torque_limit)
+                                     length=self.len,
+                                     damping=self.b,
+                                     gravity=self.g,
+                                     coulomb_fric=self.cf,
+                                     inertia=self.inertia,
+                                     torque_limit=self.torque_limit)
 
-            #self.rho, _ = SOSequalityConstrained(pendulum, self)
+            # self.rho, _ = SOSequalityConstrained(pendulum, self)
             self.rho, _ = SOSlineSearch(pendulum, self)
         else:
-            self.rho = None        
-        
+            self.rho = None
+
     def set_clip(self):
         self.clip_out = True
 
@@ -123,17 +124,17 @@ class LQRController(AbstractController):
         pos = float(np.squeeze(meas_pos))
         vel = float(np.squeeze(meas_vel))
 
-        th = pos + np.pi
-        th = (th + np.pi) % (2 * np.pi) - np.pi
-        
-        y = np.asarray([th, vel])
+        delta_pos = pos - self.goal[0]
+        delta_pos_wrapped = (delta_pos + np.pi) % (2*np.pi) - np.pi
 
-        u = np.asarray(-self.K.dot(y - self.goal))[0]
+        delta_y = np.asarray([delta_pos_wrapped, vel - self.goal[1]])
+
+        u = np.asarray(-self.K.dot(delta_y))[0]
         u += np.sign(vel)*self.cf
 
         if not self.clip_out:
             if self.rho is not None:
-                if np.dot(y - self.goal, self.S.dot(y - self.goal)) > self.rho:
+                if np.dot(delta_y, self.S.dot(delta_y)) > self.rho:
                     u = None
             else:
                 if np.abs(u) > self.torque_limit:
