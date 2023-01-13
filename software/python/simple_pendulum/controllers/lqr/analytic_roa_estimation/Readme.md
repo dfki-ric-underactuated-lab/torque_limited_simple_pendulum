@@ -19,13 +19,13 @@ In the folder [notebooks](notebooks) you can find a jupyter notebook called [sim
 L. Gross, L. Maywald, S.Kumar, F. Kirchner, C. Lüth, "Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum," 2022 61st IEEE Conference on Decision and Control (CDC), 2022.
 
 ```
-@INPROCEEDINGS{2022_Gross_analytic_roa_cdc,
+@INPROCEEDINGS{9992856,
   author={Gross, Lukas and Maywald, Lasse and Kumar, Shivesh and Kirchner, Frank and Lüth, Christoph},
-  booktitle={2022 61st IEEE Conference on Decision and Control (CDC)}, 
+  booktitle={2022 IEEE 61st Conference on Decision and Control (CDC)}, 
   title={Analytic Estimation of Region of Attraction of an LQR Controller for Torque Limited Simple Pendulum}, 
   year={2022},
   volume={},
   number={},
-  pages={},
-  doi={}}
+  pages={2695-2701},
+  doi={10.1109/CDC51059.2022.9992856}}
 ```
