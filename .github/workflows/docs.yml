@@ -176,15 +176,17 @@ jobs:
       run: |
         cd $docsdir/build/latex
         make LATEXMKOPTS="-lualatex"
+        cd ../../../
     - name: Set
       run: |
         mkdir temp
         mv -v $docsdir/build/latex/main.pdf temp/${{ github.event.repository.name }}.pdf
     - name: Switch
       if: env.branch != ''
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ steps.config.outputs.branch }}
+      run: |
+        cd docs
+        git checkout docs
+        cd ..
     - name: Clean
       if: env.branch != ''
       run: |
@@ -192,9 +194,11 @@ jobs:
         #cd $pdfdir
         rm -rf $pdfdir/*
     - name: Move
+      if: env.branch != ''
       run: |
         mv temp/${{ github.event.repository.name }}.pdf $pdfdir/${{ github.event.repository.name }}.pdf
     - name: Push
+      if: env.branch != ''
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
