@@ -192,7 +192,8 @@ jobs:
         #cd $pdfdir
         rm -rf $pdfdir/*
     - name: Move
-      mv temp/${{ github.event.repository.name }}.pdf $pdfdir/${{ github.event.repository.name }}.pdf
+      run: |
+        mv temp/${{ github.event.repository.name }}.pdf $pdfdir/${{ github.event.repository.name }}.pdf
     - name: Push
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
