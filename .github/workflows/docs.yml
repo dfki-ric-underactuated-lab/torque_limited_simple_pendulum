@@ -1,4 +1,4 @@
-name: Documentation workflow
+name: Documentation
 
 on:                       # Run action after unit test workflow is complete
   workflow_run:
@@ -178,7 +178,21 @@ jobs:
         make LATEXMKOPTS="-lualatex"
     - name: Set
       run: |
-        mv -v $docsdir/build/latex/main.pdf $pdfdir/${{ github.event.repository.name }}.pdf
+        mkdir temp
+        mv -v $docsdir/build/latex/main.pdf temp/${{ github.event.repository.name }}.pdf
+    - name: Switch
+      if: env.branch != ''
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ steps.config.outputs.branch }}
+    - name: Clean
+      if: env.branch != ''
+      run: |
+        mkdir -p $pdfdir
+        #cd $pdfdir
+        rm -rf $pdfdir/*
+    - name: Move
+      mv temp/${{ github.event.repository.name }}.pdf $pdfdir/${{ github.event.repository.name }}.pdf
     - name: Push
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"

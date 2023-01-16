@@ -1,3 +1,11 @@
+[![DOI](https://zenodo.org/badge/417186924.svg)](https://zenodo.org/badge/latestdoi/417186924)
+<a style="border-width:0" href="https://doi.org/10.21105/joss.03884">
+  <img src="https://joss.theoj.org/papers/10.21105/joss.03884/status.svg" alt="DOI badge" >
+</a>
+![Ubuntu 18 Py3.6](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/actions/workflows/test_ub18.yml/badge.svg)
+![Ubuntu 20 Py3.8](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/actions/workflows/test_ub20.yml/badge.svg)
+![Documentation](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/actions/workflows/docs.yml/badge.svg)
+
 <div align="center">
 
 # [Torque Limited Simple Pendulum](https://dfki-ric-underactuated-lab.github.io/torque_limited_simple_pendulum/)
@@ -9,17 +17,6 @@
 </div>
 
 ## Introduction #
-<div align="left">
-<img src="cov/ub18cov.svg">
-<img src="cov/ub20cov.svg">
-<a href="https://zenodo.org/record/6498036" target="_blank">
-	
-![Zenodo Badge](cov/zenodo.6498036.svg)	
-</a>
-<a style="border-width:0" href="https://doi.org/10.21105/joss.03884">
-  <img src="https://joss.theoj.org/papers/10.21105/joss.03884/status.svg" alt="DOI badge" >
-</a>
-</div>
 
 The project is an open-source and low-cost kit to get started with underactuated robotics. The kit targets lowering the entry barrier for studying underactuation in real systems which is often overlooked in conventional robotics courses. It implements a torque limited simple pendulum built using a quasi-direct drive motor which allows for a low friction, torque limited setup. This project describes the _offline_ and _online_ control methods which can be studied using the kit, lists its components, discusses best practices for implementation, presents results from experiments with the simulator and the real system. This repository describes the hardware (CAD, Bill Of Materials (BOM) etc.) required to build the physical system and provides the software (URDF models, simulation and controller) to control it.
 
