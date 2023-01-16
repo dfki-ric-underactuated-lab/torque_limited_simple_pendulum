@@ -26,7 +26,7 @@ The project is an open-source and low-cost kit to get started with underactuated
 
 ## Documentation
 
-The full website based documentation for this repository can be found [here](https://dfki-ric-underactuated-lab.github.io/torque_limited_simple_pendulum/). A pdf based printable report is available [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/reference/torque_limited_simple_pendulum.pdf).
+The full website based documentation for this repository can be found [here](https://dfki-ric-underactuated-lab.github.io/torque_limited_simple_pendulum/). A pdf based printable report is available [here](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/docs/reference/torque_limited_simple_pendulum.pdf).
 
 As a quick start, we refer to the following readme files:
 
