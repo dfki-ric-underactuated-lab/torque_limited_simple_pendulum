@@ -140,11 +140,15 @@ for con in cons:
         save_dir = os.path.join(save_dir_pre, "ddp_tvlqr")
 
     if con == "energy_shaping":
-        controller = EnergyShapingAndLQRController(mass,
-                                                   length,
-                                                   damping,
-                                                   gravity,
-                                                   torque_limit)
+        controller = EnergyShapingAndLQRController(mass=mass,
+                                                   length=length,
+                                                   damping=damping,
+                                                   coulomb_fric=coulomb_fric,
+                                                   gravity=gravity,
+                                                   torque_limit=torque_limit,
+                                                   Q=np.diag((10, 1)),
+                                                   R=np.array([[1]]),
+                                                   compute_RoA=False)
         controller.set_goal([np.pi, 0])
         save_dir = os.path.join(save_dir_pre, "energy_shaping")
 

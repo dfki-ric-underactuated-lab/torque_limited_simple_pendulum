@@ -105,8 +105,8 @@ class PendulumPlant:
               for the end-effector of the pendulum
         """
 
-        ee_pos_x = self.l * np.sin(pos)
-        ee_pos_y = -self.l*np.cos(pos)
+        ee_pos_x = float(self.l * np.sin(pos))
+        ee_pos_y = float(-self.l * np.cos(pos))
         return [[ee_pos_x, ee_pos_y]]
 
     def inverse_kinematics(self, ee_pos):

@@ -28,7 +28,7 @@ class EnergyShapingController(AbstractController):
         Controller which swings up the pendulum by regulating its energy.
 
         **Parameters**
-        
+
         mass : float, default=1.0
             mass of the pendulum [kg]
         length : float, default=0.5
@@ -103,7 +103,7 @@ class EnergyShapingController(AbstractController):
         vel = float(np.squeeze(meas_vel))
 
         if np.abs(pos) < 0.01 and np.abs(vel) < 0.01:
-            des_tau = 0.1*self.torque_limit
+            des_tau = 1.0*self.torque_limit
         else:
             total_energy = self.plant.total_energy([pos, vel])
 

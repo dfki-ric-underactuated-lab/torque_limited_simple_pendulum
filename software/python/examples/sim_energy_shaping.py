@@ -11,10 +11,10 @@ from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import
 
 mass = 0.57288
 length = 0.5
-damping = 0.05
+damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0
-torque_limit = 1.0
+torque_limit = 1.5
 inertia = mass*length*length
 
 pendulum = PendulumPlant(mass=mass,
@@ -39,12 +39,13 @@ controller = EnergyShapingAndLQRController(mass=mass,
 controller.set_goal([np.pi, 0])
 
 dt = 0.01
-t_final = 5.0
+t_final = 10.0
 
 sim = Simulator(plant=pendulum)
 
+#T, X, U = sim.simulate(t0=0.0,
 T, X, U = sim.simulate_and_animate(t0=0.0,
-                                   x0=[0.01, 0.0],
+                                   x0=[0.0, 0.0],
                                    tf=t_final,
                                    dt=dt,
                                    controller=controller,

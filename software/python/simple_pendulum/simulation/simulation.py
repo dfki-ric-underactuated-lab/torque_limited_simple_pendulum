@@ -258,12 +258,12 @@ class Simulator:
         ee_pos.insert(0, self.plant.base)
         ani_plot_counter = 0
         for link in range(self.plant.n_links):
-            self.animation_plots[ani_plot_counter].set_data(ee_pos[link+1][0],
-                                                            ee_pos[link+1][1])
-            ani_plot_counter += 1
             self.animation_plots[ani_plot_counter].set_data(
                             [ee_pos[link][0], ee_pos[link+1][0]],
                             [ee_pos[link][1], ee_pos[link+1][1]])
+            ani_plot_counter += 1
+            self.animation_plots[ani_plot_counter].set_data(ee_pos[link+1][0],
+                                                            ee_pos[link+1][1])
             ani_plot_counter += 1
 
             set_arrow_properties(self.tau_arrowarcs[link],
@@ -358,12 +358,12 @@ class Simulator:
         self.animation_plots = []
 
         for link in range(self.plant.n_links):
-            ee_plot, = self.animation_ax.plot([], [], "o",
-                                              markersize=25.0, color="blue")
-            self.animation_plots.append(ee_plot)
             bar_plot, = self.animation_ax.plot([], [], "-",
                                                lw=5, color="black")
             self.animation_plots.append(bar_plot)
+            ee_plot, = self.animation_ax.plot([], [], "o",
+                                              markersize=25.0, color="blue")
+            self.animation_plots.append(ee_plot)
 
         text_plot = self.animation_ax.text(0.15, 0.85, [],
                                            fontsize=40,
@@ -378,9 +378,9 @@ class Simulator:
         par_dict["integrator"] = integrator
         frames = num_steps*[par_dict]
 
-        animation = FuncAnimation(fig, self._animation_step, frames=frames,
-                                  init_func=self._animation_init, blit=True,
-                                  repeat=False, interval=dt*1000)
+        self.animation = FuncAnimation(fig, self._animation_step, frames=frames,
+                                       init_func=self._animation_init, blit=True,
+                                       repeat=False, interval=dt*1000)
 
         if phase_plot:
             ps_fig = plt.figure(figsize=(10, 10))
@@ -390,15 +390,15 @@ class Simulator:
                 ps_plot, = self.ps_ax.plot([], [], "-", lw=1.0, color="blue")
                 self.ps_plots.append(ps_plot)
 
-            animation2 = FuncAnimation(ps_fig, self._ps_update,
-                                       init_func=self._ps_init, blit=True,
-                                       repeat=False, interval=dt*1000)
+            self.animation2 = FuncAnimation(ps_fig, self._ps_update,
+                                            init_func=self._ps_init, blit=True,
+                                            repeat=False, interval=dt*1000)
 
         if save_video:
             print(f"Saving video to {video_name}.mp4")
             Writer = mplanimation.writers['ffmpeg']
             writer = Writer(fps=60, bitrate=1800)
-            animation.save(video_name+'.mp4', writer=writer)
+            self.animation.save(video_name+'.mp4', writer=writer)
             print("Saving video done.")
         plt.show()
 
