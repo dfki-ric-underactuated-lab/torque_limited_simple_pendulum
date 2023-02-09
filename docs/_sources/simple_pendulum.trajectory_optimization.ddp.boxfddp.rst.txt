@@ -1,4 +1,0 @@
-.. automodule:: simple_pendulum.trajectory_optimization.ddp.boxfddp
-    :members:
-    :undoc-members:
-    :show-inheritance:

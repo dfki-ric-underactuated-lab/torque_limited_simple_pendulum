@@ -1,0 +1,26 @@
+simple\_pendulum.controllers.gamepad
+============================================
+
+.. automodule:: simple_pendulum.controllers.gamepad
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.controllers.gamepad.gamepad
+---------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.gamepad.gamepad
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.controllers.gamepad.gamepad\_controller
+---------------------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.gamepad.gamepad_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:

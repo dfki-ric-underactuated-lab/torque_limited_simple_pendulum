@@ -1,0 +1,26 @@
+simple\_pendulum.trajectory\_optimization.direct\_collocation
+=====================================================================
+
+.. automodule:: simple_pendulum.trajectory_optimization.direct_collocation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.trajectory\_optimization.direct\_collocation.direct\_collocation
+----------------------------------------------------------------------------------------
+
+.. automodule:: simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.trajectory\_optimization.direct\_collocation.unit\_test
+-------------------------------------------------------------------------------
+
+.. automodule:: simple_pendulum.trajectory_optimization.direct_collocation.unit_test
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,26 @@
+simple\_pendulum.controllers.tvlqr
+==========================================
+
+.. automodule:: simple_pendulum.controllers.tvlqr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 1
+
+   simple_pendulum.controllers.tvlqr.roa
+
+Submodules
+----------
+
+simple\_pendulum.controllers.tvlqr.tvlqr
+-----------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.tvlqr.tvlqr
+   :members:
+   :undoc-members:
+   :show-inheritance:

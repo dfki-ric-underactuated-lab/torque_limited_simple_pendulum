@@ -1,0 +1,18 @@
+simple\_pendulum.controllers.ddpg
+=========================================
+
+.. automodule:: simple_pendulum.controllers.ddpg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.controllers.ddpg.ddpg\_controller
+---------------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.ddpg.ddpg_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -8,7 +8,7 @@ Equation of Motion
     
     I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\theta) = \tau
 
-.. image:: ../figures/pendulum.png
+.. image:: ../../figures/pendulum.png
     :height: 200
     :align: center
 

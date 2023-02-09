@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>simple_pendulum.trajectory_optimization.ilqr &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="simple_pendulum.utilities" href="simple_pendulum.utilities.html" />
+    <link rel="prev" title="simple_pendulum.trajectory_optimization.direct_collocation" href="simple_pendulum.trajectory_optimization.direct_collocation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="simple_pendulum.html">Software Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.html#api-reference">API Reference</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.analysis.html">simple_pendulum.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.html">simple_pendulum.controllers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.model.html">simple_pendulum.model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html">simple_pendulum.reinforcement_learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.simulation.html">simple_pendulum.simulation</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html">simple_pendulum.trajectory_optimization</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html#trajectory-optimization"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.html">simple_pendulum.utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="simple_pendulum.html">simple_pendulum</a></li>
+          <li class="breadcrumb-item"><a href="simple_pendulum.trajectory_optimization.html">simple_pendulum.trajectory_optimization</a></li>
+      <li class="breadcrumb-item active">simple_pendulum.trajectory_optimization.ilqr</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/simple_pendulum.trajectory_optimization.ilqr.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-simple_pendulum.trajectory_optimization.ilqr">
+<span id="simple-pendulum-trajectory-optimization-ilqr"></span><h1>simple_pendulum.trajectory_optimization.ilqr<a class="headerlink" href="#module-simple_pendulum.trajectory_optimization.ilqr" title="Permalink to this heading"></a></h1>
+<section id="ilqr">
+<h2>iLQR<a class="headerlink" href="#ilqr" title="Permalink to this heading"></a></h2>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-simple_pendulum.trajectory_optimization.ilqr.ilqr">
+<span id="simple-pendulum-trajectory-optimization-ilqr-ilqr"></span><h2>simple_pendulum.trajectory_optimization.ilqr.ilqr<a class="headerlink" href="#module-simple_pendulum.trajectory_optimization.ilqr.ilqr" title="Permalink to this heading"></a></h2>
+<section id="ilqr-calculator">
+<h3>iLQR Calculator<a class="headerlink" href="#ilqr-calculator" title="Permalink to this heading"></a></h3>
+<p>Large parts taken from <a class="reference external" href="https://github.com/RussTedrake/underactuated">Russ Tedrake</a>.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.ilqr.</span></span><span class="sig-name descname"><span class="pre">iLQR_Calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_u</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to calculate an optimal trajectory with an iterative
+linear quadratic regulator (iLQR). This implementation uses the pydrake symbolic library.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.init_derivatives">
+<span class="sig-name descname"><span class="pre">init_derivatives</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.init_derivatives" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the derivatives of the dynamics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.run_ilqr">
+<span class="sig-name descname"><span class="pre">run_ilqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_u_trj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_x_trj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">break_cost_redu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regu_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.run_ilqr" title="Permalink to this definition"></a></dt>
+<dd><p>Run the iLQR optimization and receive a optimal trajectory for the
+defined cost function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N</strong><span class="classifier">int, default=50</span></dt><dd><p>The number of waypoints for the trajectory</p>
+</dd>
+<dt><strong>init_u_trj</strong><span class="classifier">array-like, default=None</span></dt><dd><p>initial guess for the control trajectory
+ignored if None</p>
+</dd>
+<dt><strong>init_x_trj</strong><span class="classifier">array_like, default=None</span></dt><dd><p>initial guess for the state space trajectory
+ignored if None</p>
+</dd>
+<dt><strong>shift</strong><span class="classifier">bool, default=False</span></dt><dd><p>whether to shift the initial guess trajectories by one entry
+(delete the first entry and duplicate the last entry)</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=50</span></dt><dd><p>optimization iterations the alogrithm makes at every timestep</p>
+</dd>
+<dt><strong>break_cost_redu</strong><span class="classifier">float, default=1e-6</span></dt><dd><p>cost at which the optimization breaks off early</p>
+</dd>
+<dt><strong>regu_init</strong><span class="classifier">float, default=100</span></dt><dd><p>initialization value for the regularizer</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>x_trj</strong><span class="classifier">array-like</span></dt><dd><p>state space trajectory</p>
+</dd>
+<dt><strong>u_trj</strong><span class="classifier">array-like</span></dt><dd><p>control trajectory</p>
+</dd>
+<dt><strong>cost_trace</strong><span class="classifier">array-like</span></dt><dd><p>trace of the cost development during the optimization</p>
+</dd>
+<dt><strong>regu_trace</strong><span class="classifier">array-like</span></dt><dd><p>trace of the regularizer development during the optimization</p>
+</dd>
+<dt><strong>redu_ratio_trace</strong><span class="classifier">array-like</span></dt><dd><dl class="simple">
+<dt>trace of ratio of cost_reduction and expected cost reduction</dt><dd><p>during the optimization</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>redu_trace</strong><span class="classifier">array-like</span></dt><dd><p>trace of the cost reduction development during the optimization</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_discrete_dynamics">
+<span class="sig-name descname"><span class="pre">set_discrete_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamics_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_discrete_dynamics" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the dynamics function for the iLQR calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>danamics_func</strong><span class="classifier">function</span></dt><dd><p>dynamics_func should be a function with inputs (x, u) and output xd</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_final_cost">
+<span class="sig-name descname"><span class="pre">set_final_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">final_cost_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_final_cost" title="Permalink to this definition"></a></dt>
+<dd><p>Set the final cost for the ilqr optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>final_cost_func</strong><span class="classifier">function</span></dt><dd><p>final_cost_func should be a function with inputs x
+and output cost</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_stage_cost">
+<span class="sig-name descname"><span class="pre">set_stage_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_cost_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_stage_cost" title="Permalink to this definition"></a></dt>
+<dd><p>Set the stage cost (running cost) for the ilqr optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>stage_cost_func</strong><span class="classifier">function</span></dt><dd><p>stage_cost_func should be a function with inputs (x, u)
+and output cost</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_start">
+<span class="sig-name descname"><span class="pre">set_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator.set_start" title="Permalink to this definition"></a></dt>
+<dd><p>Set the start state for the trajectory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x0</strong><span class="classifier">array-like</span></dt><dd><p>the start state. Should have the shape of (n_x,)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy">
+<span id="simple-pendulum-trajectory-optimization-ilqr-ilqr-sympy"></span><h2>simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy<a class="headerlink" href="#module-simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy" title="Permalink to this heading"></a></h2>
+<section id="symbolic">
+<h3>Symbolic<a class="headerlink" href="#symbolic" title="Permalink to this heading"></a></h3>
+<p>Large parts taken from <a class="reference external" href="https://github.com/RussTedrake/underactuated">Russ Tedrake</a>.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.</span></span><span class="sig-name descname"><span class="pre">iLQR_Calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_u</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to calculate an optimal trajectory with an iterative
+linear quadratic regulator (iLQR). This implementation uses sympy.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.Q_terms">
+<span class="sig-name descname"><span class="pre">Q_terms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_ux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_uu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V_xx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.Q_terms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.V_terms">
+<span class="sig-name descname"><span class="pre">V_terms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_ux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_uu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.V_terms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.backward_pass">
+<span class="sig-name descname"><span class="pre">backward_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_trj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_trj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regu</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.backward_pass" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.compute_final_cost_derivatives">
+<span class="sig-name descname"><span class="pre">compute_final_cost_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.compute_final_cost_derivatives" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.compute_stage_cost_derivatives">
+<span class="sig-name descname"><span class="pre">compute_stage_cost_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.compute_stage_cost_derivatives" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.cost_trj">
+<span class="sig-name descname"><span class="pre">cost_trj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_trj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_trj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.cost_trj" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.expected_cost_reduction">
+<span class="sig-name descname"><span class="pre">expected_cost_reduction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_uu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.expected_cost_reduction" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.forward_pass">
+<span class="sig-name descname"><span class="pre">forward_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_trj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_trj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_trj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K_trj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.forward_pass" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.gains">
+<span class="sig-name descname"><span class="pre">gains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q_uu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_ux</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.gains" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.init_derivatives">
+<span class="sig-name descname"><span class="pre">init_derivatives</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.init_derivatives" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the derivatives of the dynamics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.rollout">
+<span class="sig-name descname"><span class="pre">rollout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_trj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.rollout" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.run_ilqr">
+<span class="sig-name descname"><span class="pre">run_ilqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_u_trj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_x_trj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">break_cost_redu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regu_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.run_ilqr" title="Permalink to this definition"></a></dt>
+<dd><p>Run the iLQR optimization and receive a optimal trajectory for the
+defined cost function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N</strong><span class="classifier">int, default=50</span></dt><dd><p>The number of waypoints for the trajectory</p>
+</dd>
+<dt><strong>init_u_trj</strong><span class="classifier">array-like, default=None</span></dt><dd><p>initial guess for the control trajectory
+ignored if None</p>
+</dd>
+<dt><strong>init_x_trj</strong><span class="classifier">array_like, default=None</span></dt><dd><p>initial guess for the state space trajectory
+ignored if None</p>
+</dd>
+<dt><strong>shift</strong><span class="classifier">bool, default=False</span></dt><dd><p>whether to shift the initial guess trajectories by one entry
+(delete the first entry and duplicate the last entry)</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=50</span></dt><dd><p>optimization iterations the alogrithm makes at every timestep</p>
+</dd>
+<dt><strong>break_cost_redu</strong><span class="classifier">float, default=1e-6</span></dt><dd><p>cost at which the optimization breaks off early</p>
+</dd>
+<dt><strong>regu_init</strong><span class="classifier">float, default=100</span></dt><dd><p>initialization value for the regularizer</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>x_trj</strong><span class="classifier">array-like</span></dt><dd><p>state space trajectory</p>
+</dd>
+<dt><strong>u_trj</strong><span class="classifier">array-like</span></dt><dd><p>control trajectory</p>
+</dd>
+<dt><strong>cost_trace</strong><span class="classifier">array-like</span></dt><dd><p>trace of the cost development during the optimization</p>
+</dd>
+<dt><strong>regu_trace</strong><span class="classifier">array-like</span></dt><dd><p>trace of the regularizer development during the optimization</p>
+</dd>
+<dt><strong>redu_ratio_trace</strong><span class="classifier">array-like</span></dt><dd><dl class="simple">
+<dt>trace of ratio of cost_reduction and expected cost reduction</dt><dd><p>during the optimization</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>redu_trace</strong><span class="classifier">array-like</span></dt><dd><p>trace of the cost reduction development during the optimization</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_discrete_dynamics">
+<span class="sig-name descname"><span class="pre">set_discrete_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dynamics_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_discrete_dynamics" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the dynamics function for the iLQR calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>danamics_func</strong><span class="classifier">function</span></dt><dd><p>dynamics_func should be a function with inputs (x, u) and output xd</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_final_cost">
+<span class="sig-name descname"><span class="pre">set_final_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">final_cost_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_final_cost" title="Permalink to this definition"></a></dt>
+<dd><p>Set the final cost for the ilqr optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>final_cost_func</strong><span class="classifier">function</span></dt><dd><p>final_cost_func should be a function with inputs x
+and output cost</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_stage_cost">
+<span class="sig-name descname"><span class="pre">set_stage_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage_cost_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_stage_cost" title="Permalink to this definition"></a></dt>
+<dd><p>Set the stage cost (running cost) for the ilqr optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>stage_cost_func</strong><span class="classifier">function</span></dt><dd><p>stage_cost_func should be a function with inputs (x, u)
+and output cost</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_start">
+<span class="sig-name descname"><span class="pre">set_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.set_start" title="Permalink to this definition"></a></dt>
+<dd><p>Set the start state for the trajectory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x0</strong><span class="classifier">array-like</span></dt><dd><p>the start state. Should have the shape of (n_x,)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simple_pendulum.trajectory_optimization.ilqr.pendulum">
+<span id="simple-pendulum-trajectory-optimization-ilqr-pendulum"></span><h2>simple_pendulum.trajectory_optimization.ilqr.pendulum<a class="headerlink" href="#module-simple_pendulum.trajectory_optimization.ilqr.pendulum" title="Permalink to this heading"></a></h2>
+<section id="pendulum-dynamics">
+<h3>Pendulum Dynamics<a class="headerlink" href="#pendulum-dynamics" title="Permalink to this heading"></a></h3>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.check_type">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">check_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.check_type" title="Permalink to this definition"></a></dt>
+<dd><p>checks the type of x and returns the suitable library
+(pydrake.symbolic, sympy or numpy) for furhter calculations on x.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_discrete_dynamics_euler">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum3_discrete_dynamics_euler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.125</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_discrete_dynamics_euler" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_discrete_dynamics_rungekutta">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum3_discrete_dynamics_rungekutta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.125</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_discrete_dynamics_rungekutta" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_swingup_final_cost">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum3_swingup_final_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[-1,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.57288</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_swingup_final_cost" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_swingup_stage_cost">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum3_swingup_stage_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[-1,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_swingup_stage_cost" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_continuous_dynamics">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum_continuous_dynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.125</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_continuous_dynamics" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_discrete_dynamics_euler">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum_discrete_dynamics_euler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.57288</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.125</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_discrete_dynamics_euler" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_discrete_dynamics_rungekutta">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum_discrete_dynamics_rungekutta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.125</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_discrete_dynamics_rungekutta" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_swingup_final_cost">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum_swingup_final_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3.141592653589793,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_swingup_final_cost" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_swingup_stage_cost">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.pendulum.</span></span><span class="sig-name descname"><span class="pre">pendulum_swingup_stage_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3.141592653589793,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_swingup_stage_cost" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-simple_pendulum.trajectory_optimization.ilqr.unit_test">
+<span id="simple-pendulum-trajectory-optimization-ilqr-unit-test"></span><h2>simple_pendulum.trajectory_optimization.ilqr.unit_test<a class="headerlink" href="#module-simple_pendulum.trajectory_optimization.ilqr.unit_test" title="Permalink to this heading"></a></h2>
+<section id="unit-tests">
+<h3>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this heading"></a></h3>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.unit_test.Test">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.trajectory_optimization.ilqr.unit_test.</span></span><span class="sig-name descname"><span class="pre">Test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.epsilon">
+<span class="sig-name descname"><span class="pre">epsilon</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.2</span></em><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.epsilon" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx2">
+<span class="sig-name descname"><span class="pre">test_0_iLQR_computation_nx2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx2_sympy">
+<span class="sig-name descname"><span class="pre">test_0_iLQR_computation_nx2_sympy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx2_sympy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx3">
+<span class="sig-name descname"><span class="pre">test_0_iLQR_computation_nx3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx3" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx3_sympy">
+<span class="sig-name descname"><span class="pre">test_0_iLQR_computation_nx3_sympy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test.test_0_iLQR_computation_nx3_sympy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simple_pendulum.trajectory_optimization.direct_collocation.html" class="btn btn-neutral float-left" title="simple_pendulum.trajectory_optimization.direct_collocation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.utilities.html" class="btn btn-neutral float-right" title="simple_pendulum.utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

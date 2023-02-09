@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>simple_pendulum.controllers.sac &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="simple_pendulum.controllers.tvlqr" href="simple_pendulum.controllers.tvlqr.html" />
+    <link rel="prev" title="simple_pendulum.controllers.pid" href="simple_pendulum.controllers.pid.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/02.code_testing.html">How to test the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/03.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/10.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="simple_pendulum.html">Software Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.html#api-reference">API Reference</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.analysis.html">simple_pendulum.analysis</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="simple_pendulum.controllers.html">simple_pendulum.controllers</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.html#controllers"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="simple_pendulum.controllers.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.html#module-simple_pendulum.controllers.abstract_controller">simple_pendulum.controllers.abstract_controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.html#module-simple_pendulum.controllers.motor_control_loop">simple_pendulum.controllers.motor_control_loop</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.model.html">simple_pendulum.model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html">simple_pendulum.reinforcement_learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.simulation.html">simple_pendulum.simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html">simple_pendulum.trajectory_optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.html">simple_pendulum.utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="simple_pendulum.html">simple_pendulum</a></li>
+          <li class="breadcrumb-item"><a href="simple_pendulum.controllers.html">simple_pendulum.controllers</a></li>
+      <li class="breadcrumb-item active">simple_pendulum.controllers.sac</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/simple_pendulum.controllers.sac.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-simple_pendulum.controllers.sac">
+<span id="simple-pendulum-controllers-sac"></span><h1>simple_pendulum.controllers.sac<a class="headerlink" href="#module-simple_pendulum.controllers.sac" title="Permalink to this heading"></a></h1>
+<section id="soft-actor-critic-sac-control">
+<h2>Soft Actor Critic (SAC) Control<a class="headerlink" href="#soft-actor-critic-sac-control" title="Permalink to this heading"></a></h2>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-simple_pendulum.controllers.sac.sac_controller">
+<span id="simple-pendulum-controllers-sac-sac-controller"></span><h2>simple_pendulum.controllers.sac.sac_controller<a class="headerlink" href="#module-simple_pendulum.controllers.sac.sac_controller" title="Permalink to this heading"></a></h2>
+<section id="sac-controller">
+<h3>SAC Controller<a class="headerlink" href="#sac-controller" title="Permalink to this heading"></a></h3>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.sac.sac_controller.SacController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.controllers.sac.sac_controller.</span></span><span class="sig-name descname"><span class="pre">SacController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_symmetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.sac.sac_controller.SacController" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="simple_pendulum.controllers.html#simple_pendulum.controllers.abstract_controller.AbstractController" title="simple_pendulum.controllers.abstract_controller.AbstractController"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractController</span></code></a></p>
+<p>Controller which acts on a policy which has been learned with sac.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.sac.sac_controller.SacController.get_control_output">
+<span class="sig-name descname"><span class="pre">get_control_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meas_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_vel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.sac.sac_controller.SacController.get_control_output" title="Permalink to this definition"></a></dt>
+<dd><p>The function to compute the control input for the pendulum actuator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>meas_pos</strong><span class="classifier">float</span></dt><dd><p>the position of the pendulum [rad]</p>
+</dd>
+<dt><strong>meas_vel</strong><span class="classifier">float</span></dt><dd><p>the velocity of the pendulum [rad/s]</p>
+</dd>
+<dt><strong>meas_tau</strong><span class="classifier">float</span></dt><dd><p>the meastured torque of the pendulum [Nm]
+(not used)</p>
+</dd>
+<dt><strong>meas_time</strong><span class="classifier">float</span></dt><dd><p>the collapsed time [s]
+(not used)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>des_pos</strong><span class="classifier">float</span></dt><dd><p>the desired position of the pendulum [rad]
+(not used, returns None)</p>
+</dd>
+<dt><strong>des_vel</strong><span class="classifier">float</span></dt><dd><p>the desired velocity of the pendulum [rad/s]
+(not used, returns None)</p>
+</dd>
+<dt><strong>des_tau</strong><span class="classifier">float</span></dt><dd><p>the torque supposed to be applied by the actuator [Nm]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.sac.sac_controller.SacController.get_observation">
+<span class="sig-name descname"><span class="pre">get_observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.sac.sac_controller.SacController.get_observation" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simple_pendulum.controllers.pid.html" class="btn btn-neutral float-left" title="simple_pendulum.controllers.pid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.controllers.tvlqr.html" class="btn btn-neutral float-right" title="simple_pendulum.controllers.tvlqr" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

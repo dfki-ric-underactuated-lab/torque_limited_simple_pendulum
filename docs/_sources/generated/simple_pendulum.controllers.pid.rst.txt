@@ -1,0 +1,18 @@
+simple\_pendulum.controllers.pid
+========================================
+
+.. automodule:: simple_pendulum.controllers.pid
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.controllers.pid.pid
+-------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.pid.pid
+   :members:
+   :undoc-members:
+   :show-inheritance:

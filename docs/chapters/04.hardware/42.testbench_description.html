@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hardware &amp; Testbench Description &mdash; Torque-limited Simple Pendulum 1.0.0 documentation</title>
+  <title>Hardware &amp; Testbench Description &mdash; Torque-limited Simple Pendulum  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,6 +17,7 @@
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -34,7 +35,7 @@
           
           <a href="../../index.html" class="icon icon-home">
             Torque-limited Simple Pendulum
-              <img src="../../_static/logo.jpg" class="logo" alt="Logo"/>
+              <img src="../../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -71,186 +72,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../09.analysis.html">Controller Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../10.simulation.html">Simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../11.contributing.html">How to Contribute</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.analysis.html"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.analysis.benchmark.html">Benchmarks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.analysis.benchmark.html#simple_pendulum.analysis.benchmark.modify_pendulum_parameter"><code class="docutils literal notranslate"><span class="pre">modify_pendulum_parameter()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.analysis.benchmark.html#simple_pendulum.analysis.benchmark.benchmarker"><code class="docutils literal notranslate"><span class="pre">benchmarker</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.analysis.plot_policy.html">Policy Plots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.analysis.plot_policy.html#simple_pendulum.analysis.plot_policy.plot_policy"><code class="docutils literal notranslate"><span class="pre">plot_policy()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.abstract_controller.html">Abstract Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.abstract_controller.html#simple_pendulum.controllers.abstract_controller.AbstractController"><code class="docutils literal notranslate"><span class="pre">AbstractController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.motor_control_loop.html"><code class="docutils literal notranslate"><span class="pre">ak80_6()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.ddpg.html">Deep Deterministic Policy Gradient Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.ddpg.ddpg_controller.html">DDPG Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.ddpg.ddpg_controller.html#simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller"><code class="docutils literal notranslate"><span class="pre">ddpg_controller</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.energy_shaping.html">Energy Shaping Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.energy_shaping.energy_shaping_controller.html">Energy Shaping Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.energy_shaping.energy_shaping_controller.html#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingController"><code class="docutils literal notranslate"><span class="pre">EnergyShapingController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.energy_shaping.energy_shaping_controller.html#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController"><code class="docutils literal notranslate"><span class="pre">EnergyShapingAndLQRController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.energy_shaping.unit_test.html">Unit Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.energy_shaping.unit_test.html#simple_pendulum.controllers.energy_shaping.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.gamepad.html"><code class="docutils literal notranslate"><span class="pre">Controllers</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.gravity_compensation.html">Gravity Compensation Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.gravity_compensation.gravity_compensation.html">Gravity Compensation Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.gravity_compensation.gravity_compensation.html#simple_pendulum.controllers.gravity_compensation.gravity_compensation.GravityCompController"><code class="docutils literal notranslate"><span class="pre">GravityCompController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.ilqr.html">iLQR Model Predictive Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.ilqr.iLQR_MPC_controller.html">iLQR MPC Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.ilqr.iLQR_MPC_controller.html#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController"><code class="docutils literal notranslate"><span class="pre">iLQRMPCController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.ilqr.unit_test.html">Unit Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.ilqr.unit_test.html#simple_pendulum.controllers.ilqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.html">Linear Quadratic Regulator (LQR)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr.html">LQR solver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr.html#simple_pendulum.controllers.lqr.lqr.lqr"><code class="docutils literal notranslate"><span class="pre">lqr()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr.html#simple_pendulum.controllers.lqr.lqr.dlqr"><code class="docutils literal notranslate"><span class="pre">dlqr()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html">LQR Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.lqr_controller.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController"><code class="docutils literal notranslate"><span class="pre">LQRController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html">Unit Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.unit_test.html#simple_pendulum.controllers.lqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html"><code class="docutils literal notranslate"><span class="pre">transform()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa"><code class="docutils literal notranslate"><span class="pre">analytic_roa</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle.html"><code class="docutils literal notranslate"><span class="pre">najafi_oracle</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.plot.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.sampling.html"><code class="docutils literal notranslate"><span class="pre">najafi_based_sampling()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.sos.html"><code class="docutils literal notranslate"><span class="pre">SOSequalityConstrained()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.sos.html#simple_pendulum.controllers.lqr.roa.sos.SOSlineSearch"><code class="docutils literal notranslate"><span class="pre">SOSlineSearch()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.utils.html"><code class="docutils literal notranslate"><span class="pre">direct_sphere()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.sample_from_ellipsoid"><code class="docutils literal notranslate"><span class="pre">sample_from_ellipsoid()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.quad_form"><code class="docutils literal notranslate"><span class="pre">quad_form()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.vol_ellipsoid"><code class="docutils literal notranslate"><span class="pre">vol_ellipsoid()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.rhoVerification"><code class="docutils literal notranslate"><span class="pre">rhoVerification()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.lqr.roa.utils.html#simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox"><code class="docutils literal notranslate"><span class="pre">PendulumPlantApprox</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.open_loop.html">Open Loop Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.open_loop.open_loop.html">Open Loop Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.open_loop.open_loop.html#simple_pendulum.controllers.open_loop.open_loop.OpenLoopController"><code class="docutils literal notranslate"><span class="pre">OpenLoopController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.open_loop.open_loop.html#simple_pendulum.controllers.open_loop.open_loop.OpenLoopAndLQRController"><code class="docutils literal notranslate"><span class="pre">OpenLoopAndLQRController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.pid.html">Proportional-Integral-Derivative (PID) Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.pid.pid.html">PID Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.pid.pid.html#simple_pendulum.controllers.pid.pid.PIDController"><code class="docutils literal notranslate"><span class="pre">PIDController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.sac.html">Soft Actor Critic (SAC) Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.sac.sac_controller.html">SAC Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.sac.sac_controller.html#simple_pendulum.controllers.sac.sac_controller.SacController"><code class="docutils literal notranslate"><span class="pre">SacController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.tvlqr.html">tvLQR Controller</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.tvlqr.html#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController"><code class="docutils literal notranslate"><span class="pre">TVLQRController</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html"><code class="docutils literal notranslate"><span class="pre">get_ellipse_params()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.get_ellipse_patch"><code class="docutils literal notranslate"><span class="pre">get_ellipse_patch()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plot_ellipse"><code class="docutils literal notranslate"><span class="pre">plot_ellipse()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFirstLastEllipses"><code class="docutils literal notranslate"><span class="pre">plotFirstLastEllipses()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotRhoEvolution"><code class="docutils literal notranslate"><span class="pre">plotRhoEvolution()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel3d"><code class="docutils literal notranslate"><span class="pre">plotFunnel3d()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.plotFunnel"><code class="docutils literal notranslate"><span class="pre">plotFunnel()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.TVrhoVerification"><code class="docutils literal notranslate"><span class="pre">TVrhoVerification()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.funnel2DComparison"><code class="docutils literal notranslate"><span class="pre">funnel2DComparison()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.plot.html#simple_pendulum.controllers.tvlqr.roa.plot.rhoComparison"><code class="docutils literal notranslate"><span class="pre">rhoComparison()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.probabilistic.html"><code class="docutils literal notranslate"><span class="pre">TVprobRhoComputation()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.sos.html"><code class="docutils literal notranslate"><span class="pre">TVsosRhoComputation()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.utils.html"><code class="docutils literal notranslate"><span class="pre">direct_sphere()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.sample_from_ellipsoid"><code class="docutils literal notranslate"><span class="pre">sample_from_ellipsoid()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.quad_form"><code class="docutils literal notranslate"><span class="pre">quad_form()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.projectedEllipseFromCostToGo"><code class="docutils literal notranslate"><span class="pre">projectedEllipseFromCostToGo()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.getEllipseContour"><code class="docutils literal notranslate"><span class="pre">getEllipseContour()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.TVrhoSearch"><code class="docutils literal notranslate"><span class="pre">TVrhoSearch()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.controllers.tvlqr.roa.utils.html#simple_pendulum.controllers.tvlqr.roa.utils.TVmultSearch"><code class="docutils literal notranslate"><span class="pre">TVmultSearch()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.html"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.parameters.html">Parameters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.get_params"><code class="docutils literal notranslate"><span class="pre">get_params()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Robot"><code class="docutils literal notranslate"><span class="pre">Robot</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Joints"><code class="docutils literal notranslate"><span class="pre">Joints</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Links"><code class="docutils literal notranslate"><span class="pre">Links</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.parameters.html#simple_pendulum.model.parameters.Actuators"><code class="docutils literal notranslate"><span class="pre">Actuators</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.pendulum_plant.html">Pendulum Plant</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.pendulum_plant.html#simple_pendulum.model.pendulum_plant.PendulumPlant"><code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.unit_test.html">Unit Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.model.unit_test.html#simple_pendulum.model.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.html"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.html">Deep Determininstic Policy Gradient (DDPG) Training</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.agent.html">Agent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.agent.html#simple_pendulum.reinforcement_learning.ddpg.agent.Agent"><code class="docutils literal notranslate"><span class="pre">Agent</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.ddpg.html">DDPG Trainer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer"><code class="docutils literal notranslate"><span class="pre">ddpg_trainer</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.models.html">Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.models.html#simple_pendulum.reinforcement_learning.ddpg.models.get_actor"><code class="docutils literal notranslate"><span class="pre">get_actor()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.models.html#simple_pendulum.reinforcement_learning.ddpg.models.get_critic"><code class="docutils literal notranslate"><span class="pre">get_critic()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.noise.html">Noise</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.noise.html#simple_pendulum.reinforcement_learning.ddpg.noise.OUActionNoise"><code class="docutils literal notranslate"><span class="pre">OUActionNoise</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.replay_buffer.html">Replay Buffer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.ddpg.replay_buffer.html#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.sac.html">Soft Actor Critic (SAC) Training</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.sac.sac.html">SAC Trainer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.reinforcement_learning.sac.sac.html#simple_pendulum.reinforcement_learning.sac.sac.sac_trainer"><code class="docutils literal notranslate"><span class="pre">sac_trainer</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.simulation.html"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.simulation.gym_environment.html">Gym Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.simulation.gym_environment.html#simple_pendulum.simulation.gym_environment.SimplePendulumEnv"><code class="docutils literal notranslate"><span class="pre">SimplePendulumEnv</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.simulation.simulation.html">Simulator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.simulation.simulation.html#simple_pendulum.simulation.simulation.Simulator"><code class="docutils literal notranslate"><span class="pre">Simulator</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.simulation.simulation.html#simple_pendulum.simulation.simulation.get_arrow"><code class="docutils literal notranslate"><span class="pre">get_arrow()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.simulation.simulation.html#simple_pendulum.simulation.simulation.set_arrow_properties"><code class="docutils literal notranslate"><span class="pre">set_arrow_properties()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.html"><code class="docutils literal notranslate"><span class="pre">Trajectory</span> <span class="pre">Optimization</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ddp.html">DDP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.direct_collocation.html">Direct Collocation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.html">Direct Collocation Calculator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.html#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator"><code class="docutils literal notranslate"><span class="pre">DirectCollocationCalculator</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html">Unit Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.direct_collocation.unit_test.html#simple_pendulum.trajectory_optimization.direct_collocation.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.html">iLQR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.ilqr.html">iLQR Calculator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.ilqr.html#simple_pendulum.trajectory_optimization.ilqr.ilqr.iLQR_Calculator"><code class="docutils literal notranslate"><span class="pre">iLQR_Calculator</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.html">Symbolic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.html#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator"><code class="docutils literal notranslate"><span class="pre">iLQR_Calculator</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html">Pendulum Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.check_type"><code class="docutils literal notranslate"><span class="pre">check_type()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_continuous_dynamics"><code class="docutils literal notranslate"><span class="pre">pendulum_continuous_dynamics()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_discrete_dynamics_euler"><code class="docutils literal notranslate"><span class="pre">pendulum_discrete_dynamics_euler()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_discrete_dynamics_rungekutta"><code class="docutils literal notranslate"><span class="pre">pendulum_discrete_dynamics_rungekutta()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_swingup_stage_cost"><code class="docutils literal notranslate"><span class="pre">pendulum_swingup_stage_cost()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum_swingup_final_cost"><code class="docutils literal notranslate"><span class="pre">pendulum_swingup_final_cost()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_discrete_dynamics_euler"><code class="docutils literal notranslate"><span class="pre">pendulum3_discrete_dynamics_euler()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_discrete_dynamics_rungekutta"><code class="docutils literal notranslate"><span class="pre">pendulum3_discrete_dynamics_rungekutta()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_swingup_stage_cost"><code class="docutils literal notranslate"><span class="pre">pendulum3_swingup_stage_cost()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.pendulum.html#simple_pendulum.trajectory_optimization.ilqr.pendulum.pendulum3_swingup_final_cost"><code class="docutils literal notranslate"><span class="pre">pendulum3_swingup_final_cost()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.unit_test.html">Unit Tests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.trajectory_optimization.ilqr.unit_test.html#simple_pendulum.trajectory_optimization.ilqr.unit_test.Test"><code class="docutils literal notranslate"><span class="pre">Test</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.html"><code class="docutils literal notranslate"><span class="pre">Utilities</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.parse.html">Parsing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.parse.html#simple_pendulum.utilities.parse.syntax"><code class="docutils literal notranslate"><span class="pre">syntax()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.performance_profiler.html">Performance Profiling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.performance_profiler.html#simple_pendulum.utilities.performance_profiler.motor_send_n_commands"><code class="docutils literal notranslate"><span class="pre">motor_send_n_commands()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.performance_profiler.html#simple_pendulum.utilities.performance_profiler.motor_speed_test"><code class="docutils literal notranslate"><span class="pre">motor_speed_test()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.performance_profiler.html#simple_pendulum.utilities.performance_profiler.profiler"><code class="docutils literal notranslate"><span class="pre">profiler()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.plot.html">Plotting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.swingup"><code class="docutils literal notranslate"><span class="pre">swingup()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.grav_comp"><code class="docutils literal notranslate"><span class="pre">grav_comp()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.sys_id_unified"><code class="docutils literal notranslate"><span class="pre">sys_id_unified()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.sys_id_comparison"><code class="docutils literal notranslate"><span class="pre">sys_id_comparison()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.plot.html#simple_pendulum.utilities.plot.sys_id_result"><code class="docutils literal notranslate"><span class="pre">sys_id_result()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.process_data.html">Data Processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.read"><code class="docutils literal notranslate"><span class="pre">read()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.prepare_empty"><code class="docutils literal notranslate"><span class="pre">prepare_empty()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.prepare_trajectory"><code class="docutils literal notranslate"><span class="pre">prepare_trajectory()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.cut"><code class="docutils literal notranslate"><span class="pre">cut()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.saveFunnel"><code class="docutils literal notranslate"><span class="pre">saveFunnel()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.process_data.html#simple_pendulum.utilities.process_data.getEllipseFromCsv"><code class="docutils literal notranslate"><span class="pre">getEllipseFromCsv()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.unit_conversion.html">Units</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.unit_conversion.html#simple_pendulum.utilities.unit_conversion.rad_to_deg"><code class="docutils literal notranslate"><span class="pre">rad_to_deg()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.unit_conversion.html#simple_pendulum.utilities.unit_conversion.deg_to_rad"><code class="docutils literal notranslate"><span class="pre">deg_to_rad()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.html">Filters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.fast_fourier_transform.html">Fast Fourier Transform</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.fast_fourier_transform.html#simple_pendulum.utilities.filters.fast_fourier_transform.fast_fourier_transform"><code class="docutils literal notranslate"><span class="pre">fast_fourier_transform()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.fast_fourier_transform.html#simple_pendulum.utilities.filters.fast_fourier_transform.scipy_fft"><code class="docutils literal notranslate"><span class="pre">scipy_fft()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.low_pass.html">Low-pass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.low_pass.html#simple_pendulum.utilities.filters.low_pass.online_filter"><code class="docutils literal notranslate"><span class="pre">online_filter()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.running_mean.html">Moving Average</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.running_mean.html#simple_pendulum.utilities.filters.running_mean.data_filter"><code class="docutils literal notranslate"><span class="pre">data_filter()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.running_mean.html#simple_pendulum.utilities.filters.running_mean.data_filter_realtime_1"><code class="docutils literal notranslate"><span class="pre">data_filter_realtime_1()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.running_mean.html#simple_pendulum.utilities.filters.running_mean.data_filter_realtime_2"><code class="docutils literal notranslate"><span class="pre">data_filter_realtime_2()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.savitzky_golay.html">Savitzky-Golay</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../simple_pendulum.utilities.filters.savitzky_golay.html#simple_pendulum.utilities.filters.savitzky_golay.savitzky_golay_filter"><code class="docutils literal notranslate"><span class="pre">savitzky_golay_filter()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/simple_pendulum.html">Software Documentation</a></li>
 </ul>
 
         </div>
@@ -288,15 +110,15 @@
 <section id="physical-parameters-of-the-pendulum">
 <h2>Physical Parameters of the Pendulum<a class="headerlink" href="#physical-parameters-of-the-pendulum" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>Point mass: <img class="math" src="_images/math/97a7cd31a8cce0783be5ee58b8ccb21154eb1cf6.svg" alt="m_p"/> = 0.546 Kg</p></li>
-<li><p>Mass of rod, mounting parts and screws: <img class="math" src="_images/math/598a1637fb588a964254ea258f5e6ff0c0c1a9cf.svg" alt="m_r"/> = 0.13 Kg</p></li>
-<li><p>Overall mass: <img class="math" src="_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.svg" alt="m"/> = 0.676 Kg</p></li>
-<li><p>Length to point mass: <img class="math" src="_images/math/470aa65888a2971c9346e573f12b37ea406b8ec9.svg" alt="l"/> = 0.5 m</p></li>
-<li><p>Length to COM: <img class="math" src="_images/math/c114fd23cec263ffcbad226cc05d7a026a84de39.svg" alt="l_{COM}"/> = 0.45 m</p></li>
+<li><p>Point mass: <span class="math notranslate nohighlight">\(m_p\)</span> = 0.546 Kg</p></li>
+<li><p>Mass of rod, mounting parts and screws: <span class="math notranslate nohighlight">\(m_r\)</span> = 0.13 Kg</p></li>
+<li><p>Overall mass: <span class="math notranslate nohighlight">\(m\)</span> = 0.676 Kg</p></li>
+<li><p>Length to point mass: <span class="math notranslate nohighlight">\(l\)</span> = 0.5 m</p></li>
+<li><p>Length to COM: <span class="math notranslate nohighlight">\(l_{COM}\)</span> = 0.45 m</p></li>
 </ul>
-<div class="math">
-<p><img src="_images/math/4f0aad2e984dded7293f8bc42d608ff739945245.svg" alt="l_{COM} = \frac{m_pl 0.5 m_r l}{m_p m_r}"/></p>
-</div></section>
+<div class="math notranslate nohighlight">
+\[l_{COM} = \frac{m_pl 0.5 m_r l}{m_p m_r}\]</div>
+</section>
 <section id="physical-parameters-of-the-actuator">
 <h2>Physical Parameters of the Actuator<a class="headerlink" href="#physical-parameters-of-the-actuator" title="Permalink to this heading"></a></h2>
 <p>The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft. The motor is equipped with an absolute 12 bit rotary encoder and an internal PD torque control loop. The motor controller is basically the same as the one used for MIT Mini-Cheetah, which is described <a class="reference external" href="https://docs.google.com/document/d/1dzNVzblz6mqB3eZVEMyi2MtSngALHdgpTaDJIW_BpS4/edit">Ben Katz’s MIT Mini-Cheetah Documentation</a></p>
@@ -304,14 +126,14 @@
 <a class="reference internal image-reference" href="../../_images/ak80-6_img.jpg"><img alt="../../_images/ak80-6_img.jpg" src="../../_images/ak80-6_img.jpg" style="width: 60%;" /></a>
 </figure>
 <ul class="simple">
-<li><p>Voltage = 24 <img class="math" src="_images/math/e4762cec46619bf7781cae62216214f909395368.svg" alt="V"/></p></li>
-<li><p>Current = rated 12 <img class="math" src="_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.svg" alt="A"/>, peak 24 <img class="math" src="_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.svg" alt="A"/></p></li>
-<li><p>Torque = rated 6 <img class="math" src="_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/>, peak 12 <img class="math" src="_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/> (after the transmission)</p></li>
+<li><p>Voltage = 24 <span class="math notranslate nohighlight">\(V\)</span></p></li>
+<li><p>Current = rated 12 <span class="math notranslate nohighlight">\(A\)</span>, peak 24 <span class="math notranslate nohighlight">\(A\)</span></p></li>
+<li><p>Torque = rated 6 <span class="math notranslate nohighlight">\(Nm\)</span>, peak 12 <span class="math notranslate nohighlight">\(Nm\)</span> (after the transmission)</p></li>
 <li><p>Transmission N = 6 : 1</p></li>
-<li><p>Weight = 485 <img class="math" src="_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.svg" alt="g"/></p></li>
-<li><p>Dimensions = ⌀ 98 <img class="math" src="_images/math/42bde47631503e70c4e8b5eb6125ce7ce1f3f02e.svg" alt="mm"/> x 38,5 <img class="math" src="_images/math/42bde47631503e70c4e8b5eb6125ce7ce1f3f02e.svg" alt="mm"/></p></li>
-<li><p>Max. torque to weight ratio = 24 <img class="math" src="_images/math/e496e22b9066d5d62ba0bfd494ef130b1a43d392.svg" alt="kg"/> (after the transmission)</p></li>
-<li><p>Max. velocity = 38.2 <img class="math" src="_images/math/106b04b320e75010b1d8029e59244f234f75e6f9.svg" alt="s"/> = 365 <img class="math" src="_images/math/7cd90d08e6307cd6526157e78bb4f46ad2ca5ccd.svg" alt="rpm"/> (after the transmission)</p></li>
+<li><p>Weight = 485 <span class="math notranslate nohighlight">\(g\)</span></p></li>
+<li><p>Dimensions = ⌀ 98 <span class="math notranslate nohighlight">\(mm\)</span> x 38,5 <span class="math notranslate nohighlight">\(mm\)</span></p></li>
+<li><p>Max. torque to weight ratio = 24 <span class="math notranslate nohighlight">\(kg\)</span> (after the transmission)</p></li>
+<li><p>Max. velocity = 38.2 <span class="math notranslate nohighlight">\(s\)</span> = 365 <span class="math notranslate nohighlight">\(rpm\)</span> (after the transmission)</p></li>
 <li><p>Backlash (accuracy) = 0.15° degrees</p></li>
 </ul>
 </section>
@@ -322,17 +144,17 @@
 <p>Before the transmission</p>
 </div>
 <ul class="simple">
-<li><p>Motor constant <img class="math" src="_images/math/b784dcb1578573444c62319a33e085707d39ddfa.svg" alt="km"/> = 0.2206 <img class="math" src="_images/math/9a8ab0bb738e06679d1b078e72face201ee1fdbb.svg" alt="Nm/\sqrt{W}"/></p></li>
-<li><p>Electric constant <img class="math" src="_images/math/a2a5f2ef417ae9d4d9fc245758459bc28c4864f6.svg" alt="ke"/> = 0.009524 <img class="math" src="_images/math/875085cd70ec23c2f28617a54dcf19cfdd42a6b2.svg" alt="V/rpm"/></p></li>
-<li><p>Torque constant <img class="math" src="_images/math/859c6b4977485eed8916b2dfb6f02527badab18a.svg" alt="kt"/> = 0.091 <img class="math" src="_images/math/2cf12f7853ca118d151e4b6e3b94329209b22c3f.svg" alt="Nm/A"/></p></li>
-<li><p>Torque = rated 1,092 <img class="math" src="_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/>, peak 2,184 <img class="math" src="_images/math/68e0f0f9e4a2fe8ce7b8241ac0fc6f8d28edd80a.svg" alt="Nm"/></p></li>
-<li><p>Velocity / back-EMF constant <img class="math" src="_images/math/21f17f1df278db6e4dafe7cbfd1d732966cda44d.svg" alt="kv"/> = 100 <img class="math" src="_images/math/6c2b7e19d093231a209d52fef1df2e98872561d0.svg" alt="rpm/V"/></p></li>
-<li><p>Max. velocity at 24 <img class="math" src="_images/math/e4762cec46619bf7781cae62216214f909395368.svg" alt="V"/> = 251.2 <img class="math" src="_images/math/f9f5cc84488b1dc007a58fc9ded8922d18e5c1bb.svg" alt="rad/s"/> = 2400 <img class="math" src="_images/math/7cd90d08e6307cd6526157e78bb4f46ad2ca5ccd.svg" alt="rpm"/></p></li>
-<li><p>Motor wiring in <img class="math" src="_images/math/bb3d9e9b0298d335dede11ae3be7d6df30bbc804.svg" alt="\nabla"/>-delta configuration</p></li>
+<li><p>Motor constant <span class="math notranslate nohighlight">\(km\)</span> = 0.2206 <span class="math notranslate nohighlight">\(Nm/\sqrt{W}\)</span></p></li>
+<li><p>Electric constant <span class="math notranslate nohighlight">\(ke\)</span> = 0.009524 <span class="math notranslate nohighlight">\(V/rpm\)</span></p></li>
+<li><p>Torque constant <span class="math notranslate nohighlight">\(kt\)</span> = 0.091 <span class="math notranslate nohighlight">\(Nm/A\)</span></p></li>
+<li><p>Torque = rated 1,092 <span class="math notranslate nohighlight">\(Nm\)</span>, peak 2,184 <span class="math notranslate nohighlight">\(Nm\)</span></p></li>
+<li><p>Velocity / back-EMF constant <span class="math notranslate nohighlight">\(kv\)</span> = 100 <span class="math notranslate nohighlight">\(rpm/V\)</span></p></li>
+<li><p>Max. velocity at 24 <span class="math notranslate nohighlight">\(V\)</span> = 251.2 <span class="math notranslate nohighlight">\(rad/s\)</span> = 2400 <span class="math notranslate nohighlight">\(rpm\)</span></p></li>
+<li><p>Motor wiring in <span class="math notranslate nohighlight">\(\nabla\)</span>-delta configuration</p></li>
 <li><p>Number of pole pairs = 21</p></li>
-<li><p>Resistance phase to phase = 170 <img class="math" src="_images/math/c1b04b17db55f1b4279eba10c6244b33b4673748.svg" alt="\pm"/> 5 <img class="math" src="_images/math/2bcdad4eab04bea5aafc233d459d0bdf1ae056b7.svg" alt="m\Omega"/></p></li>
-<li><p>Inductance phase to phase = 57 <img class="math" src="_images/math/c00230696e97cb3d6f6c5726accf4632a02c68bd.svg" alt="pm"/> 10 <img class="math" src="_images/math/7797167aa53d68bfb81725a6f145dfd6a870d85e.svg" alt="\mu H"/></p></li>
-<li><p>Rotor inertia Ir = 0.000060719 <img class="math" src="_images/math/adea87eab121c076be211d75e7aa13c20af16b0f.svg" alt="kg/m^2"/></p></li>
+<li><p>Resistance phase to phase = 170 <span class="math notranslate nohighlight">\(\pm\)</span> 5 <span class="math notranslate nohighlight">\(m\Omega\)</span></p></li>
+<li><p>Inductance phase to phase = 57 <span class="math notranslate nohighlight">\(pm\)</span> 10 <span class="math notranslate nohighlight">\(\mu H\)</span></p></li>
+<li><p>Rotor inertia Ir = 0.000060719 <span class="math notranslate nohighlight">\(kg/m^2\)</span></p></li>
 </ul>
 </section>
 <section id="electrical-setup">
@@ -358,12 +180,12 @@
 <h2>backEMF<a class="headerlink" href="#backemf" title="Permalink to this heading"></a></h2>
 <p>The reverse current resulting from switching motor speeds from high to low is called backEMF (Electro Magnetic Force). When the motor speed decreases the motor works as a generator, which converts mechanical energy into electrical energy and hence the additional current needs some path to flow. The energy recycled back into the input power supply causes a voltage spike and potential risk. It is necessary to add enough input capacitance to absorb this energy. A sufficiently large input capacitance is important in the desgin of the electric curcuit. It is beneficial to have more bulk capacitance, but the disadvantages are increased cost and physical size.</p>
 <p>If the power source were a perfect battery, then energy would flow back into the battery and be recycled. However, in our case the power source is a DC power supply. Especially power supplies with an inverse-polarity protection diode can only source current and cannot sink current, hence the only place the energy can go is into the bulk capacitor. The amount of energy stored in the bulk capacitor can be calculated with</p>
-<div class="math">
-<p><img src="_images/math/041adf89aaf0bdbae1030c9071730d3fb5517ba6.svg" alt="E = \frac{1}{2} \cdot C \cdot (V_{max}^2 - V_{nom}^2)"/></p>
-</div><p>where <strong>C</strong> is the capacitance and <strong>V</strong> is the voltage. In the case of a Simple Pendulum max. backEMF can be estimated from the kinetic energy of the pendulum</p>
-<div class="math">
-<p><img src="_images/math/652d01c82c9ede7bad129d59ebe331a0199175cf.svg" alt="E_kin = \frac{1}{2}  m \cdot v^2"/></p>
-</div><p>where <strong>m</strong> is the payload attached to the rod and <strong>v</strong> is the velocity of the payload. The voltage across the capacitor increases as energy flows into it, so the capacitor should be sized accordingly to the specific application requirements. Nevertheless tuning a capacitor to the acceptable min. capacity is tricky, because it depends on many factors including:</p>
+<div class="math notranslate nohighlight">
+\[E = \frac{1}{2} \cdot C \cdot (V_{max}^2 - V_{nom}^2)\]</div>
+<p>where <strong>C</strong> is the capacitance and <strong>V</strong> is the voltage. In the case of a Simple Pendulum max. backEMF can be estimated from the kinetic energy of the pendulum</p>
+<div class="math notranslate nohighlight">
+\[E_kin = \frac{1}{2}  m \cdot v^2\]</div>
+<p>where <strong>m</strong> is the payload attached to the rod and <strong>v</strong> is the velocity of the payload. The voltage across the capacitor increases as energy flows into it, so the capacitor should be sized accordingly to the specific application requirements. Nevertheless tuning a capacitor to the acceptable min. capacity is tricky, because it depends on many factors including:</p>
 <ul class="simple">
 <li><p>External load</p></li>
 <li><p>Capacitance of the power supply to source current</p></li>
@@ -398,7 +220,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, Felix Wiebe, Jonathan Babel, Shivesh Kumar, Shubham Vyas, Daniel Harnack, Melya Boukheddimi, Mihaela Popescu, Frank Kirchner.</p>
+    <p>&#169; Copyright .</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

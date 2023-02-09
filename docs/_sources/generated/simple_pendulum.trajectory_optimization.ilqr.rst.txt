@@ -1,0 +1,42 @@
+simple\_pendulum.trajectory\_optimization.ilqr
+======================================================
+
+.. automodule:: simple_pendulum.trajectory_optimization.ilqr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.trajectory\_optimization.ilqr.ilqr
+----------------------------------------------------------
+
+.. automodule:: simple_pendulum.trajectory_optimization.ilqr.ilqr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.trajectory\_optimization.ilqr.ilqr\_sympy
+-----------------------------------------------------------------
+
+.. automodule:: simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.trajectory\_optimization.ilqr.pendulum
+--------------------------------------------------------------
+
+.. automodule:: simple_pendulum.trajectory_optimization.ilqr.pendulum
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.trajectory\_optimization.ilqr.unit\_test
+----------------------------------------------------------------
+
+.. automodule:: simple_pendulum.trajectory_optimization.ilqr.unit_test
+   :members:
+   :undoc-members:
+   :show-inheritance:

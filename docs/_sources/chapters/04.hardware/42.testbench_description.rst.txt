@@ -5,7 +5,7 @@ The ``/hardware`` directory contains all information about the hardware that is 
   
 We additionally uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: `grabcad.com/simple_pendulum <https://grabcad.com/library/simple_pendulum-1>`_
 
-.. figure:: ../../figures/simple_pendulum_CAD.png
+.. figure:: ../../../figures/simple_pendulum_CAD.png
     :width: 80%
     :align: center
 
@@ -26,7 +26,7 @@ Physical Parameters of the Actuator
 -----------------------------------
 The AK80-6 actuator from T-Motor is a quasi direct drive with a gear ratio of 6:1 and a peak torque of 12 Nm at the output shaft. The motor is equipped with an absolute 12 bit rotary encoder and an internal PD torque control loop. The motor controller is basically the same as the one used for MIT Mini-Cheetah, which is described `Ben Katz's MIT Mini-Cheetah Documentation <https://docs.google.com/document/d/1dzNVzblz6mqB3eZVEMyi2MtSngALHdgpTaDJIW_BpS4/edit>`_
 
-.. figure:: ../../figures/ak80-6_img.jpg
+.. figure:: ../../../figures/ak80-6_img.jpg
     :width: 60%
     :align: center
 
@@ -70,7 +70,7 @@ The wiring diagram below shows how the simple pendulum testbench is set up. A ma
 
 The actuator requires an input voltage of 24 Volts and consumes up to 24 Amps under full load. A power supply that is able to deliver both and which is used in our test setup is the **EA-PS 9032-40** from Elektro-Automatik. A capacitor filters the backEMF coming from the actuator and therefore protects the power supply from high voltage peaks. This wouldn't be necessary if the actuator is powered from a battery pack, as in this case backEMF simply recharges the batteries. The capacitor we use is made of **10x single 2.7V-400 F capacitor cells** connected in series resulting a total capacity of 40 F and is wired in parallel to the motor. A emergency stop button serves as additional safety measure. It disconnects the actuator from power supply and capacitor, if only the power supply gets diconnected the actuator will keep running with the energy stored in the capacitor.   
 
-.. figure:: ../../figures/sp_wiring_diagram.png
+.. figure:: ../../../figures/sp_wiring_diagram.png
     :width: 80%
     :align: center
 
@@ -112,7 +112,7 @@ Communication: CAN Bus wiring
 =============================
 Along the CAN bus proper grounding and isolation is required. It is important to not connect ground pins on the CAN bus connectors between different actuators, since this would cause a critical ground loop. The ground pin should only be used to connect to systems with a ground isolated from the power ground. Additionally, isolation between the main pc and the actuators improves the signal quality. When daisy-chaining multiple actuators, only the CAN-High and CAN-Low pins between the drives must be connected. At the end of the chain a 120 Ohm resistor between CAN-H and CAN-L is used to absorb the signals. It prevents the signals from being reflected at the wire ends. The CAN protocol is differential, hence no additional ground reference is needed. The diagram below displays the wiring of the CAN bus.  
 
-.. figure:: ../../figures/can_bus.png
+.. figure:: ../../../figures/can_bus.png
 
 * Main pc: CPU
 * CAN transceiver: CAN XCVR

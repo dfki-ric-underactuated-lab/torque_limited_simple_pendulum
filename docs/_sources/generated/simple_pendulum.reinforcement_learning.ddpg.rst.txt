@@ -1,0 +1,50 @@
+simple\_pendulum.reinforcement\_learning.ddpg
+=====================================================
+
+.. automodule:: simple_pendulum.reinforcement_learning.ddpg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.reinforcement\_learning.ddpg.agent
+----------------------------------------------------------
+
+.. automodule:: simple_pendulum.reinforcement_learning.ddpg.agent
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.reinforcement\_learning.ddpg.ddpg
+---------------------------------------------------------
+
+.. automodule:: simple_pendulum.reinforcement_learning.ddpg.ddpg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.reinforcement\_learning.ddpg.models
+-----------------------------------------------------------
+
+.. automodule:: simple_pendulum.reinforcement_learning.ddpg.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.reinforcement\_learning.ddpg.noise
+----------------------------------------------------------
+
+.. automodule:: simple_pendulum.reinforcement_learning.ddpg.noise
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.reinforcement\_learning.ddpg.replay\_buffer
+-------------------------------------------------------------------
+
+.. automodule:: simple_pendulum.reinforcement_learning.ddpg.replay_buffer
+   :members:
+   :undoc-members:
+   :show-inheritance:

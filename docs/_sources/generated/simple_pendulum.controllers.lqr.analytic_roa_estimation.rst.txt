@@ -1,0 +1,26 @@
+simple\_pendulum.controllers.lqr.analytic\_roa\_estimation
+==================================================================
+
+.. automodule:: simple_pendulum.controllers.lqr.analytic_roa_estimation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.controllers.lqr.analytic\_roa\_estimation.analytic\_roa
+-------------------------------------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.controllers.lqr.analytic\_roa\_estimation.najafi\_oracle
+--------------------------------------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.lqr.analytic_roa_estimation.najafi_oracle
+   :members:
+   :undoc-members:
+   :show-inheritance:
