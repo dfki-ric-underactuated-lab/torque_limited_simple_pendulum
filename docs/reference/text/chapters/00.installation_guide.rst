@@ -34,7 +34,7 @@ The instructions provide assistance in the setup procedure, but with regards to 
 If you are already using suitable Python 3.6 version jump directly to step `Creating a Virtual Environment` otherwise continue here and first install a virtual environment for python.
 
 Pyenv: Virtual environment for Python
--------------------------------------------
+-------------------------------------
 
 The following instructions are our recommendations for a sane build environment.
 
@@ -172,7 +172,7 @@ This package then can be installed from the `software/python <https://github.com
 This was the final installation step. Your system is now prepared to run all code snippets from this repo (except the ones which require `Crocoddyl <https://gepettoweb.laas.fr/doc/loco-3d/crocoddyl/master/doxygen-html/>`_ , see next section for instructions). Have fun exploring all kind of different simple pendulum controllers!
 
 OPTIONAL: Crocoddyl and Gepetto Viewer
-------------------------
+--------------------------------------
 
 For installing the optimal control library Crocoddyl, we refer to the instructions provided in the `Crocoddyl github repository <https://github.com/loco-3d/crocoddyl>`_ and recommend the installation through robotpkg.
 

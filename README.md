@@ -13,7 +13,7 @@
 
 <div align="center">
 <img width="400" src="hardware/simple_pendulum_CAD.png">
-<img width="300" src="docs/reference/source/figures/pendulum_light_painting.jpg">
+<img width="300" src="docs/reference/figures/pendulum_light_painting.jpg">
 </div>
 
 ## Introduction #
@@ -45,7 +45,7 @@ Additionally, we uploaded all CAD files to grabcad.com. You can use the 3D viewe
 ## Overview of Methods #
 
 <div align="center">
-<img width="450" src="docs/reference/source/figures/controller_overview.png">
+<img width="450" src="docs/reference/figures/controller_overview.png">
 </div>
 
 **Trajectory Optimization** tries to find a trajectory of control inputs and states that is feasible for the system while minimizing a cost function. The cost function can for example include terms which drive the system to a desired goal state and penalize the usage of high torques. The following trajectory optimization algorithms are implemented:
@@ -135,7 +135,7 @@ The controllers can be benchmarked in simulation with a set of predefined [crite
 
 ## Authors #
 
-<img align="right" img width="500" src="docs/reference/source/figures/pendulum_swingup_animation.gif" />
+<img align="right" img width="500" src="docs/reference/figures/pendulum_swingup_animation.gif" />
 
 * [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
 * [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html) (Software Maintainer)
@@ -174,7 +174,7 @@ When working with a real system be careful and mind the following safety measure
 ## Acknowledgements #
 This work has been performed in the VeryHuman project funded by the German Aerospace Center (DLR) with federal funds (Grant Number: FKZ 01IW20004) from the Federal Ministry of Education and Research (BMBF) and is additionally supported with project funds from the federal state of Bremen for setting up the Underactuated Robotics Lab (Grant Number: 201-001-10-3/2021-3-2).
 
-<img width="500" src="docs/reference/source/figures/Logo_Underactuated_Lab.gif" />
+<img width="500" src="docs/reference/figures/Logo_Underactuated_Lab.gif" />
 
 
 ## License

@@ -22,7 +22,7 @@ Lastly you will find the API reference of the ``simple_pendulum`` package, inclu
 Overview of Methods
 -------------------
 
-.. figure:: figures/controller_overview.png
+.. figure:: ../figures/controller_overview.png
     :width: 60%
     :align: center
 
@@ -62,7 +62,7 @@ The implementations of direct collocation and TVLQR make use of `drake <https://
 
 The controllers can be benchmarked in simulation with a set of predefined `criteria <software/python/simple_pendulum/analysis>`_.
 
-.. figure:: figures/benchmark_barplot.png
+.. figure:: ../figures/benchmark_barplot.png
     :width: 80%
     :align: center
 

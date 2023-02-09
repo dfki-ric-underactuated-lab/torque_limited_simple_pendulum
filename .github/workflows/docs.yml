@@ -57,23 +57,25 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r $codedir/requirements.txt
-        pip install -r $docsdir/source/requirements.txt
+        make install
+        #pip install -r $codedir/requirements.txt
+        #pip install -r $docsdir/source/requirements.txt
     - name: Install HTML math dependencies
       run: |
         sudo apt-get install dvipng
         sudo apt-get install texlive-latex-extra
     - name: Generate
       run:  |
-        cd $docsdir
-        make html
-        echo ::set-output name=html::$docsdir/build/html
+        #cd $docsdir
+        #make html
+        #echo ::set-output name=html::$docsdir/build/html
+        make doc
       id: generate
     # REPO hosting ===============================================
     - name: Ready up
       if: env.dest_gh_repository != ''
       run: |
-        cd $docsdir/build/html
+        cd $docsdir/build/_build/html
         touch .nojekyll
     - name: Push
       if: env.dest_gh_repository != ''
@@ -94,7 +96,7 @@ jobs:
       run: |
         cd ..
         mkdir docs
-        mv -v ${{ github.event.repository.name }}/$docsdir/build/html/* docs
+        mv -v ${{ github.event.repository.name }}/$docsdir/build/_build/html/* docs
     - name: Switch
       if: env.branch != ''
       uses: actions/checkout@v3
@@ -150,14 +152,15 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r $codedir/requirements.txt
-        pip install -r $docsdir/source/requirements.txt
+        #python -m pip install --upgrade pip
+        #pip install -r $codedir/requirements.txt
+        #pip install -r $docsdir/source/requirements.txt
+        make install
     - name: Generate LaTeX code
       run:  |
-        cd $docsdir
+        cd $docsdir/src
         make latex
-        echo ::set-output name=latex::$docsdir/build/latex
+        echo ::set-output name=latex::$docsdir/build/_build/latex
       id: generate
     - name: Install LaTeX engine
       run: |
@@ -174,9 +177,9 @@ jobs:
         sudo apt-get install texlive-fonts-extra
     - name: Compile
       run: |
-        cd $docsdir/build/latex
+        cd $docsdir/build/_build/latex
         make LATEXMKOPTS="-lualatex"
-        cd ../../../
+        cd ../../../../
     - name: Set
       run: |
         mkdir temp

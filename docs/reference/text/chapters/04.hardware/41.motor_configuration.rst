@@ -16,7 +16,7 @@ UART Connection: R-Link module
 ------------------------------
 R-LINK is a USB to serial port module, specially designed for CubeMars A Series of dynamical modular motors. It is possible to calibrate the encoder in the module, change CAN ID settings, PID settings, as well as to control position, torque and speed of the motor within the configuration software tool.
 
-.. figure:: ../../figures/r-link_module.jpg
+.. figure:: ../../../figures/r-link_module.jpg
 	:width: 50%
 	:align: center
 
@@ -27,7 +27,7 @@ Instructions: R-Link Config Tool
 
 1. Wire the R-LINK module as shown in the figure below. A USB to micro USB cable connects a pc with the R-LINK module and the 5pin cable goes between the R-LINK module and the Motor.
 
-	.. figure:: ../../figures/r-link_wiring.PNG
+	.. figure:: ../../../figures/r-link_wiring.PNG
 		:width: 65%
 		:align: center
  
@@ -75,7 +75,7 @@ PD-Controller
 -------------
 A proportional-derivative controller, which is based on the MIT Mini-Cheetah Motor, is implemented on the motor controller board. The control block diagram of this closed loop controller is shown below. It can bee seen that the control method is flexible, as pure position, speed, feedforward torque control or any combination of those is possible.
 
-.. figure:: ../../figures/pd_controller.png
+.. figure:: ../../../figures/pd_controller.png
 	:width: 80%
 	:align: center
 

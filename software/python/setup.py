@@ -18,6 +18,7 @@ setup(
         'eigenpy',
         #'inputs',
         'evdev',
+        'scikit-learn',
 
         # optimal control
         'drake',
@@ -25,7 +26,16 @@ setup(
         # reinforcement learning
         'tensorflow>=2.6.0',
         'pickle5',
-        'stable_baselines3'
+        'stable_baselines3',
+
+        # documentation
+        'sphinx',
+        'sphinx-rtd-theme',
+        'numpydoc',
+
+        # testing
+        'pytest',
+
     ],
     classifiers=[
           'Development Status :: 5 - Stable',
