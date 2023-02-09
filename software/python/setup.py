@@ -20,33 +20,33 @@ setup(
         'evdev',
         'scikit-learn',
 
-        # optimal control
-        'drake',
+        ## optimal control
+        #'drake',
 
-        # reinforcement learning
-        'tensorflow>=2.6.0',
-        'pickle5',
-        'stable_baselines3',
+        ## reinforcement learning
+        #'tensorflow>=2.6.0',
+        #'pickle5',
+        #'stable_baselines3',
 
-        # documentation
-        'sphinx',
-        'sphinx-rtd-theme',
-        'numpydoc',
+        ## documentation
+        #'sphinx',
+        #'sphinx-rtd-theme',
+        #'numpydoc',
 
-        # testing
-        'pytest',
-        'lark',
+        ## testing
+        #'pytest',
+        #'lark',
 
     ],
-    # extras_require={
-    #     "all": ['drake'],
-    #     "drake" : ['drake'],
-    #     "tensorflow" : ['tensorflow>=2.6.0'],
-    #     "stable_baselines" : ['stable_baselines3'],
-    #     "doc" : ['sphinx', 'sphinx-rtd-theme', 'numpydoc'],
-    #     "test": ['pytest', 'lark']
-    # }
-
+    extras_require={
+        "all": ['drake', 'tensorflow>=2.6.0', 'stable_baselines3',
+                'sphinx', 'sphinx-rtd-theme', 'numpydoc', 'pytest', 'lark'],
+        "drake": ['drake'],
+        "tensorflow": ['tensorflow>=2.6.0'],
+        "stable_baselines": ['stable_baselines3'],
+        "doc": ['sphinx', 'sphinx-rtd-theme', 'numpydoc'],
+        "test": ['pytest', 'lark']
+    },
     classifiers=[
           'Development Status :: 5 - Stable',
           'Environment :: Console',

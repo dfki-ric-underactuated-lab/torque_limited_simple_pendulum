@@ -4,7 +4,10 @@ DOC_ROOT = "docs/reference/src"
 default: install
 
 install:
-	make -C $(PYTHON_ROOT)
+	make -C $(PYTHON_ROOT) install
+
+mininstall:
+	make -C $(PYTHON_ROOT) mininstall
 
 doc: 
 	make -C $(DOC_ROOT) clean
