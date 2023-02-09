@@ -38,20 +38,25 @@ jobs:
         if ! [ -z "${branch}" ]; then
           # If a host branch has been provided
           echo "Host: ${{ github.event.repository.name }}.$branch"
-          echo ::set-output name=branch::$branch
+          #echo ::set-output name=branch::$branch
+          echo "{branch}={$branch}" >> $GITHUB_OUTPUT
         fi
         if ! [ -z "${dest_gh_repository+x}" ]; then
           # If a host repository has been provided
           echo "Host: $dest_gh_repository.$dest_branch"
-          echo ::set-output name=dest_gh_username::$dest_gh_username
-          echo ::set-output name=dest_gh_reponame::$dest_gh_repository
-          echo ::set-output name=dest_gh_repobranch::$dest_branch
-          echo ::set-output name=user_email::$user_email
+          #echo ::set-output name=dest_gh_username::$dest_gh_username
+          #echo ::set-output name=dest_gh_reponame::$dest_gh_repository
+          #echo ::set-output name=dest_gh_repobranch::$dest_branch
+          #echo ::set-output name=user_email::$user_email
+          echo "{dest_gh_username}={$dest_gh_username}" >> $GITHUB_OUTPUT
+          echo "{dest_gh_reponame}={$dest_gh_repository}" >> $GITHUB_OUTPUT
+          echo "{dest_gh_repobranch}={$dest_branch}" >> $GITHUB_OUTPUT
+          echo "{user_email}={$user_email}" >> $GITHUB_OUTPUT
         fi
       id: config
     # Generate documentation =====================================
     - name: Set up Python 3.7
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.7
     - name: Install dependencies
@@ -69,6 +74,7 @@ jobs:
         #cd $docsdir
         #make html
         #echo ::set-output name=html::$docsdir/build/html
+        echo "{html}={$docsdir/build/_build/html}" >> $GITHUB_OUTPUT
         make doc
       id: generate
     # REPO hosting ===============================================
@@ -147,7 +153,7 @@ jobs:
         grep -v '^#' config.env | tr -d "[:blank:]" >> $GITHUB_ENV
     # Generate LaTeX code ========================================
     - name: Set up Python 3.7
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.7
     - name: Install dependencies
@@ -160,7 +166,8 @@ jobs:
       run:  |
         cd $docsdir/src
         make latex
-        echo ::set-output name=latex::$docsdir/build/_build/latex
+        #echo ::set-output name=latex::$docsdir/build/_build/latex
+        echo "{latex}={$docsdir/build/_build/latex}" >> $GITHUB_OUTPUT
       id: generate
     - name: Install LaTeX engine
       run: |

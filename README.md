@@ -30,17 +30,29 @@ The full website based documentation for this repository can be found [here](htt
 
 As a quick start, we refer to the following readme files:
 
-* [Software Installation Guide](docs/reference/source/chapters/00.installation_guide.rst)
-* [Code Testing](docs/reference/source/chapters/02.code_testing.rst)
-* [Pendulum Dynamics](docs/reference/source/chapters/03.model.rst)
+* [Software Installation Guide](docs/reference/text/chapters/00.installation_guide.rst)
+* [Code Testing](docs/reference/text/chapters/02.code_testing.rst)
+* [Pendulum Dynamics](docs/reference/text/chapters/03.model.rst)
 * [Hardware & Testbench Description](hardware/testbench_description.md)
 * [Motor Configuration](hardware/motor_configuration.md)
-* [Hardware Usage Instructions](docs/reference/source/chapters/01.usage_instructions.rst)
+* [Hardware Usage Instructions](docs/reference/text/chapters/01.usage_instructions.rst)
 
 Additionally, we uploaded all CAD files to grabcad.com. You can use the 3D viewer from their webiste to diplay the 3D model directly within your browser: 
 
 * [grabcad.com/simple_pendulum](https://grabcad.com/library/simple_pendulum-1)
 
+## Installation
+
+If you want to install this package, you can do
+that by going to the directory [software/python](software/python)
+and typing::
+
+    pip install .[all]
+
+If you want to install a minimal version without tensorflow, stable_baselines3,
+and drake you can do::
+
+    pip install .
 
 ## Overview of Methods #
 
