@@ -183,7 +183,7 @@ jobs:
     - name: Set
       run: |
         mkdir temp
-        mv -v $docsdir/build/latex/main.pdf temp/${{ github.event.repository.name }}.pdf
+        mv -v $docsdir/build/_build/latex/main.pdf temp/${{ github.event.repository.name }}.pdf
     - name: Switch
       if: env.branch != ''
       run: |

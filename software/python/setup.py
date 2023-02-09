@@ -35,8 +35,18 @@ setup(
 
         # testing
         'pytest',
+        'lark',
 
     ],
+    # extras_require={
+    #     "all": ['drake'],
+    #     "drake" : ['drake'],
+    #     "tensorflow" : ['tensorflow>=2.6.0'],
+    #     "stable_baselines" : ['stable_baselines3'],
+    #     "doc" : ['sphinx', 'sphinx-rtd-theme', 'numpydoc'],
+    #     "test": ['pytest', 'lark']
+    # }
+
     classifiers=[
           'Development Status :: 5 - Stable',
           'Environment :: Console',
