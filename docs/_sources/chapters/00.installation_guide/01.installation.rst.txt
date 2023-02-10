@@ -1,0 +1,44 @@
+Installation Guide
+==================
+
+In order to execute the python code within the repository you will need to have
+`Python (>=3.6, <4)` along with the package installer `pip3` on your system
+installed.
+
+* **python (>=3.6, <4)**
+* **pip3**
+
+We recommend using a virtual environment. A guide for setting up a virtual
+environment with Pyenv and virtualenv can be found in the next section.
+
+Installing this Python Package
+------------------------------
+If you want to install this package, you can do
+that by going to the directory `software/python
+<https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python>`_
+and typing::
+
+    pip install .[all]
+
+If you want to install a minimal version without tensorflow, stable_baselines3,
+and drake you can do::
+
+    pip install .
+
+Note: This has to be repeated if you make changes to the library.
+Note: If a package cannot be found it may help to do::
+
+    pip install --upgrade pip
+Note: This assumes that pip is pip3.
+
+OPTIONAL: Crocoddyl and Gepetto Viewer
+--------------------------------------
+
+For installing the optimal control library Crocoddyl, we refer to the
+instructions provided in the `Crocoddyl github repository
+<https://github.com/loco-3d/crocoddyl>`_ and recommend the installation through
+robotpkg.
+
+`Crocoddyl <https://github.com/loco-3d/crocoddyl>`_ has an interface to the
+gepetto-viewer for visualization. For installing the gepetto viewer we refer to
+their `github repository <https://github.com/Gepetto/gepetto-viewer-corba>`_.

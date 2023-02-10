@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Time-varying Linear Quadratic Regulator (TVLQR) &mdash; Torque-limited Simple Pendulum  documentation</title>
+  <title>Installation Guide &mdash; Torque-limited Simple Pendulum  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Theory" href="73.tvlqr/731.tvlqr.html" />
-    <link rel="prev" title="Proportional-Integral-Derivative (PID) Control" href="72.pid.html" /> 
+    <link rel="next" title="Pyenv Installation Instructions" href="02.pyenv.html" />
+    <link rel="prev" title="Installation Guide" href="../00.installation_guide.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,29 +47,23 @@
               <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../00.installation_guide.html">Installation Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-this-python-package">Installing this Python Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-crocoddyl-and-gepetto-viewer">OPTIONAL: Crocoddyl and Gepetto Viewer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="02.pyenv.html">Pyenv Installation Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.code_testing.html">How to test the code</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../01.usage_instructions.html">Usage Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../02.model.html">The Physics of a Simple Pendulum</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03.simulation.html">Simulator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../04.hardware.html">Hardware Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../05.trajectory_optimization.html">Trajectory Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../06.reinforcement_learning.html">Reinforcement Learning</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="71.open_loop.html">Open Loop Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="72.pid.html">Proportional-Integral-Derivative (PID) Control</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Time-varying Linear Quadratic Regulator (TVLQR)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/731.tvlqr.html">Theory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#api">API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#usage">Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#dependencies">Dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#comments">Comments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#references">References</a></li>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/732.tvlqr_roa.html">Region of Attraction (RoA) estimation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="74.ilqr.html">iLQR Model Predictive Control</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../08.policy_based_controllers.html">Policy-based Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../09.analysis.html">Controller Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../11.contributing.html">How to Contribute</a></li>
@@ -90,10 +84,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
-      <li class="breadcrumb-item active">Time-varying Linear Quadratic Regulator (TVLQR)</li>
+          <li class="breadcrumb-item"><a href="../00.installation_guide.html">Installation Guide</a></li>
+      <li class="breadcrumb-item active">Installation Guide</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/chapters/07.trajectory_based_controllers/73.tvlqr.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/chapters/00.installation_guide/01.installation.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -101,37 +95,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="time-varying-linear-quadratic-regulator-tvlqr">
-<h1>Time-varying Linear Quadratic Regulator (TVLQR)<a class="headerlink" href="#time-varying-linear-quadratic-regulator-tvlqr" title="Permalink to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="73.tvlqr/731.tvlqr.html">Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#api">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#usage">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#dependencies">Dependencies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#comments">Comments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="73.tvlqr/731.tvlqr.html#references">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="73.tvlqr/732.tvlqr_roa.html">Region of Attraction (RoA) estimation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="73.tvlqr/732.tvlqr_roa.html#probabilistic-method">Probabilistic method</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/732.tvlqr_roa.html#estimation-procedure">Estimation procedure</a></li>
+  <section id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Permalink to this heading"></a></h1>
+<p>In order to execute the python code within the repository you will need to have
+<cite>Python (&gt;=3.6, &lt;4)</cite> along with the package installer <cite>pip3</cite> on your system
+installed.</p>
+<ul class="simple">
+<li><p><strong>python (&gt;=3.6, &lt;4)</strong></p></li>
+<li><p><strong>pip3</strong></p></li>
 </ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="73.tvlqr/732.tvlqr_roa.html#sos-method">SOS method</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="73.tvlqr/732.tvlqr_roa.html#id1">Estimation procedure</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>We recommend using a virtual environment. A guide for setting up a virtual
+environment with Pyenv and virtualenv can be found in the next section.</p>
+<section id="installing-this-python-package">
+<h2>Installing this Python Package<a class="headerlink" href="#installing-this-python-package" title="Permalink to this heading"></a></h2>
+<p>If you want to install this package, you can do
+that by going to the directory <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python">software/python</a>
+and typing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span><span class="p">[</span><span class="nb">all</span><span class="p">]</span>
+</pre></div>
 </div>
+<p>If you want to install a minimal version without tensorflow, stable_baselines3,
+and drake you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Note: This has to be repeated if you make changes to the library.
+Note: If a package cannot be found it may help to do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">pip</span>
+</pre></div>
+</div>
+<p>Note: This assumes that pip is pip3.</p>
+</section>
+<section id="optional-crocoddyl-and-gepetto-viewer">
+<h2>OPTIONAL: Crocoddyl and Gepetto Viewer<a class="headerlink" href="#optional-crocoddyl-and-gepetto-viewer" title="Permalink to this heading"></a></h2>
+<p>For installing the optimal control library Crocoddyl, we refer to the
+instructions provided in the <a class="reference external" href="https://github.com/loco-3d/crocoddyl">Crocoddyl github repository</a> and recommend the installation through
+robotpkg.</p>
+<p><a class="reference external" href="https://github.com/loco-3d/crocoddyl">Crocoddyl</a> has an interface to the
+gepetto-viewer for visualization. For installing the gepetto viewer we refer to
+their <a class="reference external" href="https://github.com/Gepetto/gepetto-viewer-corba">github repository</a>.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="72.pid.html" class="btn btn-neutral float-left" title="Proportional-Integral-Derivative (PID) Control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="73.tvlqr/731.tvlqr.html" class="btn btn-neutral float-right" title="Theory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../00.installation_guide.html" class="btn btn-neutral float-left" title="Installation Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02.pyenv.html" class="btn btn-neutral float-right" title="Pyenv Installation Instructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
