@@ -193,6 +193,7 @@ class EnergyShapingAndLQRController(AbstractController):
             the goal state for the pendulum
         """
         self.energy_shaping_controller.set_goal(x)
+        self.lqr_controller.set_goal(x)
 
     def get_control_output(self, meas_pos, meas_vel,
                            meas_tau=0, meas_time=0, verbose=False):
