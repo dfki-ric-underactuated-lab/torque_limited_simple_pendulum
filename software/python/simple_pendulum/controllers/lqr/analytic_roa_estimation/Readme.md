@@ -4,7 +4,7 @@ This repository contains the Code used in the work on ["Analytic Estimation of R
 
 ### Installation
 
-To run and experiment with the code, first you need to follow the [installation guide](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/reference/source/chapters/00.installation_guide.rst).
+To run and experiment with the code, first you need to follow the [installation guide](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/reference/text/chapters/00.installation_guide.rst).
 
 For the plots, the python package SciencePlots is needed. It can be installed via:
 ```
