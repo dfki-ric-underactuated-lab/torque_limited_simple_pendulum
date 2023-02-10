@@ -78,24 +78,24 @@ jobs:
         make doc
       id: generate
     # REPO hosting ===============================================
-    - name: Ready up
-      if: env.dest_gh_repository != ''
-      run: |
-        cd $docsdir/build/_build/html
-        touch .nojekyll
-    - name: Push
-      if: env.dest_gh_repository != ''
-      uses: cpina/github-action-push-to-another-repository@main
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      with:
-      # Cannot use $ variable substitution in function inputs
-        source-directory: ${{ steps.generate.outputs.html }}
-        destination-github-username: ${{ steps.config.outputs.dest_gh_username }}
-        destination-repository-name: ${{ steps.config.outputs.dest_gh_reponame }}
-        target-branch: ${{ steps.config.outputs.dest_gh_repobranch }}
-        user-email: ${{ steps.config.outputs.user_email }}
-        commit-message: See ORIGIN_COMMIT from $GITHUB_REF
+    # - name: Ready up
+    #   if: env.dest_gh_repository != ''
+    #   run: |
+    #     cd $docsdir/build/_build/html
+    #     touch .nojekyll
+    # - name: Push
+    #   if: env.dest_gh_repository != ''
+    #   uses: cpina/github-action-push-to-another-repository@main
+    #   env:
+    #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+    #   with:
+    #   # Cannot use $ variable substitution in function inputs
+    #     source-directory: ${{ steps.generate.outputs.html }}
+    #     destination-github-username: ${{ steps.config.outputs.dest_gh_username }}
+    #     destination-repository-name: ${{ steps.config.outputs.dest_gh_reponame }}
+    #     target-branch: ${{ steps.config.outputs.dest_gh_repobranch }}
+    #     user-email: ${{ steps.config.outputs.user_email }}
+    #     commit-message: See ORIGIN_COMMIT from $GITHUB_REF
     # BRANCH hosting =============================================
     - name: Stow
       if: env.branch != ''
@@ -107,7 +107,7 @@ jobs:
       if: env.branch != ''
       uses: actions/checkout@v3
       with:
-        ref: ${{ steps.config.outputs.branch }}
+        ref: $branch #${{ steps.config.outputs.branch }}
     - name: Clean
       if: env.branch != ''
       run: |

@@ -31,8 +31,8 @@ The full website based documentation for this repository can be found [here](htt
 As a quick start, we refer to the following readme files:
 
 * [Software Installation Guide](docs/reference/text/chapters/00.installation_guide.rst)
-* [Code Testing](docs/reference/text/chapters/02.code_testing.rst)
-* [Pendulum Dynamics](docs/reference/text/chapters/03.model.rst)
+* [Code Testing](docs/reference/text/chapters/00.installation_guide/03.code_testing.rst)
+* [Pendulum Dynamics](docs/reference/text/chapters/02.model.rst)
 * [Hardware & Testbench Description](hardware/testbench_description.md)
 * [Motor Configuration](hardware/motor_configuration.md)
 * [Hardware Usage Instructions](docs/reference/text/chapters/01.usage_instructions.rst)
@@ -53,6 +53,8 @@ If you want to install a minimal version without tensorflow, stable_baselines3,
 and drake you can do::
 
     pip install .
+
+For more details see [Software Installation Guide](docs/reference/text/chapters/00.installation_guide.rst).
 
 ## Overview of Methods #
 

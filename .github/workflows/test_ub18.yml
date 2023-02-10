@@ -83,7 +83,8 @@ jobs:
     - name: Install project dependencies
       if: env.run_tests == 'true'
       run: |
-        pip install -r $codedir/requirements.txt
+        #pip install -r $codedir/requirements.txt
+        make install
     # Run unit tests =============================================
     - name: Run tests
       if: env.run_tests == 'true'
