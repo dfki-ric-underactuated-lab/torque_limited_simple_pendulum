@@ -107,7 +107,7 @@ jobs:
       if: env.branch != ''
       uses: actions/checkout@v3
       with:
-        ref: ${{ steps.config.outputs.branch }}
+        ref: docs #$branch #${{ steps.config.outputs.branch }}
     - name: Clean
       if: env.branch != ''
       run: |
@@ -127,10 +127,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git pull
         git add -A && git commit --allow-empty -m "Updated Documentation"
-        echo $branch
-        echo env.branch
-        echo ${{ steps.config.outputs.branch }}
-        git push -u origin ${{ steps.config.outputs.branch }}
+        git push -u origin docs #$branch #${{ steps.config.outputs.branch }}
 
   # ===========================
   #
