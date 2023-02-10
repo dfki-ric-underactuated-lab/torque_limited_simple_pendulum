@@ -15,7 +15,7 @@ setup(
         'scipy',
         'sympy',
         'mini-cheetah-motor-driver-socketcan',
-        'eigenpy',
+        #'eigenpy',
         #'inputs',
         'evdev',
         'scikit-learn',
