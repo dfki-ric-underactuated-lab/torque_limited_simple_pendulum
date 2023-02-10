@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iLQR Model Predictive Control &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Policy-based Controllers" href="../08.policy_based_controllers.html" />
+    <link rel="prev" title="Region of Attraction (RoA) estimation" href="73.tvlqr/732.tvlqr_roa.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="71.open_loop.html">Open Loop Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="72.pid.html">Proportional-Integral-Derivative (PID) Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="73.tvlqr.html">Time-varying Linear Quadratic Regulator (TVLQR)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">iLQR Model Predictive Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comments">Comments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/simple_pendulum.html">Software Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+      <li class="breadcrumb-item active">iLQR Model Predictive Control</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/chapters/07.trajectory_based_controllers/74.ilqr.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ilqr-model-predictive-control">
+<h1>iLQR Model Predictive Control<a class="headerlink" href="#ilqr-model-predictive-control" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Type: Model Predictive Control</p>
+<p>State/action space contraints: No</p>
+<p>Optimal: Yes</p>
+<p>Versatility: Swingup and stabilization</p>
+</div>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
+<p>This controller uses the trajectory optimization from the iLQR algorithm (see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/trajectory_optimization/ilqr/README.md">iLQR</a>) in an MPC setting. This means that this controller recomputes an optimal trajectory (including the optimal sequence of control inputs) at every time step. The first control input of this solution is returned as control input for the current state. As the optimization happens every timestep the iLQR algorithm is only executed with one forward and one backward pass. As initial trajectory the solution of the previous timestep is parsed to the iLQR solver.</p>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
+<p>pydrake (see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md">getting_started</a>)</p>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
+<p>The controller can be initialized as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">controller</span> <span class="o">=</span> <span class="n">iLQRMPCController</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                               <span class="n">length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                               <span class="n">damping</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                               <span class="n">coulomb_friction</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                               <span class="n">gravity</span><span class="o">=</span><span class="mf">9.81</span><span class="p">,</span>
+                               <span class="n">x0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span>
+                               <span class="n">dt</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
+                               <span class="n">N</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                               <span class="n">max_iter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                               <span class="n">break_cost_redu</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">,</span>
+                               <span class="n">sCu</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span>
+                               <span class="n">sCp</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+                               <span class="n">sCv</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+                               <span class="n">sCen</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                               <span class="n">fCp</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
+                               <span class="n">fCv</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                               <span class="n">fCen</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
+                               <span class="n">dynamics</span><span class="o">=</span><span class="s2">&quot;runge_kutta&quot;</span><span class="p">,</span>
+                               <span class="n">n_x</span><span class="o">=</span><span class="n">n2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mass</span></code>, length, damping, coulomb_friction, gravity are the pendulum parameters (see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/model/README.md">PendulumPlant</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x0</span></code>:   array like, start state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dt</span></code>:   float, time step</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>:    int, time steps the controller plans ahead</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iter</span></code>: int, number of optimization loops</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">break_cost_redu</span></code>: cost at which the optimization stops</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sCu</span></code>: float, stage cost coefficient penalizing the control input every step</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sCp</span></code>: float, stage cost coefficient penalizing the position error every step</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sCv</span></code>: float, stage cost coefficient penalizing the velocity error every step</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sCen</span></code>: float, stage cost coefficient penalizing the energy error every step</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fCp</span></code>: float, final cost coefficient penalizing the position error at the final state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fCv</span></code>: float, final cost coefficient penalizing the velocity error at the final state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fCen</span></code>: float, final cost coefficient penalizing the energy error at the final state</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dynamics</span></code>: string, “euler” for euler integrator, “runge_kutta” for Runge-Kutta integrator</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nx</span></code>: int, nx=2, or n_x=3 for pendulum, n_x=2 uses <span class="math notranslate nohighlight">\([\theta, \dot{\theta}]\)</span> as pendulum state during the optimization, n_x=3 uses <span class="math notranslate nohighlight">\([\cos(\theta), \sin(\theta), \dot{\theta}]\)</span> as state</p></li>
+</ul>
+<p>Before using the controller a goal has to be set via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">controller</span><span class="o">.</span><span class="n">set_goal</span><span class="p">(</span><span class="n">goal</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>which initializes the cost function derivatives inside the controller for the specified goal.</p>
+<p>It is possible to either load an initial guess for the trajectory from a csv file by using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">controller</span><span class="o">.</span><span class="n">load_initial_guess</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;../../../../data/trajectories/iLQR/trajectory.csv&quot;</span>
+</pre></div>
+</div>
+<p>for example a trajectory that has been found with the offline trajectory optimization <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/trajectory_optimization/ilqr">iLQR</a>.
+Alternatively, it is possible to compute a new initial guess with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">controller</span><span class="o">.</span><span class="n">compute_initial_guess</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With an initial guess set the control output can be obtained with the standard controller api:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">controller</span><span class="o">.</span><span class="n">get_control_output</span><span class="p">(</span><span class="n">meas_pos</span><span class="p">,</span> <span class="n">meas_vel</span><span class="p">,</span>
+                              <span class="n">meas_tau</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">meas_time</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>where only the measured position (meas_pos) and measured velocity (meas_vel) are used in the control loop. The function returns</p>
+<ul class="simple">
+<li><p>None, None, u</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">get_control_output</span></code> returns None for the desired position and desired velocity (the iLQR controller is a pure torque controller). <code class="docutils literal notranslate"><span class="pre">u</span></code> is the first control input of the computed control sequence. as described in the Theory section.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>The controller can be tested in simulation with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">sim_ilqrMPC</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
+<p>For coulomb_fricitons != 0 the optimization gets considerably slower.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="73.tvlqr/732.tvlqr_roa.html" class="btn btn-neutral float-left" title="Region of Attraction (RoA) estimation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../08.policy_based_controllers.html" class="btn btn-neutral float-right" title="Policy-based Controllers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

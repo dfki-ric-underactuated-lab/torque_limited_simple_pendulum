@@ -1,0 +1,26 @@
+simple\_pendulum.trajectory\_optimization.ddp
+=====================================================
+
+.. automodule:: simple_pendulum.trajectory_optimization.ddp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.trajectory\_optimization.ddp.boxfddp
+------------------------------------------------------------
+
+.. automodule:: simple_pendulum.trajectory_optimization.ddp.boxfddp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.trajectory\_optimization.ddp.unit\_test
+---------------------------------------------------------------
+
+.. automodule:: simple_pendulum.trajectory_optimization.ddp.unit_test
+   :members:
+   :undoc-members:
+   :show-inheritance:

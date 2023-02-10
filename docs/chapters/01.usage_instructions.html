@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage Instructions &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Physics of a Simple Pendulum" href="02.model.html" />
+    <link rel="prev" title="How to test the code" href="00.installation_guide/03.code_testing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-python-driver-for-t-motor-ak80-6-actuator">Installing Python Driver for T-Motor AK80-6 Actuator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-can-interface">Setting up the CAN interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-communication">Testing Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-different-controllers-for-the-swing-up">Using different Controllers for the Swing-Up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#saving-results">Saving Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="02.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generated/simple_pendulum.html">Software Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage Instructions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/chapters/01.usage_instructions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage-instructions">
+<h1>Usage Instructions<a class="headerlink" href="#usage-instructions" title="Permalink to this heading"></a></h1>
+<section id="installing-python-driver-for-t-motor-ak80-6-actuator">
+<h2>Installing Python Driver for T-Motor AK80-6 Actuator<a class="headerlink" href="#installing-python-driver-for-t-motor-ak80-6-actuator" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Clone the python motor driver from: <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/mini-cheetah-tmotor-python-can">https://github.com/dfki-ric-underactuated-lab/mini-cheetah-tmotor-python-can</a></p></li>
+<li><p>Modify the <cite>.bashrc</cite> file to add the driver to your python path. Make sure you restart your terminal after this step.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># mini-cheetah driver
+export PYTHONPATH=~/path/from/home/to/underactuated-robotics/python-motor-driver:${PYTHONPATH}
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Make sure you setup your can interface first. The easiest way to do this is to run <cite>sh setup_caninterface.sh</cite> from the <cite>mini-cheetah-motor/python-motor-driver</cite> folder.
+To run an offline computed swingup trajectory, use: <cite>python3 swingup_control.py</cite>. The script assumes can id as <cite>‘can0’</cite> and motor id as <cite>0x01</cite>. If these parameters differ, please modify them within the script.
+Alternatively, the motor driver can also be installed via pip from <a class="reference external" href="https://pypi.org/project/mini-cheetah-motor-driver-socketcan/">https://pypi.org/project/mini-cheetah-motor-driver-socketcan/</a>.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">mini</span><span class="o">-</span><span class="n">cheetah</span><span class="o">-</span><span class="n">motor</span><span class="o">-</span><span class="n">driver</span><span class="o">-</span><span class="n">socketcan</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-up-the-can-interface">
+<h2>Setting up the CAN interface<a class="headerlink" href="#setting-up-the-can-interface" title="Permalink to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Run this command and make sure that <cite>can0</cite> (or any other can interface depending on the system)shows up as an interface after connecting the USB cable to your laptop: <cite>ip link show</cite></p></li>
+<li><p>Configure the <cite>can0</cite> interface to have a 1 Mbaud communication frequency: <cite>sudo ip link set can0 type can bitrate 1000000</cite></p></li>
+<li><p>To bring up the <cite>can0</cite> interface, run: <cite>sudo ip link set up can0</cite></p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, one could run the shell script <cite>setup_caninterface.sh</cite> which will do the job for you.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p>To change motor parameters such as CAN ID or to calibrate the encoder, a serial connection is used. The serial terminal GUI used on linux for this purpose is <cite>cutecom</cite></p></li>
+</ol>
+</section>
+<section id="testing-communication">
+<h2>Testing Communication<a class="headerlink" href="#testing-communication" title="Permalink to this heading"></a></h2>
+<p>To enable one motor at <cite>0x01</cite>, set zero position and disable the motor, run: <cite>python3 can_motorlib_test.py can0</cite></p>
+<p><strong>Use in Scripts:</strong> Add the following import to your python script: <cite>from canmotorlib import CanMotorController</cite> after making sure this folder is available in the import path/PYTHONPATH.</p>
+<p>Example Motor Initialization:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`motor = CanMotorController(can_socket=&#39;can0&#39;, motor_id=0x01, socket_timeout=0.5)`
+</pre></div>
+</div>
+<p>Available Functions:</p>
+<ul class="simple">
+<li><p><cite>enable_motor()</cite></p></li>
+<li><p><cite>disable_motor()</cite></p></li>
+<li><p><cite>set_zero_position()</cite></p></li>
+<li><p><cite>send_deg_command(position_in_degrees, velocity_in_degrees, Kp, Kd, tau_ff):</cite></p></li>
+<li><p><cite>send_rad_command(position_in_radians, velocity_in_radians, Kp, Kd, tau_ff):</cite></p></li>
+</ul>
+<p>All functions return current position, velocity, torque in SI units except for <cite>send_deg_command</cite>.</p>
+<p><strong>Performance Profiler:</strong> Sends and received 1000 zero commands to measure the communication frequency with 1/2 motors. Be careful as the motor torque will be set to zero.</p>
+</section>
+<section id="using-different-controllers-for-the-swing-up">
+<h2>Using different Controllers for the Swing-Up<a class="headerlink" href="#using-different-controllers-for-the-swing-up" title="Permalink to this heading"></a></h2>
+<p>All implemented controllers can be called from the <cite>main.py</cite> file. The desired controller is selected via a required flag, e.g. if you want to execute the gravity compensation experiment the corresponding command would then be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">gravity</span>
+</pre></div>
+</div>
+<p>Make sure you execute the command from the directory <cite>/software/python/examples_real_system</cite> otherwise you have to specify the path to <cite>main.py</cite> as well. If you want to autosave all data from your experiment use the optional flag <cite>-save</cite> together with the flag required for the controller.</p>
+<p>To get an overview of all possible arguments display help documentation via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+</section>
+<section id="saving-results">
+<h2>Saving Results<a class="headerlink" href="#saving-results" title="Permalink to this heading"></a></h2>
+<p>The results folder serves as the directory, where all results generated from the python code shall be stored. The distinct seperation between python script files and generated output files helps to keep the python package clear and tidy. We provide some example output data from the very start, so that you may see what results each script produces even before you run the code. The tools to create result files from the respective experiment data are located within the python package under <cite>/utilities</cite>, <cite>plot.py</cite>, <cite>plot_policy.py</cite> and <cite>process_data.py</cite>.</p>
+<p>In general particular functions get called from <cite>main.py</cite> or another script to produce the desired output, which improves resuability of the utilities and keeps the code concise. The results of each experiment are saved in a new folder, which is automatically assigned a timestamp and an appropriate name.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="00.installation_guide/03.code_testing.html" class="btn btn-neutral float-left" title="How to test the code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="02.model.html" class="btn btn-neutral float-right" title="The Physics of a Simple Pendulum" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

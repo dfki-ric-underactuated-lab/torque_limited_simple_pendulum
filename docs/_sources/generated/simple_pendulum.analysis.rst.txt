@@ -1,0 +1,26 @@
+simple\_pendulum.analysis
+=================================
+
+.. automodule:: simple_pendulum.analysis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.analysis.benchmark
+------------------------------------------
+
+.. automodule:: simple_pendulum.analysis.benchmark
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.analysis.plot\_policy
+---------------------------------------------
+
+.. automodule:: simple_pendulum.analysis.plot_policy
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trajectory optimization using direct collocation &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Iterative Linear Quadratic Requlator (iLQR)" href="52.iLQR.html" />
+    <link rel="prev" title="Trajectory Optimization" href="../05.trajectory_optimization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05.trajectory_optimization.html">Trajectory Optimization</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Trajectory optimization using direct collocation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="52.iLQR.html">Iterative Linear Quadratic Requlator (iLQR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="53.fddp.html">Direct Optimal Control based on the FDDP algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/simple_pendulum.html">Software Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../05.trajectory_optimization.html">Trajectory Optimization</a></li>
+      <li class="breadcrumb-item active">Trajectory optimization using direct collocation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/chapters/05.trajectory_optimization/51.direct_collocation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="trajectory-optimization-using-direct-collocation">
+<h1>Trajectory optimization using direct collocation<a class="headerlink" href="#trajectory-optimization-using-direct-collocation" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Type: Trajectory Optimization</p>
+<p>State/action space constraints: Yes</p>
+<p>Optimal: Yes</p>
+<p>Versatility: Swingup and stabilization</p>
+</div>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
+<p>Direct collocation is an approach from <strong>collocation methods</strong> , which transforms the optimal control problem into a mathematical programming problem. The numerical solution can be achieved directly by solving the new problem using sequential quadratic programming <a class="reference external" href="https://arc.aiaa.org/doi/pdf/10.2514/3.20223">[1]</a> <a class="reference external" href="http://underactuated.mit.edu/trajopt.html">[2]</a>.
+The formulation of the optimization problem at the collocation points is as follows:</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+        \min_{{\bf{x}}[.],{{u}}[.]} \sum_{n_0}^{N-1}&amp;
+          h_{n}l({{u}}[n])\\
+        \textrm{s.t.} \quad &amp; \dot{{\bf{x}}}(t_{c,n})=f({\bf{x}}(t_{c,n}),u(t_{c,n})), \hspace{0.2cm} \forall n \in [0,N-1] \\
+          &amp; |u| \leq u_{max}\\
+          &amp; {\bf{x}}[0] = {\bf{x}}_0\\
+          &amp; {\bf{x}}[N] = {\bf{x}}_F
+\end{align*}</div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\bf{x}\)</span> = <span class="math notranslate nohighlight">\([\theta(.),\dot\theta(.)]^T\)</span>&gt;: Angular position and velocity are the states of the system</p></li>
+<li><p><cite>u</cite>: Input torque of the system applied by motor</p></li>
+<li><p><cite>N = 21</cite>: Number of break points in the trajectory</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_k = t_{k} - t_k\)</span>: Time interval between two breaking points</p></li>
+<li><p><span class="math notranslate nohighlight">\(l(u) = u^T R u\)</span>: Running cost</p></li>
+<li><p><cite>R = 10</cite>: Input weight</p></li>
+<li><p><span class="math notranslate nohighlight">\(\dot{\bf{x}}(t_{c,n})\)</span>: <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/model">Nonlinear dynamics of the pendulum</a> considered as equality constraint at collocation point</p></li>
+<li><p><span class="math notranslate nohighlight">\(t_{c,k} = \frac{1}{2}\left(t_k t_{k1}\right)\)</span>: A collocation point at time instant <span class="math notranslate nohighlight">\(k,(i.e.,{\bf{x}}[k] = {\bf{x}}(t_k))\)</span>,in which the collocation constraints depends on the decision variables <span class="math notranslate nohighlight">\({\bf{x}}[k], {\bf{x}}[k2, B1], u[k], u[k2, B1]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(u_{max} = 10\)</span>: Maximum torque limit</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bf{x}_0 = [\theta = 0, \dot\theta = 0]\)</span>: Initial state constraint</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bf{x}_F = [\theta = \pi,\dot\theta = 0]\)</span>: Terminal state constraint</p></li>
+</ul>
+<p>Minimum and a maximum spacing between sample times set to 0.05 and 0.5`s`. It assumes a <strong>first-order hold</strong> on the input trajectory, in which the signal is reconstructed as a piecewise linear approximation to the original sampled signal.</p>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
+<p>The direct collocation algorithm explained above can be executed by using the <code class="docutils literal notranslate"><span class="pre">DirectCollocationCalculator</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dircal</span> <span class="o">=</span> <span class="n">DirectCollocationCalculator</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To parse the pendulum parameters to the calculator, do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dircal</span><span class="o">.</span><span class="n">init_pendulum</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                     <span class="n">length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                     <span class="n">damping</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                     <span class="n">gravity</span><span class="o">=</span><span class="mf">9.81</span><span class="p">,</span>
+                     <span class="n">torque_limit</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The optimal trajectory can be computed with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_trajectory</span><span class="p">,</span> <span class="n">dircol</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">dircal</span><span class="o">.</span><span class="n">compute_trajectory</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+                                                         <span class="n">max_dt</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                                                         <span class="n">start_state</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                                                         <span class="n">goal_state</span><span class="o">=</span><span class="p">[</span><span class="mf">3.14</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The method returns three pydrake objects containing the optimization results. The trajectory as numpy arrays can be extracted from these objects with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">XD</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">dircal</span><span class="o">.</span><span class="n">extract_trajectory</span><span class="p">(</span><span class="n">x_trajectory</span><span class="p">,</span> <span class="n">dircol</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where T is the time, X the position, XD the velocity and U the control trajectory. The parameter N determines here how with how many steps the trajectories are sampled.</p>
+<p>The phase space of the trajectory can be plotted with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dircal</span><span class="o">.</span><span class="n">plot_phase_space_trajectory</span><span class="p">(</span><span class="n">x_trajectory</span><span class="p">,</span> <span class="n">save_to</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If a string with a path to a file location is parsed with ‘save_to’ the plot is saved there.</p>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<p>The trajectory optimization using direct collocation for the pendulum swing-up is accomplished by taking advantage of <a class="reference external" href="https://drake.mit.edu/">Drake toolbox [3]</a>.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://arc.aiaa.org/doi/pdf/10.2514/3.20223">[1] Hargraves, Charles R., and Stephen W. Paris. “Direct trajectory optimization using nonlinear programming and collocation.” Journal of guidance, control, and dynamics 10.4 (1987): 338-342</a></p>
+<p><a class="reference external" href="http://underactuated.mit.edu/">[2] Russ Tedrake. Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation (Course Notes for MIT 6.832).</a></p>
+<p><cite>[3] Model-Based Design and Verification for Robotics &lt;https://drake.mit.edu/&gt;</cite></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../05.trajectory_optimization.html" class="btn btn-neutral float-left" title="Trajectory Optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="52.iLQR.html" class="btn btn-neutral float-right" title="Iterative Linear Quadratic Requlator (iLQR)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

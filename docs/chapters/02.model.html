@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Physics of a Simple Pendulum &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Simulator" href="03.simulation.html" />
+    <link rel="prev" title="Usage Instructions" href="01.usage_instructions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The Physics of a Simple Pendulum</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#equation-of-motion">Equation of Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#energy-of-the-pendulum">Energy of the Pendulum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pendulumplant"><code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-identification">Parameter Identification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="03.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generated/simple_pendulum.html">Software Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">The Physics of a Simple Pendulum</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/chapters/02.model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-physics-of-a-simple-pendulum">
+<h1>The Physics of a Simple Pendulum<a class="headerlink" href="#the-physics-of-a-simple-pendulum" title="Permalink to this heading"></a></h1>
+<section id="equation-of-motion">
+<h2>Equation of Motion<a class="headerlink" href="#equation-of-motion" title="Permalink to this heading"></a></h2>
+<div class="math notranslate nohighlight">
+\[I\ddot{\theta} + b\dot{\theta} + c_f \text{sign}(\dot{\theta}) + mgl \sin(\theta) = \tau\]</div>
+<a class="reference internal image-reference" href="../_images/pendulum.png"><img alt="../_images/pendulum.png" class="align-center" src="../_images/pendulum.png" style="height: 200px;" /></a>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta\)</span>, <span class="math notranslate nohighlight">\(\dot{\theta}\)</span>, <span class="math notranslate nohighlight">\(\ddot{\theta}\)</span> are the angular displacement, angular velocity and angular acceleration of the pendulum. <span class="math notranslate nohighlight">\(\theta=0\)</span> means the pendulum is at its stable fixpoint (i.e. hanging down).</p></li>
+<li><p><span class="math notranslate nohighlight">\(I\)</span> is the inertia of the pendulum. For a point mass: <span class="math notranslate nohighlight">\(I=ml^2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(m\)</span> mass of the pendulum</p></li>
+<li><p><span class="math notranslate nohighlight">\(l\)</span> length of the pendulum</p></li>
+<li><p><span class="math notranslate nohighlight">\(b\)</span> damping friction coefficient</p></li>
+<li><p><span class="math notranslate nohighlight">\(c_f\)</span> coulomb friction coefficient</p></li>
+<li><p><span class="math notranslate nohighlight">\(g\)</span> gravity (positive direction points down)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\tau\)</span> torque applied by the motor</p></li>
+</ul>
+<p>The pendulum has two fixpoints, one of them being stable (the pendulum hanging down) and the other being unstable (the pendulum pointing upwards). A challenge from the control point of view is to swing the pendulum up to the unstable fixpoint and stabilize the pendulum in that state.</p>
+</section>
+<section id="energy-of-the-pendulum">
+<h2>Energy of the Pendulum<a class="headerlink" href="#energy-of-the-pendulum" title="Permalink to this heading"></a></h2>
+<ul>
+<li><p>Kinetic Energy (<cite>K</cite>)</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[K = \frac{1}{2}ml^2\dot{\theta}^2\]</div>
+</div></blockquote>
+</li>
+<li><p>Potential Energy (<cite>U</cite>)</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[U = - mgl\cos(\theta)\]</div>
+</div></blockquote>
+</li>
+<li><p>Total Energy (<cite>E</cite>)</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[E = K + U\]</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="pendulumplant">
+<h2><code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code><a class="headerlink" href="#pendulumplant" title="Permalink to this heading"></a></h2>
+<p>The PendulumPlant class contains the kinematics and dynamics functions of the simple, torque limited pendulum.</p>
+<p>The pendulum plant can be initialized as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pendulum</span> <span class="o">=</span> <span class="n">PendulumPlant</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                         <span class="n">length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                         <span class="n">damping</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                         <span class="n">gravity</span><span class="o">=</span><span class="mf">9.81</span><span class="p">,</span>
+                         <span class="n">coulomb_fric</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
+                         <span class="n">inertia</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                         <span class="n">torque_limit</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where the input parameters correspond to the parameters in the equaiton of motion (1). The input inertia=None is the default and the intertia is set to the inertia of a point mass at the end of the pendulum stick <span class="math notranslate nohighlight">\(I=ml^2\)</span>. Additionally, a torque_limit can be passed to the class. Torques greater than the torque_limit or smaller than -torque_limit will be cut off.</p>
+<p>The plant can now be used to calculate the forward kinematics with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]]</span> <span class="o">=</span> <span class="n">pendulum</span><span class="o">.</span><span class="n">forward_kinematics</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where pos is the angle <span class="math notranslate nohighlight">\(\theta\)</span> of interest. This function returns the (x,y) coordinates of the tip of the pendulum inside a list. The return is a list of all link coordinates of the system (as the pendulum has only one, this returns [[x,y]]).</p>
+<p>Similarily, inverse kinematics can be computed with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="n">pendulum</span><span class="o">.</span><span class="n">inverse_kinematics</span><span class="p">(</span><span class="n">ee_pos</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where ee_pos is a list of the end_effector coordinates [x,y]. pendulum.inverse_kinematics returns the angle of the system as a float.</p>
+<p>Forward dynamics can be calculated with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">accn</span> <span class="o">=</span> <span class="n">pendulum</span><span class="o">.</span><span class="n">forward_dynamics</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">tau</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where state is the state of the pendulum [<span class="math notranslate nohighlight">\(\theta, \dot{theta}\)</span>] and tau the motor torque as a float. The function returns the angular acceleration.</p>
+<p>For inverse kinematics:</p>
+<blockquote>
+<div><p>tau = pendulum.inverse_kinematics(state, accn)</p>
+</div></blockquote>
+<p>where again state is the state of the pendulum [<span class="math notranslate nohighlight">\(\theta, \dot{theta}\)</span>] and accn the acceleration. The function return the motor torque <span class="math notranslate nohighlight">\(\tau\)</span> that would be neccessary to produce the desired acceleration at the specified state.</p>
+<p>Finally, the function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">pendulum</span><span class="o">.</span><span class="n">rhs</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">tau</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns the integrand of the equaitons of motion, i.e. the object that can be calculated with a time step to obtain the forward evolution of the system. The API of the function is written to match the API requested inside the simulator class.
+<cite>t</cite> is the time which is not used in the pendulum dynamics (the dynamics do not change with time). state again is the pendulum state and tau the motor torque. res is a numpy array with shape np.shape(res)=(2,) and res = [<span class="math notranslate nohighlight">\(\dot{\theta}, \ddot{theta}\)</span>].</p>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h3>
+<p>The class is inteded to be used inside the simulator class.</p>
+</section>
+<section id="parameter-identification">
+<h3>Parameter Identification<a class="headerlink" href="#parameter-identification" title="Permalink to this heading"></a></h3>
+<p>The rigid-body model derived from a-priori known geometry as described previously has the form</p>
+<div class="math notranslate nohighlight">
+\[\tau(t)= \mathbf{Y} \left(\theta(t), \dot \theta(t), \ddot \theta(t)\right) \; \lambda\]</div>
+<p>where actuation torques <span class="math notranslate nohighlight">\(\tau\)</span>, joint positions <span class="math notranslate nohighlight">\(\theta(t)\)</span>, velocities <span class="math notranslate nohighlight">\(\dot{\theta}(t)\)</span> and accelerations <span class="math notranslate nohighlight">\(\ddot{\theta}(t)\)</span> depend on time <cite>t</cite> and <span class="math notranslate nohighlight">\(\lambda\in\mathbb{R}^{6n}\)</span> denotes the parameter vector.
+Two additional parameters for Coulomb and viscous friction are added to the model, <span class="math notranslate nohighlight">\(F_{c,i}\)</span> and F_{v,i}, in order to take joint friction into account. The required torques for model-based control can be measured using stiff position control and closely tracking the reference trajectory.
+A sufﬁciently rich, periodic, band-limited excitation trajectory is obtained by modifying the parameters of a Fourier-Series as described by [^fn3]. The dynamic parameters <span class="math notranslate nohighlight">\(\hat{\lambda}\)</span> are estimated through least squares optimization between measured torque and computed torque</p>
+<div class="math notranslate nohighlight">
+\[\hat{\lambda} = \underset{\lambda}{\text{argmin}} \left( (\mathit{\Phi} \lambda - \tau_m)^T (\mathit{\Phi} \lambda - \tau_m) \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathit{\Phi}\)</span> denotes the identiﬁcation matrix.</p>
+</section>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Bruno Siciliano et al.</strong> <em>Robotics</em>. Red. by Michael J. Grimble and Michael A. Johnson. Advanced Textbooks in Control and Signal Processing. London: Springer  London,  2009. <a class="reference external" href="http://link.springer.com/10.1007/978-1-84628-642-1">ISBN:  978-1-84628-641-4  978-1-84628-642-1. DOI: 10.1007/978-1-84628-642-1 (visited on 09/27/2021)</a>.</p></li>
+<li><p><strong>Vinzenz Bargsten, José de Gea Fernández, and Yohannes Kassahun.</strong> <em>Experimental Robot Inverse Dynamics Identification Using Classical and Machine Learning Techniques</em>. In: <a class="reference external" href="https://www.dfki.de/fileadmin/user_upload/import/8264_ISR16_Dynamics_Identification.pdf">ed. by International Symposium on Robotics. OCLC: 953281127. 2016. (visited on 09/27/2021)</a>.</p></li>
+<li><p><strong>Jan  Swevers,  Walter  Verdonck,  and  Joris  De  Schutter.</strong> <em>Dynamic  ModelIdentification for Industrial Robots</em>. In: <a class="reference external" href="https://ieeexplore.ieee.org/document/4303475/">IEEE Control Systems27.5 (Oct.2007), pp. 58–71. ISSN: 1066-033X, 1941-000X.doi:10.1109/MCS.2007.904659 (visited on 09/27/2021)</a>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="01.usage_instructions.html" class="btn btn-neutral float-left" title="Usage Instructions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="03.simulation.html" class="btn btn-neutral float-right" title="Simulator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

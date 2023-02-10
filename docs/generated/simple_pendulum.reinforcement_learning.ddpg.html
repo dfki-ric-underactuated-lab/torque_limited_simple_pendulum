@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>simple_pendulum.reinforcement_learning.ddpg &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="simple_pendulum.reinforcement_learning.sac" href="simple_pendulum.reinforcement_learning.sac.html" />
+    <link rel="prev" title="simple_pendulum.reinforcement_learning" href="simple_pendulum.reinforcement_learning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/02.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/03.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chapters/11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="simple_pendulum.html">Software Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="simple_pendulum.html#api-reference">API Reference</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="simple_pendulum.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.analysis.html">simple_pendulum.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.controllers.html">simple_pendulum.controllers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.model.html">simple_pendulum.model</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html">simple_pendulum.reinforcement_learning</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html#reinforcement-learning"><code class="docutils literal notranslate"><span class="pre">Reinforcement</span> <span class="pre">Learning</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="simple_pendulum.reinforcement_learning.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.simulation.html">simple_pendulum.simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.trajectory_optimization.html">simple_pendulum.trajectory_optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="simple_pendulum.utilities.html">simple_pendulum.utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="simple_pendulum.html">simple_pendulum</a></li>
+          <li class="breadcrumb-item"><a href="simple_pendulum.reinforcement_learning.html">simple_pendulum.reinforcement_learning</a></li>
+      <li class="breadcrumb-item active">simple_pendulum.reinforcement_learning.ddpg</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/simple_pendulum.reinforcement_learning.ddpg.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-simple_pendulum.reinforcement_learning.ddpg">
+<span id="simple-pendulum-reinforcement-learning-ddpg"></span><h1>simple_pendulum.reinforcement_learning.ddpg<a class="headerlink" href="#module-simple_pendulum.reinforcement_learning.ddpg" title="Permalink to this heading"></a></h1>
+<section id="deep-determininstic-policy-gradient-ddpg-training">
+<h2>Deep Determininstic Policy Gradient (DDPG) Training<a class="headerlink" href="#deep-determininstic-policy-gradient-ddpg-training" title="Permalink to this heading"></a></h2>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-simple_pendulum.reinforcement_learning.ddpg.agent">
+<span id="simple-pendulum-reinforcement-learning-ddpg-agent"></span><h2>simple_pendulum.reinforcement_learning.ddpg.agent<a class="headerlink" href="#module-simple_pendulum.reinforcement_learning.ddpg.agent" title="Permalink to this heading"></a></h2>
+<section id="agent">
+<h3>Agent<a class="headerlink" href="#agent" title="Permalink to this heading"></a></h3>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.agent.Agent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.reinforcement_learning.ddpg.agent.</span></span><span class="sig-name descname"><span class="pre">Agent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_limits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor_lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critic_lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critic_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_actor_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_critic_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.agent.Agent" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.agent.Agent.get_action">
+<span class="sig-name descname"><span class="pre">get_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.get_action" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.agent.Agent.load_model">
+<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.load_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.agent.Agent.prep_state">
+<span class="sig-name descname"><span class="pre">prep_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.prep_state" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.agent.Agent.save_model">
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.save_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.agent.Agent.scale_action">
+<span class="sig-name descname"><span class="pre">scale_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mini</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.scale_action" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.agent.Agent.train_on">
+<span class="sig-name descname"><span class="pre">train_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.train_on" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.agent.Agent.update_target_weights">
+<span class="sig-name descname"><span class="pre">update_target_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.update_target_weights" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simple_pendulum.reinforcement_learning.ddpg.ddpg">
+<span id="simple-pendulum-reinforcement-learning-ddpg-ddpg"></span><h2>simple_pendulum.reinforcement_learning.ddpg.ddpg<a class="headerlink" href="#module-simple_pendulum.reinforcement_learning.ddpg.ddpg" title="Permalink to this heading"></a></h2>
+<section id="ddpg-trainer">
+<h3>DDPG Trainer<a class="headerlink" href="#ddpg-trainer" title="Permalink to this heading"></a></h3>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.reinforcement_learning.ddpg.ddpg.</span></span><span class="sig-name descname"><span class="pre">ddpg_trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validation_reps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_every_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.init_agent">
+<span class="sig-name descname"><span class="pre">init_agent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replay_buffer_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critic_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.init_agent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.init_environment">
+<span class="sig-name descname"><span class="pre">init_environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runge_kutta'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'open_ai_gym'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validation_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3.141592653589793,</span> <span class="pre">0.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_target_epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01,</span> <span class="pre">0.01]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_action</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'everywhere'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.init_environment" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the training environment.
+This includes the simulation parameters of the pendulum.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.init_pendulum">
+<span class="sig-name descname"><span class="pre">init_pendulum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.57288</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inertia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coulomb_friction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9.81</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.init_pendulum" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the pendulum parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mass</strong><span class="classifier">float, default=0.57288</span></dt><dd><p>mass of the pendulum [kg]</p>
+</dd>
+<dt><strong>length</strong><span class="classifier">float, default=0.5</span></dt><dd><p>length of the pendulum [m]</p>
+</dd>
+<dt><strong>inertia</strong><span class="classifier">float, default=None</span></dt><dd><p>inertia of the pendulum [kg m^2]
+defaults to point mass inertia (mass*length^2)</p>
+</dd>
+<dt><strong>damping</strong><span class="classifier">float, default=0.15</span></dt><dd><p>damping factor of the pendulum [kg m/s]</p>
+</dd>
+<dt><strong>coulomb_friction</strong><span class="classifier">float, default=0.0</span></dt><dd><p>coulomb friciton of the pendulum [Nm]</p>
+</dd>
+<dt><strong>gravity</strong><span class="classifier">float, default=9.81</span></dt><dd><p>gravity (positive direction points down) [m/s^2]</p>
+</dd>
+<dt><strong>torque_limit</strong><span class="classifier">float, default=2.0</span></dt><dd><p>the torque_limit of the pendulum actuator</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.load" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.save" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_episodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.train" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simple_pendulum.reinforcement_learning.ddpg.models">
+<span id="simple-pendulum-reinforcement-learning-ddpg-models"></span><h2>simple_pendulum.reinforcement_learning.ddpg.models<a class="headerlink" href="#module-simple_pendulum.reinforcement_learning.ddpg.models" title="Permalink to this heading"></a></h2>
+<section id="models">
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this heading"></a></h3>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.models.get_actor">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.reinforcement_learning.ddpg.models.</span></span><span class="sig-name descname"><span class="pre">get_actor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.models.get_actor" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.models.get_critic">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.reinforcement_learning.ddpg.models.</span></span><span class="sig-name descname"><span class="pre">get_critic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.models.get_critic" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-simple_pendulum.reinforcement_learning.ddpg.noise">
+<span id="simple-pendulum-reinforcement-learning-ddpg-noise"></span><h2>simple_pendulum.reinforcement_learning.ddpg.noise<a class="headerlink" href="#module-simple_pendulum.reinforcement_learning.ddpg.noise" title="Permalink to this heading"></a></h2>
+<section id="noise">
+<h3>Noise<a class="headerlink" href="#noise" title="Permalink to this heading"></a></h3>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.noise.OUActionNoise">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.reinforcement_learning.ddpg.noise.</span></span><span class="sig-name descname"><span class="pre">OUActionNoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_deviation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.noise.OUActionNoise" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.noise.OUActionNoise.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.noise.OUActionNoise.reset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simple_pendulum.reinforcement_learning.ddpg.replay_buffer">
+<span id="simple-pendulum-reinforcement-learning-ddpg-replay-buffer"></span><h2>simple_pendulum.reinforcement_learning.ddpg.replay_buffer<a class="headerlink" href="#module-simple_pendulum.reinforcement_learning.ddpg.replay_buffer" title="Permalink to this heading"></a></h2>
+<section id="replay-buffer">
+<h3>Replay Buffer<a class="headerlink" href="#replay-buffer" title="Permalink to this heading"></a></h3>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.reinforcement_learning.ddpg.replay_buffer.</span></span><span class="sig-name descname"><span class="pre">ReplayBuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Replay buffer class to store experiences for a
+reinforcement learning agent.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs_tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.append" title="Permalink to this definition"></a></dt>
+<dd><p>Add an experience to the replay buffer.
+When adding experiences beyond the max_size limit,
+the first entry is deleted.
+An observation consists of (state, action, next_state, reward, done)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>obs_tuple: array-like</strong></dt><dd><p>an observation (s,a,s’,r,d) to store in the buffer</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.clear" title="Permalink to this definition"></a></dt>
+<dd><p>Clear the Replay Buffer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.sample_batch">
+<span class="sig-name descname"><span class="pre">sample_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.reinforcement_learning.ddpg.replay_buffer.ReplayBuffer.sample_batch" title="Permalink to this definition"></a></dt>
+<dd><p>Sample a batch from the replay buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>batch_size: int</strong></dt><dd><p>number of samples in the returned batch</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><p>(s_batch,a_batch,s’_batch,r_batch,d_batch)
+a tuple of batches of state, action, reward, next_state, done</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="simple_pendulum.reinforcement_learning.html" class="btn btn-neutral float-left" title="simple_pendulum.reinforcement_learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_pendulum.reinforcement_learning.sac.html" class="btn btn-neutral float-right" title="simple_pendulum.reinforcement_learning.sac" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

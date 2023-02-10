@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulator &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hardware Setup" href="04.hardware.html" />
+    <link rel="prev" title="The Physics of a Simple Pendulum" href="02.model.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Simulator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-simulator">The simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-gym-environment">The gym environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../generated/simple_pendulum.html">Software Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Simulator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/chapters/03.simulation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="simulator">
+<h1>Simulator<a class="headerlink" href="#simulator" title="Permalink to this heading"></a></h1>
+<p>The simulator class can simulate and animate the pendulum motion forward in time.
+The gym environment can be used for reinforcement learning.</p>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
+<section id="the-simulator">
+<h3>The simulator<a class="headerlink" href="#the-simulator" title="Permalink to this heading"></a></h3>
+<p>The simulator should by initialized with a plant (here the <code class="docutils literal notranslate"><span class="pre">PendulumPlant</span></code>) as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pendulum</span> <span class="o">=</span> <span class="n">PendulumPlant</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">Simulator</span><span class="p">(</span><span class="n">plant</span><span class="o">=</span><span class="n">pendulum</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To simulate the dynamics of the plant forward in time call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">TAU</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                         <span class="n">x0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                         <span class="n">tf</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+                         <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                         <span class="n">controller</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                         <span class="n">integrator</span><span class="o">=</span><span class="s2">&quot;runge_kutta&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The inputs of the function are:</p>
+<ul class="simple">
+<li><p><strong>t0</strong>: float, start time, unit: s</p></li>
+<li><p><strong>x0</strong>: start state (dimension as the plant expects it)</p></li>
+<li><p><strong>tf</strong>: float, final time, unit: s</p></li>
+<li><p><strong>dt</strong>: float, time step, unit: s</p></li>
+<li><p><strong>controller</strong>: controller that computes the motor torque(s) to be applied. The controller should have the structure of the AbstractController class in utilities/abstract_controller. If controller=None, no controller is used and the free system is simulated.</p></li>
+<li><p><strong>integrator</strong>: string, <code class="docutils literal notranslate"><span class="pre">euler</span></code> for euler integrator, <code class="docutils literal notranslate"><span class="pre">runge_kutta</span></code> for Runge-Kutta integrator</p></li>
+</ul>
+<p>The function returns three lists:</p>
+<ul class="simple">
+<li><p><strong>T</strong>: List of time values</p></li>
+<li><p><strong>X</strong>: List of states</p></li>
+<li><p><strong>TAU</strong>: List of actuations</p></li>
+</ul>
+<p>The same simulation can be executed together with an animation of the plant (only implemented for 2d serial chains). For the simuation with animation call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">TAU</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">simulate_and_animate</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                                     <span class="n">x0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                                     <span class="n">tf</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+                                     <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                                     <span class="n">controller</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                     <span class="n">integrator</span><span class="o">=</span><span class="s2">&quot;runge_kutta&quot;</span><span class="p">,</span>
+                                     <span class="n">phase_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">save_video</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                     <span class="n">video_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The additional parameters are:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>phase plot</strong>: <code class="docutils literal notranslate"><span class="pre">bool</span></code></dt><dd><p>Whether to show a phase plot along the animation plot</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>save_video</strong>: <code class="docutils literal notranslate"><span class="pre">bool</span></code></dt><dd><p>Whether to save the animation as mp4 video</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>video_name</strong>: <code class="docutils literal notranslate"><span class="pre">string</span></code></dt><dd><p>Name of the file where the video should be saved (only used if save_video=True)</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="the-gym-environment">
+<h3>The gym environment<a class="headerlink" href="#the-gym-environment" title="Permalink to this heading"></a></h3>
+<p>The environment can be initialized with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pendulum</span> <span class="o">=</span> <span class="n">PendulumPlant</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">Simulator</span><span class="p">(</span><span class="n">plant</span><span class="o">=</span><span class="n">pendulum</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">SimplePendulumEnv</span><span class="p">(</span><span class="n">simulator</span><span class="o">=</span><span class="n">sim</span><span class="p">,</span>
+                        <span class="n">max_steps</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+                        <span class="n">target</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                        <span class="n">state_target_epsilon</span><span class="o">=</span><span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-2</span><span class="p">],</span>
+                        <span class="n">reward_type</span><span class="o">=</span><span class="s1">&#39;continuous&#39;</span><span class="p">,</span>
+                        <span class="n">dt</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+                        <span class="n">integrator</span><span class="o">=</span><span class="s1">&#39;runge_kutta&#39;</span><span class="p">,</span>
+                        <span class="n">state_representation</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="n">validation_limit</span><span class="o">=-</span><span class="mi">150</span><span class="p">,</span>
+                        <span class="n">scale_action</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">random_init</span><span class="o">=</span><span class="s2">&quot;False&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The parameters are:</p>
+<ul>
+<li><dl class="simple">
+<dt><strong>simulator</strong>:</dt><dd><p>Simulator object</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>max_steps</strong>: <code class="docutils literal notranslate"><span class="pre">int</span></code>, default=``5000``</dt><dd><p>Maximum steps the agent can take before the episode is terminated</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>target</strong>: <code class="docutils literal notranslate"><span class="pre">array-like</span></code>, default=``[np.pi, 0.0]``</dt><dd><p>The target state of the pendulum</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>state_target_epsilon</strong>: <code class="docutils literal notranslate"><span class="pre">array-like</span></code>, default=``[1e-2, 1e-2]``</dt><dd><p>Target epsilon for discrete reward type</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>reward_type</strong>: <code class="docutils literal notranslate"><span class="pre">string</span></code>, default=``continuous``</dt><dd><p>The reward type selects the reward function which is used
+Options: <code class="docutils literal notranslate"><span class="pre">continuous</span></code>, <code class="docutils literal notranslate"><span class="pre">discrete</span></code>, <code class="docutils literal notranslate"><span class="pre">soft_binary</span></code>, <code class="docutils literal notranslate"><span class="pre">soft_binary_with_repellor</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>dt</strong>: <code class="docutils literal notranslate"><span class="pre">float</span></code>, default=``1e-3``</dt><dd><p>Timestep for the simulation</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>integrator</strong>: <code class="docutils literal notranslate"><span class="pre">string</span></code>, default=’runge_kutta’</dt><dd><p>The integrator which is used by the simulator
+Options: <code class="docutils literal notranslate"><span class="pre">euler</span></code>, <code class="docutils literal notranslate"><span class="pre">runge_kutta</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>state_representation</strong>: <code class="docutils literal notranslate"><span class="pre">int</span></code>, default=``2``</dt><dd><p>Determines how the state space of the pendulum is represented
+2 means state = <code class="docutils literal notranslate"><span class="pre">[position,</span> <span class="pre">velocity]</span></code>
+3 means state = <code class="docutils literal notranslate"><span class="pre">[cos(position),</span> <span class="pre">sin(position),</span> <span class="pre">velocity]</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>validation_limit</strong>: <code class="docutils literal notranslate"><span class="pre">float</span></code>, default=-150</dt><dd><p>If the reward during validation episodes surpasses this value the training stops early</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>scale_action</strong>: bool, default=True</dt><dd><p>Whether to scale the output of the model with the torque limit of the simulator’s plant. If True the model is expected so return values in the intervall [-1, 1] as action.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><strong>random_init</strong>: <code class="docutils literal notranslate"><span class="pre">string</span></code>, default=``False``</dt><dd><p>A string determining the random state initialisation
+<code class="docutils literal notranslate"><span class="pre">False</span></code>: The pendulum is set to [0, 0],
+<code class="docutils literal notranslate"><span class="pre">start_vicinity</span></code>: The pendulum position and velocity are set in the range [-0.31, -0.31],
+<code class="docutils literal notranslate"><span class="pre">everywhere</span></code>: The pendulum is set to a random state in the whole</p>
+<blockquote>
+<div><p>possible state space</p>
+</div></blockquote>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>For examples of usages of the simulator class check out the scripts in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples folder</a>.</p>
+<p>The gym environment is used for example in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/simple_pendulum/reinforcement_learning/ddpg">ddpg training</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="02.model.html" class="btn btn-neutral float-left" title="The Physics of a Simple Pendulum" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="04.hardware.html" class="btn btn-neutral float-right" title="Hardware Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

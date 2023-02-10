@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Region of Attraction (RoA) estimation &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Controller Analysis" href="../../09.analysis.html" />
+    <link rel="prev" title="Theory" href="831.lqr.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../../../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05.trajectory_optimization.html">Trajectory Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../08.policy_based_controllers.html">Policy-based Controllers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../81.gravity_compensation.html">Gravity Compensation Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../82.energy%20shaping.html">Energy Shaping Control</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../83.lqr.html">LQR Control</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="831.lqr.html">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="831.lqr.html#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="831.lqr.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="831.lqr.html#comments">Comments</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Region of Attraction (RoA) estimation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sos-method">SOS method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#probabilistic-method">Probabilistic Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comments">Comments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/simple_pendulum.html">Software Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../08.policy_based_controllers.html">Policy-based Controllers</a></li>
+          <li class="breadcrumb-item"><a href="../83.lqr.html">LQR Control</a></li>
+      <li class="breadcrumb-item active">Region of Attraction (RoA) estimation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/chapters/08.policy_based_controllers/83.lqr/832.lqr_roa.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="region-of-attraction-roa-estimation">
+<h1>Region of Attraction (RoA) estimation<a class="headerlink" href="#region-of-attraction-roa-estimation" title="Permalink to this heading"></a></h1>
+<p>The RoA estimation is a process that can be applied to the closed-loop dynamics of a system, i.e. Plant + Controller, in order to analize its state-space behaviour. Two different methods have been implemented here for studying the dynamics of the underactuated pendulum coupled with an LQR controller.</p>
+<section id="sos-method">
+<h2>SOS method<a class="headerlink" href="#sos-method" title="Permalink to this heading"></a></h2>
+<p>The implementation here is based on</p>
+<blockquote>
+<div><p>Tedrake, Russ, Ian R. Manchester, Mark Tobenkin, and John W. Roberts. “LQR-Trees: Feedback Motion Planning via Sums-of-Squares Verification.” The International Journal of Robotics Research 29, no. 8 (July 2010): 1038–52. <a class="reference external" href="https://doi.org/10.1177/0278364910369189">https://doi.org/10.1177/0278364910369189</a>.</p>
+</div></blockquote>
+<p>Sum of squares optimization provides a natural generalization of SDP to optimizing over positive polynomials. Hence this method can be exploited to formulate and solve problems from Lyapunov analysis, at least fot the polynomial systems.
+Furthermore, any sublevel set of a Lyapunov function is also an invariant set. This permitts to use sublevel sets of a Lyapunov function as approximation of the region of attraction for nonlinear systems.</p>
+<p>First, the simple pendulum plant has been put in polynomial form via Taylor approximation around the up-right position, which will be the goal of the LQR controller. From different tests it seems that at least the third order approximation is necessary to obtain a satisfying result.</p>
+<p>The LQR controller has been initialized to stabilize our closed-loop system around the up-right position. From that it has been obtained a state feedback matrix K and a matrix S, which is the solution of the matrix Lyapunov equation. The last one is very usefull because it can be used to obtain the Lyapunov function as <span class="math notranslate nohighlight">\(x^TSx\)</span>
+After obtaining the Lyapunov function the feasibility problem can be formulated as</p>
+<div class="math notranslate nohighlight">
+\[-\dot{V}(x) + \lambda(x)(V(x)-\rho)\ is\ SOS\quad and \quad \lambda(x)\ is\ SOS\]</div>
+<p>This is coming from the so called “S-procedure” which makes use of the concept of Lagrangian multiplier to fomulate the Lyapunov conditions.
+It is important to highlight that other contraints are needed to include the torque inputs limits in the optimization problem.</p>
+<p>Eventually, the above problem only verify one-sublevel set of the Lyapunov function. In order to obtain the best estimation, searching for the largest rho  that can satisfy these conditions is necessary. The two different methods that have been implemented are described below.</p>
+<section id="maximization-of-rho-simple-line-search">
+<h3>Maximization of <span class="math notranslate nohighlight">\(\rho\)</span>: Simple line search<a class="headerlink" href="#maximization-of-rho-simple-line-search" title="Permalink to this heading"></a></h3>
+<p>Since the problem is convex with rho fixed, and <span class="math notranslate nohighlight">\(\rho\)</span> is just a scalar, a simple line search on <span class="math notranslate nohighlight">\(\rho\)</span> can be performed to find the maximum for which the convex optimization returns a feasible solution. In particular, a bisection-like algorithm has been implemented here for such a purpose. However, since this formulation can be computationally heavy then other formulations might be considered.</p>
+</section>
+<section id="maximization-of-rho-equality-constrained-formulation">
+<h3>Maximization of <span class="math notranslate nohighlight">\(\rho\)</span>: Equality-constrained formulation<a class="headerlink" href="#maximization-of-rho-equality-constrained-formulation" title="Permalink to this heading"></a></h3>
+<p>This is an important variation since it makes use of the “S-procedure” to make the problem be jointly convex in <span class="math notranslate nohighlight">\(\lambda(x)\)</span> and <span class="math notranslate nohighlight">\(\rho\)</span>, so a single convex optimization is needed.
+Under the assumption that <span class="math notranslate nohighlight">\(\dot{V}(x)\)</span> is negative-definite at the fixed point, the problem can be written as</p>
+<div class="math notranslate nohighlight">
+\begin{equation*}\begin{aligned}
+&amp; \max_{\rho,\lambda} \quad \rho \\
+&amp; \quad (x^Tx)^d(V(x) - \rho) + \lambda(x)\dot{V}(x) \quad is \quad SOS
+\end{aligned}\end{equation*}</div><p>Also in this case, input limits have then to be included to obtain the desired result.</p>
+</section>
+</section>
+<section id="probabilistic-method">
+<h2>Probabilistic Method<a class="headerlink" href="#probabilistic-method" title="Permalink to this heading"></a></h2>
+<p>For simple systems, such as the torque limited simple pendulum under LQR control, the RoA can be estimated by just evaluating the Lyapunov conditions for initial states from a continuously shrinking estimate of the ROA. This approach was introduced in:</p>
+<blockquote>
+<div><ol class="upperalpha simple" start="5">
+<li><p>Najafi, R. Babuška, and G. A. D. Lopes, “A fast sampling method for estimating the domain of attraction,” Nonlinear Dyn, vol. 86, no. 2, pp. 823–834, Oct. 2016, doi: 10.1007/s11071-016-2926-7.</p></li>
+</ol>
+</div></blockquote>
+<p>The RoA is estimated by a sublevel set of a quadratic Lyapunov function:</p>
+<div class="math notranslate nohighlight">
+\[\begin{align*}\mathcal{B} = \left\{ \mathbf{x} \vert V(\mathbf{x}) &lt; \rho \right\} = \left\{ \mathbf{x} \vert V \bar{\mathbf{x}}^{\mathrm{T}} \mathbf{S} \bar{\mathbf{x}} &lt;\rho \right\}.\end{align*}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\mathbf{\bar{x}} = \mathbf{x} - \mathbf{x}^\star\)</span> denotes the deviation from the fixed point <span class="math notranslate nohighlight">\(\mathbf{x}^\star\)</span></p>
+<p>A random initial condition <span class="math notranslate nohighlight">\(V(\hat{\mathbf{x}})\)</span> is sampled from <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> and the Lyapunov conditions (<span class="math notranslate nohighlight">\(V(\hat{\mathbf{x}}) &gt; 0\)</span> and <span class="math notranslate nohighlight">\(\dot{V}(\hat{\mathbf{x}}) = \nabla V \mathbf{f}(\mathbf{\hat{x}}) &lt; 0\)</span>) are evaluated. If these conditions are satisfied, the next initial state is sampled. However, if these conditions are not met, the estimate is shrunk, such that <span class="math notranslate nohighlight">\(\rho = V(\hat{\mathbf{x}})\)</span></p>
+</section>
+<section id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
+<p>Further possible improvements:</p>
+<ul class="simple">
+<li><p>Verifying the dynamics in implicit form will be necessary for more complex systems where the mass is not a scalar value. The SOS framework premitts it and would be usefull to try.</p></li>
+<li><p>Implementing more efficient ways to come up with a polynomial representation of the closed-loop dynamics. Approxiations usually generate differences between the real behaviour and the simulated one.</p></li>
+<li><p>Quotient ring of algebraic varieties in the “Equality-constrained formulation”.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="831.lqr.html" class="btn btn-neutral float-left" title="Theory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../09.analysis.html" class="btn btn-neutral float-right" title="Controller Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

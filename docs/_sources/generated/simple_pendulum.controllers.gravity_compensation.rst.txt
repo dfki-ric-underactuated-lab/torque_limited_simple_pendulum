@@ -1,0 +1,18 @@
+simple\_pendulum.controllers.gravity\_compensation
+==========================================================
+
+.. automodule:: simple_pendulum.controllers.gravity_compensation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.controllers.gravity\_compensation.gravity\_compensation
+-------------------------------------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.gravity_compensation.gravity_compensation
+   :members:
+   :undoc-members:
+   :show-inheritance:

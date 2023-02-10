@@ -1,0 +1,50 @@
+simple\_pendulum.utilities.filters
+==========================================
+
+.. automodule:: simple_pendulum.utilities.filters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.utilities.filters.butterworth
+-----------------------------------------------------
+
+.. automodule:: simple_pendulum.utilities.filters.butterworth
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.utilities.filters.fast\_fourier\_transform
+------------------------------------------------------------------
+
+.. automodule:: simple_pendulum.utilities.filters.fast_fourier_transform
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.utilities.filters.low\_pass
+---------------------------------------------------
+
+.. automodule:: simple_pendulum.utilities.filters.low_pass
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.utilities.filters.running\_mean
+-------------------------------------------------------
+
+.. automodule:: simple_pendulum.utilities.filters.running_mean
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.utilities.filters.savitzky\_golay
+---------------------------------------------------------
+
+.. automodule:: simple_pendulum.utilities.filters.savitzky_golay
+   :members:
+   :undoc-members:
+   :show-inheritance:

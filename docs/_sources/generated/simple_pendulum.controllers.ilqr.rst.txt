@@ -1,0 +1,26 @@
+simple\_pendulum.controllers.ilqr
+=========================================
+
+.. automodule:: simple_pendulum.controllers.ilqr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+simple\_pendulum.controllers.ilqr.iLQR\_MPC\_controller
+--------------------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.ilqr.iLQR_MPC_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+simple\_pendulum.controllers.ilqr.unit\_test
+---------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.ilqr.unit_test
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iterative Linear Quadratic Requlator (iLQR) &mdash; Torque-limited Simple Pendulum  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Direct Optimal Control based on the FDDP algorithm" href="53.fddp.html" />
+    <link rel="prev" title="Trajectory optimization using direct collocation" href="51.direct_collocation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Torque-limited Simple Pendulum
+              <img src="../../_static/pendulum_light_painting.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00.installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01.usage_instructions.html">Usage Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02.model.html">The Physics of a Simple Pendulum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03.simulation.html">Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04.hardware.html">Hardware Setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../05.trajectory_optimization.html">Trajectory Optimization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="51.direct_collocation.html">Trajectory optimization using direct collocation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Iterative Linear Quadratic Requlator (iLQR)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#theory">Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comments">Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="53.fddp.html">Direct Optimal Control based on the FDDP algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../06.reinforcement_learning.html">Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../07.trajectory_based_controllers.html">Trajectory-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../08.policy_based_controllers.html">Policy-based Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../09.analysis.html">Controller Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../11.contributing.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/simple_pendulum.html">Software Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Torque-limited Simple Pendulum</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../05.trajectory_optimization.html">Trajectory Optimization</a></li>
+      <li class="breadcrumb-item active">Iterative Linear Quadratic Requlator (iLQR)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/chapters/05.trajectory_optimization/52.iLQR.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="iterative-linear-quadratic-requlator-ilqr">
+<h1>Iterative Linear Quadratic Requlator (iLQR)<a class="headerlink" href="#iterative-linear-quadratic-requlator-ilqr" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Type: Trajectory Optimization</p>
+<p>State/action space contraints: No</p>
+<p>Optimal: Yes</p>
+<p>Versatility: Swingup and stabilization</p>
+</div>
+<section id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this heading"></a></h2>
+<p>The <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/6907001">iterative linear quadratic regularizer (iLQR) `[1]</a> is an extension of the LQR controller. The LQR controller linearizes the dynamics at a given state and and assumes that these linear dynamics are valid at every other system state as well. In contrast to that, the iLQR optimization method has the ability to take the full system dynamics into account and plan ahead by optimizing over a sequence of control inputs.</p>
+<p>The algorithm can be described as:</p>
+<ol class="arabic simple">
+<li><p>Set an initial state <span class="math notranslate nohighlight">\(x_0\)</span> and an initial control sequence <span class="math notranslate nohighlight">\(\mathbf{U} = [u_0, u_1, ..., u_{N-1}]\)</span>, where <cite>N</cite> is the number of steps that will optimized over (the time horizon).</p></li>
+<li><p>Rollout the trajectory by applying the control sequence iteratively to the initial state.</p></li>
+</ol>
+<p>The following steps are repeated until convergence:</p>
+<ol class="arabic simple" start="3">
+<li><p>Backward pass: Compute the derivatives of the cost function and the gains for the control sequence</p></li>
+<li><p>Forward pass: Update the control sequence with the computed gains and rollout the new trajectory with the new control sequence. If the cost of the new trajectory is smaller than before, carry over the new control sequence and increase the gain factor. If not, keep the old trajectory and decrease the gain factor.</p></li>
+</ol>
+<p>If the cost is below a specified threshold the algorithm stops.</p>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this heading"></a></h2>
+<p>The iLQR algorithm is computed in the iLQR_Calculator class. The class can be used as follows:</p>
+<p>The iLQR calculator has to be initialized with the dimension of the state space (<code class="docutils literal notranslate"><span class="pre">n_x</span></code>) and the dimension of the actuation space (<code class="docutils literal notranslate"><span class="pre">n_u</span></code>) of the system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iLQR</span> <span class="o">=</span> <span class="n">iLQR_Calculator</span><span class="p">(</span><span class="n">n_x</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_u</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For the pendulum n_x=2 (positions and velocity) and n_u=1. Next the dynamics and cost function have to be set in the calculator by using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iLQR</span><span class="o">.</span><span class="n">set_discrete_dynamics</span><span class="p">(</span><span class="n">dynamics</span><span class="p">)</span>
+<span class="n">iLQR</span><span class="o">.</span><span class="n">set_stage_cost</span><span class="p">(</span><span class="n">stage_cost</span><span class="p">)</span>
+<span class="n">iLQR</span><span class="o">.</span><span class="n">set_final_cost</span><span class="p">(</span><span class="n">final_cost</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where dynamics is a function of the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dynamics</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">xd</span>
+</pre></div>
+</div>
+<p>i.e. takes the current state and control input as inputs and returns the integrated dynamics. Note that the time step dt is set by the definition of this function.</p>
+<p>Similarily, state_cost and final_cost are functions of the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stage_cost</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">cost</span>
+
+<span class="n">final_cost</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">cost</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These functions have to be differentiable either with the pydrake symbolic library or with sympy! Examples for these functions for the pendulum are implemented in <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/simple_pendulum/trajectory_optimization/ilqr/pendulum.py">pendulum.py</a>. With the ‘partial’ function from the ‘functools’ package additional input parameters of these functons can be set before passing the function with the correct input parameters to the iLQR solver. For an example usage of the partial function for this context see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/software/python/examples/compute_iLQR_swingup.py">compute_pendulum_iLQR.py</a> in l.80 - l.87 for the dynamics and l.93 - l.113 for the cost functions.</p>
+</div>
+<p>Next: initialize the derivatives and the start state in the iLQR solver:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iLQR</span><span class="o">.</span><span class="n">init_derivatives</span><span class="p">()</span>
+<span class="n">iLQR</span><span class="o">.</span><span class="n">set_start</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, a trajectory can now be calculated with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">x_trj</span><span class="p">,</span> <span class="n">u_trj</span><span class="p">,</span> <span class="n">cost_trace</span><span class="p">,</span>
+<span class="n">regu_trace</span><span class="p">,</span> <span class="n">redu_ratio_trace</span><span class="p">,</span> <span class="n">redu_trace</span><span class="p">)</span> <span class="o">=</span> <span class="n">iLQR</span><span class="o">.</span><span class="n">run_ilqr</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                                                          <span class="n">init_u_trj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                                          <span class="n">init_x_trj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                                          <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                                          <span class="n">regu_init</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                                          <span class="n">break_cost_redu</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The run_ilqr function has the inputs</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code>: The number of timesteps to plan into the future</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">init_u_trj</span></code>: Initial guess for the control sequence (optional)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">init_u_trj</span></code>: Initial guess for the state space trajectory (optional)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_iter</span></code>: Maximum number of iterations of forward and backward passes to compute</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">break_cost_redu</span></code>: Break cost at which the computation stops early</p></li>
+</ul>
+<p>Besides the state space trajectory <code class="docutils literal notranslate"><span class="pre">x_trj</span></code> and the control trajectory <code class="docutils literal notranslate"><span class="pre">u_trj</span></code> the calculation also returns the traces of the cost, regularization factor, the ratio of the cost reduction and the expected cost reduction and the cost reduction.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>An example script for the pendulum can be found in the <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/tree/master/software/python/examples">examples directory</a>. It can be started with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">compute_iLQR_swingup</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this heading"></a></h2>
+<p>The iLQR algorithm in this form cannot respect joint and torque limits. Instead, those  have to be enforced by penalizing unwanted values in the cost function.</p>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
+<p>Optional: <a class="reference external" href="https://drake.mit.edu/">pydrake [2]</a> (see <a class="reference external" href="https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md">getting_started</a>)</p>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading"></a></h2>
+<p>The calculations with the pydrake symbolic library are about 30% faster than the calculations based on the sympy library in these implementations.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h2>
+<p>[1] Y. Tassa, N. Mansard and E. Todorov, “Control-limited differential dynamic programming,” 2014 IEEE International Conference on Robotics and Automation (ICRA), 2014, pp. 1168-1175, doi: <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/6907001">10.1109/ICRA.2014.6907001</a>.</p>
+<p>[2] <a class="reference external" href="https://drake.mit.edu/">Model-Based Design and Verification for Robotics</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="51.direct_collocation.html" class="btn btn-neutral float-left" title="Trajectory optimization using direct collocation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="53.fddp.html" class="btn btn-neutral float-right" title="Direct Optimal Control based on the FDDP algorithm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
