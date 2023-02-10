@@ -14,7 +14,7 @@ This controller uses the trajectory optimization from the iLQR algorithm (see [i
 
 ## Requirements #
 
-pydrake (see [getting_started](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md))
+pydrake (see [getting_started](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/reference/text/chapters/00.installation_guide/01.installation.rst))
 
 ## API
 

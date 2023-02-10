@@ -95,7 +95,7 @@ The iLQR algorithm in this form cannot respect joint and torque limits. Instead,
 
 ## Requirements #
 
-Optional: [pydrake [2]]((https://drake.mit.edu/)) (see [getting_started](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/installation_guide.md))
+Optional: [pydrake [2]]((https://drake.mit.edu/)) (see [getting_started](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/blob/master/docs/reference/text/chapters/00.installation_guide/01.installation.rst))
 
 ## Notes #
 

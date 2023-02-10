@@ -30,7 +30,7 @@ The full website based documentation for this repository can be found [here](htt
 
 As a quick start, we refer to the following readme files:
 
-* [Software Installation Guide](docs/reference/text/chapters/00.installation_guide.rst)
+* [Software Installation Guide](docs/reference/text/chapters/00.installation_guide/01.installation.rst)
 * [Code Testing](docs/reference/text/chapters/00.installation_guide/03.code_testing.rst)
 * [Pendulum Dynamics](docs/reference/text/chapters/02.model.rst)
 * [Hardware & Testbench Description](hardware/testbench_description.md)
@@ -54,7 +54,7 @@ and drake you can do::
 
     pip install .
 
-For more details see [Software Installation Guide](docs/reference/text/chapters/00.installation_guide.rst).
+For more details see [Software Installation Guide](docs/reference/text/chapters/00.installation_guide/01.installation/.rst).
 
 ## Overview of Methods #
 
