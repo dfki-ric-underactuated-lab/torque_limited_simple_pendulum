@@ -45,10 +45,10 @@ The controller needs pendulum parameters as input during initialization:
 
 The data_dict dictionary should have the entries:
 
-            data_dict["des_time_list"] : desired timesteps
-            data_dict["des_pos_list"] : desired positions
-            data_dict["des_vel_list"] : desired velocities
-            data_dict["des_tau_list"] : desired torques
+            data_dict["des_time"] : desired timesteps
+            data_dict["des_pos"] : desired positions
+            data_dict["des_vel"] : desired velocities
+            data_dict["des_tau"] : desired torques
 
 The values are assumed to be in SI units, i.e. time in s, position in rad, velocity in rad/s, torque in Nm.
 

@@ -43,7 +43,6 @@ t_final = 10.0
 
 sim = Simulator(plant=pendulum)
 
-#T, X, U = sim.simulate(t0=0.0,
 T, X, U = sim.simulate_and_animate(t0=0.0,
                                    x0=[0.0, 0.0],
                                    tf=t_final,

@@ -26,7 +26,7 @@ from simple_pendulum.trajectory_optimization.ilqr.pendulum import (
                                         pendulum3_swingup_final_cost)
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
-from simple_pendulum.utilities.process_data import prepare_trajectory
+from simple_pendulum.utilities.process_data import prepare_empty_data_dict, save_trajectory
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
 # from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 
@@ -148,12 +148,21 @@ if n_x == 3:
 else:
     TH = x_trj.T[0]
     THD = x_trj.T[1]
-csv_data = np.vstack((time, TH, THD,
-                      np.append(u_trj.T[0], 0.0))).T
+#csv_data = np.vstack((time, TH, THD,
+#                      np.append(u_trj.T[0], 0.0))).T
 
-csv_path = os.path.join(log_dir, "trajectory.csv")
-np.savetxt(csv_path, csv_data, delimiter=',',
-           header="time,pos,vel,torque", comments="")
+data_dict = prepare_empty_data_dict(dt, N*dt)
+data_dict["des_time"] = time
+data_dict["des_pos"] = TH
+data_dict["des_vel"] = THD
+data_dict["des_tau"] = np.append(u_trj.T[0], 0.0)
+
+
+csv_path = os.path.join(log_dir, "computed_trajectory.csv")
+#np.savetxt(csv_path, csv_data, delimiter=',',
+#           header="time,pos,vel,torque", comments="")
+save_trajectory(csv_path, data_dict)
+
 
 # plot results
 fig, ax = plt.subplots(3, 1, figsize=(18, 6), sharex="all")
@@ -226,7 +235,7 @@ pendulum = PendulumPlant(mass=mass,
 
 sim = Simulator(plant=pendulum)
 
-data_dict = prepare_trajectory(csv_path)
+# data_dict = load_trajectory(csv_path)
 
 controller = OpenLoopController(data_dict)
 # controller = TVLQRController(data_dict=data_dict, mass=mass, length=length,
@@ -235,9 +244,8 @@ controller = OpenLoopController(data_dict)
 
 controller.set_goal([np.pi, 0])
 
-trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
-dt = trajectory[1][0] - trajectory[0][0]
-t_final = trajectory[-1][0]
+dt = data_dict["des_time"][1] - data_dict["des_time"][0]
+t_final = data_dict["des_time"][-1]
 
 T, X, U = sim.simulate_and_animate(t0=0.0,
                                    x0=[0.0, 0.0],

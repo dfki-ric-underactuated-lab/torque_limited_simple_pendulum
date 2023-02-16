@@ -4,7 +4,7 @@ import numpy as np
 # driver for t-motors AK80-6
 from motor_driver.canmotorlib import CanMotorController
 
-from simple_pendulum.utilities import process_data
+from simple_pendulum.utilities.process_data import prepare_empty_data_dict
 
 
 def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
@@ -13,19 +13,19 @@ def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
     Motor Control Loop
     ==================
 
-    The motor control loop only contains the minimum of code necessary to 
-    send commands to and receive measurement data from the motor control 
-    board in real time over CAN bus. It specifies the outgoing CAN port and 
-    the CAN ID of the motor on the CAN bus and transfers this information to 
+    The motor control loop only contains the minimum of code necessary to
+    send commands to and receive measurement data from the motor control
+    board in real time over CAN bus. It specifies the outgoing CAN port and
+    the CAN ID of the motor on the CAN bus and transfers this information to
     the motor driver. It furthermore requires the following arguments:
 
-    The return values start, end and meas_dt are required to monitor if 
+    The return values start, end and meas_dt are required to monitor if
     desired and measured time steps match.
 
     Parameters
     ----------
     controller : controller object inheriting from the abstract controller class
-        Calls the controller, which executes the respective 
+        Calls the controller, which executes the respective
         control policy and returns the input torques
     kp : float, default=0.0
         Weight for position control
@@ -46,20 +46,14 @@ def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
 
     Returns
     -------
-    start : float,
-        start time of experiment 
-    end : float
-        end time of experiment
-    meas_dt : float
-        measured time step
     data_dict : dict
         dictionary containing the recorded data
     """
 
     # load dictionary entries
-    n = int(tf/dt)
+    n = int(tf / dt)
 
-    data_dict = process_data.prepare_empty(dt, tf)
+    data_dict = prepare_empty_data_dict(dt, tf)
 
     kp_in = kp
     kd_in = kd
@@ -74,7 +68,6 @@ def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
     motor_01 = CanMotorController(can_port, motor_id)
     motor_01.enable_motor()
 
-    #print()
     # initiate actuator from zero position
     meas_pos, meas_vel, meas_tau = motor_01.send_deg_command(0, 0, 0, 0, 0)
     print("After enabling motor, pos: ", meas_pos, ", vel: ", meas_vel,
@@ -104,7 +97,7 @@ def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
         meas_dt = 0.0
         meas_time = 0.0
         vel_filtered = 0
-        start = time.time()
+        # start = time.time()
 
         try:
             while i < n:
@@ -141,7 +134,7 @@ def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
 
                 # filter noisy velocity measurements
                 if i > 0:
-                    vel_filtered = np.mean(data_dict["meas_vel_list"][max(0, i-10):i])
+                    vel_filtered = np.mean(data_dict["meas_vel"][max(0, i-10):i])
                 else:
                     vel_filtered = 0
                 # or use the time derivative of the position instead
@@ -149,15 +142,15 @@ def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
                 # meas_pos_prev = meas_pos
 
                 # record data
-                data_dict["meas_pos_list"][i] = meas_pos
-                data_dict["meas_vel_list"][i] = meas_vel
-                data_dict["meas_tau_list"][i] = meas_tau
-                data_dict["meas_time_list"][i] = meas_time
-                data_dict["vel_filt_list"][i] = vel_filtered
-                data_dict["des_pos_list"][i] = des_pos
-                data_dict["des_vel_list"][i] = des_vel
-                data_dict["des_tau_list"][i] = des_tau
-                data_dict["des_time_list"][i] = dt * i
+                data_dict["meas_pos"][i] = meas_pos
+                data_dict["meas_vel"][i] = meas_vel
+                data_dict["meas_tau"][i] = meas_tau
+                data_dict["meas_time"][i] = meas_time
+                data_dict["vel_filt"][i] = vel_filtered
+                data_dict["des_pos"][i] = des_pos
+                data_dict["des_vel"][i] = des_vel
+                data_dict["des_tau"][i] = des_tau
+                data_dict["des_time"][i] = dt * i
 
                 i += 1
                 exec_time = time.time() - start_loop
@@ -181,5 +174,4 @@ def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
     except BaseException as e:
         print('Motors already disabled')
 
-    end = time.time()
-    return start, end, meas_dt, data_dict
+    return data_dict

@@ -9,7 +9,7 @@ from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
 from simple_pendulum.controllers.lqr.lqr_controller import LQRController
-from simple_pendulum.utilities.process_data import prepare_trajectory, saveFunnel
+from simple_pendulum.utilities.process_data import load_trajectory, saveFunnel
 from simple_pendulum.controllers.tvlqr.roa.probabilistic import TVprobRhoComputation
 from simple_pendulum.controllers.tvlqr.roa.sos import TVsosRhoComputation
 from simple_pendulum.controllers.lqr.roa.sos import SOSequalityConstrained
@@ -66,7 +66,7 @@ np.savetxt(traj_path, traj_data, delimiter=',',
 ##################################
 
 # load trajectory
-data_dict = prepare_trajectory(traj_path)
+data_dict = load_trajectory(traj_path)
 trajectory = np.loadtxt(traj_path, skiprows=1, delimiter=",")
 time = trajectory.T[0].T
 dt = time[1]-time[0]
@@ -96,16 +96,16 @@ controller.set_goal(goal)
 S_t = controller.tvlqr.S
 
 # Application of the algorithm for time-variand RoA estimation
-parser = argparse.ArgumentParser(description=''' Time-varying RoA estimation: 
+parser = argparse.ArgumentParser(description=''' Time-varying RoA estimation:
                     torque-limited Simple Pendulum''', formatter_class=RawTextHelpFormatter)
-method = parser.add_mutually_exclusive_group(required=True)    
+method = parser.add_mutually_exclusive_group(required=True)
 method.add_argument("-prob", action='store_true',
                             help="Probabilistic method")
 method.add_argument("-sos", action='store_true',
-                            help="SOS method") 
+                            help="SOS method")
 method.add_argument("-compare", action='store_true',
-                            help="Compare the two methods")   
-args, unknown = parser.parse_known_args() 
+                            help="Compare the two methods")
+args, unknown = parser.parse_known_args()
 if args.prob:
     funnel_path = f"log_data/funnel/Probfunnel{max_dt}-{N}.csv"
     if not os.path.exists(funnel_path):
@@ -122,7 +122,7 @@ if args.sos:
         (rho, S) = TVsosRhoComputation(pendulum, controller, time, N, rhof)
         print("The final rho is: "+str(rho))
         saveFunnel(rho, S_t, time, max_dt, N, "Sos")
-    
+
     plotRhoEvolution(funnel_path, traj_path) # Plotting the evolution of rho
     plotFunnel(funnel_path, traj_path) # 2d Funnel plot
     plotFirstLastEllipses(funnel_path, traj_path) # First and Last ellipses plot
@@ -131,9 +131,9 @@ if args.compare:
     funnelProb_path = f"log_data/funnel/Probfunnel{max_dt}-{N}.csv"
     if not os.path.exists(funnelProb_path):
         (rho_prob, ctg) = TVprobRhoComputation(pendulum, controller, x0_traj, time, N, nSimulations, rhof)
-    if not os.path.exists(funnelSos_path):   
+    if not os.path.exists(funnelSos_path):
         (rho_sos, S) = TVsosRhoComputation(pendulum, controller, time, N, rhof)
-    
+
     # Comparison plots
     funnel2DComparison(funnelSos_path, funnelProb_path, traj_path)
     rhoComparison(funnelSos_path, funnelProb_path)

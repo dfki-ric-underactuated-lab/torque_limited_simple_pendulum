@@ -10,7 +10,7 @@ from matplotlib.collections import LineCollection
 from simple_pendulum.controllers.tvlqr.roa.utils import projectedEllipseFromCostToGo, getEllipseContour, \
                                                         sample_from_ellipsoid, quad_form
 from simple_pendulum.simulation.simulation import Simulator
-from simple_pendulum.utilities.process_data import prepare_trajectory, getEllipseFromCsv
+from simple_pendulum.utilities.process_data import getEllipseFromCsv
 
 def get_ellipse_params(rho,M):
     """
@@ -18,13 +18,13 @@ def get_ellipse_params(rho,M):
     """
 
     #eigenvalue decomposition to get the axes
-    w,v=np.linalg.eigh(M/rho) 
+    w,v=np.linalg.eigh(M/rho)
 
     try:
         #let the smaller eigenvalue define the width (major axis*2!)
         width = 2/float(np.sqrt(w[0]))
         height = 2/float(np.sqrt(w[1]))
-        
+
         #the angle of the ellipse is defined by the eigenvector assigned to the smallest eigenvalue (because this defines the major axis (width of the ellipse))
         angle = np.rad2deg(np.arctan2(v[:,0][1],v[:,0][0]))
 
@@ -42,7 +42,7 @@ def get_ellipse_patch(px,py,rho,M,alpha_val=1,linec="red",facec="none",linest="s
 
 def plot_ellipse(px,py,rho, M, save_to=None, show=True):
     p=get_ellipse_patch(px,py,rho,M)
-    
+
     fig, ax = plt.subplots()
     ax.add_patch(p)
     l=np.max([p.width,p.height])
@@ -117,7 +117,7 @@ def plotRhoEvolution(funnel_path, traj_path):
 
 def plotFunnel3d(csv_path, traj_path, ax):
     '''
-    Function to draw a discrete 3d funnel plot. Basically we are plotting a 3d ellipse patch in each 
+    Function to draw a discrete 3d funnel plot. Basically we are plotting a 3d ellipse patch in each
     knot point.
     Parameters
     ----------
@@ -125,7 +125,7 @@ def plotFunnel3d(csv_path, traj_path, ax):
         array that contains the estimated rho value for all the knot points
     S: np.array
         array of matrices that define ellipses in all the knot points, from tvlqr controller.
-    x0: np.array 
+    x0: np.array
         pre-computed nominal trajectory
     time: np.array
         time array related to the nominal trajectory
@@ -148,8 +148,8 @@ def plotFunnel3d(csv_path, traj_path, ax):
 
         w,h,a=projectedEllipseFromCostToGo(s0,s1,[rho_i],[ctg])
 
-        elliIn=patches.Ellipse((x0[s0][i],x0[s1][i]), 
-                                w[0], 
+        elliIn=patches.Ellipse((x0[s0][i],x0[s1][i]),
+                                w[0],
                                 h[0],
                                 a[0],ec="black",linewidth=1.25, color = "green", alpha = 0.1)
         ax.add_patch(elliIn)
@@ -173,7 +173,7 @@ def plotFunnel(funnel_path, traj_path, ax = None):
         array that contains the estimated rho value for all the knot points
     S: np.array
         array of matrices that define ellipses in all the knot points, from tvlqr controller.
-    x0: np.array 
+    x0: np.array
         pre-computed nominal trajectory
     time: np.array
         time array related to the nominal trajectory
@@ -192,7 +192,7 @@ def plotFunnel(funnel_path, traj_path, ax = None):
         ax.plot(x0[0],x0[1], zorder = 3) # plot of the nominal trajectory
         zorder = 1
         funnel_color = 'green'
-    
+
     plt.title("2d resulting Funnel")
     plt.grid(True)
     labels=["theta [rad]","theta_dot [rad/s]"]
@@ -209,7 +209,7 @@ def plotFunnel(funnel_path, traj_path, ax = None):
         points = np.vstack((c_prev,c_next))
 
         # plot the convex hull of the two contours
-        hull = ConvexHull(points) 
+        hull = ConvexHull(points)
         line_segments = [hull.points[simplex] for simplex in hull.simplices]
         ax.add_collection(LineCollection(line_segments,
                                      colors=funnel_color,
@@ -227,7 +227,7 @@ def TVrhoVerification(pendulum, controller, funnel_path, traj_path, nSimulations
         configured pendulum plant object
     controller: simple_pendulum.controllers.tvlqr.tvlqr
         configured tvlqr controller object
-    x0_t: np.array 
+    x0_t: np.array
         pre-computed nominal trajectory
     time: np.array
         time array related to the nominal trajectory
@@ -252,7 +252,7 @@ def TVrhoVerification(pendulum, controller, funnel_path, traj_path, nSimulations
     ax = fig.add_subplot(gs[0,0])
     ax.set_xlabel("x")
     ax.set_ylabel(r"$\dot{x}$")
- 
+
     dt = 0.001 # simulation time interval
 
     # plot of the verified ellipse
@@ -262,24 +262,24 @@ def TVrhoVerification(pendulum, controller, funnel_path, traj_path, nSimulations
     ax.grid(True)
     plt.title(f"Verified ellipse, knot {ver_idx}")
 
-    ax2 = fig.add_subplot(gs[0,1], projection='3d') 
+    ax2 = fig.add_subplot(gs[0,1], projection='3d')
     plotFunnel3d(funnel_path, traj_path, ax2) # 3d funnel plot
     ax2.plot(time, x0_t[0],x0_t[1]) # plot the nominal traj
 
     one_green = False
     one_red = False
-    for j in range(1,nSimulations+1):                                                                                                              
+    for j in range(1,nSimulations+1):
 
         xBar0=sample_from_ellipsoid(S_t.value(time[ver_idx]),rho[ver_idx]) # sample new initial state inside the estimated RoA
-        x_i=xBar0+np.array(x0_t).T[ver_idx] 
+        x_i=xBar0+np.array(x0_t).T[ver_idx]
 
         sim = Simulator(plant=pendulum) # init the simulation
 
-        T, X, U = sim.simulate(time[ver_idx], x_i, time[-1], dt, controller) # simulating this interval 
+        T, X, U = sim.simulate(time[ver_idx], x_i, time[-1], dt, controller) # simulating this interval
 
-        # plotting the checked initial states and resulting trajectories, the color depends on the result  
+        # plotting the checked initial states and resulting trajectories, the color depends on the result
         finalJ = quad_form(S_t.value(time[-1]),X[-1]-np.array(x0_t).T[-1])
-       
+
         if (finalJ < rho[-1]):
             greenDot = ax.scatter([x_i[0]],[x_i[1]],color="green",marker="o")
             ax2.plot(T, np.array(X).T[0],np.array(X).T[1], color = "green")
@@ -291,13 +291,13 @@ def TVrhoVerification(pendulum, controller, funnel_path, traj_path, nSimulations
 
     # managing the dynamic legend of the plot
     if (one_green and one_red):
-        ax.legend(handles = [greenDot,redDot,p], 
+        ax.legend(handles = [greenDot,redDot,p],
                     labels = ["successfull initial state","failing initial state", "Initial RoA"])
-    elif ((not one_red) and one_green): 
-        ax.legend(handles = [greenDot,p], 
+    elif ((not one_red) and one_green):
+        ax.legend(handles = [greenDot,p],
                     labels = ["successfull initial state","Initial RoA"])
     else:
-        ax.legend(handles = [redDot,p], 
+        ax.legend(handles = [redDot,p],
                     labels = ["failing initial state","Initial RoA"])
 
 def funnel2DComparison(csv_pathFunnelSos, csv_pathFunnelProb, traj_path):

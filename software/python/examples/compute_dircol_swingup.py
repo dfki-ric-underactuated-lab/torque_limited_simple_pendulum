@@ -9,7 +9,8 @@ from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController, 
                                                             OpenLoopAndLQRController
 from simple_pendulum.controllers.pid.pid import PIDController
 from simple_pendulum.controllers.tvlqr.tvlqr import TVLQRController
-from simple_pendulum.utilities.process_data import prepare_trajectory
+from simple_pendulum.utilities.process_data import load_trajectory
+from simple_pendulum.utilities.process_data import prepare_empty_data_dict, save_trajectory
 
 log_dir = "log_data/direct_collocation"
 if not os.path.exists(log_dir):
@@ -67,10 +68,16 @@ plt.show()
 dircal.plot_phase_space_trajectory(x_trajectory)
 
 # save results
-csv_data = np.vstack((T, X, XD, U)).T
-csv_path = os.path.join(log_dir, "trajectory.csv")
-np.savetxt(csv_path, csv_data, delimiter=',',
-           header="time,pos,vel,torque", comments="")
+csv_path = os.path.join(log_dir, "computed_trajectory.csv")
+dt = T[1] - T[0]
+t_final = T[-1] + dt + 1e-5
+data_dict = prepare_empty_data_dict(dt, t_final)
+data_dict["des_time"] = T
+data_dict["des_pos"] = X
+data_dict["des_vel"] = XD
+data_dict["des_tau"] = U
+
+save_trajectory(csv_path, data_dict)
 
 
 #####################
@@ -87,23 +94,15 @@ pendulum = PendulumPlant(mass=mass,
 
 sim = Simulator(plant=pendulum)
 
-csv_path = "../../../data/trajectories/direct_collocation/trajectory.csv"
-data_dict = prepare_trajectory(csv_path)
-
 # controller = OpenLoopController(data_dict=data_dict)
 # controller = PIDController(data_dict=data_dict, Kp=3.0, Ki=1.0, Kd=1.0)
 controller = TVLQRController(data_dict=data_dict, mass=mass, length=length,
                              damping=damping, gravity=gravity,
                              torque_limit=torque_limit)
 controller.set_goal(goal)
-trajectory = np.loadtxt(csv_path, skiprows=1, delimiter=",")
-dt = trajectory[1][0] - trajectory[0][0]
-t_final = trajectory[-1][0] + 0.0
 
-x0 = [trajectory[0][1], trajectory[0][2]]
-
-T, X, U = sim.simulate_and_animate(t0=trajectory[0][0],
-                                   x0=x0,
+T, X, U = sim.simulate_and_animate(t0=T[0],
+                                   x0=[X[0], XD[0]],
                                    tf=t_final,
                                    dt=dt,
                                    controller=controller,

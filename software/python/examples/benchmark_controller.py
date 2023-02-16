@@ -1,7 +1,7 @@
 import os
 import numpy as np
 
-from simple_pendulum.utilities.process_data import prepare_trajectory
+from simple_pendulum.utilities.process_data import load_trajectory
 from simple_pendulum.analysis.benchmark import benchmarker
 from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingController, \
                                                                                  EnergyShapingAndLQRController
@@ -39,7 +39,7 @@ for con in cons:
 
     if con == "ilqr_open":
         csv_path = "../../../data/trajectories/ilqr/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = OpenLoopController(data_dict)
 
@@ -49,7 +49,7 @@ for con in cons:
 
     if con == "ilqr_pid":
         csv_path = "../../../data/trajectories/ilqr/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = PIDController(data_dict=data_dict, Kp=1.0, Ki=1.0, Kd=1.0)
 
@@ -59,7 +59,7 @@ for con in cons:
 
     if con == "ilqr_tvlqr":
         csv_path = "../../../data/trajectories/ilqr/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = TVLQRController(data_dict=data_dict, mass=mass,
                                      length=length, damping=damping,
@@ -72,7 +72,7 @@ for con in cons:
 
     if con == "dircol_open":
         csv_path = "../../../data/trajectories/direct_collocation/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = OpenLoopController(data_dict)
 
@@ -83,7 +83,7 @@ for con in cons:
 
     if con == "dircol_pid":
         csv_path = "../../../data/trajectories/direct_collocation/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = PIDController(data_dict=data_dict, Kp=1.0, Ki=1.0, Kd=1.0)
 
@@ -94,7 +94,7 @@ for con in cons:
 
     if con == "dircol_tvlqr":
         csv_path = "../../../data/trajectories/direct_collocation/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = TVLQRController(data_dict=data_dict, mass=mass,
                                      length=length, damping=damping,
@@ -108,7 +108,7 @@ for con in cons:
 
     if con == "ddp_open":
         csv_path = "../../../data/trajectories/ddp/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = OpenLoopController(data_dict)
 
@@ -118,7 +118,7 @@ for con in cons:
 
     if con == "ddp_pid":
         csv_path = "../../../data/trajectories/ddp/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = PIDController(data_dict=data_dict, Kp=5.0, Ki=1.0, Kd=1.0)
 
@@ -128,7 +128,7 @@ for con in cons:
 
     if con == "ddp_tvlqr":
         csv_path = "../../../data/trajectories/ddp/trajectory.csv"
-        data_dict = prepare_trajectory(csv_path)
+        data_dict = load_trajectory(csv_path)
 
         controller = TVLQRController(data_dict=data_dict, mass=mass,
                                      length=length, damping=damping,

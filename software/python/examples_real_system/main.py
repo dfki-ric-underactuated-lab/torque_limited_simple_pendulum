@@ -9,7 +9,6 @@ import numpy as np
 from simple_pendulum.model.parameters import get_params
 from simple_pendulum.utilities import parse, plot, process_data
 from simple_pendulum.utilities.performance_profiler import profiler
-from simple_pendulum.utilities.process_data import prepare_trajectory
 from simple_pendulum.controllers import motor_control_loop
 from simple_pendulum.controllers.open_loop.open_loop import OpenLoopController
 from simple_pendulum.controllers.gravity_compensation.gravity_compensation import GravityCompController
@@ -39,9 +38,9 @@ except ModuleNotFoundError:
 All parameters of the controllers in this script for the real simple pendulum
 are stored in a .yaml file. The yaml files for the different controllers
 can be found in the /data/parameters directory.
-Some parameters like (mass, length) can be measured directly, others 
-are obtained from system identification (damping, coulomb friction, 
-inertia) or depend on actuator properties (torque limits, gear ratio, 
+Some parameters like (mass, length) can be measured directly, others
+are obtained from system identification (damping, coulomb friction,
+inertia) or depend on actuator properties (torque limits, gear ratio,
 kp, kd).
 """
 
@@ -63,31 +62,31 @@ TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
 
 if args.ddp or args.dircol or args.ilqr:
     """
-        Open loop control methods replay a precomputed trajectory. The 
-        trajectories are derived offline from one out of two trajectory 
+        Open loop control methods replay a precomputed trajectory. The
+        trajectories are derived offline from one out of two trajectory
         optimization techniques:
-            - Feasibility-Driven Dynamic Programming (within the open source 
+            - Feasibility-Driven Dynamic Programming (within the open source
               software crocoddyl)
             - Direct Collocation (within the open source software pyDrake)
             - iterative linear quadratic regulator
-        
-        A trajectory is split into time steps and stored as csv file in the 
-        form of position, velocity and torque data for every time step. It is 
-        important to ensure that the time step size acquired from trajectory 
-        optimization matches with the frequency in which the time steps are 
-        executed on the real system. We achieve this with a while loop 
-        
+
+        A trajectory is split into time steps and stored as csv file in the
+        form of position, velocity and torque data for every time step. It is
+        important to ensure that the time step size acquired from trajectory
+        optimization matches with the frequency in which the time steps are
+        executed on the real system. We achieve this with a while loop
+
         "while time.time() - start_loop < dt:
                 pass
 
         that runs until the control loop run time matches with the desired time
-        step size of the precomputed trajectory and a error print out that tells 
+        step size of the precomputed trajectory and a error print out that tells
         us, if the control loop is slower then the desired time step size.
     """
     if args.ddp:
         """
-        This option uses a trajectory obtained via Feasibility-Driven 
-        Differential Dynamic Programming with crocoddyl. 
+        This option uses a trajectory obtained via Feasibility-Driven
+        Differential Dynamic Programming with crocoddyl.
         """
         csv_file = "trajectory.csv"
         csv_path = os.path.join(WORK_DIR, 'data', 'trajectories', 'ddp', csv_file)
@@ -97,7 +96,7 @@ if args.ddp or args.dircol or args.ilqr:
     if args.dircol:
         """
         This option uses a trajectory obtained via Direct Collocation
-        with pydrake. 
+        with pydrake.
         """
         csv_file = "trajectory.csv"
         csv_path = os.path.join(WORK_DIR, 'data', 'trajectories', 'direct_collocation', csv_file)
@@ -113,12 +112,11 @@ if args.ddp or args.dircol or args.ilqr:
         name = "Iterative Linear Quadratic Regulator"
         folder_name = "ilqr"
 
-    csv_data = prepare_trajectory(csv_path)
+    csv_data = process_data.load_trajectory(csv_path)
 
     params_file = "sp_parameters_trajectory.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_trajectory(csv_path)
 
     #if args.pd: # is realized on motor level (see below)
     #    control_method = PIDController(data_dict=csv_data, Kp=3.0, Ki=1.0, Kd=1.0)
@@ -129,8 +127,8 @@ if args.ddp or args.dircol or args.ilqr:
                                          damping=params["damping"],
                                          gravity=params["gravity"],
                                          torque_limit=params["torque_limit"])
-        control_method.init([csv_data["des_pos_list"][0],
-                             csv_data["des_pos_list"][0]])
+        control_method.init([csv_data["des_pos"][0],
+                             csv_data["des_pos"][0]])
         control_method.set_goal([np.pi, 0.0])  # final point must be stable point
         name += " + tvlqr"
         folder_name += "_tvlqr"
@@ -139,13 +137,13 @@ if args.ddp or args.dircol or args.ilqr:
 
     if args.pd:
         """
-        Trajectory following controllers act on a precomputed trajectory and 
-        ensure that the system follows the trajectory properly. The 
+        Trajectory following controllers act on a precomputed trajectory and
+        ensure that the system follows the trajectory properly. The
         proportional-derivative controller is composed of a proportional term,
-        gaining torque proportional to the position error and a derivative term 
-        gaining torque proportional to the derivative of the position error. 
-        The controller can be seen as a spring-damper system where the 
-        proportional gain contributes to the stiffness/springiness of the system 
+        gaining torque proportional to the position error and a derivative term
+        gaining torque proportional to the derivative of the position error.
+        The controller can be seen as a spring-damper system where the
+        proportional gain contributes to the stiffness/springiness of the system
         and the derivative term acts as a damper.
         """
         name += " + pd control"
@@ -153,7 +151,7 @@ if args.ddp or args.dircol or args.ilqr:
         attribute = "pd_control"
     else:  # args.fft:
         """
-        The feed-forward torque controller is simply forwarding the torque 
+        The feed-forward torque controller is simply forwarding the torque
         control signal from a precomputed trajectory.
         """
         attribute = "motorfft"
@@ -162,9 +160,9 @@ if args.ddp or args.dircol or args.ilqr:
 
 if args.gravity:
     """
-        A controller compensating the gravitational force acting on the pendulum. 
-        The pendulum can be moved as if it was in zero-g. The control input 
-        torque is computed online and depends directly on the current position 
+        A controller compensating the gravitational force acting on the pendulum.
+        The pendulum can be moved as if it was in zero-g. The control input
+        torque is computed online and depends directly on the current position
         of the pendulum.
     """
     name = "Gravity Compensation"
@@ -175,17 +173,16 @@ if args.gravity:
     params_file = "sp_parameters_gravity.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = GravityCompController(params)
 
 if args.sac:
     """
-        Soft Actor Critic is an off-policy model free reinforcement learning 
-        algorithm. It maximizes a trade-off between expected return of a reward 
-        function and entropy, a measure of randomness in the policy. The 
-        controller is trained via interaction with the system, such that a 
-        mapping from state space to control command is learned. It generates 
+        Soft Actor Critic is an off-policy model free reinforcement learning
+        algorithm. It maximizes a trade-off between expected return of a reward
+        function and entropy, a measure of randomness in the policy. The
+        controller is trained via interaction with the system, such that a
+        mapping from state space to control command is learned. It generates
         input torques online based on the learned control policy.
     """
     name = "Soft Actor Critic"
@@ -196,7 +193,6 @@ if args.sac:
     params_file = "sp_parameters_sac.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = SacController(model_path=os.path.join(WORK_DIR, params['model_path']),
                                    torque_limit=params['torque_limit'],
@@ -204,8 +200,8 @@ if args.sac:
 
 if args.ddpg:
     """
-        The controller is trained via interaction with the system, such that a 
-        mapping from state space to control command is learned. It generates 
+        The controller is trained via interaction with the system, such that a
+        mapping from state space to control command is learned. It generates
         input torques online based on the learned control policy.
     """
     name = "Deep deterministic policy gradient"
@@ -216,19 +212,18 @@ if args.ddpg:
     params_file = "sp_parameters_ddpg.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = ddpg_controller(model_path=os.path.join(WORK_DIR, params['model_path']),
                                    torque_limit=params['torque_limit'],
                                    state_representation=params['state_representation'])
 if args.energy:
     """
-        A controller regulating the energy of the pendulum. Drives the pendulum 
-        into the upright position where the system has maximum potential and no 
-        kinetic energy by controlling the desired energy level. The control 
-        input torque is computed online and depends on current position and 
-        velocity of the pendulum. Note however, that the controller does not 
-        stabilize the upright position. For this task an additional LQR 
+        A controller regulating the energy of the pendulum. Drives the pendulum
+        into the upright position where the system has maximum potential and no
+        kinetic energy by controlling the desired energy level. The control
+        input torque is computed online and depends on current position and
+        velocity of the pendulum. Note however, that the controller does not
+        stabilize the upright position. For this task an additional LQR
         controller is needed.
     """
     name = "Energy Shaping"
@@ -239,7 +234,6 @@ if args.energy:
     params_file = "sp_parameters_energy.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = EnergyShapingAndLQRController(
                                         mass=params['mass'],
@@ -253,12 +247,12 @@ if args.energy:
 
 if args.ilqrmpc:
     """
-        A controller which performs an iLQR optimization at every time step and 
-        executes the first control signal of the computed optimal trajectory. 
-        The iLQR optimization method has the ability to take the full system 
-        dynamics into account and plan ahead by optimizing over a sequence of 
-        control inputs. This means iLQR is used in an Model Predictive Control 
-        (MPC) setting. New trajectories are generated online and therefore the 
+        A controller which performs an iLQR optimization at every time step and
+        executes the first control signal of the computed optimal trajectory.
+        The iLQR optimization method has the ability to take the full system
+        dynamics into account and plan ahead by optimizing over a sequence of
+        control inputs. This means iLQR is used in an Model Predictive Control
+        (MPC) setting. New trajectories are generated online and therefore the
         controller is able to equalize perturbations.
     """
     name = "Iterative Linear Quadratic Regulator"
@@ -269,7 +263,6 @@ if args.ilqrmpc:
     params_file = "sp_parameters_ilqr.yaml"
     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
     params = get_params(params_path)
-    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
     control_method = iLQRMPCController(
                                 mass=params['mass'],
@@ -301,13 +294,13 @@ if args.ilqrmpc:
 #     name = "clf"
 #     folder_name = "clf"
 #     attribute = "motorfft"
-# 
+#
 #     # get parameters
 #     params_file = "sp_parameters_energy.yaml"
 #     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
 #     params = get_params(params_path)
 #     data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
-# 
+#
 #     control_method = EnergyCLFController(mass=params['mass'],
 #                                         length=params['length'],
 #                                         damping=params['damping'],
@@ -315,9 +308,9 @@ if args.ilqrmpc:
 #                                         torque_limit=params['torque_limit'],
 #                                         k=params['k'])
 #     control_method.set_goal([np.pi, 0])
-# 
+#
 #     data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
-# 
+#
 # if args.roa:
 #     """
 #         RoA verification
@@ -325,46 +318,44 @@ if args.ilqrmpc:
 #     name = "RoA verification"
 #     folder_name = "roaVerification"
 #     attribute = "motorfft"
-# 
-# 
+#
+#
 #     # get parameters
 #     params_file = "sp_parameters_roa.yaml"
 #     params_path = os.path.join(WORK_DIR, 'data', 'parameters', params_file)
 #     params = get_params(params_path)
 #     data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
-# 
+#
 #     # initial condition and trajectory from funnelComputation
 #     x0 = [0.1,  0.  ]
 #     csv_path = "log_data/direct_collocation/trajectory.csv"
 #     traj_dict = prepare_trajectory(csv_path)
-# 
+#
 #     ## Going to the initial position and then activating the tvlqr
 #     # TODO: now x_i has velocity zero but it should be random
 #     control_method = RoAController(mass=params['mass'], length=params['length'],
 #                                 damping=params['damping'], gravity=params['gravity'],
 #                                 torque_limit=params['torque_limit_control'], x_i= x0, traj_dict = traj_dict)
 #    #control_method.set_goal([np.pi, 0.0])  # final point must be stable point
-#                        
+#
 #    data_dict = process_data.prepare_empty(params["dt"], params["runtime"])
 
 # start control loop for ak80_6
-start, end, meas_dt, data_dict = motor_control_loop.ak80_6(control_method,
-                                                           kp=params["kp"],
-                                                           kd=params["kd"],
-                                                           torque_limit=params["torque_limit"],
-                                                           dt=params["dt"],
-                                                           tf=params["runtime"],
-                                                           motor_id=motor_id,
-                                                           motor_type='AK80_6_V1p1',
-                                                           can_port=can_port)
-
-# performance profiler
-profiler(data_dict, start, end, meas_dt)
+data_dict = motor_control_loop.ak80_6(
+    control_method,
+    kp=params["kp"],
+    kd=params["kd"],
+    torque_limit=params["torque_limit"],
+    dt=params["dt"],
+    tf=params["runtime"],
+    motor_id=motor_id,
+    motor_type='AK80_6_V1p1',
+    can_port=can_port)
 
 # save measurements
-output_folder = str(WORK_DIR) + f'/results/{TIMESTAMP}_' + folder_name
+save_csv_path = f"data/{folder_name}/{TIMESTAMP}/experiment_trajectory.csv"
 if args.save:
-    process_data.save(output_folder, data_dict)
+    process_data.save_trajectory(save_csv_path, data_dict)
 
 # plot data
-plot.swingup(args.save, output_folder, data_dict)
+plot.swingup(args.save, os.path.basename(save_csv_path), data_dict)

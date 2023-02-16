@@ -25,16 +25,16 @@ class OpenLoopController(AbstractController):
         data_dict : dictionary
             a dictionary containing the trajectory to follow
             should have the entries:
-            data_dict["des_time_list"] : desired timesteps
-            data_dict["des_pos_list"] : desired positions
-            data_dict["des_vel_list"] : desired velocities
-            data_dict["des_tau_list"] : desired torques
+            data_dict["des_time"] : desired timesteps
+            data_dict["des_pos"] : desired positions
+            data_dict["des_vel"] : desired velocities
+            data_dict["des_tau"] : desired torques
         """
         self.counter = 0
-        self.traj_time = data_dict["des_time_list"]
-        self.traj_pos = data_dict["des_pos_list"]
-        self.traj_vel = data_dict["des_vel_list"]
-        self.traj_tau = data_dict["des_tau_list"]
+        self.traj_time = data_dict["des_time"]
+        self.traj_pos = data_dict["des_pos"]
+        self.traj_vel = data_dict["des_vel"]
+        self.traj_tau = data_dict["des_tau"]
 
     def init(self, x0):
         self.counter = 0
@@ -95,10 +95,10 @@ class OpenLoopAndLQRController(AbstractController):
         data_dict : dictionary
             a dictionary containing the trajectory to follow
             should have the entries:
-            data_dict["des_time_list"] : desired timesteps
-            data_dict["des_pos_list"] : desired positions
-            data_dict["des_vel_list"] : desired velocities
-            data_dict["des_tau_list"] : desired torques
+            data_dict["des_time"] : desired timesteps
+            data_dict["des_pos"] : desired positions
+            data_dict["des_vel"] : desired velocities
+            data_dict["des_tau"] : desired torques
         mass : float, default=1.0
             mass of the pendulum [kg]
         length : float, default=0.5

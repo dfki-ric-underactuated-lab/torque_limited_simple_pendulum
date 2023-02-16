@@ -53,8 +53,8 @@ def profiler(data_dict, start, end, meas_dt):
     """
     n = data_dict["n"]
     dt = data_dict["dt"]
-    des_time = data_dict["des_time_list"]
-    meas_time = data_dict["meas_time_list"]
+    des_time = data_dict["des_time"]
+    meas_time = data_dict["meas_time"]
 
     meas_avg_dt = (end - start)/n
 

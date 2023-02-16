@@ -24,10 +24,10 @@ class PIDController(AbstractController):
         data_dict : dictionary
             a dictionary containing the trajectory to follow
             should have the entries:
-            data_dict["des_time_list"] : desired timesteps
-            data_dict["des_pos_list"] : desired positions
-            data_dict["des_vel_list"] : desired velocities
-            data_dict["des_tau_list"] : desired torques
+            data_dict["des_time"] : desired timesteps
+            data_dict["des_pos"] : desired positions
+            data_dict["des_vel"] : desired velocities
+            data_dict["des_tau"] : desired torques
         Kp : float
             proportional term,
             gain proportial to the position error
@@ -41,11 +41,11 @@ class PIDController(AbstractController):
         use_feed_forward : bool
             whether to use the torque that is provided in the csv file
         """
-        self.traj_time = data_dict["des_time_list"]
-        self.traj_pos = data_dict["des_pos_list"]
-        self.traj_vel = data_dict["des_vel_list"]
+        self.traj_time = data_dict["des_time"]
+        self.traj_pos = data_dict["des_pos"]
+        self.traj_vel = data_dict["des_vel"]
         if use_feed_forward:
-            self.traj_tau = data_dict["des_tau_list"]
+            self.traj_tau = data_dict["des_tau"]
 
         self.Kp = Kp
         self.Ki = Ki

@@ -36,10 +36,10 @@ class TVLQRController(AbstractController):
         data_dict : dictionary
             a dictionary containing the trajectory to follow
             should have the entries:
-            data_dict["des_time_list"] : desired timesteps
-            data_dict["des_pos_list"] : desired positions
-            data_dict["des_vel_list"] : desired velocities
-            data_dict["des_tau_list"] : desired torques
+            data_dict["des_time"] : desired timesteps
+            data_dict["des_pos"] : desired positions
+            data_dict["des_vel"] : desired velocities
+            data_dict["des_tau"] : desired torques
         mass : float, default=1.0
             mass of the pendulum [kg]
         length : float, default=0.5
@@ -53,10 +53,10 @@ class TVLQRController(AbstractController):
         """
 
         # load the trajectory
-        self.traj_time = data_dict["des_time_list"]
-        self.traj_pos = data_dict["des_pos_list"]
-        self.traj_vel = data_dict["des_vel_list"]
-        self.traj_tau = data_dict["des_tau_list"]
+        self.traj_time = data_dict["des_time"]
+        self.traj_pos = data_dict["des_pos"]
+        self.traj_vel = data_dict["des_vel"]
+        self.traj_tau = data_dict["des_tau"]
 
         self.max_time = self.traj_time[-1]
 
@@ -116,8 +116,8 @@ class TVLQRController(AbstractController):
                                           self.Q_tilqr,
                                           self.R_tilqr)
 
-        self.options.Qf = S  
-        
+        self.options.Qf = S
+
         self.tvlqr = FiniteHorizonLinearQuadraticRegulator(
                         self.plant,
                         self.context,
@@ -195,7 +195,7 @@ class TVLQRController(AbstractController):
         Parameters
         ----------
         Qf : matrix
-            the S-matrix from time-invariant RoA estimation around the 
+            the S-matrix from time-invariant RoA estimation around the
             up-right position.
         """
         self.Qf = Qf
