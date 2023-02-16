@@ -195,8 +195,13 @@
 <h3>Data Processing<a class="headerlink" href="#data-processing" title="Permalink to this heading"></a></h3>
 </section>
 <dl class="py function">
-<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.cut">
-<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">cut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_measured</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_desired</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.cut" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.cut_trajectory">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">cut_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'meas_time'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.cut_trajectory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.data_dict_from_TXU">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">data_dict_from_TXU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">U</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.data_dict_from_TXU" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -205,22 +210,10 @@
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.prepare_empty">
-<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">prepare_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.prepare_empty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.prepare_trajectory">
-<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">prepare_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.prepare_trajectory" title="Permalink to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>inputs:</dt><dd><dl class="simple">
-<dt>csv_path: string</dt><dd><p>path to a csv file containing a trajectory in the
-below specified format</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p>The csv file should have 4 columns with values for
+<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.load_trajectory">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">load_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.load_trajectory" title="Permalink to this definition"></a></dt>
+<dd><p>Load trajectory from csv file.
+The csv file should have 4 columns with values for
 [time, position, velocity, torque] respectively.
 The values shopuld be separated with a comma.
 Each row in the file is one timestep. The number of rows can vary.
@@ -229,26 +222,100 @@ velocity in rad/s, torque in Nm.
 The first line in the csv file is reserved for comments
 and will be skipped during read out.</p>
 <p class="rubric">Example</p>
-<p># time, position, velocity, torque
+<p># des_time, despos, des_vel, des_tau
 0.00, 0.00, 0.00, 0.10
 0.01, 0.01, 0.01, -0.20
 0.02, ….</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>csv_path: string</strong></dt><dd><p>path to a csv file containing a trajectory in the
+below specified format</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt><strong>dict</strong><span class="classifier">dictionary with trajectory data</span></dt><dd><dl class="simple">
+<dt>the dictionary keys are:</dt><dd><ul class="simple">
+<li><p>“des_time”</p></li>
+<li><p>“des_pos”</p></li>
+<li><p>“des_vel”</p></li>
+<li><p>“des_tau”</p></li>
+<li><p>“meas_time”</p></li>
+<li><p>“meas_pos”</p></li>
+<li><p>“meas_vel”</p></li>
+<li><p>“meas_tau”</p></li>
+<li><p>“vel_filt”</p></li>
+</ul>
+</dd>
+</dl>
+<p>If the csv file contains no data for one of the keys they are
+filled with zeroes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.read">
-<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">WORK_DIR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">urdf_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.read" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.save">
-<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.save" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.prepare_empty_data_dict">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">prepare_empty_data_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.prepare_empty_data_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Prepare empty data/trajectory dictionary.
+Used in real time experiments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dt</strong><span class="classifier">float</span></dt><dd><p>timestep in [s]</p>
+</dd>
+<dt><strong>tf</strong><span class="classifier">float</span></dt><dd><p>final time in [s]</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>dict</strong><span class="classifier">data dictionary</span></dt><dd><p>all entries are filled with zeros</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.saveFunnel">
 <span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">saveFunnel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estMethod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.saveFunnel" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.utilities.process_data.save_trajectory">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.utilities.process_data.</span></span><span class="sig-name descname"><span class="pre">save_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.utilities.process_data.save_trajectory" title="Permalink to this definition"></a></dt>
+<dd><p>Save trajectory data to csv file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>csv_path: string</strong></dt><dd><p>path where a csv file containing the trajectory data
+will be stored</p>
+</dd>
+<dt><strong>data_dict</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing the trajectory data.
+expected dictionary keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“des_time”</p></li>
+<li><p>“des_pos”</p></li>
+<li><p>“des_vel”</p></li>
+<li><p>“des_tau”</p></li>
+<li><p>“meas_time”</p></li>
+<li><p>“meas_pos”</p></li>
+<li><p>“meas_vel”</p></li>
+<li><p>“meas_tau”</p></li>
+<li><p>“vel_filt”</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-simple_pendulum.utilities.unit_conversion">

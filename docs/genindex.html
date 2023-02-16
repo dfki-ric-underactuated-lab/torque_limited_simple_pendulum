@@ -199,7 +199,7 @@
 </li>
       <li><a href="generated/simple_pendulum.trajectory_optimization.ilqr.html#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.cost_trj">cost_trj() (simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator method)</a>
 </li>
-      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.cut">cut() (in module simple_pendulum.utilities.process_data)</a>
+      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.cut_trajectory">cut_trajectory() (in module simple_pendulum.utilities.process_data)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -208,6 +208,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/simple_pendulum.model.html#simple_pendulum.model.unit_test.Test.DAMPINGS">DAMPINGS (simple_pendulum.model.unit_test.Test attribute)</a>
+</li>
+      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.data_dict_from_TXU">data_dict_from_TXU() (in module simple_pendulum.utilities.process_data)</a>
 </li>
       <li><a href="generated/simple_pendulum.utilities.filters.html#simple_pendulum.utilities.filters.butterworth.data_filter">data_filter() (in module simple_pendulum.utilities.filters.butterworth)</a>
 
@@ -219,10 +221,10 @@
 </li>
       <li><a href="generated/simple_pendulum.utilities.filters.html#simple_pendulum.utilities.filters.running_mean.data_filter_realtime_2">data_filter_realtime_2() (in module simple_pendulum.utilities.filters.running_mean)</a>
 </li>
-      <li><a href="generated/simple_pendulum.controllers.ddpg.html#simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller">ddpg_controller (class in simple_pendulum.controllers.ddpg.ddpg_controller)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/simple_pendulum.controllers.ddpg.html#simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller">ddpg_controller (class in simple_pendulum.controllers.ddpg.ddpg_controller)</a>
+</li>
       <li><a href="generated/simple_pendulum.reinforcement_learning.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer">ddpg_trainer (class in simple_pendulum.reinforcement_learning.ddpg.ddpg)</a>
 </li>
       <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.unit_conversion.deg_to_rad">deg_to_rad() (in module simple_pendulum.utilities.unit_conversion)</a>
@@ -487,6 +489,8 @@
 </li>
       <li><a href="generated/simple_pendulum.model.html#simple_pendulum.model.pendulum_plant.PendulumPlant.load_params_from_file">load_params_from_file() (simple_pendulum.model.pendulum_plant.PendulumPlant method)</a>
 </li>
+      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.load_trajectory">load_trajectory() (in module simple_pendulum.utilities.process_data)</a>
+</li>
       <li><a href="generated/simple_pendulum.controllers.lqr.html#simple_pendulum.controllers.lqr.lqr.lqr">lqr() (in module simple_pendulum.controllers.lqr.lqr)</a>
 </li>
       <li><a href="generated/simple_pendulum.controllers.lqr.html#simple_pendulum.controllers.lqr.lqr_controller.LQRController">LQRController (class in simple_pendulum.controllers.lqr.lqr_controller)</a>
@@ -744,14 +748,14 @@
 </li>
       <li><a href="generated/simple_pendulum.controllers.pid.html#simple_pendulum.controllers.pid.pid.PIDController">PIDController (class in simple_pendulum.controllers.pid.pid)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/simple_pendulum.controllers.lqr.roa.html#simple_pendulum.controllers.lqr.roa.plot.plot_ellipse">plot_ellipse() (in module simple_pendulum.controllers.lqr.roa.plot)</a>
 
       <ul>
         <li><a href="generated/simple_pendulum.controllers.tvlqr.roa.html#simple_pendulum.controllers.tvlqr.roa.plot.plot_ellipse">(in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/simple_pendulum.trajectory_optimization.direct_collocation.html#simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator.plot_phase_space_trajectory">plot_phase_space_trajectory() (simple_pendulum.trajectory_optimization.direct_collocation.direct_collocation.DirectCollocationCalculator method)</a>
 </li>
       <li><a href="generated/simple_pendulum.analysis.html#simple_pendulum.analysis.plot_policy.plot_policy">plot_policy() (in module simple_pendulum.analysis.plot_policy)</a>
@@ -768,9 +772,7 @@
 </li>
       <li><a href="generated/simple_pendulum.reinforcement_learning.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.prep_state">prep_state() (simple_pendulum.reinforcement_learning.ddpg.agent.Agent method)</a>
 </li>
-      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.prepare_empty">prepare_empty() (in module simple_pendulum.utilities.process_data)</a>
-</li>
-      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.prepare_trajectory">prepare_trajectory() (in module simple_pendulum.utilities.process_data)</a>
+      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.prepare_empty_data_dict">prepare_empty_data_dict() (in module simple_pendulum.utilities.process_data)</a>
 </li>
       <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.performance_profiler.profiler">profiler() (in module simple_pendulum.utilities.performance_profiler)</a>
 </li>
@@ -802,12 +804,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.unit_conversion.rad_to_deg">rad_to_deg() (in module simple_pendulum.utilities.unit_conversion)</a>
 </li>
-      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.read">read() (in module simple_pendulum.utilities.process_data)</a>
-
-      <ul>
-        <li><a href="generated/simple_pendulum.controllers.gamepad.html#simple_pendulum.controllers.gamepad.gamepad.GamePad.read">(simple_pendulum.controllers.gamepad.gamepad.GamePad method)</a>
+      <li><a href="generated/simple_pendulum.controllers.gamepad.html#simple_pendulum.controllers.gamepad.gamepad.GamePad.read">read() (simple_pendulum.controllers.gamepad.gamepad.GamePad method)</a>
 </li>
-      </ul></li>
       <li><a href="generated/simple_pendulum.simulation.html#simple_pendulum.simulation.simulation.Simulator.record_data">record_data() (simple_pendulum.simulation.simulation.Simulator method)</a>
 </li>
       <li><a href="generated/simple_pendulum.simulation.html#simple_pendulum.simulation.gym_environment.SimplePendulumEnv.render">render() (simple_pendulum.simulation.gym_environment.SimplePendulumEnv method)</a>
@@ -822,10 +820,10 @@
       </ul></li>
       <li><a href="generated/simple_pendulum.simulation.html#simple_pendulum.simulation.simulation.Simulator.reset_data_recorder">reset_data_recorder() (simple_pendulum.simulation.simulation.Simulator method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/simple_pendulum.controllers.tvlqr.roa.html#simple_pendulum.controllers.tvlqr.roa.plot.rhoComparison">rhoComparison() (in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/simple_pendulum.controllers.lqr.roa.html#simple_pendulum.controllers.lqr.roa.utils.rhoVerification">rhoVerification() (in module simple_pendulum.controllers.lqr.roa.utils)</a>
 </li>
       <li><a href="generated/simple_pendulum.controllers.lqr.roa.html#simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox.rhs">rhs() (simple_pendulum.controllers.lqr.roa.utils.PendulumPlantApprox method)</a>
@@ -870,13 +868,11 @@
 </li>
       <li><a href="generated/simple_pendulum.controllers.lqr.analytic_roa_estimation.html#simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa.satisfies_theory_full">satisfies_theory_full() (simple_pendulum.controllers.lqr.analytic_roa_estimation.analytic_roa.analytic_roa method)</a>
 </li>
-      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.save">save() (in module simple_pendulum.utilities.process_data)</a>
-
-      <ul>
-        <li><a href="generated/simple_pendulum.reinforcement_learning.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.save">(simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer method)</a>
+      <li><a href="generated/simple_pendulum.reinforcement_learning.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer.save">save() (simple_pendulum.reinforcement_learning.ddpg.ddpg.ddpg_trainer method)</a>
 </li>
-      </ul></li>
       <li><a href="generated/simple_pendulum.reinforcement_learning.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.agent.Agent.save_model">save_model() (simple_pendulum.reinforcement_learning.ddpg.agent.Agent method)</a>
+</li>
+      <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.save_trajectory">save_trajectory() (in module simple_pendulum.utilities.process_data)</a>
 </li>
       <li><a href="generated/simple_pendulum.utilities.html#simple_pendulum.utilities.process_data.saveFunnel">saveFunnel() (in module simple_pendulum.utilities.process_data)</a>
 </li>
