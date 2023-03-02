@@ -26,7 +26,8 @@ eigenpy.switchToNumpyArray()
 
 
 def remove_namespaces(tree):
-    for el in tree.getiterator():
+    #for el in tree.getiterator():
+    for el in tree.iter():
         match = re.match("^(?:\{.*?\})?(.*)$", el.tag)
         if match:
             el.tag = match.group(1)

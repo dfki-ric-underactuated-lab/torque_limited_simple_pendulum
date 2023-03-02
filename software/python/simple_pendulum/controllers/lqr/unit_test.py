@@ -62,10 +62,9 @@ class Test(unittest.TestCase):
         self.assertIsInstance(U, list)
 
         stabilization_success = True
-        if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
-            if np.abs(X[-1][1]) > self.epsilon:
-                stabilization_success = False
-                print("lqr Controller did not stabilize",
-                      "final state: ", X[-1])
+        if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon or np.abs(X[-1][1]) > self.epsilon:
+            stabilization_success = False
+            print("lqr Controller did not stabilize",
+                  "final state: ", X[-1])
 
         self.assertTrue(stabilization_success)

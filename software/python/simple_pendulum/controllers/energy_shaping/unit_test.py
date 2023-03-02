@@ -9,7 +9,7 @@ import numpy as np
 
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
-from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingController
+from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingAndLQRController
 
 
 class Test(unittest.TestCase):
@@ -33,7 +33,16 @@ class Test(unittest.TestCase):
                                  inertia=inertia,
                                  torque_limit=torque_limit)
 
-        controller = EnergyShapingController(mass, length, damping, gravity)
+        controller = EnergyShapingAndLQRController(mass=mass,
+                                                   length=length,
+                                                   damping=damping,
+                                                   coulomb_fric=coulomb_fric,
+                                                   gravity=gravity,
+                                                   torque_limit=torque_limit,
+                                                   k=1.0,
+                                                   Q=np.diag([10, 1]),
+                                                   R=np.array([[1]]),
+                                                   compute_RoA=False)
         controller.set_goal([np.pi, 0])
 
         sim = Simulator(plant=pendulum)
@@ -53,10 +62,9 @@ class Test(unittest.TestCase):
         self.assertIsInstance(U, list)
 
         swingup_success = True
-        if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
-            if np.abs(X[-1][1]) > self.epsilon:
-                swingup_success = False
-                print("Energy Shaping Controller did not swing up",
-                      "final state: ", X[-1])
+        if (np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon or np.abs(X[-1][1]) > self.epsilon):
+            swingup_success = False
+            print("Energy Shaping Controller did not swing up",
+                  "final state: ", X[-1])
 
         self.assertTrue(swingup_success)

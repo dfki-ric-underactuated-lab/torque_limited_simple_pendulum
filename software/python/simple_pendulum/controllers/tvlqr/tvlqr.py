@@ -88,12 +88,14 @@ class TVLQRController(AbstractController):
         # create lqr context
         self.tilqr_context = self.plant.CreateDefaultContext()
         self.plant.get_input_port(0).FixValue(self.tilqr_context, [0])
-        self.Q_tilqr = np.diag((50., 1.))
+        #self.Q_tilqr = np.diag((50., 1.))
+        self.Q_tilqr = np.diag((10., 1.))
         self.R_tilqr = [1]
 
         # Setup Options and Create TVLQR
         self.options = FiniteHorizonLinearQuadraticRegulatorOptions()
-        self.Q = np.diag([200., 0.1])
+        #self.Q = np.diag([200., 0.1])
+        self.Q = np.diag([10., 1.0])
         self.options.x0 = x0
         self.options.u0 = u0
 
@@ -107,11 +109,12 @@ class TVLQRController(AbstractController):
         self.last_vel = 0.0
 
     def set_goal(self, x):
+        self.goal = x
         pos = x[0] + np.pi
         pos = (pos + np.pi) % (2*np.pi) - np.pi
         self.tilqr_context.SetContinuousState([pos, x[1]])
         linearized_pendulum = Linearize(self.plant, self.tilqr_context)
-        (K, S) = LinearQuadraticRegulator(linearized_pendulum.A(),
+        (self.K, S) = LinearQuadraticRegulator(linearized_pendulum.A(),
                                           linearized_pendulum.B(),
                                           self.Q_tilqr,
                                           self.R_tilqr)
@@ -172,17 +175,26 @@ class TVLQRController(AbstractController):
         self.counter += 1
 
         time = min(meas_time, self.max_time)
+        if meas_time <= self.max_time:
 
-        uu = self.tvlqr.u0.value(time)
-        xx = self.tvlqr.x0.value(time)
-        KK = self.tvlqr.K.value(time)
-        kk = self.tvlqr.k0.value(time)
+            uu = self.tvlqr.u0.value(time)
+            xx = self.tvlqr.x0.value(time)
+            KK = self.tvlqr.K.value(time)
+            kk = self.tvlqr.k0.value(time)
 
-        xdiff = x - xx
-        pos_diff = (xdiff[0] + np.pi) % (2*np.pi) - np.pi
-        xdiff[0] = pos_diff
+            xdiff = x - xx
+            pos_diff = (xdiff[0] + np.pi) % (2*np.pi) - np.pi
+            xdiff[0] = pos_diff
 
-        des_tau = (uu - KK.dot(xdiff) - kk)[0][0]
+            des_tau = (uu - KK.dot(xdiff) - kk)[0][0]
+        else:
+            delta_pos = pos - self.goal[0]
+            delta_pos_wrapped = (delta_pos + np.pi) % (2*np.pi) - np.pi
+
+            delta_y = np.asarray([delta_pos_wrapped, vel - self.goal[1]])
+
+            des_tau = np.asarray(-self.K.dot(delta_y))[0]
+
         des_tau = np.clip(des_tau, -self.torque_limit, self.torque_limit)
 
         return des_pos, des_vel, des_tau

@@ -48,6 +48,7 @@ class Test(unittest.TestCase):
                                        coulomb_friction=coulomb_fric,
                                        gravity=gravity,
                                        inertia=inertia,
+                                       torque_limit=torque_limit,
                                        dt=dt,
                                        n=50,  # horizon size
                                        max_iter=1,
@@ -77,11 +78,10 @@ class Test(unittest.TestCase):
         self.assertIsInstance(U, list)
 
         swingup_success = True
-        if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
-            if np.abs(X[-1][1]) > self.epsilon:
-                swingup_success = False
-                print("ilqr MPC Controller did not swingup",
-                      "final state: ", X[-1])
+        if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon or np.abs(X[-1][1]) > self.epsilon:
+            swingup_success = False
+            print("ilqr MPC Controller did not swingup",
+                  "final state: ", X[-1])
 
         self.assertTrue(swingup_success)
 
@@ -117,6 +117,7 @@ class Test(unittest.TestCase):
                                        coulomb_friction=coulomb_fric,
                                        gravity=gravity,
                                        inertia=inertia,
+                                       torque_limit=torque_limit,
                                        dt=dt,
                                        n=50,  # horizon size
                                        max_iter=1,
@@ -146,10 +147,9 @@ class Test(unittest.TestCase):
         self.assertIsInstance(U, list)
 
         swingup_success = True
-        if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon:
-            if np.abs(X[-1][1]) > self.epsilon:
-                swingup_success = False
-                print("ilqr MPC Controller did not swingup",
-                      "final state: ", X[-1])
+        if np.abs((X[-1][0] % (2*np.pi)) - np.pi) > self.epsilon or np.abs(X[-1][1]) > self.epsilon:
+            swingup_success = False
+            print("ilqr MPC Controller did not swingup",
+                  "final state: ", X[-1])
 
         self.assertTrue(swingup_success)

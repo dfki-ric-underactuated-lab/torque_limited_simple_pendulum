@@ -149,7 +149,7 @@ def save_trajectory(csv_path, data_dict):
     print(f'Saved .csv data to folder {csv_path}')
 
 
-def prepare_empty_data_dict(dt, tf):
+def prepare_empty_data_dict(dt, tf, n=None):
     """
     Prepare empty data/trajectory dictionary.
     Used in real time experiments.
@@ -166,7 +166,8 @@ def prepare_empty_data_dict(dt, tf):
         dict : data dictionary
             all entries are filled with zeros
     """
-    n = int(tf / dt)
+    if n is None:
+        n = int(tf / dt)
 
     # create 4 empty numpy array, where measured data can be stored
     des_time = np.zeros(n)
@@ -204,12 +205,13 @@ def cut_trajectory(data_dict, key="meas_time"):
 
 def data_dict_from_TXU(T, X, U):
     dt = T[1] - T[0]
-    tf = T[-1]
+    tf = T[-1] + dt
+    n = len(T)
 
-    data_dict = prepare_empty_data_dict(dt, tf)
+    data_dict = prepare_empty_data_dict(dt, tf, n=n)
     data_dict["meas_time"] = T
-    data_dict["meas_pos"] = X.T[0]
-    data_dict["meas_vel"] = X.T[1]
+    data_dict["meas_pos"] = np.asarray(X).T[0]
+    data_dict["meas_vel"] = np.asarray(X).T[1]
     data_dict["meas_tau"] = U
 
     return data_dict

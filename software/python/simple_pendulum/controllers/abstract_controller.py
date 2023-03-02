@@ -21,24 +21,25 @@ class AbstractController(ABC):
         Supposed to be overwritten by actual controllers. The API of this
         method should be adapted. Unused inputs/outputs can be set to None.
 
-        **Parameters**
+        Parameters
+        ----------
 
-        ``meas_pos``: ``float``
+        meas_pos: float
             The position of the pendulum [rad]
-        ``meas_vel``: ``float``
+        meas_vel: float
             The velocity of the pendulum [rad/s]
-        ``meas_tau``: ``float``
+        meas_tau: float
             The meastured torque of the pendulum [Nm]
-        ``meas_time``: ``float``
+        meas_time: float
             The collapsed time [s]
 
         Returns
         -------
-        ``des_pos``: ``float``
+        des_pos: float
             The desired position of the pendulum [rad]
-        ``des_vel``: ``float``
+        des_vel: float
             The desired velocity of the pendulum [rad/s]
-        ``des_tau``: ``float``
+        des_tau: float
             The torque supposed to be applied by the actuator [Nm]
         """
 

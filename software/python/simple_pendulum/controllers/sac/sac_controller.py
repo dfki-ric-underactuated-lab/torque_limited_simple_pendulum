@@ -99,7 +99,10 @@ class SacController(AbstractController):
         des_pos = None
         des_vel = None
 
-        return des_pos, des_vel, des_tau
+        if np.abs(meas_pos) < 1e-4 and np.abs(meas_vel) < 1e-4:
+            des_tau = self.torque_limit
+
+        return des_pos, des_vel, float(des_tau)
 
     def get_observation(self, state):
         st = np.copy(state)

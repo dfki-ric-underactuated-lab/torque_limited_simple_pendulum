@@ -41,6 +41,7 @@ class iLQRMPCController(AbstractController):
                  coulomb_friction=0.0,
                  gravity=9.81,
                  inertia=0.125,
+                 torque_limit=2.0,
                  dt=0.01,
                  n=50,
                  max_iter=1,
@@ -72,6 +73,8 @@ class iLQRMPCController(AbstractController):
             gravity (positive direction points down) [m/s^2]
         inertia : float, default=0.125
             inertia of the pendulum
+        torque_limit : float, default=2.0
+            torque limit of the motor [Nm]
         dt : float, default=0.01
             timestep of the simulation
         n : int, default=50
@@ -108,6 +111,7 @@ class iLQRMPCController(AbstractController):
         self.damping = damping
         self.coulomb_friction = coulomb_friction
         self.gravity = gravity
+        self.torque_limit = torque_limit
 
         self.N = n
         self.n_x = n_x
@@ -237,8 +241,8 @@ class iLQRMPCController(AbstractController):
                                           max_iter=500,
                                           regu_init=100,
                                           break_cost_redu=1e-6)
-        self.x_traj = self.x_trj[:self.N]
-        self.u_traj = self.u_trj[:self.N]
+        self.x_trj = self.x_trj[:self.N]
+        self.u_trj = self.u_trj[:self.N]
         if verbose:
             print("Computing initial guess done")
 
@@ -340,5 +344,7 @@ class iLQRMPCController(AbstractController):
         # set pos_des and vel_des to None
         des_pos = None
         des_vel = None
+        des_tau = min(self.u_trj[0], self.torque_limit)
+        des_tau = max(des_tau, -self.torque_limit)
 
-        return des_pos, des_vel, self.u_trj[0]
+        return des_pos, des_vel, float(des_tau)

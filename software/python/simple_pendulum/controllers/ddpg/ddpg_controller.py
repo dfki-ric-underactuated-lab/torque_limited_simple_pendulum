@@ -46,7 +46,7 @@ class ddpg_controller(AbstractController):
                                  -self.torque_limit,
                                  self.torque_limit)
 
-        return None, None, control_output
+        return None, None, float(control_output)
 
     def get_observation(self, state):
         st = np.copy(state)
