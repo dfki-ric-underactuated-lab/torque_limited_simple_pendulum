@@ -34,6 +34,14 @@ simple\_pendulum.controllers.abstract\_controller
    :undoc-members:
    :show-inheritance:
 
+simple\_pendulum.controllers.combined\_controller
+--------------------------------------------------------
+
+.. automodule:: simple_pendulum.controllers.combined_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 simple\_pendulum.controllers.motor\_control\_loop
 --------------------------------------------------------
 

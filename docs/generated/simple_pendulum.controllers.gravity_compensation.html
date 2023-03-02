@@ -67,6 +67,7 @@
 <li class="toctree-l4 current"><a class="reference internal" href="simple_pendulum.controllers.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.html#module-simple_pendulum.controllers.abstract_controller">simple_pendulum.controllers.abstract_controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.html#module-simple_pendulum.controllers.combined_controller">simple_pendulum.controllers.combined_controller</a></li>
 <li class="toctree-l4"><a class="reference internal" href="simple_pendulum.controllers.html#module-simple_pendulum.controllers.motor_control_loop">simple_pendulum.controllers.motor_control_loop</a></li>
 </ul>
 </li>
@@ -130,25 +131,26 @@
 <dd><p>The function to compute the control input for the pendulum actuator.
 Supposed to be overwritten by actual controllers. The API of this
 method should be adapted. Unused inputs/outputs can be set to None.</p>
-<p><strong>Parameters</strong></p>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">meas_pos</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The position of the pendulum [rad]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>meas_pos: float</strong></dt><dd><p>The position of the pendulum [rad]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">meas_vel</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The velocity of the pendulum [rad/s]</p>
+<dt><strong>meas_vel: float</strong></dt><dd><p>The velocity of the pendulum [rad/s]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">meas_tau</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The meastured torque of the pendulum [Nm]</p>
+<dt><strong>meas_tau: float</strong></dt><dd><p>The meastured torque of the pendulum [Nm]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">meas_time</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The collapsed time [s]</p>
+<dt><strong>meas_time: float</strong></dt><dd><p>The collapsed time [s]</p>
 </dd>
 </dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">des_pos</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The desired position of the pendulum [rad]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">des_vel</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The desired velocity of the pendulum [rad/s]</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>des_pos: float</dt><dd><p>The desired position of the pendulum [rad]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">des_tau</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The torque supposed to be applied by the actuator [Nm]</p>
+<dt>des_vel: float</dt><dd><p>The desired velocity of the pendulum [rad/s]</p>
+</dd>
+<dt>des_tau: float</dt><dd><p>The torque supposed to be applied by the actuator [Nm]</p>
 </dd>
 </dl>
 </dd>

@@ -189,6 +189,8 @@
 </li>
       <li><a href="generated/simple_pendulum.simulation.html#simple_pendulum.simulation.gym_environment.SimplePendulumEnv.close">close() (simple_pendulum.simulation.gym_environment.SimplePendulumEnv method)</a>
 </li>
+      <li><a href="generated/simple_pendulum.controllers.html#simple_pendulum.controllers.combined_controller.CombinedController">CombinedController (class in simple_pendulum.controllers.combined_controller)</a>
+</li>
       <li><a href="generated/simple_pendulum.trajectory_optimization.ilqr.html#simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator.compute_final_cost_derivatives">compute_final_cost_derivatives() (simple_pendulum.trajectory_optimization.ilqr.ilqr_sympy.iLQR_Calculator method)</a>
 </li>
       <li><a href="generated/simple_pendulum.controllers.ilqr.html#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.compute_initial_guess">compute_initial_guess() (simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController method)</a>
@@ -320,6 +322,8 @@
       <li><a href="generated/simple_pendulum.controllers.html#simple_pendulum.controllers.abstract_controller.AbstractController.get_control_output">get_control_output() (simple_pendulum.controllers.abstract_controller.AbstractController method)</a>
 
       <ul>
+        <li><a href="generated/simple_pendulum.controllers.html#simple_pendulum.controllers.combined_controller.CombinedController.get_control_output">(simple_pendulum.controllers.combined_controller.CombinedController method)</a>
+</li>
         <li><a href="generated/simple_pendulum.controllers.ddpg.html#simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller.get_control_output">(simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller method)</a>
 </li>
         <li><a href="generated/simple_pendulum.controllers.energy_shaping.html#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController.get_control_output">(simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController method)</a>
@@ -345,10 +349,10 @@
         <li><a href="generated/simple_pendulum.controllers.tvlqr.html#simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController.get_control_output">(simple_pendulum.controllers.tvlqr.tvlqr.TVLQRController method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/simple_pendulum.reinforcement_learning.ddpg.html#simple_pendulum.reinforcement_learning.ddpg.models.get_critic">get_critic() (in module simple_pendulum.reinforcement_learning.ddpg.models)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/simple_pendulum.controllers.lqr.roa.html#simple_pendulum.controllers.lqr.roa.plot.get_ellipse_params">get_ellipse_params() (in module simple_pendulum.controllers.lqr.roa.plot)</a>
 
       <ul>
@@ -361,6 +365,12 @@
         <li><a href="generated/simple_pendulum.controllers.tvlqr.roa.html#simple_pendulum.controllers.tvlqr.roa.plot.get_ellipse_patch">(in module simple_pendulum.controllers.tvlqr.roa.plot)</a>
 </li>
       </ul></li>
+      <li><a href="generated/simple_pendulum.analysis.html#simple_pendulum.analysis.leaderboard.get_energy">get_energy() (in module simple_pendulum.analysis.leaderboard)</a>
+</li>
+      <li><a href="generated/simple_pendulum.analysis.html#simple_pendulum.analysis.leaderboard.get_integrated_torque">get_integrated_torque() (in module simple_pendulum.analysis.leaderboard)</a>
+</li>
+      <li><a href="generated/simple_pendulum.analysis.html#simple_pendulum.analysis.leaderboard.get_max_tau">get_max_tau() (in module simple_pendulum.analysis.leaderboard)</a>
+</li>
       <li><a href="generated/simple_pendulum.controllers.ddpg.html#simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller.get_observation">get_observation() (simple_pendulum.controllers.ddpg.ddpg_controller.ddpg_controller method)</a>
 
       <ul>
@@ -375,7 +385,15 @@
 </li>
       <li><a href="generated/simple_pendulum.simulation.html#simple_pendulum.simulation.gym_environment.SimplePendulumEnv.get_state_from_observation">get_state_from_observation() (simple_pendulum.simulation.gym_environment.SimplePendulumEnv method)</a>
 </li>
-      <li><a href="generated/simple_pendulum.controllers.gamepad.html#simple_pendulum.controllers.gamepad.gamepad_controller.GamepadController.get_swingup_time">get_swingup_time() (simple_pendulum.controllers.gamepad.gamepad_controller.GamepadController method)</a>
+      <li><a href="generated/simple_pendulum.analysis.html#simple_pendulum.analysis.leaderboard.get_swingup_time">get_swingup_time() (in module simple_pendulum.analysis.leaderboard)</a>
+
+      <ul>
+        <li><a href="generated/simple_pendulum.controllers.gamepad.html#simple_pendulum.controllers.gamepad.gamepad_controller.GamepadController.get_swingup_time">(simple_pendulum.controllers.gamepad.gamepad_controller.GamepadController method)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/simple_pendulum.analysis.html#simple_pendulum.analysis.leaderboard.get_tau_smoothness">get_tau_smoothness() (in module simple_pendulum.analysis.leaderboard)</a>
+</li>
+      <li><a href="generated/simple_pendulum.analysis.html#simple_pendulum.analysis.leaderboard.get_torque_cost">get_torque_cost() (in module simple_pendulum.analysis.leaderboard)</a>
 </li>
       <li><a href="generated/simple_pendulum.controllers.tvlqr.roa.html#simple_pendulum.controllers.tvlqr.roa.utils.getEllipseContour">getEllipseContour() (in module simple_pendulum.controllers.tvlqr.roa.utils)</a>
 </li>
@@ -404,6 +422,8 @@
       <li><a href="generated/simple_pendulum.controllers.html#simple_pendulum.controllers.abstract_controller.AbstractController.init">init() (simple_pendulum.controllers.abstract_controller.AbstractController method)</a>
 
       <ul>
+        <li><a href="generated/simple_pendulum.controllers.html#simple_pendulum.controllers.combined_controller.CombinedController.init">(simple_pendulum.controllers.combined_controller.CombinedController method)</a>
+</li>
         <li><a href="generated/simple_pendulum.controllers.ilqr.html#simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController.init">(simple_pendulum.controllers.ilqr.iLQR_MPC_controller.iLQRMPCController method)</a>
 </li>
         <li><a href="generated/simple_pendulum.controllers.open_loop.html#simple_pendulum.controllers.open_loop.open_loop.OpenLoopAndLQRController.init">(simple_pendulum.controllers.open_loop.open_loop.OpenLoopAndLQRController method)</a>
@@ -475,6 +495,8 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/simple_pendulum.analysis.html#simple_pendulum.analysis.leaderboard.leaderboard_scores">leaderboard_scores() (in module simple_pendulum.analysis.leaderboard)</a>
+</li>
       <li><a href="generated/simple_pendulum.model.html#simple_pendulum.model.unit_test.Test.LENGTHS">LENGTHS (simple_pendulum.model.unit_test.Test attribute)</a>
 </li>
       <li><a href="generated/simple_pendulum.model.html#simple_pendulum.model.parameters.Links">Links (class in simple_pendulum.model.parameters)</a>
@@ -521,11 +543,15 @@
 </li>
         <li><a href="generated/simple_pendulum.analysis.html#module-simple_pendulum.analysis.benchmark">simple_pendulum.analysis.benchmark</a>
 </li>
+        <li><a href="generated/simple_pendulum.analysis.html#module-simple_pendulum.analysis.leaderboard">simple_pendulum.analysis.leaderboard</a>
+</li>
         <li><a href="generated/simple_pendulum.analysis.html#module-simple_pendulum.analysis.plot_policy">simple_pendulum.analysis.plot_policy</a>
 </li>
         <li><a href="generated/simple_pendulum.controllers.html#module-simple_pendulum.controllers">simple_pendulum.controllers</a>
 </li>
         <li><a href="generated/simple_pendulum.controllers.html#module-simple_pendulum.controllers.abstract_controller">simple_pendulum.controllers.abstract_controller</a>
+</li>
+        <li><a href="generated/simple_pendulum.controllers.html#module-simple_pendulum.controllers.combined_controller">simple_pendulum.controllers.combined_controller</a>
 </li>
         <li><a href="generated/simple_pendulum.controllers.ddpg.html#module-simple_pendulum.controllers.ddpg">simple_pendulum.controllers.ddpg</a>
 </li>
@@ -903,6 +929,8 @@
       <li><a href="generated/simple_pendulum.controllers.html#simple_pendulum.controllers.abstract_controller.AbstractController.set_goal">set_goal() (simple_pendulum.controllers.abstract_controller.AbstractController method)</a>
 
       <ul>
+        <li><a href="generated/simple_pendulum.controllers.html#simple_pendulum.controllers.combined_controller.CombinedController.set_goal">(simple_pendulum.controllers.combined_controller.CombinedController method)</a>
+</li>
         <li><a href="generated/simple_pendulum.controllers.energy_shaping.html#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController.set_goal">(simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingAndLQRController method)</a>
 </li>
         <li><a href="generated/simple_pendulum.controllers.energy_shaping.html#simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingController.set_goal">(simple_pendulum.controllers.energy_shaping.energy_shaping_controller.EnergyShapingController method)</a>
@@ -960,6 +988,13 @@
 </li>
       </ul></li>
       <li>
+    simple_pendulum.analysis.leaderboard
+
+      <ul>
+        <li><a href="generated/simple_pendulum.analysis.html#module-simple_pendulum.analysis.leaderboard">module</a>
+</li>
+      </ul></li>
+      <li>
     simple_pendulum.analysis.plot_policy
 
       <ul>
@@ -978,6 +1013,13 @@
 
       <ul>
         <li><a href="generated/simple_pendulum.controllers.html#module-simple_pendulum.controllers.abstract_controller">module</a>
+</li>
+      </ul></li>
+      <li>
+    simple_pendulum.controllers.combined_controller
+
+      <ul>
+        <li><a href="generated/simple_pendulum.controllers.html#module-simple_pendulum.controllers.combined_controller">module</a>
 </li>
       </ul></li>
       <li>
@@ -1190,6 +1232,8 @@
         <li><a href="generated/simple_pendulum.controllers.pid.html#module-simple_pendulum.controllers.pid.pid">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     simple_pendulum.controllers.sac
 
@@ -1197,8 +1241,6 @@
         <li><a href="generated/simple_pendulum.controllers.sac.html#module-simple_pendulum.controllers.sac">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     simple_pendulum.controllers.sac.sac_controller
 

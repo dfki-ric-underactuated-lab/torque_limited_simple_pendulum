@@ -67,6 +67,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-simple_pendulum.controllers.abstract_controller">simple_pendulum.controllers.abstract_controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-simple_pendulum.controllers.combined_controller">simple_pendulum.controllers.combined_controller</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-simple_pendulum.controllers.motor_control_loop">simple_pendulum.controllers.motor_control_loop</a></li>
 </ul>
 </li>
@@ -149,25 +150,26 @@ this abstract class.</p>
 <dd><p>The function to compute the control input for the pendulum actuator.
 Supposed to be overwritten by actual controllers. The API of this
 method should be adapted. Unused inputs/outputs can be set to None.</p>
-<p><strong>Parameters</strong></p>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">meas_pos</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The position of the pendulum [rad]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>meas_pos: float</strong></dt><dd><p>The position of the pendulum [rad]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">meas_vel</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The velocity of the pendulum [rad/s]</p>
+<dt><strong>meas_vel: float</strong></dt><dd><p>The velocity of the pendulum [rad/s]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">meas_tau</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The meastured torque of the pendulum [Nm]</p>
+<dt><strong>meas_tau: float</strong></dt><dd><p>The meastured torque of the pendulum [Nm]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">meas_time</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The collapsed time [s]</p>
+<dt><strong>meas_time: float</strong></dt><dd><p>The collapsed time [s]</p>
 </dd>
 </dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">des_pos</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The desired position of the pendulum [rad]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">des_vel</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The desired velocity of the pendulum [rad/s]</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>des_pos: float</dt><dd><p>The desired position of the pendulum [rad]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">des_tau</span></code>: <code class="docutils literal notranslate"><span class="pre">float</span></code></dt><dd><p>The torque supposed to be applied by the actuator [Nm]</p>
+<dt>des_vel: float</dt><dd><p>The desired velocity of the pendulum [rad/s]</p>
+</dd>
+<dt>des_tau: float</dt><dd><p>The torque supposed to be applied by the actuator [Nm]</p>
 </dd>
 </dl>
 </dd>
@@ -196,6 +198,87 @@ method should be adapted. Unused inputs/outputs can be set to None.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>``x``: ``array like``</strong></dt><dd><p>The desired goal state of the controller</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-simple_pendulum.controllers.combined_controller">
+<span id="simple-pendulum-controllers-combined-controller"></span><h2>simple_pendulum.controllers.combined_controller<a class="headerlink" href="#module-simple_pendulum.controllers.combined_controller" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.combined_controller.CombinedController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simple_pendulum.controllers.combined_controller.</span></span><span class="sig-name descname"><span class="pre">CombinedController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_both</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.combined_controller.CombinedController" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simple_pendulum.controllers.abstract_controller.AbstractController" title="simple_pendulum.controllers.abstract_controller.AbstractController"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractController</span></code></a></p>
+<p>Controller to combine two controllers and switch between them on conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>controller1</strong><span class="classifier">Controller object</span></dt><dd><p>First Controller</p>
+</dd>
+<dt><strong>controller2</strong><span class="classifier">Controller object</span></dt><dd><p>Second Controller</p>
+</dd>
+<dt><strong>condition1</strong><span class="classifier">function of (meas_pos, meas_vel, meas_tau, meas_time)</span></dt><dd><p>condition to switch to controller 1
+must be a functin of the state x and the time t</p>
+</dd>
+<dt><strong>condition2</strong><span class="classifier">function of (meas_pos, meas_vel, meas_tau, meas_time)</span></dt><dd><p>condition to switch to controller 2
+must be a functin of the state x and the time t</p>
+</dd>
+<dt><strong>compute_both</strong><span class="classifier">bool</span></dt><dd><p>Flag whether to compute the control output for both controllers at each
+timestep or only for the active one</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.combined_controller.CombinedController.get_control_output">
+<span class="sig-name descname"><span class="pre">get_control_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meas_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_vel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meas_time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.combined_controller.CombinedController.get_control_output" title="Permalink to this definition"></a></dt>
+<dd><p>The function to compute the control input for the pendulum actuator.
+Supposed to be overwritten by actual controllers. The API of this
+method should be adapted. Unused inputs/outputs can be set to None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>meas_pos: float</strong></dt><dd><p>The position of the pendulum [rad]</p>
+</dd>
+<dt><strong>meas_vel: float</strong></dt><dd><p>The velocity of the pendulum [rad/s]</p>
+</dd>
+<dt><strong>meas_tau: float</strong></dt><dd><p>The meastured torque of the pendulum [Nm]</p>
+</dd>
+<dt><strong>meas_time: float</strong></dt><dd><p>The collapsed time [s]</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>des_pos: float</dt><dd><p>The desired position of the pendulum [rad]</p>
+</dd>
+<dt>des_vel: float</dt><dd><p>The desired velocity of the pendulum [rad/s]</p>
+</dd>
+<dt>des_tau: float</dt><dd><p>The torque supposed to be applied by the actuator [Nm]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.combined_controller.CombinedController.init">
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.combined_controller.CombinedController.init" title="Permalink to this definition"></a></dt>
+<dd><p>initialize both controllers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simple_pendulum.controllers.combined_controller.CombinedController.set_goal">
+<span class="sig-name descname"><span class="pre">set_goal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.controllers.combined_controller.CombinedController.set_goal" title="Permalink to this definition"></a></dt>
+<dd><p>Set the desired state for the controllers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">array like</span></dt><dd><p>the desired goal state of the controllers</p>
 </dd>
 </dl>
 </dd>

@@ -65,6 +65,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#analysis"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-simple_pendulum.analysis.benchmark">simple_pendulum.analysis.benchmark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-simple_pendulum.analysis.leaderboard">simple_pendulum.analysis.leaderboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-simple_pendulum.analysis.plot_policy">simple_pendulum.analysis.plot_policy</a></li>
 </ul>
 </li>
@@ -195,6 +196,240 @@ defaults to point mass inertia (mass*length^2)</p>
 <dt class="sig sig-object py" id="simple_pendulum.analysis.benchmark.modify_pendulum_parameter">
 <span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.benchmark.</span></span><span class="sig-name descname"><span class="pre">modify_pendulum_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.benchmark.modify_pendulum_parameter" title="Permalink to this definition"></a></dt>
 <dd><p>Randomly modify a given parameter</p>
+</dd></dl>
+
+</section>
+<section id="module-simple_pendulum.analysis.leaderboard">
+<span id="simple-pendulum-analysis-leaderboard"></span><h2>simple_pendulum.analysis.leaderboard<a class="headerlink" href="#module-simple_pendulum.analysis.leaderboard" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.get_energy">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_energy" title="Permalink to this definition"></a></dt>
+<dd><p>get_energy.</p>
+<p>Get the mechanical energy used during the swingup.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>data_dict</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing the trajectory data.
+expected dictionary keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“des_time”</p></li>
+<li><p>“des_pos”</p></li>
+<li><p>“des_vel”</p></li>
+<li><p>“des_tau”</p></li>
+<li><p>“meas_time”</p></li>
+<li><p>“meas_pos”</p></li>
+<li><p>“meas_vel”</p></li>
+<li><p>“meas_tau”</p></li>
+<li><p>“vel_filt”</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.get_integrated_torque">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_integrated_torque</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_integrated_torque" title="Permalink to this definition"></a></dt>
+<dd><p>get_integrated_torque.</p>
+<p>Get the (discrete) time integral over the torque.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>data_dict</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing the trajectory data.
+expected dictionary keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“des_time”</p></li>
+<li><p>“des_pos”</p></li>
+<li><p>“des_vel”</p></li>
+<li><p>“des_tau”</p></li>
+<li><p>“meas_time”</p></li>
+<li><p>“meas_pos”</p></li>
+<li><p>“meas_vel”</p></li>
+<li><p>“meas_tau”</p></li>
+<li><p>“vel_filt”</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.get_max_tau">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_max_tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_max_tau" title="Permalink to this definition"></a></dt>
+<dd><p>get_max_tau.</p>
+<p>Get the maximum torqu used in the trajectory.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>data_dict</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing the trajectory data.
+expected dictionary keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“des_time”</p></li>
+<li><p>“des_pos”</p></li>
+<li><p>“des_vel”</p></li>
+<li><p>“des_tau”</p></li>
+<li><p>“meas_time”</p></li>
+<li><p>“meas_pos”</p></li>
+<li><p>“meas_vel”</p></li>
+<li><p>“meas_tau”</p></li>
+<li><p>“vel_filt”</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.get_swingup_time">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_swingup_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.02,</span> <span class="pre">0.2]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_swingup_time" title="Permalink to this definition"></a></dt>
+<dd><p>get_swingup_time.
+get the swingup time from a data_dict.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>data_dict</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing the trajectory data.
+expected dictionary keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“des_time”</p></li>
+<li><p>“des_pos”</p></li>
+<li><p>“des_vel”</p></li>
+<li><p>“des_tau”</p></li>
+<li><p>“meas_time”</p></li>
+<li><p>“meas_pos”</p></li>
+<li><p>“meas_vel”</p></li>
+<li><p>“meas_tau”</p></li>
+<li><p>“vel_filt”</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>eps</strong><span class="classifier">list</span></dt><dd><p>list with len(eps) = 2. The thresholds for the swingup to be
+successfull ([position, velocity])</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.get_tau_smoothness">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_tau_smoothness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_tau_smoothness" title="Permalink to this definition"></a></dt>
+<dd><p>get_tau_smoothness.</p>
+<p>Get the standard deviation of the changes in the torque signal.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>data_dict</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing the trajectory data.
+expected dictionary keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“des_time”</p></li>
+<li><p>“des_pos”</p></li>
+<li><p>“des_vel”</p></li>
+<li><p>“des_tau”</p></li>
+<li><p>“meas_time”</p></li>
+<li><p>“meas_pos”</p></li>
+<li><p>“meas_vel”</p></li>
+<li><p>“meas_tau”</p></li>
+<li><p>“vel_filt”</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.get_torque_cost">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_torque_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_torque_cost" title="Permalink to this definition"></a></dt>
+<dd><p>get_torque_cost.</p>
+<p>Get the running cost torque with cost parameter R.
+The cost is normalized with the timestep.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>data_dict</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing the trajectory data.
+expected dictionary keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“des_time”</p></li>
+<li><p>“des_pos”</p></li>
+<li><p>“des_vel”</p></li>
+<li><p>“des_tau”</p></li>
+<li><p>“meas_time”</p></li>
+<li><p>“meas_pos”</p></li>
+<li><p>“meas_vel”</p></li>
+<li><p>“meas_tau”</p></li>
+<li><p>“vel_filt”</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>R</strong><span class="classifier">float</span></dt><dd><p>running cost weight</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.leaderboard_scores">
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">leaderboard_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'energy':</span> <span class="pre">0.0,</span> <span class="pre">'integ_tau':</span> <span class="pre">0.1,</span> <span class="pre">'max_tau':</span> <span class="pre">0.1,</span> <span class="pre">'swingup_time':</span> <span class="pre">0.2,</span> <span class="pre">'tau_cost':</span> <span class="pre">0.0,</span> <span class="pre">'tau_smoothness':</span> <span class="pre">0.6}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'energy':</span> <span class="pre">1.0,</span> <span class="pre">'integ_tau':</span> <span class="pre">10.0,</span> <span class="pre">'max_tau':</span> <span class="pre">1.0,</span> <span class="pre">'swingup_time':</span> <span class="pre">10.0,</span> <span class="pre">'tau_cost':</span> <span class="pre">10.0,</span> <span class="pre">'tau_smoothness':</span> <span class="pre">1.0}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.leaderboard_scores" title="Permalink to this definition"></a></dt>
+<dd><p>leaderboard_scores.
+Compute leaderboard scores from data_dictionaries which will be loaded from
+data_paths.  Data can be either from simulation or experiments (but for
+comparability it should only be one).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>data_paths</strong><span class="classifier">dict</span></dt><dd><p>contains the names and paths to the trajectory data in the form:
+{controller1_name: {“csv_path”: data_path1, “name”: controller1_name, “username”: username1},</p>
+<blockquote>
+<div><p>controller2_name: {“csv_path”: data_path2, “name”: controller2_name, “username”: username2},
+…}</p>
+</div></blockquote>
+</dd>
+<dt><strong>save_to</strong><span class="classifier">string</span></dt><dd><p>path where the result will be saved as a csv file</p>
+</dd>
+<dt><strong>weights</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing the weights for the different criteria in the
+form:
+{“swingup_time”: weight1,</p>
+<blockquote>
+<div><p>“max_tau”: weight2,
+“energy”: weight3,
+“integ_tau”: weight4,
+“tau_cost”: weight5,
+“tau_smoothness”: weight6}
+The weights should sum up to 1 for the final score to be in the range
+[0, 1].</p>
+</div></blockquote>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">dict</span></dt><dd><p>dictionary containing normalization constants for the different
+criteria in the form:
+{“swingup_time”: norm1,</p>
+<blockquote>
+<div><p>“max_tau”: norm2,
+“energy”: norm3,
+“integ_tau”: norm4,
+“tau_cost”: norm5,
+“tau_smoothness”: norm6}
+The normalization constants should be the maximum values that can be
+achieved by the criteria so that after dividing by the norm the result
+is in the range [0, 1].</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

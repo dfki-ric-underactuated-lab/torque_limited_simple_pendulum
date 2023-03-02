@@ -17,6 +17,14 @@ simple\_pendulum.analysis.benchmark
    :undoc-members:
    :show-inheritance:
 
+simple\_pendulum.analysis.leaderboard
+--------------------------------------------
+
+.. automodule:: simple_pendulum.analysis.leaderboard
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 simple\_pendulum.analysis.plot\_policy
 ---------------------------------------------
 
