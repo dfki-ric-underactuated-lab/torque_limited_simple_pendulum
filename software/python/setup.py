@@ -19,6 +19,7 @@ setup(
         #'inputs',
         'evdev',
         'scikit-learn',
+        'tabulate',
 
         ## optimal control
         #'drake',
