@@ -182,6 +182,8 @@ class EnergyShapingAndLQRController(AbstractController):
                                             compute_RoA=compute_RoA)
 
         self.active_controller = "none"
+        self.swingup_time = None
+        self.eps = [0.2, 0.1]
 
     def set_goal(self, x):
         """
@@ -229,6 +231,13 @@ class EnergyShapingAndLQRController(AbstractController):
         """
         des_pos, des_vel, u = self.lqr_controller.get_control_output(meas_pos,
                                                                      meas_vel)
+        th = meas_pos + np.pi
+        th = (th + np.pi) % (2*np.pi) - np.pi
+        if (self.swingup_time is None and
+            np.abs(th) < self.eps[0] and
+            np.abs(meas_vel) < self.eps[1]):
+            self.swingup_time = meas_time
+
         if u is not None:
             if self.active_controller != "lqr":
                 self.active_controller = "lqr"
@@ -242,3 +251,6 @@ class EnergyShapingAndLQRController(AbstractController):
             des_pos, des_vel, u = (self.energy_shaping_controller.
                                    get_control_output(meas_pos, meas_vel))
         return des_pos, des_vel, u
+
+    def get_swingup_time(self):
+        return self.swingup_time

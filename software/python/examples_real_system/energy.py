@@ -14,7 +14,7 @@ can_port = 'can0'
 # pendulum parameters
 mass = 0.57288  # 0.6755
 length = 0.4
-damping = 0.15
+damping = 0.175  #15
 gravity = 9.81
 coulomb_fric = 0.19
 inertia = mass * length * length
@@ -25,7 +25,7 @@ save_csv_path = f"data/energy_shaping/{TIMESTAMP}/experiment_trajectory.csv"
 
 # controller parameters
 dt = 0.005
-t_final = 10.
+t_final = 30.
 torque_limit = 0.5
 k = 1.0
 
@@ -50,6 +50,8 @@ data_dict = motor_control_loop.ak80_6(
     motor_id=motor_id,
     motor_type='AK80_6_V1p1',
     can_port=can_port)
+
+print("\n Your swing-up time was: ", controller.get_swingup_time(), "s\n")
 
 # save measurements
 process_data.save_trajectory(save_csv_path, data_dict)

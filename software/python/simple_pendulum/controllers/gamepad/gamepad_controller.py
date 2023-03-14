@@ -21,7 +21,7 @@ class GamepadController(AbstractController):
                  mass=1.0, length=0.5, damping=0.1, coulomb_fric=0.0,
                  gravity=9.81, lqr_torque_limit=2.0, Q=np.diag((10, 1)), R=np.array([[1]]),
                  dt=0.005,
-                 rumble=False, max_vel=10.0, eps=[0.2, 0.1]):
+                 rumble=False, max_vel=10.0, eps=[0.15, 0.05]):
         """
         Controller actuates the pendulum with a gamepad
 
@@ -85,6 +85,7 @@ class GamepadController(AbstractController):
             np.abs(th) < self.eps[0] and
             np.abs(meas_vel) < self.eps[1]):
             self.swingup_time = meas_time
+            print("Swingup successful! Time: ", self.swingup_time)
 
 
         cmd = self.GP.read()
@@ -98,7 +99,7 @@ class GamepadController(AbstractController):
                 u = 0.0
             else:
                 u = u_lqr
-        if self.rumble:
+        elif self.rumble:
             self.GP.stop_rumble()
             if u_lqr is not None:
                 self.GP.rumble()
