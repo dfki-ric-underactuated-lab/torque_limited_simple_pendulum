@@ -45,7 +45,7 @@ kp, kd).
 """
 
 # set motor parameters
-motor_id = 0x09
+motor_id = 0x01
 can_port = 'can0'
 
 # run syntax parser
@@ -349,7 +349,7 @@ data_dict = motor_control_loop.ak80_6(
     dt=params["dt"],
     tf=params["runtime"],
     motor_id=motor_id,
-    motor_type='AK80_6_V1p1',
+    motor_type='AK80_6_V2',
     can_port=can_port)
 
 # save measurements

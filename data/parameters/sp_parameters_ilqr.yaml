@@ -1,5 +1,5 @@
 gravity: 9.81
-length: 0.5
+length: 0.4
 n_actuators: 1
 torque_limit: 2.5
 gr: 6

@@ -8,7 +8,7 @@ from simple_pendulum.utilities.process_data import prepare_empty_data_dict
 
 
 def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
-           motor_id=0x01, motor_type='AK80_6_V1p1', can_port='can0'):
+           motor_id=0x01, motor_type='AK80_6_V2', can_port='can0'):
     """
     Motor Control Loop
     ==================
@@ -65,14 +65,14 @@ def ak80_6(controller, kp=0., kd=0., torque_limit=1.0, dt=0.005, tf=10.,
         control_tau_max = motor01_tau_max
 
     # connect to motor controller board
-    motor_01 = CanMotorController(can_port, motor_id)
+    motor_01 = CanMotorController(can_port, motor_id, motor_type)
     motor_01.enable_motor()
 
     # initiate actuator from zero position
     meas_pos, meas_vel, meas_tau = motor_01.send_deg_command(0, 0, 0, 0, 0)
     print("After enabling motor, pos: ", meas_pos, ", vel: ", meas_vel,
           ", tau: ", meas_tau)
-    while abs(meas_pos) > 1 or abs(meas_vel) > 1 or abs(meas_tau) > 0.1:
+    while abs(meas_pos) > 1 or abs(meas_vel) > 1.1 or abs(meas_tau) > 0.1:
         motor_01.set_zero_position()
         meas_pos, meas_vel, meas_tau = motor_01.send_deg_command(0, 0, 0, 0, 0)
         print("Motor position after setting zero position: ", meas_pos,

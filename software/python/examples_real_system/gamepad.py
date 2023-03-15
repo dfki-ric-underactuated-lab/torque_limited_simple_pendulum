@@ -6,7 +6,7 @@ from simple_pendulum.controllers import motor_control_loop
 from simple_pendulum.controllers.gamepad.gamepad_controller import GamepadController
 
 # set motor parameters
-motor_id = 0x09
+motor_id = 0x01
 can_port = 'can0'
 
 # pendulum parameters
@@ -46,7 +46,7 @@ data_dict = motor_control_loop.ak80_6(
     dt=dt,
     tf=t_final,
     motor_id=motor_id,
-    motor_type='AK80_6_V1p1',
+    motor_type='AK80_6_V2',
     can_port=can_port)
 
 print("\n Your swing-up time was: ", controller.get_swingup_time(), "s\n")

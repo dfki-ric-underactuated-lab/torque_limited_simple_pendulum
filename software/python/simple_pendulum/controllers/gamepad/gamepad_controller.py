@@ -41,6 +41,8 @@ class GamepadController(AbstractController):
                                      torque_limit=torque_limit,
                                      Q=Q,
                                      R=R)
+        self.lqr_con.set_goal([np.pi, 0.0])
+
         self.swingup_time = None
 
         self.dt = dt

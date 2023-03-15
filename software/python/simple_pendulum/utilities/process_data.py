@@ -74,16 +74,22 @@ def load_trajectory(csv_path):
         data_dict["des_pos"] = np.asarray(data["des_pos"])
     elif "position" in data.keys():
         data_dict["des_pos"] = np.asarray(data["position"])
+    elif "pos" in data.keys():
+        data_dict["des_pos"] = np.asarray(data["pos"])
 
     if "des_vel" in data.keys():
         data_dict["des_vel"] = np.asarray(data["des_vel"])
     elif "velocity" in data.keys():
         data_dict["des_vel"] = np.asarray(data["velocity"])
+    elif "vel" in data.keys():
+        data_dict["des_vel"] = np.asarray(data["vel"])
 
     if "des_tau" in data.keys():
         data_dict["des_tau"] = np.asarray(data["des_tau"])
     elif "torque" in data.keys():
         data_dict["des_tau"] = np.asarray(data["torque"])
+    elif "tau" in data.keys():
+        data_dict["des_tau"] = np.asarray(data["tau"])
 
     if "meas_time" in data.keys():
         data_dict["meas_time"] = np.asarray(data["meas_time"])

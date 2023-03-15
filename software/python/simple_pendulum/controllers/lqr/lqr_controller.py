@@ -66,6 +66,8 @@ class LQRController(AbstractController):
         else:
             self.inertia = inertia
 
+        self.goal = np.array([np.pi, 0.0])
+
     def set_goal(self, goal):
         self.goal = goal
 
