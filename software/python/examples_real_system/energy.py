@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from simple_pendulum.utilities import plot, process_data
 from simple_pendulum.controllers import motor_control_loop
 from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingAndLQRController
+#from simple_pendulum.analysis.leaderboard import get_swingup_time
+
+from simple_leaderboard import write_to_leaderboard
 
 
 # set motor parameters
@@ -22,11 +25,12 @@ inertia = mass * length * length
 # set your workspace
 TIMESTAMP = datetime.now().strftime("%Y%m%d-%I%M%S-%p")
 save_csv_path = f"data/energy_shaping/{TIMESTAMP}/experiment_trajectory.csv"
+leaderboard_file = "data/simple_leaderboard.csv"
 
 # controller parameters
 dt = 0.005
 t_final = 10.
-torque_limit = 1.0
+torque_limit = 0.5
 k = 1.0
 
 controller = EnergyShapingAndLQRController(
@@ -51,10 +55,13 @@ data_dict = motor_control_loop.ak80_6(
     motor_type='AK80_6_V2',
     can_port=can_port)
 
-print("\n Your swing-up time was: ", controller.get_swingup_time(), "s\n")
+swingup_time = controller.get_swingup_time()
+
+print("\n Your swing-up time was: ", swingup_time, "s\n")
 
 # save measurements
 process_data.save_trajectory(save_csv_path, data_dict)
+write_to_leaderboard(leaderboard_file, swingup_time)
 
 # plot data
 # plot.swingup(False, output_folder, data_dict)
