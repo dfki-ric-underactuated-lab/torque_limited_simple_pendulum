@@ -135,6 +135,11 @@ def get_swingup_time(data_dict, eps=[2e-2, 2e-1], has_to_stay=True):
     has_to_stay : bool
         whether the pendulum has to stay upright until the end of the trajectory
         default=True
+
+    Returns
+    -------
+    float
+        swingup time
     """
     goal = np.array([np.pi, 0.0])
 
@@ -185,8 +190,13 @@ def get_max_tau(data_dict):
             - "meas_vel"
             - "meas_tau"
             - "vel_filt"
+
+    Returns
+    -------
+    float
+        maximum torque
     """
-    tau = np.max(data_dict["meas_tau"])
+    tau = np.max(np.abs(data_dict["meas_tau"]))
     return tau
 
 
@@ -209,6 +219,11 @@ def get_energy(data_dict):
             - "meas_vel"
             - "meas_tau"
             - "vel_filt"
+
+    Returns
+    -------
+    float
+        energy
     """
     delta_pos = np.diff(data_dict["meas_pos"])
     tau = data_dict["meas_tau"][:-1]
@@ -235,6 +250,11 @@ def get_integrated_torque(data_dict):
             - "meas_vel"
             - "meas_tau"
             - "vel_filt"
+
+    Returns
+    -------
+    float
+        integrated torque
     """
     delta_t = np.diff(data_dict["meas_time"])
     tau = np.abs(data_dict["meas_tau"][:-1])
@@ -264,6 +284,11 @@ def get_torque_cost(data_dict, R=1.0):
             - "vel_filt"
     R : float
         running cost weight
+
+    Returns
+    -------
+    float
+        torque cost
     """
     delta_t = np.diff(data_dict["meas_time"])
     u = data_dict["meas_tau"][:-1]
@@ -290,6 +315,11 @@ def get_tau_smoothness(data_dict):
             - "meas_vel"
             - "meas_tau"
             - "vel_filt"
+
+    Returns
+    -------
+    float
+        torque smoothness (std of changes)
     """
     u = data_dict["meas_tau"][:-1]
     u_diff = np.diff(u)
