@@ -3,20 +3,26 @@ import numpy as np
 from simple_pendulum.utilities.process_data import load_trajectory
 
 
-def leaderboard_scores(data_paths,
-                       save_to,
-                       weights={"swingup_time": 0.2,
-                                "max_tau": 0.1,
-                                "energy": 0.0,
-                                "integ_tau": 0.1,
-                                "tau_cost": 0.0,
-                                "tau_smoothness": 0.6},
-                       normalize={"swingup_time": 10.,
-                                  "max_tau": 1.0,
-                                  "energy": 1.0,
-                                  "integ_tau": 10.0,
-                                  "tau_cost": 10.0,
-                                  "tau_smoothness": 1.0}):
+def leaderboard_scores(
+    data_paths,
+    save_to,
+    weights={
+        "swingup_time": 0.2,
+        "max_tau": 0.1,
+        "energy": 0.0,
+        "integ_tau": 0.1,
+        "tau_cost": 0.0,
+        "tau_smoothness": 0.6,
+    },
+    normalize={
+        "swingup_time": 10.0,
+        "max_tau": 1.0,
+        "energy": 1.0,
+        "integ_tau": 10.0,
+        "tau_cost": 10.0,
+        "tau_smoothness": 1.0,
+    },
+):
     """leaderboard_scores.
     Compute leaderboard scores from data_dictionaries which will be loaded from
     data_paths.  Data can be either from simulation or experiments (but for
@@ -69,34 +75,42 @@ def leaderboard_scores(data_paths,
         tau_cost = get_torque_cost(data_dict)
         tau_smoothness = get_tau_smoothness(data_dict)
 
-        score = weights["swingup_time"] * swingup_time / normalize["swingup_time"] + \
-                weights["max_tau"] * max_tau / normalize["max_tau"] + \
-                weights["energy"] * energy / normalize["energy"] + \
-                weights["integ_tau"] * integ_tau / normalize["integ_tau"] + \
-                weights["tau_cost"] * tau_cost / normalize["tau_cost"] + \
-                weights["tau_smoothness"] * tau_smoothness / normalize["tau_smoothness"]
+        score = (
+            weights["swingup_time"] * swingup_time / normalize["swingup_time"]
+            + weights["max_tau"] * max_tau / normalize["max_tau"]
+            + weights["energy"] * energy / normalize["energy"]
+            + weights["integ_tau"] * integ_tau / normalize["integ_tau"]
+            + weights["tau_cost"] * tau_cost / normalize["tau_cost"]
+            + weights["tau_smoothness"] * tau_smoothness / normalize["tau_smoothness"]
+        )
 
         score = 1 - score
 
-        leaderboard_data.append([d["name"],
-                                 str(swingup_time),
-                                 str(energy),
-                                 str(max_tau),
-                                 str(integ_tau),
-                                 str(tau_cost),
-                                 str(tau_smoothness),
-                                 str(score),
-                                 d["username"]])
+        leaderboard_data.append(
+            [
+                d["name"],
+                str(swingup_time),
+                str(energy),
+                str(max_tau),
+                str(integ_tau),
+                str(tau_cost),
+                str(tau_smoothness),
+                str(score),
+                d["username"],
+            ]
+        )
 
-    np.savetxt(save_to,
-               leaderboard_data,
-               header="Controller,Swingup Time,Energy,Max. Torque,Integrated Torque,Torque Cost,Torque Smoothness,Real AI Score, Username",
-               delimiter=",",
-               fmt="%s",
-               comments="")
+    np.savetxt(
+        save_to,
+        leaderboard_data,
+        header="Controller,Swingup Time,Energy,Max. Torque,Integrated Torque,Torque Cost,Torque Smoothness,Real AI Score,Username",
+        delimiter=",",
+        fmt="%s",
+        comments="",
+    )
 
 
-def get_swingup_time(data_dict, eps=[2.e-2, 2e-1]):
+def get_swingup_time(data_dict, eps=[2e-2, 2e-1], has_to_stay=True):
     """get_swingup_time.
     get the swingup time from a data_dict.
 
@@ -117,27 +131,45 @@ def get_swingup_time(data_dict, eps=[2.e-2, 2e-1]):
     eps : list
         list with len(eps) = 2. The thresholds for the swingup to be
         successfull ([position, velocity])
+        default = [2e-2, 2e-1]
+    has_to_stay : bool
+        whether the pendulum has to stay upright until the end of the trajectory
+        default=True
     """
-    goal = np.array([np.pi, 0.])
+    goal = np.array([np.pi, 0.0])
 
     dist_pos = np.abs(np.mod(data_dict["meas_pos"], 2 * np.pi) - goal[0])
-    ddist_pos = np.where(dist_pos < eps[0], 0., dist_pos)
-    n_pos = np.nonzero(ddist_pos)[0][-1] + 1
+    ddist_pos = np.where(dist_pos < eps[0], 0.0, dist_pos)
+    # n_pos = np.nonzero(ddist_pos)[0][-1] + 1
+    n_pos = np.argwhere(ddist_pos == 0.0)
 
     dist_vel = np.abs(data_dict["meas_vel"] - goal[1])
-    ddist_vel = np.where(dist_vel < eps[1], 0., dist_vel)
-    n_vel = np.nonzero(ddist_vel)[0][-1] + 1
+    ddist_vel = np.where(dist_vel < eps[1], 0.0, dist_vel)
+    # n_vel = np.nonzero(ddist_vel)[0][-1] + 1
+    n_vel = np.argwhere(ddist_vel == 0.0)
 
-    n = max(n_pos, n_vel)
-    m = max(0, n - 1)
-    time = data_dict["meas_time"][m]
+    n = np.intersect1d(n_pos, n_vel)
+
+    time_index = len(data_dict["meas_time"]) - 1
+    if has_to_stay:
+        if len(n) > 0:
+            for i in range(len(n) - 2, 0, -1):
+                if n[i] + 1 == n[i + 1]:
+                    time_index = n[i]
+                else:
+                    break
+    else:
+        if len(n) > 0:
+            time_index = n[0]
+    time = data_dict["meas_time"][time_index]
 
     return time
+
 
 def get_max_tau(data_dict):
     """get_max_tau.
 
-    Get the maximum torqu used in the trajectory.
+    Get the maximum torque used in the trajectory.
 
     Parameters
     ----------
@@ -156,6 +188,7 @@ def get_max_tau(data_dict):
     """
     tau = np.max(data_dict["meas_tau"])
     return tau
+
 
 def get_energy(data_dict):
     """get_energy.
@@ -182,6 +215,7 @@ def get_energy(data_dict):
     energy = np.sum(np.abs(delta_pos * tau))
     return energy
 
+
 def get_integrated_torque(data_dict):
     """get_integrated_torque.
 
@@ -207,7 +241,8 @@ def get_integrated_torque(data_dict):
     int_tau = np.sum(tau * delta_t)
     return int_tau
 
-def get_torque_cost(data_dict, R=1.):
+
+def get_torque_cost(data_dict, R=1.0):
     """get_torque_cost.
 
     Get the running cost torque with cost parameter R.
@@ -234,6 +269,7 @@ def get_torque_cost(data_dict, R=1.):
     u = data_dict["meas_tau"][:-1]
     cost = np.sum(u * R * delta_t * u)
     return cost
+
 
 def get_tau_smoothness(data_dict):
     """get_tau_smoothness.
