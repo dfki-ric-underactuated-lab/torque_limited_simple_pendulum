@@ -263,7 +263,7 @@ expected dictionary keys:</p>
 <dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.get_max_tau">
 <span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_max_tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_max_tau" title="Permalink to this definition"></a></dt>
 <dd><p>get_max_tau.</p>
-<p>Get the maximum torqu used in the trajectory.</p>
+<p>Get the maximum torque used in the trajectory.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
@@ -290,7 +290,7 @@ expected dictionary keys:</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="simple_pendulum.analysis.leaderboard.get_swingup_time">
-<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_swingup_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.02,</span> <span class="pre">0.2]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_swingup_time" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">simple_pendulum.analysis.leaderboard.</span></span><span class="sig-name descname"><span class="pre">get_swingup_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.02,</span> <span class="pre">0.2]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_to_stay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_pendulum.analysis.leaderboard.get_swingup_time" title="Permalink to this definition"></a></dt>
 <dd><p>get_swingup_time.
 get the swingup time from a data_dict.</p>
 <dl class="field-list">
@@ -313,7 +313,11 @@ expected dictionary keys:</p>
 </div></blockquote>
 </dd>
 <dt><strong>eps</strong><span class="classifier">list</span></dt><dd><p>list with len(eps) = 2. The thresholds for the swingup to be
-successfull ([position, velocity])</p>
+successfull ([position, velocity])
+default = [2e-2, 2e-1]</p>
+</dd>
+<dt><strong>has_to_stay</strong><span class="classifier">bool</span></dt><dd><p>whether the pendulum has to stay upright until the end of the trajectory
+default=True</p>
 </dd>
 </dl>
 </dd>
