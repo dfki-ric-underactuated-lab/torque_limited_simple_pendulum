@@ -8,17 +8,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-from pydrake.solvers.mathematicalprogram import Solve
-from pydrake.systems.trajectory_optimization import DirectCollocation
+from pydrake.all import Solve, DirectCollocation
 from pydrake.trajectories import PiecewisePolynomial
+from pydrake.examples import PendulumPlant, PendulumState
 
-from pydrake.examples.pendulum import PendulumPlant, PendulumState
 
-
-class DirectCollocationCalculator():
+class DirectCollocationCalculator:
     """
     Class to calculate a control trajectory with direct collocation.
     """
+
     def __init__(self):
         """
         Class to calculate a control trajectory with direct collocation.
@@ -26,8 +25,9 @@ class DirectCollocationCalculator():
         self.pendulum_plant = PendulumPlant()
         self.pendulum_context = self.pendulum_plant.CreateDefaultContext()
 
-    def init_pendulum(self, mass=0.57288, length=0.5, damping=0.15,
-                      gravity=9.81, torque_limit=2.0):
+    def init_pendulum(
+        self, mass=0.57288, length=0.5, damping=0.15, gravity=9.81, torque_limit=2.0
+    ):
         """
         Initialize the pendulum parameters.
 
@@ -45,15 +45,22 @@ class DirectCollocationCalculator():
             the torque_limit of the pendulum actuator
         """
         self.pendulum_params = self.pendulum_plant.get_mutable_parameters(
-                                                        self.pendulum_context)
+            self.pendulum_context
+        )
         self.pendulum_params[0] = mass
         self.pendulum_params[1] = length
         self.pendulum_params[2] = damping
         self.pendulum_params[3] = gravity
         self.torque_limit = torque_limit
 
-    def compute_trajectory(self, N=21, max_dt=0.5, start_state=[0.0, 0.0],
-                           goal_state=[np.pi, 0.0], initial_x_trajectory=None):
+    def compute_trajectory(
+        self,
+        N=21,
+        max_dt=0.5,
+        start_state=[0.0, 0.0],
+        goal_state=[np.pi, 0.0],
+        initial_x_trajectory=None,
+    ):
         """
         Compute a trajectory from a start state to a goal state
         for the pendulum.
@@ -81,11 +88,13 @@ class DirectCollocationCalculator():
         result : pydrake.solvers.mathematicalprogram.MathematicalProgramResult
             MathematicalProgramResult pydrake object
         """
-        dircol = DirectCollocation(self.pendulum_plant,
-                                   self.pendulum_context,
-                                   num_time_samples=N,
-                                   minimum_timestep=0.05,
-                                   maximum_timestep=max_dt)
+        dircol = DirectCollocation(
+            self.pendulum_plant,
+            self.pendulum_context,
+            num_time_samples=N,
+            minimum_timestep=0.05,
+            maximum_timestep=max_dt,
+        )
 
         dircol.AddEqualTimeIntervalsConstraints()
 
@@ -96,23 +105,22 @@ class DirectCollocationCalculator():
         initial_state = PendulumState()
         initial_state.set_theta(start_state[0])
         initial_state.set_thetadot(start_state[1])
-        dircol.prog().AddBoundingBoxConstraint(initial_state.get_value(),
-                                               initial_state.get_value(),
-                                               dircol.initial_state())
+        dircol.prog().AddBoundingBoxConstraint(
+            initial_state.get_value(), initial_state.get_value(), dircol.initial_state()
+        )
 
         final_state = PendulumState()
         final_state.set_theta(goal_state[0])
         final_state.set_thetadot(goal_state[1])
-        dircol.prog().AddBoundingBoxConstraint(final_state.get_value(),
-                                               final_state.get_value(),
-                                               dircol.final_state())
+        dircol.prog().AddBoundingBoxConstraint(
+            final_state.get_value(), final_state.get_value(), dircol.final_state()
+        )
 
         R = 10.0  # Cost on input "effort".
-        dircol.AddRunningCost(R * u[0]**2)
+        dircol.AddRunningCost(R * u[0] ** 2)
 
         if initial_x_trajectory is not None:
-            dircol.SetInitialTrajectory(PiecewisePolynomial(),
-                                        initial_x_trajectory)
+            dircol.SetInitialTrajectory(PiecewisePolynomial(), initial_x_trajectory)
 
         result = Solve(dircol.prog())
         assert result.is_success()
@@ -135,9 +143,7 @@ class DirectCollocationCalculator():
         """
         fig, ax = plt.subplots()
 
-        time = np.linspace(x_trajectory.start_time(),
-                           x_trajectory.end_time(),
-                           100)
+        time = np.linspace(x_trajectory.start_time(), x_trajectory.end_time(), 100)
 
         x_knots = np.hstack([x_trajectory.value(t) for t in time])
 
@@ -178,9 +184,7 @@ class DirectCollocationCalculator():
             the control (torque) trajectory
         """
         # Extract Time
-        time = np.linspace(x_trajectory.start_time(),
-                           x_trajectory.end_time(),
-                           N)
+        time = np.linspace(x_trajectory.start_time(), x_trajectory.end_time(), N)
         time_traj = time.reshape(N, 1).T[0]
 
         # Extract State
