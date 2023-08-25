@@ -63,17 +63,25 @@ jobs:
       if: env.run_tests == 'true'
       run: |
         sudo apt-get update
+        # # 1
+        # sudo tee /etc/apt/sources.list.d/robotpkg.list <<EOF
+        # deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg
+        # deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg
+        # EOF
+        # # 2
+        # curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
+        # # 3
+        # sudo apt-get update
+        # # 4
+        # sudo apt install robotpkg-py36-crocoddyl
         # 1
-        sudo tee /etc/apt/sources.list.d/robotpkg.list <<EOF
-        deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg
-        deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg
-        EOF
+        sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -cs) robotpkg' >> /etc/apt/sources.list.d/robotpkg.list"
         # 2
         curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
-        # 3
+        # 3 
         sudo apt-get update
-        # 4
-        sudo apt install robotpkg-py36-crocoddyl
+        # 4 
+        sudo apt-get install robotpkg-py36-eigenpy
     - name: Install Drake dependencies
       if: env.run_tests == 'true'
       run: |

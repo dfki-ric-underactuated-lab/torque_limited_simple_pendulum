@@ -62,18 +62,26 @@ jobs:
      - name: Install croccodyl
        if: env.run_tests == 'true'
        run: |
-         sudo apt-get update
+         # sudo apt-get update
+         # # 1
+         # sudo tee /etc/apt/sources.list.d/robotpkg.list <<EOF
+         # deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg
+         # deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg
+         # EOF
+         # # 2
+         # curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
+         # # 3
+         # sudo apt-get update
+         # # 4
+         # sudo apt install robotpkg-py38-crocoddyl
          # 1
-         sudo tee /etc/apt/sources.list.d/robotpkg.list <<EOF
-         deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg
-         deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg
-         EOF
+         sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -cs) robotpkg' >> /etc/apt/sources.list.d/robotpkg.list"
          # 2
          curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
-         # 3
+         # 3 
          sudo apt-get update
-         # 4
-         sudo apt install robotpkg-py38-crocoddyl
+         # 4 
+         sudo apt install robotpkg-py38-eigenpy
      - name: Install pydrake dependencies
        if: env.run_tests == 'true'
        run: |
