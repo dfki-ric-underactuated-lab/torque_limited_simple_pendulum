@@ -151,16 +151,16 @@ The controllers can be benchmarked in simulation with a set of predefined [crite
 
 <img align="right" img width="500" src="docs/reference/figures/pendulum_swingup_animation.gif" />
 
-* [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/shku02.html) (Project Supervisor)
-* [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/fewi01.html) (Software Maintainer)
-* [Jonathan Babel](https://robotik.dfki-bremen.de/en/about-us/staff/joba02.html) (Hardware Maintainer)
+* [Shivesh Kumar](https://robotik.dfki-bremen.de/en/about-us/staff/person/shku02) (Project Supervisor)
+* [Felix Wiebe](https://robotik.dfki-bremen.de/en/about-us/staff/person/fewi01) (Software Maintainer)
+* [Jonathan Babel](https://robotik.dfki-bremen.de/en/about-us/staff/person/joba02) (Hardware Maintainer)
 * [Federico Girlanda](https://www.linkedin.com/in/federico-girlanda-6a3336218/?originalSubdomain=it) (SOS, Simulation based ROA)
 * [Lukas Gross](https://robotik.dfki-bremen.de/de/ueber-uns/mitarbeiter/lugr02/) (Analytic ROA Estimation)
 * [Daniel Harnack](https://robotik.dfki-bremen.de/en/about-us/staff/daha03.html) (RL controllers)
-* [Heiner Peters](https://robotik.dfki-bremen.de/en/about-us/staff/hepe02.html) (System Design)
-* [Shubham Vyas](https://robotik.dfki-bremen.de/en/about-us/staff/shvy01/) (Control Experiments)
-* [Melya Boukheddimi](https://robotik.dfki-bremen.de/en/about-us/staff/mebo01/) (FDDP)
-* [Mihaela Popescu](https://robotik.dfki-bremen.de/en/about-us/staff/mipo02/) (Filters)
+* [Heiner Peters](https://robotik.dfki-bremen.de/en/about-us/staff/person/hepe02) (System Design)
+* [Shubham Vyas](https://robotik.dfki-bremen.de/en/about-us/staff/person/shvy01) (Control Experiments)
+* [Melya Boukheddimi](https://robotik.dfki-bremen.de/en/about-us/staff/person/mebo01) (FDDP)
+* [Mihaela Popescu](https://robotik.dfki-bremen.de/en/about-us/staff/person/mipo02) (Filters)
 
 Feel free to contact us if you have questions about the test bench. Enjoy!
 
