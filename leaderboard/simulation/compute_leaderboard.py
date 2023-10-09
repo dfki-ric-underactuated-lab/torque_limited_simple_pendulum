@@ -50,7 +50,12 @@ for f in os.listdir("."):
                 print(f"Simulating controller {f}")
                 compute_leaderboard_data(data_dir, f)
                 recompute_leaderboard = True
-            data_paths[mod.leaderboard_config["name"]] = mod.leaderboard_config
+
+            conf = mod.leaderboard_config
+            conf["csv_path"] = os.path.join(
+                data_dir, mod.leaderboard_config["csv_path"]
+            )
+            data_paths[mod.leaderboard_config["name"]] = conf
 
 
 save_to = f"{data_dir}/leaderboard.csv"

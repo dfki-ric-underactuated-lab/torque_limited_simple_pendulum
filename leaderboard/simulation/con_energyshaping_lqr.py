@@ -23,7 +23,7 @@ from sim_parameters import (
 
 name = "energyshaping_lqr"
 leaderboard_config = {
-    "csv_path": "data/" + name + "/sim_swingup.csv",
+    "csv_path": name + "/sim_swingup.csv",
     "name": name,
     "simple_name": "Energy Shaping and LQR",
     "short_description": "Energy shaping for swingup and LQR for stabilization.",

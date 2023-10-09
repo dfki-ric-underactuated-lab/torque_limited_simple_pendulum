@@ -34,7 +34,7 @@ from sim_parameters import (
 
 name = "ilqr_tvlqr_lqr"
 leaderboard_config = {
-    "csv_path": "data/" + name + "/sim_swingup.csv",
+    "csv_path": name + "/sim_swingup.csv",
     "name": name,
     "simple_name": "iLQR and TVLQR",
     "short_description": "iLQR trajectory stabilized with time-varying LQR.",

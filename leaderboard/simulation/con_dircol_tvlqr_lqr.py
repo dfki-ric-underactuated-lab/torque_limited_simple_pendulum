@@ -26,7 +26,7 @@ from sim_parameters import (
 
 name = "dircol_tvlqr_lqr"
 leaderboard_config = {
-    "csv_path": "data/" + name + "/sim_swingup.csv",
+    "csv_path": name + "/sim_swingup.csv",
     "name": name,
     "simple_name": "Direct collocation and TVLQR",
     "short_description": "Direct collocation trajectory stabilized with time-varying LQR.",

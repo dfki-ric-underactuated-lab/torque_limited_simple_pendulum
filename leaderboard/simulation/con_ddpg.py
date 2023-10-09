@@ -10,7 +10,7 @@ from sim_parameters import torque_limit
 
 name = "ddpg"
 leaderboard_config = {
-    "csv_path": "data/" + name + "/sim_swingup.csv",
+    "csv_path": name + "/sim_swingup.csv",
     "name": name,
     "simple_name": "DDPG",
     "short_description": "RL Policy learned with Deep Deterministic Policy Gradient.",
