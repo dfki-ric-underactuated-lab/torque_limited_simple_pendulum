@@ -26,7 +26,7 @@ class Simulator:
 
         self.plant = plant
 
-        self.x = np.zeros(2*self.plant.dof)  # position, velocity
+        self.x = np.zeros(2 * self.plant.dof)  # position, velocity
         self.t = 0.0  # time
 
         self.reset_data_recorder()
@@ -154,12 +154,12 @@ class Simulator:
             self.x += dt * self.euler_integrator(self.t, self.x, tau)
         else:
             raise NotImplementedError(
-                   f'Sorry, the integrator {integrator} is not implemented.')
+                f"Sorry, the integrator {integrator} is not implemented."
+            )
         self.t += dt
         self.record_data(self.t, self.x.copy(), tau)
 
-    def simulate(self, t0, x0, tf, dt, controller=None,
-                 integrator="runge_kutta"):
+    def simulate(self, t0, x0, tf, dt, controller=None, integrator="runge_kutta"):
         """
         Simulates the plant over a period of time.
 
@@ -192,13 +192,14 @@ class Simulator:
         self.set_state(t0, x0)
         self.reset_data_recorder()
 
-        while (self.t <= tf):
+        while self.t <= tf:
             if controller is not None:
                 _, _, tau = controller.get_control_output(
-                                        meas_pos=self.x[:self.plant.dof],
-                                        meas_vel=self.x[self.plant.dof:],
-                                        meas_tau=np.zeros(self.plant.dof),
-                                        meas_time=self.t)
+                    meas_pos=self.x[: self.plant.dof],
+                    meas_vel=self.x[self.plant.dof :],
+                    meas_tau=np.zeros(self.plant.dof),
+                    meas_time=self.t,
+                )
             else:
                 tau = np.zeros(self.plant.n_actuators)
             self.step(tau, dt, integrator=integrator)
@@ -210,10 +211,12 @@ class Simulator:
         init of the animation plot
         """
 
-        self.animation_ax.set_xlim(self.plant.workspace_range[0][0],
-                                   self.plant.workspace_range[0][1])
-        self.animation_ax.set_ylim(self.plant.workspace_range[1][0],
-                                   self.plant.workspace_range[1][1])
+        self.animation_ax.set_xlim(
+            self.plant.workspace_range[0][0], self.plant.workspace_range[0][1]
+        )
+        self.animation_ax.set_ylim(
+            self.plant.workspace_range[1][0], self.plant.workspace_range[1][1]
+        )
         self.animation_ax.set_xlabel("x position [m]")
         self.animation_ax.set_ylabel("y position [m]")
         for ap in self.animation_plots[:-1]:
@@ -223,12 +226,9 @@ class Simulator:
         self.tau_arrowarcs = []
         self.tau_arrowheads = []
         for link in range(self.plant.n_links):
-            arc, head = get_arrow(radius=0.001,
-                                  centX=0,
-                                  centY=0,
-                                  angle_=110,
-                                  theta2_=320,
-                                  color_="red")
+            arc, head = get_arrow(
+                radius=0.001, centX=0, centY=0, angle_=110, theta2_=320, color_="red"
+            )
             self.tau_arrowarcs.append(arc)
             self.tau_arrowheads.append(head)
             self.animation_ax.add_patch(arc)
@@ -247,32 +247,37 @@ class Simulator:
         integrator = par_dict["integrator"]
         if controller is not None:
             _, _, tau = controller.get_control_output(
-                meas_pos=self.x[:self.plant.dof],
-                meas_vel=self.x[self.plant.dof:],
+                meas_pos=self.x[: self.plant.dof],
+                meas_vel=self.x[self.plant.dof :],
                 meas_tau=np.zeros(self.plant.dof),
-                meas_time=self.t)
+                meas_time=self.t,
+            )
         else:
             tau = np.zeros(self.plant.n_actuators)
         self.step(tau, dt, integrator=integrator)
-        ee_pos = self.plant.forward_kinematics(self.x[:self.plant.dof])
+        ee_pos = self.plant.forward_kinematics(self.x[: self.plant.dof])
         ee_pos.insert(0, self.plant.base)
         ani_plot_counter = 0
         for link in range(self.plant.n_links):
             self.animation_plots[ani_plot_counter].set_data(
-                            [ee_pos[link][0], ee_pos[link+1][0]],
-                            [ee_pos[link][1], ee_pos[link+1][1]])
+                [ee_pos[link][0], ee_pos[link + 1][0]],
+                [ee_pos[link][1], ee_pos[link + 1][1]],
+            )
             ani_plot_counter += 1
-            self.animation_plots[ani_plot_counter].set_data(ee_pos[link+1][0],
-                                                            ee_pos[link+1][1])
+            self.animation_plots[ani_plot_counter].set_data(
+                ee_pos[link + 1][0], ee_pos[link + 1][1]
+            )
             ani_plot_counter += 1
 
-            set_arrow_properties(self.tau_arrowarcs[link],
-                                 self.tau_arrowheads[link],
-                                 float(np.squeeze(tau)),
-                                 ee_pos[link][0],
-                                 ee_pos[link][1])
+            set_arrow_properties(
+                self.tau_arrowarcs[link],
+                self.tau_arrowheads[link],
+                float(np.squeeze(tau)),
+                ee_pos[link][0],
+                ee_pos[link][1],
+            )
         t = float(self.animation_plots[ani_plot_counter].get_text()[4:])
-        t = round(t+dt, 3)
+        t = round(t + dt, 3)
         self.animation_plots[ani_plot_counter].set_text(f"t = {t}")
 
         # if the animation runs slower than real time
@@ -303,14 +308,23 @@ class Simulator:
 
         for d in range(self.plant.dof):
             self.ps_plots[d].set_data(
-                            np.asarray(self.x_values).T[d],
-                            np.asarray(self.x_values).T[self.plant.dof+d])
+                np.asarray(self.x_values).T[d],
+                np.asarray(self.x_values).T[self.plant.dof + d],
+            )
         return self.ps_plots
 
-    def simulate_and_animate(self, t0, x0, tf, dt, controller=None,
-                             integrator="runge_kutta", phase_plot=False,
-                             save_video=False, video_name="video"):
-
+    def simulate_and_animate(
+        self,
+        t0,
+        x0,
+        tf,
+        dt,
+        controller=None,
+        integrator="runge_kutta",
+        phase_plot=False,
+        save_video=False,
+        video_name="video",
+    ):
         """
         Simulation and animation of the plant motion.
         The animation is only implemented for 2d serial chains.
@@ -358,16 +372,16 @@ class Simulator:
         self.animation_plots = []
 
         for link in range(self.plant.n_links):
-            bar_plot, = self.animation_ax.plot([], [], "-",
-                                               lw=5, color="black")
+            (bar_plot,) = self.animation_ax.plot([], [], "-", lw=5, color="black")
             self.animation_plots.append(bar_plot)
-            ee_plot, = self.animation_ax.plot([], [], "o",
-                                              markersize=25.0, color="blue")
+            (ee_plot,) = self.animation_ax.plot(
+                [], [], "o", markersize=25.0, color="blue"
+            )
             self.animation_plots.append(ee_plot)
 
-        text_plot = self.animation_ax.text(0.15, 0.85, [],
-                                           fontsize=40,
-                                           transform=fig.transFigure)
+        text_plot = self.animation_ax.text(
+            0.15, 0.85, [], fontsize=40, transform=fig.transFigure
+        )
 
         self.animation_plots.append(text_plot)
 
@@ -376,72 +390,87 @@ class Simulator:
         par_dict["dt"] = dt
         par_dict["controller"] = controller
         par_dict["integrator"] = integrator
-        frames = num_steps*[par_dict]
+        frames = num_steps * [par_dict]
 
-        self.animation = FuncAnimation(fig, self._animation_step, frames=frames,
-                                       init_func=self._animation_init, blit=True,
-                                       repeat=False, interval=dt*1000)
+        self.animation = FuncAnimation(
+            fig,
+            self._animation_step,
+            frames=frames,
+            init_func=self._animation_init,
+            blit=True,
+            repeat=False,
+            interval=dt * 1000,
+        )
 
         if phase_plot:
             ps_fig = plt.figure(figsize=(10, 10))
             self.ps_ax = plt.axes()
             self.ps_plots = []
             for d in range(self.plant.dof):
-                ps_plot, = self.ps_ax.plot([], [], "-", lw=1.0, color="blue")
+                (ps_plot,) = self.ps_ax.plot([], [], "-", lw=1.0, color="blue")
                 self.ps_plots.append(ps_plot)
 
-            self.animation2 = FuncAnimation(ps_fig, self._ps_update,
-                                            init_func=self._ps_init, blit=True,
-                                            repeat=False, interval=dt*1000)
+            self.animation2 = FuncAnimation(
+                ps_fig,
+                self._ps_update,
+                init_func=self._ps_init,
+                blit=True,
+                repeat=False,
+                interval=dt * 1000,
+            )
 
         if save_video:
-            print(f"Saving video to {video_name}.mp4")
-            Writer = mplanimation.writers['ffmpeg']
-            writer = Writer(fps=60, bitrate=1800)
-            self.animation.save(video_name+'.mp4', writer=writer)
+            print(f"Saving video to {video_name}")
+            Writer = mplanimation.writers["ffmpeg"]
+            writer = Writer(fps=60, bitrate=18000)
+            self.animation.save(video_name, writer=writer)
             print("Saving video done.")
         plt.show()
 
         return self.t_values, self.x_values, self.tau_values
 
 
-def get_arrow(radius, centX, centY, angle_, theta2_, color_='black'):
-    arc = Arc([centX, centY],
-              radius,
-              radius,
-              angle=angle_,
-              theta1=0,
-              theta2=theta2_,
-              capstyle='round',
-              linestyle='-',
-              lw=2,
-              color=color_)
+def get_arrow(radius, centX, centY, angle_, theta2_, color_="black"):
+    arc = Arc(
+        [centX, centY],
+        radius,
+        radius,
+        angle=angle_,
+        theta1=0,
+        theta2=theta2_,
+        capstyle="round",
+        linestyle="-",
+        lw=2,
+        color=color_,
+    )
 
-    endX = centX+(radius/2)*np.cos(rad(theta2_+angle_))
-    endY = centY+(radius/2)*np.sin(rad(theta2_+angle_))
+    endX = centX + (radius / 2) * np.cos(rad(theta2_ + angle_))
+    endY = centY + (radius / 2) * np.sin(rad(theta2_ + angle_))
 
-    head = RegularPolygon((endX, endY),            # (x,y)
-                          3,                       # number of vertices
-                          radius/20,               # radius
-                          rad(angle_+theta2_),     # orientation
-                          color=color_)
+    head = RegularPolygon(
+        (endX, endY),  # (x,y)
+        3,  # number of vertices
+        radius / 20,  # radius
+        rad(angle_ + theta2_),  # orientation
+        color=color_,
+    )
     return arc, head
 
 
 def set_arrow_properties(arc, head, tau, x, y):
-    tau_rad = np.clip(0.1*np.abs(tau) + 0.1, -1, 1)
+    tau_rad = np.clip(0.1 * np.abs(tau) + 0.1, -1, 1)
     if tau > 0:
         theta2 = -40
         arrow_angle = 110
-        endX = x+(tau_rad/2)*np.cos(rad(theta2+arrow_angle))
-        endY = y+(tau_rad/2)*np.sin(rad(theta2+arrow_angle))
+        endX = x + (tau_rad / 2) * np.cos(rad(theta2 + arrow_angle))
+        endY = y + (tau_rad / 2) * np.sin(rad(theta2 + arrow_angle))
         orientation = rad(arrow_angle + theta2)
     else:
         theta2 = 320
         arrow_angle = 110
-        endX = x+(tau_rad/2)*np.cos(rad(arrow_angle))
-        endY = y+(tau_rad/2)*np.sin(rad(arrow_angle))
-        orientation = rad(-arrow_angle-theta2)
+        endX = x + (tau_rad / 2) * np.cos(rad(arrow_angle))
+        endY = y + (tau_rad / 2) * np.sin(rad(arrow_angle))
+        orientation = rad(-arrow_angle - theta2)
     arc.center = [x, y]
     arc.width = tau_rad
     arc.height = tau_rad
@@ -449,7 +478,7 @@ def set_arrow_properties(arc, head, tau, x, y):
     arc.theta2 = theta2
 
     head.xy = [endX, endY]
-    head.radius = tau_rad/20
+    head.radius = tau_rad / 20
     head.orientation = orientation
 
     if np.abs(tau) <= 0.01:
