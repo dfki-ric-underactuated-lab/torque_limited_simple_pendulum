@@ -5,6 +5,8 @@ import argparse
 
 # Local imports
 from simple_pendulum.analysis.benchmark import benchmarker
+from simple_pendulum.utilities.plot_benchmarks import plot_benchmarks
+
 
 from sim_parameters import (
     mass,
@@ -62,6 +64,11 @@ def compute_leaderboard_data(data_dir, con_filename):
         check_sensitivity=True,
         check_torque_limit=True,
         save_path=os.path.join(save_dir, "benchmark.yml"),
+    )
+
+    plot_benchmarks(
+        os.path.join(save_dir, "benchmark.yml"),
+        os.path.join(save_dir, "scores_plot.png"),
     )
 
     if os.path.exists(f"readmes/{controller_name}.md"):
