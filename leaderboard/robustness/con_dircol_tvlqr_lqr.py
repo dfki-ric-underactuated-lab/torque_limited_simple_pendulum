@@ -54,9 +54,13 @@ dircal.init_pendulum(
     torque_limit=torque_limit,
 )
 x_trajectory, dircol, result = dircal.compute_trajectory(
-    N=N, max_dt=max_dt, start_state=x0, goal_state=goal
+    N=N,
+    max_dt=max_dt,
+    start_state=x0,
+    goal_state=goal,
+    control_cost=0.1,
 )
-T, X, XD, U = dircal.extract_trajectory(
+T, X, U = dircal.extract_trajectory(
     x_trajectory, dircol, result, N=int(x_trajectory.end_time() / dt)
 )
 
@@ -64,8 +68,8 @@ T, X, XD, U = dircal.extract_trajectory(
 # save results
 data_dict = prepare_empty_data_dict(dt, t_final)
 data_dict["des_time"] = T
-data_dict["des_pos"] = X
-data_dict["des_vel"] = XD
+data_dict["des_pos"] = X.T[0]
+data_dict["des_vel"] = X.T[1]
 data_dict["des_tau"] = U
 
 controller1 = TVLQRController(
