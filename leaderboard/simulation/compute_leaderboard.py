@@ -42,7 +42,9 @@ for f in os.listdir("."):
     if f[:4] == "con_":
         mod = importlib.import_module(f[:-3])
         if hasattr(mod, "leaderboard_config"):
-            if os.path.exists(mod.leaderboard_config["csv_path"]):
+            if os.path.exists(
+                os.path.join(data_dir, mod.leaderboard_config["csv_path"])
+            ):
                 print(
                     f"Found leaderboard_config and data for {mod.leaderboard_config['name']}"
                 )
