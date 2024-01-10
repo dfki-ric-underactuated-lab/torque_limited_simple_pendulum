@@ -59,13 +59,13 @@ jobs:
        if: env.run_tests == 'true'
        run: |
          sudo apt-get install curl
-     - name: Install drake dependencies
+     - name: Install dependencies
        if: env.run_tests == 'true'
        run: |
          sudo apt-get update
          sudo apt-get install --no-install-recommends \
-           libpython3.10 libx11-6 libsm6 libxt6 libglib2.0-0
-     - name: Install project dependencies
+           libpython3.10 libx11-6 libsm6 libxt6 libglib2.0-0 python3-tk
+     - name: Install project
        if: env.run_tests == 'true'
        run: |
          make install
