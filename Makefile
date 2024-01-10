@@ -15,4 +15,4 @@ doc:
 	make -C $(DOC_ROOT) html
 
 tests:
-	make -C $(PYTHON_ROOT)
+	make -C $(PYTHON_ROOT) test

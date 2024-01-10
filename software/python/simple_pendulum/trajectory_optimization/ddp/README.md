@@ -63,24 +63,15 @@ To set the correct pendulum parameters in the urdf with:
 
 After that the trajectory can be computed with
 
-    T, TH, THD, U = ddp.compute_trajectory(start_state=np.array[0.0, 0.0]),
-                                           goal_state=np.array[np.pi, 0.0]),
-                                           weights=np.array([1] + [0.1]*1),
-                                           dt=4e-2,
-                                           T=150,
-                                           running_cost_state=1e-5,
-                                           running_cost_torque=1e-4,
-                                           final_cost_state=1e10)
+    T, X, U = ddp.compute_trajectory(start_state=np.array[0.0, 0.0]),
+                                     goal_state=np.array[np.pi, 0.0]),
+                                     dt=4e-2,
+                                     T=150,
+                                     running_cost_state=1e-5,
+                                     running_cost_torque=1e-4,
+                                     final_cost_state=1e10)
 
-where weights contains the weights of the terminal and the running cost model. dt is the timestep length, T is the number of timesteps. running_cost_state, running_cost_torque and final_cost_state are the individal cost weights. The method returns the time trajectory T, the positiontrajectory TH, the velocity trajectory THD and the control trajectory U.
-
-The trajectory can be plotted with
-
-    ddp.plot_trajectory()
-
-or simulated with gepetto with (for this enable_gui has to be set to True during the initialization)
-
-    ddp.simulate_trajectory_gepetto()
+where dt is the timestep length, T is the number of timesteps. running_cost_state, running_cost_torque and final_cost_state are the individual cost weights. The method returns the time trajectory T, the state trajectory X and the control trajectory U.
 
 # Usage
 

@@ -60,6 +60,7 @@ class DirectCollocationCalculator:
         start_state=[0.0, 0.0],
         goal_state=[np.pi, 0.0],
         initial_x_trajectory=None,
+        control_cost=1.0,
     ):
         """
         Compute a trajectory from a start state to a goal state
@@ -92,8 +93,9 @@ class DirectCollocationCalculator:
             self.pendulum_plant,
             self.pendulum_context,
             num_time_samples=N,
-            minimum_timestep=0.05,
-            maximum_timestep=max_dt,
+            minimum_time_step=0.05,
+            maximum_time_step=max_dt,
+            input_port_index=self.pendulum_plant.get_input_port().get_index(),
         )
 
         dircol.AddEqualTimeIntervalsConstraints()
@@ -116,8 +118,7 @@ class DirectCollocationCalculator:
             final_state.get_value(), final_state.get_value(), dircol.final_state()
         )
 
-        R = 10.0  # Cost on input "effort".
-        dircol.AddRunningCost(R * u[0] ** 2)
+        dircol.AddRunningCost(control_cost * u[0] ** 2)
 
         if initial_x_trajectory is not None:
             dircol.SetInitialTrajectory(PiecewisePolynomial(), initial_x_trajectory)
@@ -185,16 +186,13 @@ class DirectCollocationCalculator:
         """
         # Extract Time
         time = np.linspace(x_trajectory.start_time(), x_trajectory.end_time(), N)
-        time_traj = time.reshape(N, 1).T[0]
+        T = time.reshape(N, 1).T[0]
 
         # Extract State
-        theta_theta_dot = np.hstack([x_trajectory.value(t) for t in time])
-
-        theta = theta_theta_dot[0, :].reshape(N, 1).T[0]
-        theta_dot = theta_theta_dot[1, :].reshape(N, 1).T[0]
+        X = np.hstack([x_trajectory.value(t) for t in time]).T
 
         # Extract Control Inputs
         u_trajectory = dircol.ReconstructInputTrajectory(result)
-        torque_traj = np.hstack([u_trajectory.value(t) for t in time])[0]
+        U = np.hstack([u_trajectory.value(t) for t in time])[0]
 
-        return time_traj, theta, theta_dot, torque_traj
+        return T, X, U

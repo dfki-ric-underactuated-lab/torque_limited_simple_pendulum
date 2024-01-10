@@ -2,8 +2,7 @@
 <a style="border-width:0" href="https://doi.org/10.21105/joss.03884">
   <img src="https://joss.theoj.org/papers/10.21105/joss.03884/status.svg" alt="DOI badge" >
 </a>
-![Ubuntu 18 Py3.6](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/actions/workflows/test_ub18.yml/badge.svg)
-![Ubuntu 20 Py3.8](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/actions/workflows/test_ub20.yml/badge.svg)
+![Ubuntu 22 Py3.10](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/actions/workflows/test_ub22.yml/badge.svg)
 ![Documentation](https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum/actions/workflows/docs.yml/badge.svg)
 
 <div align="center">

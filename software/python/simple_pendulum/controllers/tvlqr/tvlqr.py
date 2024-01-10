@@ -6,12 +6,16 @@ tvLQR Controller
 
 # Global imports
 import numpy as np
-from pydrake.all import FiniteHorizonLinearQuadraticRegulatorOptions, \
-                        FiniteHorizonLinearQuadraticRegulator, \
-                        PiecewisePolynomial, \
-                        Linearize, \
-                        LinearQuadraticRegulator
-from pydrake.examples.pendulum import PendulumPlant
+from pydrake.all import (
+    FiniteHorizonLinearQuadraticRegulatorOptions,
+    FiniteHorizonLinearQuadraticRegulator,
+    PiecewisePolynomial,
+    Linearize,
+    LinearQuadraticRegulator,
+)
+
+# from pydrake.examples.pendulum import PendulumPlant
+from pydrake.examples import PendulumPlant
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
@@ -21,13 +25,16 @@ class TVLQRController(AbstractController):
     """
     Controller acts on a predefined trajectory.
     """
-    def __init__(self,
-                 data_dict,
-                 mass=1.0,
-                 length=0.5,
-                 damping=0.1,
-                 gravity=9.81,
-                 torque_limit=np.inf):
+
+    def __init__(
+        self,
+        data_dict,
+        mass=1.0,
+        length=0.5,
+        damping=0.1,
+        gravity=9.81,
+        torque_limit=np.inf,
+    ):
         """
         Controller acts on a predefined trajectory.
 
@@ -60,19 +67,16 @@ class TVLQRController(AbstractController):
 
         self.max_time = self.traj_time[-1]
 
-        self.traj_time = np.reshape(self.traj_time,
-                                    (self.traj_time.shape[0], -1))
-        self.traj_tau = np.reshape(self.traj_tau,
-                                   (self.traj_tau.shape[0], -1)).T
+        self.traj_time = np.reshape(self.traj_time, (self.traj_time.shape[0], -1))
+        self.traj_tau = np.reshape(self.traj_tau, (self.traj_tau.shape[0], -1)).T
 
         x0_desc = np.vstack((self.traj_pos, self.traj_vel))
         # u0_desc = self.traj_tau
 
         u0 = PiecewisePolynomial.FirstOrderHold(self.traj_time, self.traj_tau)
         x0 = PiecewisePolynomial.CubicShapePreserving(
-                                              self.traj_time,
-                                              x0_desc,
-                                              zero_end_point_derivatives=True)
+            self.traj_time, x0_desc, zero_end_point_derivatives=True
+        )
 
         # create drake pendulum plant
         self.plant = PendulumPlant()
@@ -88,14 +92,14 @@ class TVLQRController(AbstractController):
         # create lqr context
         self.tilqr_context = self.plant.CreateDefaultContext()
         self.plant.get_input_port(0).FixValue(self.tilqr_context, [0])
-        #self.Q_tilqr = np.diag((50., 1.))
-        self.Q_tilqr = np.diag((10., 1.))
+        # self.Q_tilqr = np.diag((50., 1.))
+        self.Q_tilqr = np.diag((10.0, 1.0))
         self.R_tilqr = [1]
 
         # Setup Options and Create TVLQR
         self.options = FiniteHorizonLinearQuadraticRegulatorOptions()
-        #self.Q = np.diag([200., 0.1])
-        self.Q = np.diag([10., 1.0])
+        # self.Q = np.diag([200., 0.1])
+        self.Q = np.diag([10.0, 1.0])
         self.options.x0 = x0
         self.options.u0 = u0
 
@@ -111,27 +115,28 @@ class TVLQRController(AbstractController):
     def set_goal(self, x):
         self.goal = x
         pos = x[0] + np.pi
-        pos = (pos + np.pi) % (2*np.pi) - np.pi
+        pos = (pos + np.pi) % (2 * np.pi) - np.pi
         self.tilqr_context.SetContinuousState([pos, x[1]])
         linearized_pendulum = Linearize(self.plant, self.tilqr_context)
-        (self.K, S) = LinearQuadraticRegulator(linearized_pendulum.A(),
-                                          linearized_pendulum.B(),
-                                          self.Q_tilqr,
-                                          self.R_tilqr)
+        (self.K, S) = LinearQuadraticRegulator(
+            linearized_pendulum.A(), linearized_pendulum.B(), self.Q_tilqr, self.R_tilqr
+        )
 
         self.options.Qf = S
 
         self.tvlqr = FiniteHorizonLinearQuadraticRegulator(
-                        self.plant,
-                        self.context,
-                        t0=self.options.u0.start_time(),
-                        tf=self.options.u0.end_time(),
-                        Q=self.Q,
-                        R=np.eye(1)*2,
-                        options=self.options)
+            self.plant,
+            self.context,
+            t0=self.options.u0.start_time(),
+            tf=self.options.u0.end_time(),
+            Q=self.Q,
+            R=np.eye(1) * 2,
+            options=self.options,
+        )
 
-    def get_control_output(self, meas_pos=None, meas_vel=None, meas_tau=None,
-                           meas_time=None):
+    def get_control_output(
+        self, meas_pos=None, meas_vel=None, meas_tau=None, meas_time=None
+    ):
         """
         The function to read and send the entries of the loaded trajectory
         as control input to the simulator/real pendulum.
@@ -176,20 +181,19 @@ class TVLQRController(AbstractController):
 
         time = min(meas_time, self.max_time)
         if meas_time <= self.max_time:
-
             uu = self.tvlqr.u0.value(time)
             xx = self.tvlqr.x0.value(time)
             KK = self.tvlqr.K.value(time)
             kk = self.tvlqr.k0.value(time)
 
             xdiff = x - xx
-            pos_diff = (xdiff[0] + np.pi) % (2*np.pi) - np.pi
+            pos_diff = (xdiff[0] + np.pi) % (2 * np.pi) - np.pi
             xdiff[0] = pos_diff
 
             des_tau = (uu - KK.dot(xdiff) - kk)[0][0]
         else:
             delta_pos = pos - self.goal[0]
-            delta_pos_wrapped = (delta_pos + np.pi) % (2*np.pi) - np.pi
+            delta_pos_wrapped = (delta_pos + np.pi) % (2 * np.pi) - np.pi
 
             delta_y = np.asarray([delta_pos_wrapped, vel - self.goal[1]])
 

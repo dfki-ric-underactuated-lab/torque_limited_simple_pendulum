@@ -12,6 +12,9 @@ import matplotlib.animation as mplanimation
 from matplotlib.patches import Arc, RegularPolygon
 from numpy import radians as rad
 
+# from simple_pendulum.utilities.process_data import prepare_empty_data_dict
+# from simple_pendulum.utilities.process_data import cut_trajectory
+
 
 class Simulator:
     def __init__(self, plant):
@@ -28,10 +31,11 @@ class Simulator:
 
         self.x = np.zeros(2 * self.plant.dof)  # position, velocity
         self.t = 0.0  # time
+        self.step_counter = 0
 
         self.reset_data_recorder()
 
-    def set_state(self, time, x):
+    def set_state(self, time, x, step_counter=0):
         """
         set the state of the pendulum plant
 
@@ -41,10 +45,13 @@ class Simulator:
             time, unit: s
         x: type as self.plant expects a state,
             state of the pendulum plant
+        step_counter : int
+            step counter
         """
 
         self.x = np.copy(x)
         self.t = np.copy(float(time))
+        self.step_counter = step_counter
 
     def get_state(self):
         """
@@ -68,6 +75,7 @@ class Simulator:
         self.t_values = []
         self.x_values = []
         self.tau_values = []
+        self.step_counter = 0
 
     def record_data(self, time, x, tau):
         """
@@ -156,6 +164,7 @@ class Simulator:
             raise NotImplementedError(
                 f"Sorry, the integrator {integrator} is not implemented."
             )
+        self.step_counter += 1
         self.t += dt
         self.record_data(self.t, self.x.copy(), tau)
 
@@ -192,18 +201,34 @@ class Simulator:
         self.set_state(t0, x0)
         self.reset_data_recorder()
 
+        # self.data_dict = prepare_empty_data_dict(dt, tf)
+
         while self.t <= tf:
             if controller is not None:
-                _, _, tau = controller.get_control_output(
+                t0 = time.time()
+                pos, vel, tau = controller.get_control_output(
                     meas_pos=self.x[: self.plant.dof],
                     meas_vel=self.x[self.plant.dof :],
                     meas_tau=np.zeros(self.plant.dof),
                     meas_time=self.t,
                 )
+                if time.time() - t0 > dt:
+                    print("Warning: Controller is slower than real time")
             else:
                 tau = np.zeros(self.plant.n_actuators)
             self.step(tau, dt, integrator=integrator)
+            # self.data_dict["des_time"][self.step_counter] = self.t
+            # self.data_dict["des_pos"][self.step_counter] = pos
+            # self.data_dict["des_vel"][self.step_counter] = vel
+            # self.data_dict["des_tau"][self.step_counter] = tau
+            # self.data_dict["meas_time"][self.step_counter] = self.t
+            # self.data_dict["meas_pos"][self.step_counter] = self.x[0]
+            # self.data_dict["meas_vel"][self.step_counter] = self.x[1]
+            # self.data_dict["meas_tau"][self.step_counter] = tau
 
+        # self.data_dict = cut_trajectory(self.data_dict, "meas_time")
+
+        # return self.data_dict
         return self.t_values, self.x_values, self.tau_values
 
     def _animation_init(self):
@@ -240,21 +265,33 @@ class Simulator:
         """
         simulation of a single step which also updates the animation plot
         """
-
-        t0 = time.time()
+        controller_slow = False
         dt = par_dict["dt"]
         controller = par_dict["controller"]
         integrator = par_dict["integrator"]
         if controller is not None:
-            _, _, tau = controller.get_control_output(
+            t0 = time.time()
+            pos, vel, tau = controller.get_control_output(
                 meas_pos=self.x[: self.plant.dof],
                 meas_vel=self.x[self.plant.dof :],
                 meas_tau=np.zeros(self.plant.dof),
                 meas_time=self.t,
             )
+            if time.time() - t0 > dt:
+                controller_slow = True
         else:
             tau = np.zeros(self.plant.n_actuators)
         self.step(tau, dt, integrator=integrator)
+
+        # self.data_dict["des_time"][self.step_counter] = self.t
+        # self.data_dict["des_pos"][self.step_counter] = pos
+        # self.data_dict["des_vel"][self.step_counter] = vel
+        # self.data_dict["des_tau"][self.step_counter] = tau
+        # self.data_dict["meas_time"][self.step_counter] = self.t
+        # self.data_dict["meas_pos"][self.step_counter] = self.x[0]
+        # self.data_dict["meas_vel"][self.step_counter] = self.x[1]
+        # self.data_dict["meas_tau"][self.step_counter] = tau
+
         ee_pos = self.plant.forward_kinematics(self.x[: self.plant.dof])
         ee_pos.insert(0, self.plant.base)
         ani_plot_counter = 0
@@ -280,9 +317,9 @@ class Simulator:
         t = round(t + dt, 3)
         self.animation_plots[ani_plot_counter].set_text(f"t = {t}")
 
-        # if the animation runs slower than real time
+        # if the controller runs slower than real time
         # the time display will be red
-        if time.time() - t0 > dt:
+        if controller_slow:
             self.animation_plots[ani_plot_counter].set_color("red")
         else:
             self.animation_plots[ani_plot_counter].set_color("black")
@@ -366,6 +403,7 @@ class Simulator:
 
         self.set_state(t0, x0)
         self.reset_data_recorder()
+        # self.data_dict = prepare_empty_data_dict(dt, tf)
 
         fig = plt.figure(figsize=(20, 20))
         self.animation_ax = plt.axes()
@@ -427,6 +465,9 @@ class Simulator:
             print("Saving video done.")
         plt.show()
 
+        # self.data_dict = cut_trajectory(self.data_dict, "meas_time")
+
+        # return self.data_dict
         return self.t_values, self.x_values, self.tau_values
 
 
@@ -448,10 +489,10 @@ def get_arrow(radius, centX, centY, angle_, theta2_, color_="black"):
     endY = centY + (radius / 2) * np.sin(rad(theta2_ + angle_))
 
     head = RegularPolygon(
-        (endX, endY),  # (x,y)
-        3,  # number of vertices
-        radius / 20,  # radius
-        rad(angle_ + theta2_),  # orientation
+        xy=(endX, endY),  # (x,y)
+        numVertices=3,  # number of vertices
+        radius=radius / 20,  # radius
+        orientation=rad(angle_ + theta2_),  # orientation
         color=color_,
     )
     return arc, head
