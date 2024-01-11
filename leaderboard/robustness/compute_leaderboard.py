@@ -17,14 +17,20 @@ parser.add_argument(
     required=False,
 )
 parser.add_argument(
+    "--save_to",
+    dest="save_to",
+    help="Path for saving the leaderbaord csv file.",
+    default="leaderboard.csv",
+    required=False,
+)
+parser.add_argument(
     "--force-recompute",
     dest="recompute",
     help="Whether to force the recomputation of the leaderboard even without new data.",
     default=False,
     required=False,
-    type=bool,
+    type=int,
 )
-
 parser.add_argument(
     "--link-base",
     dest="link",
@@ -34,8 +40,12 @@ parser.add_argument(
 )
 
 data_dir = parser.parse_args().data_dir
-recompute_leaderboard = parser.parse_args().recompute
+save_to = parser.parse_args().save_to
+recompute_leaderboard = bool(parser.parse_args().recompute)
 link_base = parser.parse_args().link
+
+if not os.path.exists(save_to):
+    recompute_leaderboard = True
 
 if not os.path.exists(data_dir):
     os.makedirs(data_dir)
@@ -56,7 +66,7 @@ for file in os.listdir("."):
 
 if recompute_leaderboard:
     src_dir = "."
-    save_to = os.path.join(data_dir, "leaderboard.csv")
+    # save_to = os.path.join(data_dir, "leaderboard.csv")
 
     leaderboard_data = []
 

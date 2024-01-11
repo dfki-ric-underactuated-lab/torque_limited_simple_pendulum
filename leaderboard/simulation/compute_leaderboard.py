@@ -17,12 +17,19 @@ parser.add_argument(
     required=False,
 )
 parser.add_argument(
+    "--save_to",
+    dest="save_to",
+    help="Path for saving the leaderbaord csv file.",
+    default="leaderboard.csv",
+    required=False,
+)
+parser.add_argument(
     "--force-recompute",
     dest="recompute",
     help="Whether to force the recomputation of the leaderboard even without new data.",
     default=False,
     required=False,
-    type=bool,
+    type=int,
 )
 parser.add_argument(
     "--link-base",
@@ -33,8 +40,12 @@ parser.add_argument(
 )
 
 data_dir = parser.parse_args().data_dir
-recompute_leaderboard = parser.parse_args().recompute
+save_to = parser.parse_args().save_to
+recompute_leaderboard = bool(parser.parse_args().recompute)
 link_base = parser.parse_args().link
+
+if not os.path.exists(save_to):
+    recompute_leaderboard = True
 
 data_paths = {}
 
@@ -59,8 +70,7 @@ for f in os.listdir("."):
             )
             data_paths[mod.leaderboard_config["name"]] = conf
 
-
-save_to = f"{data_dir}/leaderboard.csv"
+# save_to = f"{data_dir}/leaderboard.csv"
 
 if recompute_leaderboard:
     leaderboard_scores(

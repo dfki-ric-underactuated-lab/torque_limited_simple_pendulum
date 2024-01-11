@@ -463,7 +463,8 @@ class Simulator:
             writer = Writer(fps=60, bitrate=18000)
             self.animation.save(video_name, writer=writer)
             print("Saving video done.")
-        plt.show()
+        else:
+            plt.show()
 
         # self.data_dict = cut_trajectory(self.data_dict, "meas_time")
 
