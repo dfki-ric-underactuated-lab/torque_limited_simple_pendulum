@@ -55,15 +55,17 @@ def load_trajectory(csv_path):
 
     n = len(data[data.keys()[1]])
 
-    data_dict = {"des_time": np.zeros(n),
-                 "des_pos": np.zeros(n),
-                 "des_vel": np.zeros(n),
-                 "des_tau": np.zeros(n),
-                 "meas_time": np.zeros(n),
-                 "meas_pos": np.zeros(n),
-                 "meas_vel": np.zeros(n),
-                 "meas_tau": np.zeros(n),
-                 "vel_filt": np.zeros(n)}
+    data_dict = {
+        "des_time": np.zeros(n),
+        "des_pos": np.zeros(n),
+        "des_vel": np.zeros(n),
+        "des_tau": np.zeros(n),
+        "meas_time": np.zeros(n),
+        "meas_pos": np.zeros(n),
+        "meas_vel": np.zeros(n),
+        "meas_tau": np.zeros(n),
+        "vel_filt": np.zeros(n),
+    }
 
     if "des_time" in data.keys():
         data_dict["des_time"] = np.asarray(data["des_time"])
@@ -134,25 +136,23 @@ def save_trajectory(csv_path, data_dict):
     if not os.path.exists(os.path.dirname(csv_path)):
         os.makedirs(os.path.dirname(csv_path))
 
-    data = [data_dict["des_time"],
-            data_dict["des_pos"],
-            data_dict["des_vel"],
-            data_dict["des_tau"],
-            data_dict["meas_time"],
-            data_dict["meas_pos"],
-            data_dict["meas_vel"],
-            data_dict["meas_tau"]]
+    data = [
+        data_dict["des_time"],
+        data_dict["des_pos"],
+        data_dict["des_vel"],
+        data_dict["des_tau"],
+        data_dict["meas_time"],
+        data_dict["meas_pos"],
+        data_dict["meas_vel"],
+        data_dict["meas_tau"],
+    ]
 
     data = np.asarray(data).T
 
     header = "des_time,des_pos,des_vel,des_tau,meas_time,meas_pos,meas_vel,meas_tau"
 
-    np.savetxt(csv_path,
-               data,
-               delimiter=',',
-               header=header,
-               comments="")
-    print(f'Saved .csv data to folder {csv_path}')
+    np.savetxt(csv_path, data, delimiter=",", header=header, comments="")
+    print(f"Saved .csv data to folder {csv_path}")
 
 
 def prepare_empty_data_dict(dt, tf, n=None):
@@ -187,20 +187,21 @@ def prepare_empty_data_dict(dt, tf, n=None):
     meas_tau = np.zeros(n)
     vel_filt = np.zeros(n)
 
-    data_dict = {"des_time": des_time,
-                 "des_pos": des_pos,
-                 "des_vel": des_vel,
-                 "des_tau": des_tau,
-                 "meas_time": meas_time,
-                 "meas_pos": meas_pos,
-                 "meas_vel": meas_vel,
-                 "meas_tau": meas_tau,
-                 "vel_filt": vel_filt}
+    data_dict = {
+        "des_time": des_time,
+        "des_pos": des_pos,
+        "des_vel": des_vel,
+        "des_tau": des_tau,
+        "meas_time": meas_time,
+        "meas_pos": meas_pos,
+        "meas_vel": meas_vel,
+        "meas_tau": meas_tau,
+        "vel_filt": vel_filt,
+    }
     return data_dict
 
 
 def cut_trajectory(data_dict, key="meas_time"):
-
     n = np.nonzero(data_dict[key])[0][-1] + 1
 
     for k in data_dict.keys():
@@ -223,11 +224,21 @@ def data_dict_from_TXU(T, X, U):
     return data_dict
 
 
-def saveFunnel(rho, S_t, time, max_dt, N, estMethod = ""):
+def TXU_from_data_dict(data_dict):
+    T = data_dict["meas_time"]
 
+    P = data_dict["meas_pos"]
+    V = data_dict["meas_vel"]
+    X = np.concatenate([[P], [V]], axis=0)
+
+    U = data_dict["meas_tau"]
+    return T, X, U
+
+
+def saveFunnel(rho, S_t, time, max_dt, N, estMethod=""):
     S = S_t.value(time[0]).flatten()
-    for i in range(1,len(time)):
-        S = np.vstack((S,S_t.value(time[i]).flatten()))
+    for i in range(1, len(time)):
+        S = np.vstack((S, S_t.value(time[i]).flatten()))
 
     log_dir = "log_data/funnel"
     if not os.path.exists(log_dir):
@@ -236,20 +247,20 @@ def saveFunnel(rho, S_t, time, max_dt, N, estMethod = ""):
     csv_data = np.vstack((rho, np.array(S).T))
 
     csv_path = os.path.join(log_dir, estMethod + f"funnel{max_dt}-{N}.csv")
-    np.savetxt(csv_path, csv_data, delimiter=',',
-            header="rho,S_t", comments="")
+    np.savetxt(csv_path, csv_data, delimiter=",", header="rho,S_t", comments="")
+
 
 def getEllipseFromCsv(csv_path, index):
-
     data = np.loadtxt(csv_path, skiprows=1, delimiter=",")
 
     rho = data[0].T[index]
 
-    S_t = data[1:len(data)].T[index]
-    state_dim = int(np.sqrt(len(data)-1))
-    S_t = np.reshape(S_t,(state_dim,state_dim))
+    S_t = data[1 : len(data)].T[index]
+    state_dim = int(np.sqrt(len(data) - 1))
+    S_t = np.reshape(S_t, (state_dim, state_dim))
 
     return rho, S_t
+
 
 # def read(WORK_DIR, params_file, urdf_file, csv_file):
 #     csv_path = str(WORK_DIR) + "/data/trajectories/" + csv_file
@@ -297,5 +308,3 @@ def getEllipseFromCsv(csv_path, index):
 #     print("measured =", nm_cut)
 #     print()
 #     return data_measured, data_desired, n_cut
-
-

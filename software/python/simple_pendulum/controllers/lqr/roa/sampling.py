@@ -3,11 +3,16 @@ import numpy as np
 from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.controllers.lqr.lqr_controller import LQRController
 
-from simple_pendulum.controllers.lqr.roa.plot import plot_ellipse # just for the example code
-from simple_pendulum.controllers.lqr.roa.utils import sample_from_ellipsoid,quad_form
+from simple_pendulum.controllers.lqr.roa.plot import (
+    plot_ellipse,
+)  # just for the example code
+from simple_pendulum.controllers.lqr.roa.utils import sample_from_ellipsoid, quad_form
 
-def najafi_based_sampling(plant,controller,n=10000,rho0=100,M=None,x_star=np.array([np.pi,0])):
-    """Estimate the RoA for the closed loop dynamics using the method introduced in Najafi, E., Babuška, R. & Lopes, G.A.D. A fast sampling method for estimating the domain of attraction. Nonlinear Dyn 86, 823–834 (2016). https://doi.org/10.1007/s11071-016-2926-7 
+
+def najafi_based_sampling(
+    plant, controller, n=10000, rho0=100, M=None, x_star=np.array([np.pi, 0])
+):
+    """Estimate the RoA for the closed loop dynamics using the method introduced in Najafi, E., Babuška, R. & Lopes, G.A.D. A fast sampling method for estimating the domain of attraction. Nonlinear Dyn 86, 823–834 (2016). https://doi.org/10.1007/s11071-016-2926-7
 
     Parameters
     ----------
@@ -31,7 +36,7 @@ def najafi_based_sampling(plant,controller,n=10000,rho0=100,M=None,x_star=np.arr
     M : np.array
         M
     """
-    
+
     rho = rho0
 
     controller.set_clip()
@@ -44,24 +49,24 @@ def najafi_based_sampling(plant,controller,n=10000,rho0=100,M=None,x_star=np.arr
     for i in range(n):
         # sample initial state from sublevel set
         # check if it fullfills Lyapunov conditions
-        x_bar   = sample_from_ellipsoid(M,rho)
-        x       = x_star+x_bar
+        x_bar = sample_from_ellipsoid(M, rho)
+        x = x_star + x_bar
 
-        tau     = controller.get_control_output(x[0],x[1])[2]
+        tau = controller.get_control_output(x[0], x[1])[2]
 
-        xdot    = plant.rhs(0,x,tau)
+        xdot = plant.rhs(0, x, tau)
 
-        V       = quad_form(M,x_bar)
+        V = quad_form(M, x_bar)
 
-        Vdot    = 2*np.dot(x_bar,np.dot(M,xdot))
-            
+        Vdot = 2 * np.dot(x_bar, np.dot(M, xdot))
+
         if V > rho:
             print("something is fishy")
         # V < rho is true trivially, because we sample from the ellipsoid
-        if Vdot > 0.0: # if one of the lyapunov conditions is not satisfied
+        if Vdot > 0.0:  # if one of the lyapunov conditions is not satisfied
             rho = V
 
-    return rho,M
+    return rho, M
 
 
 if __name__ == "__main__":
@@ -73,25 +78,28 @@ if __name__ == "__main__":
     gravity = 9.81
     coulomb_fric = 0.0
     torque_limit = 2.0
-    inertia = mass*length*length
+    inertia = mass * length * length
 
-    pendulum = PendulumPlant(mass=mass,
-                            length=length,
-                            damping=damping,
-                            gravity=gravity,
-                            coulomb_fric=coulomb_fric,
-                            inertia=inertia,
-                            torque_limit=torque_limit)
+    pendulum = PendulumPlant(
+        mass=mass,
+        length=length,
+        damping=damping,
+        gravity=gravity,
+        coulomb_fric=coulomb_fric,
+        inertia=inertia,
+        torque_limit=torque_limit,
+    )
 
+    controller = LQRController(
+        mass=mass,
+        length=length,
+        damping=damping,
+        gravity=gravity,
+        torque_limit=torque_limit,
+    )
 
-    controller = LQRController(mass=mass,
-                            length=length,
-                            damping=damping,
-                            gravity=gravity,
-                            torque_limit=torque_limit)
+    rho, M = najafi_based_sampling(pendulum, controller, n=1000)
 
-    rho, M = najafi_based_sampling(pendulum,controller,n=1000)
-
-    plot_ellipse(np.pi,0,rho,M)
+    plot_ellipse(np.pi, 0, rho, M)
 
     print(rho)
