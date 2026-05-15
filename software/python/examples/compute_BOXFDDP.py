@@ -25,13 +25,16 @@ urdf_path = "../../../data/urdf/simplependul_dfki_pino_Modi.urdf"
 # swingup parameters
 x0 = np.array([0.0, 0.0])
 goal = np.array([np.pi, 0.0])
-dt = 4e-2
-N = 150
+dt = 1e-2
+N = 300
 
 # ddp parameters
-running_cost_state = 1e-5
-running_cost_torque = 1e-4
-final_cost_state = 1e10
+# running_cost_state = 1e-5
+# running_cost_torque = 1e-4
+# final_cost_state = 1e10
+# running_cost_state = 0.0
+# running_cost_torque = 0.1
+# final_cost_state = 1000.0
 
 ddp = boxfddp_calculator(
     urdf_path=urdf_path,
@@ -51,10 +54,15 @@ T, X, U = ddp.compute_trajectory(
     start_state=x0,
     goal_state=goal,
     dt=dt,
-    T=N,
-    running_cost_state=running_cost_state,
-    running_cost_torque=running_cost_torque,
-    final_cost_state=final_cost_state,
+    steps=N,
+    running_cost_pos=0.0,
+    running_cost_vel=0.0,
+    running_cost_torque=0.1,
+    final_cost_pos=1000.0,
+    final_cost_vel=1.0,
+    # running_cost_state=running_cost_state,
+    # running_cost_torque=running_cost_torque,
+    # final_cost_state=final_cost_state,
 )
 
 # Save Trajectory to a csv file
@@ -66,7 +74,7 @@ data_dict["des_pos"] = X.T[0]
 data_dict["des_vel"] = X.T[1]
 data_dict["des_tau"] = U
 
-csv_path = os.path.join(log_dir, "computed_trajectory.csv")
+csv_path = os.path.join(log_dir, "ddp_trajectory.csv")
 save_trajectory(csv_path, data_dict)
 
 # plot trajectory

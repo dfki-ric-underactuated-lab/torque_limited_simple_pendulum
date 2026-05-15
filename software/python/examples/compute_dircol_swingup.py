@@ -35,10 +35,7 @@ x0 = [0.0, 0.0]
 goal = [np.pi, 0.0]
 
 # direct collocation parameters
-N = 21
-max_dt = 0.5
-control_cost = 0.1
-
+N = 20
 
 ####################
 # Compute trajectory
@@ -53,20 +50,24 @@ dircal.init_pendulum(
 )
 x_trajectory, dircol, result = dircal.compute_trajectory(
     N=N,
-    max_dt=max_dt,
+    min_dt=0.01,
+    max_dt=0.2,
     start_state=x0,
     goal_state=goal,
-    control_cost=control_cost,
+    control_cost=0.1,
+    pos_cost=0.0,
+    vel_cost=0.0,
+    pos_cost_final=1000.0,
+    vel_cost_final=1.0,
 )
-T, X, U = dircal.extract_trajectory(x_trajectory, dircol, result, N=1000)
 
-# plot results
-plot_trajectory(T, X, U, None, True)
+dt_out = 0.01
+traj_N = int(x_trajectory.end_time() / dt_out)
 
-dircal.plot_phase_space_trajectory(x_trajectory)
+T, X, U = dircal.extract_trajectory(x_trajectory, dircol, result, N=traj_N)
 
 # save results
-csv_path = os.path.join(log_dir, "computed_trajectory.csv")
+csv_path = os.path.join(log_dir, "dircol_trajectory.csv")
 dt = T[1] - T[0]
 t_final = T[-1] + dt + 1e-5
 data_dict = prepare_empty_data_dict(dt, t_final)
@@ -76,45 +77,47 @@ data_dict["des_vel"] = X.T[1]
 data_dict["des_tau"] = U
 
 save_trajectory(csv_path, data_dict)
+plot_trajectory(T, X, U, os.path.join(log_dir, "trajectory.png"), True)
+dircal.plot_phase_space_trajectory(x_trajectory)
 
 
-#####################
-# Simulate trajectory
-#####################
-
-pendulum = PendulumPlant(
-    mass=mass,
-    length=length,
-    damping=damping,
-    gravity=gravity,
-    coulomb_fric=coulomb_fric,
-    inertia=None,
-    torque_limit=torque_limit,
-)
-
-sim = Simulator(plant=pendulum)
-
-# controller = OpenLoopController(data_dict=data_dict)
-# controller = PIDController(data_dict=data_dict, Kp=3.0, Ki=1.0, Kd=1.0)
-controller = TVLQRController(
-    data_dict=data_dict,
-    mass=mass,
-    length=length,
-    damping=damping,
-    gravity=gravity,
-    torque_limit=torque_limit,
-)
-controller.set_goal(goal)
-
-T, X, U = sim.simulate_and_animate(
-    t0=T[0],
-    x0=X[0],
-    tf=t_final,
-    dt=dt,
-    controller=controller,
-    integrator="runge_kutta",
-    phase_plot=False,
-    save_video=False,
-)
-
-plot_trajectory(T, X, U, None, True)
+# #####################
+# # Simulate trajectory
+# #####################
+#
+# pendulum = PendulumPlant(
+#     mass=mass,
+#     length=length,
+#     damping=damping,
+#     gravity=gravity,
+#     coulomb_fric=coulomb_fric,
+#     inertia=None,
+#     torque_limit=torque_limit,
+# )
+#
+# sim = Simulator(plant=pendulum)
+#
+# # controller = OpenLoopController(data_dict=data_dict)
+# # controller = PIDController(data_dict=data_dict, Kp=3.0, Ki=1.0, Kd=1.0)
+# controller = TVLQRController(
+#     data_dict=data_dict,
+#     mass=mass,
+#     length=length,
+#     damping=damping,
+#     gravity=gravity,
+#     torque_limit=torque_limit,
+# )
+# controller.set_goal(goal)
+#
+# T, X, U = sim.simulate_and_animate(
+#     t0=T[0],
+#     x0=X[0],
+#     tf=t_final,
+#     dt=dt,
+#     controller=controller,
+#     integrator="runge_kutta",
+#     phase_plot=False,
+#     save_video=False,
+# )
+#
+# plot_trajectory(T, X, U, None, True)

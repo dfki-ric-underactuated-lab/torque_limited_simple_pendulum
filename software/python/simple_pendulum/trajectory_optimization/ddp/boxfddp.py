@@ -3,7 +3,6 @@ FDDP Calculator
 ===============
 """
 
-
 import os
 import time
 import numpy as np
@@ -48,10 +47,12 @@ class boxfddp_calculator:
         start_state=np.array([0.0, 0.0]),
         goal_state=np.array([np.pi, 0.0]),
         dt=4e-2,
-        T=150,
-        running_cost_state=1e-5,
+        steps=150,
+        running_cost_pos=1e-5,
+        running_cost_vel=1e-5,
         running_cost_torque=1e-4,
-        final_cost_state=1e10,
+        final_cost_pos=1e10,
+        final_cost_vel=1e10,
     ):
         self.robot = RobotWrapper.BuildFromURDF(self.urdf_work_path)
 
@@ -68,15 +69,29 @@ class boxfddp_calculator:
         # defining the terminal cost model as a sun of cost
         terminalCostModel = crocoddyl.CostModelSum(state)
 
+        # residuals
         xResidual = crocoddyl.ResidualModelState(state, goal_state)
         uResidual = crocoddyl.ResidualModelControl(state, actuation.nu)
-        uRegCost = crocoddyl.CostModelResidual(state, uResidual)
-        xRegCost = crocoddyl.CostModelResidual(state, xResidual)
-        goalCost = crocoddyl.CostModelResidual(state, xResidual)
 
-        runningCostModel.addCost("xReg", xRegCost, running_cost_state)
-        runningCostModel.addCost("uReg", uRegCost, running_cost_torque)
-        terminalCostModel.addCost("goal", goalCost, final_cost_state)
+        # weight vectors (length = residual dimension)
+        Wpos = np.array([1.0, 0.0])  # weight pos only
+        Wvel = np.array([0.0, 1.0])  # weight vel only
+
+        # build activations
+        act_pos = crocoddyl.ActivationModelWeightedQuad(Wpos)
+        act_vel = crocoddyl.ActivationModelWeightedQuad(Wvel)
+
+        # costs with activations
+        goalPosCost = crocoddyl.CostModelResidual(state, act_pos, xResidual)
+        goalVelCost = crocoddyl.CostModelResidual(state, act_vel, xResidual)
+        uRegCost = crocoddyl.CostModelResidual(state, uResidual)  # default activation
+
+        # add to cost models (weights are scalar)
+        runningCostModel.addCost("running_pos", goalPosCost, running_cost_pos)
+        runningCostModel.addCost("running_vel", goalVelCost, running_cost_vel)
+        runningCostModel.addCost("running_u", uRegCost, running_cost_torque)
+        terminalCostModel.addCost("final_pos", goalPosCost, final_cost_pos)
+        terminalCostModel.addCost("final_vel", goalVelCost, final_cost_vel)
 
         runningModel = crocoddyl.IntegratedActionModelEuler(
             crocoddyl.DifferentialActionModelFreeFwdDynamics(
@@ -92,7 +107,7 @@ class boxfddp_calculator:
         )
 
         problem = crocoddyl.ShootingProblem(
-            start_state, [runningModel] * T, terminalModel
+            start_state, [runningModel] * steps, terminalModel
         )
         self.fddp = crocoddyl.SolverFDDP(problem)
 
@@ -104,8 +119,14 @@ class boxfddp_calculator:
         # print(self.fddp.xs[-1])
 
         # return data
-        self.time_traj = np.linspace(0.0, T * dt, T)
-        self.torque_traj = np.asarray(self.fddp.us).reshape(T)
-        self.state_traj = np.asarray(self.fddp.xs[:T]).reshape(T, 2)
+        self.time_traj = np.linspace(0.0, steps * dt, steps)
+        self.torque_traj = np.asarray(self.fddp.us).reshape(steps)
+        # self.state_traj = np.asarray(self.fddp.xs[:steps]).reshape(steps, 2)
+        self.state_traj = np.asarray(self.fddp.xs)[:steps].reshape(steps, 2)
+
+        print("cost after convergence:", self.fddp.cost)
+        # print(
+        #     f"cost after optimization: {self.fddp.problem.runningCost+self.fddp.problem.terminalCost}({self.fddp.problem.runningCost} / {self.fddp.problem.terminalCost})"
+        # )
 
         return self.time_traj, self.state_traj, self.torque_traj

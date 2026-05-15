@@ -3,7 +3,6 @@ Simulator
 =========
 """
 
-
 import time
 import numpy as np
 import matplotlib.pyplot as plt
@@ -302,7 +301,7 @@ class Simulator:
             )
             ani_plot_counter += 1
             self.animation_plots[ani_plot_counter].set_data(
-                ee_pos[link + 1][0], ee_pos[link + 1][1]
+                [ee_pos[link + 1][0]], [ee_pos[link + 1][1]]
             )
             ani_plot_counter += 1
 
@@ -405,8 +404,10 @@ class Simulator:
         self.reset_data_recorder()
         # self.data_dict = prepare_empty_data_dict(dt, tf)
 
-        fig = plt.figure(figsize=(20, 20))
+        fig = plt.figure(figsize=(5, 5))
         self.animation_ax = plt.axes()
+        self.animation_ax.axis("off")
+
         self.animation_plots = []
 
         for link in range(self.plant.n_links):
@@ -418,7 +419,7 @@ class Simulator:
             self.animation_plots.append(ee_plot)
 
         text_plot = self.animation_ax.text(
-            0.15, 0.85, [], fontsize=40, transform=fig.transFigure
+            0.15, 0.8, [], fontsize=20, transform=fig.transFigure
         )
 
         self.animation_plots.append(text_plot)

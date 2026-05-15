@@ -3,7 +3,6 @@ Direct Collocation Calculator
 =============================
 """
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -56,11 +55,16 @@ class DirectCollocationCalculator:
     def compute_trajectory(
         self,
         N=21,
+        min_dt=0.01,
         max_dt=0.5,
         start_state=[0.0, 0.0],
         goal_state=[np.pi, 0.0],
         initial_x_trajectory=None,
         control_cost=1.0,
+        pos_cost=1.0,
+        vel_cost=1.0,
+        pos_cost_final=1.0,
+        vel_cost_final=1.0,
     ):
         """
         Compute a trajectory from a start state to a goal state
@@ -93,7 +97,7 @@ class DirectCollocationCalculator:
             self.pendulum_plant,
             self.pendulum_context,
             num_time_samples=N,
-            minimum_time_step=0.05,
+            minimum_time_step=min_dt,
             maximum_time_step=max_dt,
             input_port_index=self.pendulum_plant.get_input_port().get_index(),
         )
@@ -101,6 +105,7 @@ class DirectCollocationCalculator:
         dircol.AddEqualTimeIntervalsConstraints()
 
         u = dircol.input()
+        x = dircol.state()
         dircol.AddConstraintToAllKnotPoints(-self.torque_limit <= u[0])
         dircol.AddConstraintToAllKnotPoints(u[0] <= self.torque_limit)
 
@@ -119,6 +124,10 @@ class DirectCollocationCalculator:
         )
 
         dircol.AddRunningCost(control_cost * u[0] ** 2)
+        dircol.AddRunningCost(pos_cost * (x[0] - goal_state[0]) ** 2)
+        dircol.AddRunningCost(vel_cost * (x[1] - goal_state[1]) ** 2)
+        dircol.AddFinalCost(pos_cost_final * (x[0] - goal_state[0]) ** 2)
+        dircol.AddFinalCost(vel_cost_final * (x[1] - goal_state[1]) ** 2)
 
         if initial_x_trajectory is not None:
             dircol.SetInitialTrajectory(PiecewisePolynomial(), initial_x_trajectory)
