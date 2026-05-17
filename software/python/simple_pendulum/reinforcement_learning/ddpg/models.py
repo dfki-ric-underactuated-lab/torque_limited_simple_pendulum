@@ -3,7 +3,6 @@ Models
 ======
 """
 
-
 import tensorflow as tf
 from tensorflow.keras.layers import Input, Dense, Concatenate
 
@@ -26,12 +25,12 @@ def get_actor(state_shape, upper_bound=2.0, verbose=False):
 
 def get_critic(state_shape, n_actions, verbose=False):
     # State as input
-    state_input = Input(shape=(state_shape[0]))
+    state_input = Input(shape=(state_shape[0],))
     state_out = Dense(16, activation="relu")(state_input)
     state_out = Dense(32, activation="relu")(state_out)
 
     # Action as input
-    action_input = Input(shape=(n_actions))
+    action_input = Input(shape=(n_actions,))
     action_out = Dense(32, activation="relu")(action_input)
 
     # Both are passed through seperate layer before concatenating
