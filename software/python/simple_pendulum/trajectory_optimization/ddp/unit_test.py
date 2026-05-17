@@ -32,13 +32,8 @@ class Test(unittest.TestCase):
         # swingup parameters
         x0 = np.array([0.0, 0.0])
         goal = np.array([np.pi, 0.0])
-        dt = 4e-2
-        N = 150
-
-        # ddp parameters
-        running_cost_state = 1e-5
-        running_cost_torque = 1e-4
-        final_cost_state = 1e10
+        dt = 0.01
+        N = 300
 
         ddp = boxfddp_calculator(
             urdf_path=urdf_path,
@@ -57,10 +52,12 @@ class Test(unittest.TestCase):
             start_state=x0,
             goal_state=goal,
             dt=dt,
-            T=N,
-            running_cost_state=running_cost_state,
-            running_cost_torque=running_cost_torque,
-            final_cost_state=final_cost_state,
+            steps=N,
+            running_cost_pos=0.0,
+            running_cost_vel=0.0,
+            running_cost_torque=0.1,
+            final_cost_pos=1000.0,
+            final_cost_vel=1.0,
         )
         xT = X[-1]
 
