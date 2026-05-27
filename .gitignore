@@ -12,3 +12,4 @@ software/python/docs/
 software/python/examples/log_data/
 docs/reference/build/*
 docs/reference/text/generated/*
+**/bin/

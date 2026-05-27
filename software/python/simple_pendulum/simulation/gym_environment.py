@@ -3,7 +3,6 @@ Gym Environment
 ===============
 """
 
-
 # Other imports
 import gym
 import numpy as np
@@ -13,18 +12,21 @@ class SimplePendulumEnv(gym.Env):
     """
     An environment for reinforcement learning
     """
-    def __init__(self,
-                 simulator,
-                 max_steps=5000,
-                 target=[np.pi, 0.0],
-                 state_target_epsilon=[1e-2, 1e-2],
-                 reward_type='continuous',
-                 dt=1e-3,
-                 integrator='runge_kutta',
-                 state_representation=2,
-                 validation_limit=-150,
-                 scale_action=True,
-                 random_init="False"):
+
+    def __init__(
+        self,
+        simulator,
+        max_steps=5000,
+        target=[np.pi, 0.0],
+        state_target_epsilon=[1e-2, 1e-2],
+        reward_type="continuous",
+        dt=1e-3,
+        integrator="runge_kutta",
+        state_representation=2,
+        validation_limit=-150,
+        scale_action=True,
+        random_init="False",
+    ):
         """
         An environment for reinforcement learning.
 
@@ -70,7 +72,7 @@ class SimplePendulumEnv(gym.Env):
         self.simulator = simulator
         self.max_steps = max_steps
         self.target = target
-        self.target[0] = self.target[0] % (2*np.pi)
+        self.target[0] = self.target[0] % (2 * np.pi)
         self.state_target_epsilon = state_target_epsilon
         self.reward_type = reward_type
         self.dt = dt
@@ -84,23 +86,21 @@ class SimplePendulumEnv(gym.Env):
 
         if state_representation == 2:
             # state is [th, vel]
-            self.low = np.array([-6*2*np.pi, -8])
-            self.high = np.array([6*2*np.pi, 8])
-            self.observation_space = gym.spaces.Box(self.low,
-                                                    self.high)
+            self.low = np.array([-6 * 2 * np.pi, -8])
+            self.high = np.array([6 * 2 * np.pi, 8])
+            self.observation_space = gym.spaces.Box(self.low, self.high)
         elif state_representation == 3:
             # state is [cos(th), sin(th), vel]
-            self.low = np.array([-1., -1., -8.])
-            self.high = np.array([1., 1., 8.])
-            self.observation_space = gym.spaces.Box(self.low,
-                                                    self.high)
+            self.low = np.array([-1.0, -1.0, -8.0])
+            self.high = np.array([1.0, 1.0, 8.0])
+            self.observation_space = gym.spaces.Box(self.low, self.high)
 
         if scale_action:
             self.action_space = gym.spaces.Box(-1, 1, shape=[1])
         else:
-            self.action_space = gym.spaces.Box(-self.torque_limit,
-                                               self.torque_limit,
-                                               shape=[1])
+            self.action_space = gym.spaces.Box(
+                -self.torque_limit, self.torque_limit, shape=[1]
+            )
 
         self.state_shape = self.observation_space.shape
         self.n_actions = self.action_space.shape[0]
@@ -187,21 +187,28 @@ class SimplePendulumEnv(gym.Env):
             if random_init == "False":
                 init_state = np.array([0.0, 0.0])
             elif random_init == "start_vicinity":
-                pos_range = np.pi/10
-                vel_range = np.pi/10
-                init_state = np.array([
-                                np.random.rand()*2*pos_range - pos_range,
-                                np.random.rand()*2*vel_range - vel_range])
+                pos_range = np.pi / 10
+                vel_range = np.pi / 10
+                init_state = np.array(
+                    [
+                        np.random.rand() * 2 * pos_range - pos_range,
+                        np.random.rand() * 2 * vel_range - vel_range,
+                    ]
+                )
             elif random_init == "everywhere":
                 pos_range = np.pi
                 vel_range = 1.0
-                init_state = np.array([
-                                np.random.rand()*2*pos_range - pos_range,
-                                np.random.rand()*2*vel_range - vel_range])
+                init_state = np.array(
+                    [
+                        np.random.rand() * 2 * pos_range - pos_range,
+                        np.random.rand() * 2 * vel_range - vel_range,
+                    ]
+                )
             else:
                 raise NotImplementedError(
-                    f'Sorry, random initialization {random_init}' +
-                    'is not implemented.')
+                    f"Sorry, random initialization {random_init}"
+                    + "is not implemented."
+                )
 
         self.simulator.set_state(0, init_state)
         current_t, current_state = self.simulator.get_state()
@@ -209,7 +216,7 @@ class SimplePendulumEnv(gym.Env):
 
         return observation
 
-    def render(self, mode='human'):
+    def render(self, mode="human"):
         pass
 
     def close(self):
@@ -238,10 +245,11 @@ class SimplePendulumEnv(gym.Env):
 
         if self.state_representation == 2:
             observation = np.array([obs for obs in st], dtype=np.float32)
-            observation[0] = (observation[0] + 6*np.pi) % (np.pi*6*2) - 6*np.pi
+            observation[0] = (observation[0] + 6 * np.pi) % (np.pi * 6 * 2) - 6 * np.pi
         elif self.state_representation == 3:
-            observation = np.array([np.cos(st[0]), np.sin(st[0]), st[1]],
-                                   dtype=np.float32)
+            observation = np.array(
+                [np.cos(st[0]), np.sin(st[0]), st[1]], dtype=np.float32
+            )
 
         return observation
 
@@ -291,35 +299,33 @@ class SimplePendulumEnv(gym.Env):
 
         """
         reward = None
-        pos = observation[0] % (2*np.pi)
+        pos = observation[0] % (2 * np.pi)
         pos_diff = self.target[0] - pos
         pos_diff = np.abs((pos_diff + np.pi) % (np.pi * 2) - np.pi)
         vel = np.clip(observation[1], self.low[-1], self.high[-1])
 
-        if self.reward_type == 'continuous':
-            reward = - np.linalg.norm(pos_diff)
-        elif self.reward_type == 'discrete':
-            reward = np.float(np.linalg.norm(pos_diff) <
-                              self.state_target_epsilon[0])
-        elif self.reward_type == 'soft_binary':
-            reward = np.exp(-pos_diff**2/(2*0.25**2))
-        elif self.reward_type == 'soft_binary_with_repellor':
-            reward = np.exp(-pos_diff ** 2 / (2 * 0.25 ** 2))
+        if self.reward_type == "continuous":
+            reward = -np.linalg.norm(pos_diff)
+        elif self.reward_type == "discrete":
+            reward = float(np.linalg.norm(pos_diff) < self.state_target_epsilon[0])
+        elif self.reward_type == "soft_binary":
+            reward = np.exp(-(pos_diff**2) / (2 * 0.25**2))
+        elif self.reward_type == "soft_binary_with_repellor":
+            reward = np.exp(-(pos_diff**2) / (2 * 0.25**2))
             pos_diff_repellor = pos - 0
-            reward -= np.exp(-pos_diff_repellor ** 2 / (2 * 0.25 ** 2))
+            reward -= np.exp(-(pos_diff_repellor**2) / (2 * 0.25**2))
         elif self.reward_type == "open_ai_gym":
             vel_diff = self.target[1] - vel
-            reward = (-(pos_diff)**2.0 -
-                      0.1*(vel_diff)**2.0 -
-                      0.001*action**2.0)
+            reward = (
+                -((pos_diff) ** 2.0) - 0.1 * (vel_diff) ** 2.0 - 0.001 * action**2.0
+            )
         elif self.reward_type == "open_ai_gym_red_torque":
             vel_diff = self.target[1] - vel
-            reward = (-(pos_diff)**2.0 -
-                      0.1*(vel_diff)**2.0 -
-                      0.01*action**2.0)
+            reward = -((pos_diff) ** 2.0) - 0.1 * (vel_diff) ** 2.0 - 0.01 * action**2.0
         else:
             raise NotImplementedError(
-                f'Sorry, reward type {self.reward_type} is not implemented.')
+                f"Sorry, reward type {self.reward_type} is not implemented."
+            )
 
         return reward
 
@@ -359,20 +365,21 @@ class SimplePendulumEnv(gym.Env):
         goal = False
         state = self.get_state_from_observation(obs)
 
-        pos = state[0] % (2*np.pi)
+        pos = state[0] % (2 * np.pi)
         vel = np.clip(state[1], self.low[-1], self.high[-1])
 
         pos_diff = self.target[0] - pos
         pos_diff = np.abs((pos_diff + np.pi) % (np.pi * 2) - np.pi)
         vel_diff = self.target[1] - vel
 
-        if np.abs(pos_diff) < self.state_target_epsilon[0] and \
-           np.abs(vel_diff) < self.state_target_epsilon[1]:
+        if (
+            np.abs(pos_diff) < self.state_target_epsilon[0]
+            and np.abs(vel_diff) < self.state_target_epsilon[1]
+        ):
             goal = True
         return goal
 
-    def validation_criterion(self, validation_rewards,
-                             final_obs=None, criterion=None):
+    def validation_criterion(self, validation_rewards, final_obs=None, criterion=None):
         """
         Checks whether a list of rewards and optionally final observations
         fulfill the validation criterion.
@@ -411,7 +418,7 @@ class SimplePendulumEnv(gym.Env):
 
         passed = False
         if np.mean(validation_rewards) > criterion:
-            if goal_reached/N > 0.9:
+            if goal_reached / N > 0.9:
                 passed = True
 
         n_passed = np.count_nonzero(np.asarray(validation_rewards) > criterion)

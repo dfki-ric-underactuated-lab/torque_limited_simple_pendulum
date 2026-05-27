@@ -9,6 +9,7 @@ setup(
     install_requires=[
         # general
         "numpy",
+        "matplotlib",
         "pyyaml",
         "pandas",
         "argparse",

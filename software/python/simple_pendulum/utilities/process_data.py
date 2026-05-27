@@ -235,6 +235,20 @@ def TXU_from_data_dict(data_dict):
     return T, X, U
 
 
+def save_trajectoryTXU(csv_path, T, X, U):
+    """
+    Save trajectory data to csv file.
+
+    Parameters
+    ----------
+        csv_path: string
+            path where a csv file containing the trajectory data
+            will be stored
+    """
+    data_dict = data_dict_from_TXU(T, X, U)
+    save_trajectory(csv_path, data_dict)
+
+
 def saveFunnel(rho, S_t, time, max_dt, N, estMethod=""):
     S = S_t.value(time[0]).flatten()
     for i in range(1, len(time)):

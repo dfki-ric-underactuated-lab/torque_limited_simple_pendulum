@@ -419,10 +419,11 @@ class Simulator:
             self.animation_plots.append(ee_plot)
 
         text_plot = self.animation_ax.text(
-            0.15, 0.8, [], fontsize=20, transform=fig.transFigure
+            0.15, 0.85, [], fontsize=14, transform=fig.transFigure
         )
 
         self.animation_plots.append(text_plot)
+        self.animation_ax.axis("off")
 
         num_steps = int(tf / dt)
         par_dict = {}

@@ -3,7 +3,6 @@ tvLQR Controller
 ================
 """
 
-
 # Global imports
 import numpy as np
 from pydrake.all import (
@@ -19,6 +18,7 @@ from pydrake.examples import PendulumPlant
 
 # Local imports
 from simple_pendulum.controllers.abstract_controller import AbstractController
+from simple_pendulum.controllers.lqr.lqr import lqr
 
 
 class TVLQRController(AbstractController):
@@ -59,6 +59,14 @@ class TVLQRController(AbstractController):
             the torque_limit of the pendulum actuator
         """
 
+        self.m = mass
+        self.len = length
+        self.b = damping
+        # self.cf = coulomb_fric
+        self.g = gravity
+        self.inertia = self.m * (self.len) ** 2
+
+        self.torque_limit = torque_limit
         # load the trajectory
         self.traj_time = data_dict["des_time"]
         self.traj_pos = data_dict["des_pos"]
@@ -114,13 +122,27 @@ class TVLQRController(AbstractController):
 
     def set_goal(self, x):
         self.goal = x
-        pos = x[0] + np.pi
-        pos = (pos + np.pi) % (2 * np.pi) - np.pi
-        self.tilqr_context.SetContinuousState([pos, x[1]])
-        linearized_pendulum = Linearize(self.plant, self.tilqr_context)
-        (self.K, S) = LinearQuadraticRegulator(
-            linearized_pendulum.A(), linearized_pendulum.B(), self.Q_tilqr, self.R_tilqr
+        # pos = x[0] + np.pi
+        # pos = (pos + np.pi) % (2 * np.pi) - np.pi
+        # self.tilqr_context.SetContinuousState([pos, x[1]])
+        # linearized_pendulum = Linearize(self.plant, self.tilqr_context)
+        # self.K, S = LinearQuadraticRegulator(
+        #     linearized_pendulum.A(), linearized_pendulum.B(), self.Q_tilqr, self.R_tilqr
+        # )
+
+        Q = np.diag((10, 1))
+        R = np.array([[1]])
+        self.A = np.array(
+            [
+                [0, 1],
+                [
+                    -self.m * self.g * self.len / self.inertia * np.cos(self.goal[0]),
+                    -self.b / (self.inertia),
+                ],
+            ]
         )
+        self.B = np.array([[0, 1.0 / (self.inertia)]]).T
+        self.K, S, _ = lqr(self.A, self.B, Q, R)
 
         self.options.Qf = S
 

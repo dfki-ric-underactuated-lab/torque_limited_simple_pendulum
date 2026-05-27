@@ -3,9 +3,9 @@ CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
 
 BIN		:= bin
 #SRC		:= src
-SRC_PLANT		:= pendulum_plant/src
+SRC_PLANT		:= model/src
 SRC_SIMULATOR	:= simulator/src
-SRC_ILQR		:= ilqr/src
+SRC_ILQR		:= controllers/ilqr/src
 SRC_UTILS		:= utils/src
 INCLUDE := /usr/local/include
 LIB		:= lib
@@ -18,6 +18,7 @@ SRCS2 := $(SRC_SIMULATOR)/test_pendulum.cpp $(SRC_PLANT)/pendulum_plant.cpp $(SR
 SRCS3 := $(SRC_PLANT)/pendulum_plant.cpp $(SRC_SIMULATOR)/simulator.cpp $(SRC_ILQR)/ilqr.cpp
 
 all: $(BIN)/$(EXECUTABLE1) $(BIN)/$(EXECUTABLE2) $(BIN)/libilqr.a
+# all: $(BIN)/libilqr.a
 
 $(BIN)/$(EXECUTABLE1): $(SRCS1)
 	@echo " Building ilqr ..."

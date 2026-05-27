@@ -7,6 +7,7 @@ from simple_pendulum.model.pendulum_plant import PendulumPlant
 from simple_pendulum.simulation.simulation import Simulator
 from simple_pendulum.controllers.energy_shaping.energy_shaping_controller import EnergyShapingController, \
                                                                                  EnergyShapingAndLQRController
+from simple_pendulum.utilities.process_data import save_trajectoryTXU
 
 
 mass = 0.57288
@@ -49,6 +50,8 @@ T, X, U = sim.simulate_and_animate(t0=0.0,
                                    dt=dt,
                                    controller=controller,
                                    integrator="runge_kutta")
+
+save_trajectoryTXU("log_data/sim_energy_shaping/trajectory.csv", T, X, U)
 
 fig, ax = plt.subplots(3, 1, figsize=(18, 6), sharex="all")
 

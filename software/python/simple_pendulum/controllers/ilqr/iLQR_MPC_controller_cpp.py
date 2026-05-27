@@ -8,7 +8,7 @@ from simple_pendulum.controllers.abstract_controller import AbstractController
 import cpppendulumilqr
 
 
-class iLQRMPCController(AbstractController):
+class iLQRMPCcppController(AbstractController):
     """
     Controller which computes an ilqr solution at every timestep and uses
     the first control output.

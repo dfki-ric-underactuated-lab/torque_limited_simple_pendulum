@@ -16,33 +16,38 @@ def modify_pendulum_parameter(par):
     Randomly modify a given parameter
     """
     mod_par = np.copy(par)
-    mod_par += np.random.rand()*0.1
-    mod_par *= np.random.rand()*1.0 + 0.5
+    mod_par += np.random.rand() * 0.1
+    mod_par *= np.random.rand() * 1.0 + 0.5
     return mod_par
 
 
-class benchmarker():
-    def __init__(self,
-                 dt=0.01,
-                 max_time=10.0,
-                 integrator="runge_kutta",
-                 benchmark_iterations=10):
+class benchmarker:
+    def __init__(
+        self, dt=0.01, max_time=10.0, integrator="runge_kutta", benchmark_iterations=10
+    ):
         """
         Benchmark class
         """
         self.dt = dt
         self.max_time = max_time
         self.max_steps = int(self.max_time / self.dt)
-        self.integrator = "runge_kutta"
+        self.integrator = integrator
         self.iterations = benchmark_iterations
 
         self.x0 = np.array([0.0, 0.0])
         self.goal = np.array([np.pi, 0.0])
-        self.epsilon = np.array([0.1, 0.1])
+        self.epsilon = np.array([0.1, 0.5])
 
-    def init_pendulum(self, mass=0.57288, length=0.5, inertia=None,
-                      damping=0.15, coulomb_friction=0.0, gravity=9.81,
-                      torque_limit=2.0):
+    def init_pendulum(
+        self,
+        mass=0.57288,
+        length=0.5,
+        inertia=None,
+        damping=0.15,
+        coulomb_friction=0.0,
+        gravity=9.81,
+        torque_limit=2.0,
+    ):
         """
         Initialize the pendulum parameters.
 
@@ -68,28 +73,32 @@ class benchmarker():
         self.pen_mass = mass
         self.pen_length = length
         if inertia is None:
-            inertia = mass*length**2
+            inertia = mass * length**2
         self.pen_inertia = inertia
         self.pen_damping = damping
         self.pen_cfric = coulomb_friction
         self.pen_gravity = gravity
         self.pen_torque_limit = torque_limit
 
-        self.pendulum = PendulumPlant(mass=self.pen_mass,
-                                      length=self.pen_length,
-                                      damping=self.pen_damping,
-                                      gravity=self.pen_gravity,
-                                      coulomb_fric=self.pen_cfric,
-                                      inertia=self.pen_inertia,
-                                      torque_limit=self.pen_torque_limit)
+        self.pendulum = PendulumPlant(
+            mass=self.pen_mass,
+            length=self.pen_length,
+            damping=self.pen_damping,
+            gravity=self.pen_gravity,
+            coulomb_fric=self.pen_cfric,
+            inertia=self.pen_inertia,
+            torque_limit=self.pen_torque_limit,
+        )
 
-        self.ref_pendulum = PendulumPlant(mass=self.pen_mass,
-                                          length=self.pen_length,
-                                          damping=self.pen_damping,
-                                          gravity=self.pen_gravity,
-                                          coulomb_fric=self.pen_cfric,
-                                          inertia=self.pen_inertia,
-                                          torque_limit=self.pen_torque_limit)
+        self.ref_pendulum = PendulumPlant(
+            mass=self.pen_mass,
+            length=self.pen_length,
+            damping=self.pen_damping,
+            gravity=self.pen_gravity,
+            coulomb_fric=self.pen_cfric,
+            inertia=self.pen_inertia,
+            torque_limit=self.pen_torque_limit,
+        )
 
         self.simulator = Simulator(plant=self.pendulum)
         self.ref_simulator = Simulator(plant=self.ref_pendulum)
@@ -115,10 +124,9 @@ class benchmarker():
         swingup_success = False
 
         for i in range(self.max_steps):
-            _, _, tau = self.controller.get_control_output(meas_pos=x[0],
-                                                           meas_vel=x[1],
-                                                           meas_tau=0,
-                                                           meas_time=t)
+            _, _, tau = self.controller.get_control_output(
+                meas_pos=x[0], meas_vel=x[1], meas_tau=0, meas_time=t
+            )
             tau_list.append(float(np.squeeze(tau)))
 
             self.ref_simulator.set_state(time=t, x=np.copy(x))
@@ -129,12 +137,13 @@ class benchmarker():
             t, x = self.simulator.get_state()
             t_ref, x_ref = self.ref_simulator.get_state()
 
-            energy = np.abs(self.pendulum.total_energy(x) -
-                            self.pendulum.total_energy(x_ref))
+            energy = np.abs(
+                self.pendulum.total_energy(x) - self.pendulum.total_energy(x_ref)
+            )
             energy_consumed += energy
 
             diff = x - self.goal
-            diff[0] = (diff[0] + np.pi) % (2*np.pi) - np.pi
+            diff[0] = (diff[0] + np.pi) % (2 * np.pi) - np.pi
             if np.abs(diff[0]) < self.epsilon[0]:
                 if np.abs(diff[1]) < self.epsilon[1]:
                     swingup_success = True
@@ -153,8 +162,8 @@ class benchmarker():
         # different starting positions
         t0 = 0.0
         x0 = np.zeros(2)
-        x0[0] = np.random.rand()*2*np.pi - np.pi  # in range [-pi, pi]
-        x0[1] = np.random.rand()*6*np.pi - 3*np.pi  # in range [-3pi, 3pi]
+        x0[0] = np.random.rand() * 2 * np.pi - np.pi  # in range [-pi, pi]
+        x0[1] = np.random.rand() * 6 * np.pi - 3 * np.pi  # in range [-3pi, 3pi]
         self.controller.set_goal(x=self.goal)
         self.controller.init(x0=x0)
 
@@ -166,21 +175,21 @@ class benchmarker():
         swingup_success = False
 
         while not swingup_success:
-            _, _, tau = self.controller.get_control_output(meas_pos=x[0],
-                                                           meas_vel=x[1],
-                                                           meas_tau=0,
-                                                           meas_time=t)
+            _, _, tau = self.controller.get_control_output(
+                meas_pos=x[0], meas_vel=x[1], meas_tau=0, meas_time=t
+            )
 
             self.simulator.step(tau, self.dt, integrator=self.integrator)
             t, x = self.simulator.get_state()
 
-            diff = x - self.goal
-            diff[0] = (diff[0] + np.pi) % (2*np.pi) - np.pi
-            if np.abs(diff[0]) < self.epsilon[0]:
-                if np.abs(diff[1]) < self.epsilon[1]:
-                    swingup_success = True
             if t >= self.max_time:
                 break
+
+        diff = x - self.goal
+        diff[0] = (diff[0] + np.pi) % (2 * np.pi) - np.pi
+        if np.abs(diff[0]) < self.epsilon[0]:
+            if np.abs(diff[1]) < self.epsilon[1]:
+                swingup_success = True
 
         return swingup_success
 
@@ -195,38 +204,38 @@ class benchmarker():
         self.simulator.reset_data_recorder()
         self.simulator.set_state(time=t, x=np.copy(x))
 
-        perturbation_times = np.linspace(0, 0.8*self.max_time, 4)
+        perturbation_times = np.linspace(0, 0.6 * self.max_time, 6)
         p_counter = 0
         p_step_counter = 0
         swingup_success = False
         perturbation = 0.0
 
         while not swingup_success:
-            _, _, tau = self.controller.get_control_output(meas_pos=x[0],
-                                                           meas_vel=x[1],
-                                                           meas_tau=0,
-                                                           meas_time=t)
+            _, _, tau = self.controller.get_control_output(
+                meas_pos=x[0], meas_vel=x[1], meas_tau=0, meas_time=t
+            )
 
             if p_counter < len(perturbation_times):
                 if t > perturbation_times[p_counter] or p_step_counter > 0:
                     if p_step_counter == 0:
-                        perturbation = np.random.rand()*4.0 - 2.0
+                        perturbation = np.random.rand() * 6.0 - 3.0
                     tau += perturbation
                     p_step_counter += 1
-                    if p_step_counter >= 100:
+                    if p_step_counter >= 50:
                         p_counter += 1
                         p_step_counter = 0
 
             self.simulator.step(tau, self.dt, integrator=self.integrator)
             t, x = self.simulator.get_state()
 
-            diff = x - self.goal
-            diff[0] = (diff[0] + np.pi) % (2*np.pi) - np.pi
-            if np.abs(diff[0]) < self.epsilon[0]:
-                if np.abs(diff[1]) < self.epsilon[1]:
-                    swingup_success = True
             if t >= self.max_time:
                 break
+
+        diff = x - self.goal
+        diff[0] = (diff[0] + np.pi) % (2 * np.pi) - np.pi
+        if np.abs(diff[0]) < self.epsilon[0]:
+            if np.abs(diff[1]) < self.epsilon[1]:
+                swingup_success = True
 
         return swingup_success
 
@@ -239,13 +248,15 @@ class benchmarker():
         cfric = modify_pendulum_parameter(self.pen_cfric)
         inertia = modify_pendulum_parameter(self.pen_inertia)
 
-        modified_pendulum = PendulumPlant(mass=mass,
-                                          length=length,
-                                          damping=damping,
-                                          gravity=self.pen_gravity,
-                                          coulomb_fric=cfric,
-                                          inertia=inertia,
-                                          torque_limit=self.pen_torque_limit)
+        modified_pendulum = PendulumPlant(
+            mass=mass,
+            length=length,
+            damping=damping,
+            gravity=self.pen_gravity,
+            coulomb_fric=cfric,
+            inertia=inertia,
+            torque_limit=self.pen_torque_limit,
+        )
 
         modified_simulator = Simulator(plant=modified_pendulum)
 
@@ -260,21 +271,21 @@ class benchmarker():
         swingup_success = False
 
         while not swingup_success:
-            _, _, tau = self.controller.get_control_output(meas_pos=x[0],
-                                                           meas_vel=x[1],
-                                                           meas_tau=0,
-                                                           meas_time=t)
+            _, _, tau = self.controller.get_control_output(
+                meas_pos=x[0], meas_vel=x[1], meas_tau=0, meas_time=t
+            )
 
             modified_simulator.step(tau, self.dt, integrator=self.integrator)
             t, x = modified_simulator.get_state()
 
-            diff = x - self.goal
-            diff[0] = (diff[0] + np.pi) % (2*np.pi) - np.pi
-            if np.abs(diff[0]) < self.epsilon[0]:
-                if np.abs(diff[1]) < self.epsilon[1]:
-                    swingup_success = True
             if t >= self.max_time:
                 break
+
+        diff = x - self.goal
+        diff[0] = (diff[0] + np.pi) % (2 * np.pi) - np.pi
+        if np.abs(diff[0]) < self.epsilon[0]:
+            if np.abs(diff[1]) < self.epsilon[1]:
+                swingup_success = True
 
         return swingup_success
 
@@ -291,23 +302,23 @@ class benchmarker():
         swingup_success = False
 
         while not swingup_success:
-            _, _, tau = self.controller.get_control_output(meas_pos=x[0],
-                                                           meas_vel=x[1],
-                                                           meas_tau=0,
-                                                           meas_time=t)
+            _, _, tau = self.controller.get_control_output(
+                meas_pos=x[0], meas_vel=x[1], meas_tau=0, meas_time=t
+            )
 
             tau = np.clip(tau, -tl, tl)
 
             self.simulator.step(tau, self.dt, integrator=self.integrator)
             t, x = self.simulator.get_state()
 
-            diff = x - self.goal
-            diff[0] = (diff[0] + np.pi) % (2*np.pi) - np.pi
-            if np.abs(diff[0]) < self.epsilon[0]:
-                if np.abs(diff[1]) < self.epsilon[1]:
-                    swingup_success = True
-            if t >= 10*self.max_time:
+            if t >= 10 * self.max_time:
                 break
+
+        diff = x - self.goal
+        diff[0] = (diff[0] + np.pi) % (2 * np.pi) - np.pi
+        if np.abs(diff[0]) < self.epsilon[0]:
+            if np.abs(diff[1]) < self.epsilon[1]:
+                swingup_success = True
 
         return swingup_success
 
@@ -315,28 +326,29 @@ class benchmarker():
 
         self.controller.set_goal(x=self.goal)
         self.controller.init(x0=self.x0)
-        pos = np.random.rand(N)*2*np.pi - np.pi  # in range [-pi, pi]
-        vel = np.random.rand(N)*4*np.pi - 2*np.pi
+        pos = np.random.rand(N) * 2 * np.pi - np.pi  # in range [-pi, pi]
+        vel = np.random.rand(N) * 4 * np.pi - 2 * np.pi
         start = time.time()
         for i in range(N):
-            _, _, tau = self.controller.get_control_output(meas_pos=pos[i],
-                                                           meas_vel=vel[i],
-                                                           meas_tau=0,
-                                                           meas_time=0)
+            _, _, tau = self.controller.get_control_output(
+                meas_pos=pos[i], meas_vel=vel[i], meas_tau=0, meas_time=0
+            )
         elapsed_time = time.time() - start
         min_dt = elapsed_time / N
         return min_dt
 
-    def benchmark(self,
-                  check_speed=True,
-                  check_energy=True,
-                  check_time=True,
-                  check_smoothness=True,
-                  check_consistency=True,
-                  check_robustness=True,
-                  check_sensitivity=True,
-                  check_torque_limit=True,
-                  save_path=None):
+    def benchmark(
+        self,
+        check_speed=True,
+        check_energy=True,
+        check_time=True,
+        check_smoothness=True,
+        check_consistency=True,
+        check_robustness=True,
+        check_sensitivity=True,
+        check_torque_limit=True,
+        save_path=None,
+    ):
 
         if save_path is not None:
             save_dict = {}
@@ -347,11 +359,11 @@ class benchmarker():
             min_dt = self.check_speed(N)
             print("\n*********************************")
             print("Controller Speed")
-            print("Minimal dt: ", min_dt, "s (", 1./min_dt, " Hz)")
+            print("Minimal dt: ", min_dt, "s (", 1.0 / min_dt, " Hz)")
             print("average over", N, " function calls")
             print("*********************************\n")
             if save_path is not None:
-                save_dict["frequency"] = 1./min_dt
+                save_dict["frequency"] = 1.0 / min_dt
 
         if check_energy or check_time or check_smoothness:
             successes = []
@@ -473,16 +485,18 @@ class benchmarker():
             print("(Reduced pendulum torque limit)")
             print(rtl_success, "/", len(tlimits), " successful")
             if rtl_success > 0:
-                print("Swingup successful with torque limit",
-                      tlimits[rtl_success-1], " Nm")
+                print(
+                    "Swingup successful with torque limit",
+                    tlimits[rtl_success - 1],
+                    " Nm",
+                )
             if rtl_success < len(tlimits):
-                print("Swingup failed with torque limit",
-                      tlimits[rtl_success], " Nm")
+                print("Swingup failed with torque limit", tlimits[rtl_success], " Nm")
             print("*********************************\n")
             if save_path is not None:
                 save_dict["reduced_torque_limit"] = rtl_success
                 if rtl_success > 0:
-                    save_dict["min_successful_torque"] = tlimits[rtl_success-1]
+                    save_dict["min_successful_torque"] = tlimits[rtl_success - 1]
                 else:
                     save_dict["min_successful_torque"] = np.inf
 

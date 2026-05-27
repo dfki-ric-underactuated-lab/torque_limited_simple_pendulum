@@ -4,6 +4,8 @@ DDPG Trainer
 """
 
 
+import os
+
 import numpy as np
 import tensorflow as tf
 
@@ -192,6 +194,7 @@ class ddpg_trainer:
         rewards = []
         actor_losses = []
         critic_losses = []
+        validation_rewards_history = []  # list of (episode, [per-rep rewards])
 
         validation_criterion_passed = False
         for episode in range(n_episodes):
@@ -219,14 +222,20 @@ class ddpg_trainer:
 
             if episode > 0:
                 if self.validate and episode % self.validate_every == 0:
-                    validation_criterion_passed = self._validate()
+                    validation_criterion_passed, val_rewards = self._validate()
+                    validation_rewards_history.append((episode, val_rewards))
 
             if validation_criterion_passed:
                 if verbose:
                     print("Validation criterion passed, stopping early.")
                 break
 
-        return rewards, actor_losses, critic_losses
+        self.train_rewards = rewards
+        self.actor_losses = actor_losses
+        self.critic_losses = critic_losses
+        self.validation_rewards_history = validation_rewards_history
+
+        return rewards, actor_losses, critic_losses, validation_rewards_history
 
     def _train_1_episode(self):
         '''
@@ -299,10 +308,39 @@ class ddpg_trainer:
             validation_rewards.append(np.sum(episode_rewards))
             final_states.append(state)
 
-        return self.env.validation_criterion(validation_rewards, final_states)
+        criterion_passed = self.env.validation_criterion(validation_rewards, final_states)
+        return criterion_passed, validation_rewards
 
     def save(self, path):
         self.agent.save_model(path)
+        if hasattr(self, 'train_rewards'):
+            episodes = np.arange(len(self.train_rewards))
+            training_data = np.column_stack([
+                episodes,
+                self.train_rewards,
+                self.actor_losses,
+                self.critic_losses,
+            ])
+            np.savetxt(
+                os.path.join(path, 'training_history.csv'),
+                training_data,
+                delimiter=',',
+                header='episode,reward,actor_loss,critic_loss',
+                comments='',
+            )
+        if hasattr(self, 'validation_rewards_history') \
+                and self.validation_rewards_history:
+            val_episodes = np.array([e for e, _ in self.validation_rewards_history])
+            val_rewards = np.array([r for _, r in self.validation_rewards_history])
+            n_reps = val_rewards.shape[1]
+            rep_headers = ','.join('rep_{}'.format(i) for i in range(n_reps))
+            np.savetxt(
+                os.path.join(path, 'validation_history.csv'),
+                np.column_stack([val_episodes, val_rewards]),
+                delimiter=',',
+                header='episode,{}'.format(rep_headers),
+                comments='',
+            )
 
     def load(self, path):
         self.agent.load_model(path)

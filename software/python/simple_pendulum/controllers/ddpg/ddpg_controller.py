@@ -10,8 +10,6 @@ from tensorflow.keras.models import load_model
 
 from simple_pendulum.controllers.abstract_controller import AbstractController
 
-tf.compat.v1.disable_eager_execution()
-
 
 class ddpg_controller(AbstractController):
     """
@@ -19,6 +17,7 @@ class ddpg_controller(AbstractController):
     """
     def __init__(self, model_path, torque_limit, state_representation=3):
         self.model = load_model(model_path)
+        self._predict_fn = tf.function(lambda x: self.model(x, training=False))
         self.torque_limit = torque_limit
         self.state_representation = state_representation
 
@@ -38,7 +37,7 @@ class ddpg_controller(AbstractController):
 
         state = np.array([pos, vel])
         observation = self.get_observation(state)
-        control_output = self.model.predict(np.atleast_2d(observation))
+        control_output = self._predict_fn(np.atleast_2d(observation)).numpy()
 
         control_output *= self.torque_limit
 
