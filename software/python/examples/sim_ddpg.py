@@ -29,7 +29,7 @@ pendulum = PendulumPlant(
 )
 
 
-model_path = "../../../data/models/ddpg_model/actor.keras"
+model_path = "../../../data/models/ddpg_model/L0.5/actor.keras"
 # model_path = "log_data/ddpg_training/actor.keras"
 controller = ddpg_controller(
     model_path=model_path, torque_limit=torque_limit, state_representation=3
