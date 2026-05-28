@@ -20,7 +20,16 @@ class GraphController(AbstractController):
     Controller acts on a predefined trajectory.
     """
 
-    def __init__(self, graph_csv_path, pos_res, vel_res, vel_max):
+    def __init__(
+        self,
+        graph_csv_path,
+        pos_res,
+        vel_res,
+        vel_max,
+        damping=0.0,
+        coulomb_fric=0.0,
+        torque_limit=np.inf,
+    ):
         """
         Controller acts on a predefined trajectory.
 
@@ -38,6 +47,10 @@ class GraphController(AbstractController):
         self.pos_res = pos_res
         self.vel_res = vel_res
         self.vel_max = vel_max
+
+        self.b = damping
+        self.cf = coulomb_fric
+        self.torque_limit = torque_limit
 
     def init(self, x0):
         pass
@@ -103,9 +116,12 @@ class GraphController(AbstractController):
             des_pos = meas_pos
             des_vel = meas_vel
 
+        des_tau += self.b * float(np.squeeze(meas_vel))
+        des_tau += self.cf * np.sign(float(np.squeeze(meas_vel)))
         # des_pos = None
         # des_vel = None
         # print(meas_pos, meas_vel, ind, des_ind, des_pos, des_vel, des_tau)
         # des_tau *= 2.0
+        des_tau = np.clip(des_tau, -self.torque_limit, self.torque_limit)
 
         return des_pos, des_vel, des_tau

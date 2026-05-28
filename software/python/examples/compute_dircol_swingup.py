@@ -23,8 +23,8 @@ if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
 # pendulum parameters
-mass = 0.57288
-length = 0.5
+mass = 0.6755  # 0.57288
+length = 0.4
 damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0

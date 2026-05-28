@@ -3,7 +3,6 @@ LQR Controller
 ==============
 """
 
-
 # Other imports
 import numpy as np
 

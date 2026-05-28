@@ -3,7 +3,6 @@ System Identification
 =====================
 """
 
-
 # Global imports
 import numpy as np
 import os
@@ -37,26 +36,31 @@ class SystemIdentification:
         acc_butter = butter.data_filter(acc, order=3, cutoff=0.5)
         acc_grad_butter = np.gradient(vel_butter, t)
         acc_vel_grad_butter = np.gradient(vel_butter, t)
-        acc_grad_2butter = butter.data_filter(acc_vel_grad_butter, order=3,
-                                              cutoff=0.1)
+        acc_grad_2butter = butter.data_filter(acc_vel_grad_butter, order=3, cutoff=0.1)
 
         # filter measured torques
         tau_fft = fft.scipy_fft(self.meas_tau, 50)
         tau_butter = butter.data_filter(self.meas_tau, order=3, cutoff=0.1)
 
         # store data in dictonaries
-        vel_dict = {"vel_raw": self.meas_vel,
-                    "vel_fft": vel_fft,
-                    "vel_butter": vel_butter,
-                    "vel_grad":  vel_grad,
-                    "vel_grad_butter": vel_grad_butter}
-        acc_dict = {"acc_raw": acc,
-                    "acc_butter": acc_butter,
-                    "acc_grad_butter":  acc_grad_butter,
-                    "acc_grad_2butter": acc_grad_2butter}
-        tau_dict = {"tau_raw": self.meas_tau,
-                    "tau_fft": tau_fft,
-                    "tau_butter": tau_butter}
+        vel_dict = {
+            "vel_raw": self.meas_vel,
+            "vel_fft": vel_fft,
+            "vel_butter": vel_butter,
+            "vel_grad": vel_grad,
+            "vel_grad_butter": vel_grad_butter,
+        }
+        acc_dict = {
+            "acc_raw": acc,
+            "acc_butter": acc_butter,
+            "acc_grad_butter": acc_grad_butter,
+            "acc_grad_2butter": acc_grad_2butter,
+        }
+        tau_dict = {
+            "tau_raw": self.meas_tau,
+            "tau_fft": tau_fft,
+            "tau_butter": tau_butter,
+        }
 
         return t, vel_dict, acc_dict, tau_dict
         # Plots ...
@@ -78,10 +82,10 @@ class SystemIdentification:
 
         # identification matrix R (num_samples x num_params)
         num_samples = len(self.meas_time)
-        num_params = 5                      # all 5 terms contribute to est_trq
+        num_params = 5  # all 5 terms contribute to est_trq
         phi = np.empty((num_samples, num_params))
         phi[:, 0] = ref_acc
-        phi[:, 1] = np.sin(ref_pos)*g
+        phi[:, 1] = np.sin(ref_pos) * g
         phi[:, 2] = ref_vel
         phi[:, 3] = np.arctan(100.0 * ref_vel)
         phi[:, 4] = 1.0
@@ -93,14 +97,18 @@ class SystemIdentification:
         param_names = ["J", "m*cx", "Fv", "Fc", "offset"]
         # (Inertia (J), mass*center of mass (m*cx), Viscous Friction (Fv), Coulomb Friction (Fc) and offset terms
 
-        p0 = [0.0, 1.0, 0.0, 0.0, 0.0]                # initial parameter guess
-        bounds = ([0.0, -np.Inf, 0.0, 0.0, -1.0000000011], [np.Inf, np.Inf,
-                                                            np.Inf, np.Inf,
-                                                            1.000000001])
+        p0 = [0.0, 1.0, 0.0, 0.0, 0.0]  # initial parameter guess
+        bounds = (
+            [0.0, -np.inf, 0.0, 0.0, -1.0000000011],
+            [np.inf, np.inf, np.inf, np.inf, 1.000000001],
+        )
         optres = optimize.least_squares(
-                            fun=SystemIdentification.errfunc_with_friction,
-                            x0=p0[:], args=(ref_trq, phi),
-                            max_nfev=100000, bounds=bounds)
+            fun=SystemIdentification.errfunc_with_friction,
+            x0=p0[:],
+            args=(ref_trq, phi),
+            max_nfev=100000,
+            bounds=bounds,
+        )
         p1 = optres.x
         success = optres.success
         print("success:", success)

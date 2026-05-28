@@ -18,7 +18,13 @@ class SacController(AbstractController):
     """
 
     def __init__(
-        self, model_path, torque_limit, use_symmetry=True, state_representation=2
+        self,
+        model_path,
+        torque_limit,
+        use_symmetry=True,
+        state_representation=2,
+        damping=0.0,
+        coulomb_friction=0.0,
     ):
         """
         Controller which acts on a policy which has been learned with sac.
@@ -49,6 +55,9 @@ class SacController(AbstractController):
             # state is [cos(th), sin(th), vel]
             self.low = np.array([-1.0, -1.0, -8.0])
             self.high = np.array([1.0, 1.0, 8.0])
+
+        self.damping = damping
+        self.coulomb_friction = coulomb_friction
 
     def get_control_output(self, meas_pos, meas_vel, meas_tau=0, meas_time=0):
         """
@@ -93,7 +102,12 @@ class SacController(AbstractController):
 
         obs_tensor = torch.FloatTensor(observation).unsqueeze(0).to(self.device)
         with torch.no_grad():
-            des_tau = self.actor._predict(obs_tensor, deterministic=True).cpu().numpy().squeeze()
+            des_tau = (
+                self.actor._predict(obs_tensor, deterministic=True)
+                .cpu()
+                .numpy()
+                .squeeze()
+            )
 
         if self.use_symmetry:
             des_tau *= np.sign(meas_pos_mod)
@@ -107,6 +121,8 @@ class SacController(AbstractController):
         if np.abs(meas_pos) < 1e-4 and np.abs(meas_vel) < 1e-4:
             des_tau = self.torque_limit
 
+        des_tau += self.damping * float(np.squeeze(meas_vel))
+        des_tau += self.coulomb_friction * np.sign(float(np.squeeze(meas_vel)))
         des_tau = np.clip(des_tau, -self.torque_limit, self.torque_limit)
 
         return des_pos, des_vel, float(des_tau)

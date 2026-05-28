@@ -3,7 +3,6 @@ PID Controller
 ==============
 """
 
-
 # Global imports
 import numpy as np
 
@@ -15,7 +14,18 @@ class PIDController(AbstractController):
     """
     Controller acts on a predefined trajectory and adds PID control gains.
     """
-    def __init__(self, data_dict, Kp, Ki, Kd, use_feed_forward=True):
+
+    def __init__(
+        self,
+        data_dict,
+        Kp,
+        Ki,
+        Kd,
+        use_feed_forward=True,
+        torque_limit=1.5,
+        b=0.0,
+        cf=0.0,
+    ):
         """
         Controller acts on a predefined trajectory and adds PID control gains.
 
@@ -59,6 +69,10 @@ class PIDController(AbstractController):
         self.last_pos = 0.0
         self.last_vel = 0.0
 
+        self.torque_limit = torque_limit
+        self.b = b
+        self.cf = cf
+
     def init(self, x0):
         self.counter = 0
         self.errors = []
@@ -68,8 +82,9 @@ class PIDController(AbstractController):
     def set_goal(self, x):
         pass
 
-    def get_control_output(self, meas_pos=None, meas_vel=None, meas_tau=None,
-                           meas_time=None):
+    def get_control_output(
+        self, meas_pos=None, meas_vel=None, meas_tau=None, meas_time=None
+    ):
         """
         The function to read and send the entries of the loaded trajectory
         as control input to the simulator/real pendulum.
@@ -109,17 +124,122 @@ class PIDController(AbstractController):
             self.last_vel = des_vel
 
         e = des_pos - meas_pos
-        e = (e + np.pi) % (2*np.pi) - np.pi
+        e = (e + np.pi) % (2 * np.pi) - np.pi
         self.errors.append(e)
 
-        P = self.Kp*e
-        I = self.Ki*np.sum(self.errors)*self.dt
+        P = self.Kp * e
+        I = self.Ki * np.sum(self.errors) * self.dt
         if len(self.errors) > 2:
-            D = self.Kd*(self.errors[-1]-self.errors[-2])/self.dt
+            D = self.Kd * (self.errors[-1] - self.errors[-2]) / self.dt
         else:
             D = 0.0
 
         des_tau = des_tau + P + I + D
+
+        des_tau += self.b * float(np.squeeze(meas_vel))
+        des_tau += self.cf * np.sign(float(np.squeeze(meas_vel)))
+
+        des_tau = np.clip(des_tau, -self.torque_limit, self.torque_limit)
+
+        self.counter += 1
+
+        return des_pos, des_vel, des_tau
+
+
+class PointPIDController(AbstractController):
+    """
+    Controller applies PID control gains towards a goal state.
+    """
+
+    def __init__(self, goal, Kp, Ki, Kd, dt, torque_limit=1.5, b=0.0, cf=0.0):
+        """
+
+        Parameters
+        ----------
+        Kp : float
+            proportional term,
+            gain proportial to the position error
+        Ki : float
+            integral term,
+            gain proportional to the integral
+            of the position error
+        Kd : float
+            derivative term,
+            gain proportional to the derivative of the position error
+        """
+        self.Kp = Kp
+        self.Ki = Ki
+        self.Kd = Kd
+
+        self.goal = goal
+
+        self.torque_limit = torque_limit
+        self.b = b
+        self.cf = cf
+
+        self.counter = 0
+        self.errors = []
+        self.dt = dt
+        self.last_pos = 0.0
+        self.last_vel = 0.0
+
+    def init(self, x0):
+        self.counter = 0
+        self.errors = []
+        self.last_pos = 0.0
+        self.last_vel = 0.0
+
+    def set_goal(self, x):
+        self.goal = x
+
+    def get_control_output(
+        self, meas_pos=None, meas_vel=None, meas_tau=None, meas_time=None
+    ):
+        """
+        The function to read and send the entries of the loaded trajectory
+        as control input to the simulator/real pendulum.
+
+        Parameters
+        ----------
+        meas_pos : float, deault=None
+            the position of the pendulum [rad]
+        meas_vel : float, deault=None
+            the velocity of the pendulum [rad/s]
+        meas_tau : float, deault=None
+            the meastured torque of the pendulum [Nm]
+        meas_time : float, deault=None
+            the collapsed time [s]
+
+        Returns
+        -------
+        des_pos : float
+            the desired position of the pendulum [rad]
+        des_vel : float
+            the desired velocity of the pendulum [rad/s]
+        des_tau : float
+            the torque supposed to be applied by the actuator [Nm]
+        """
+
+        des_pos = self.goal[0]
+        des_vel = self.goal[1]
+        des_tau = 0.0
+
+        e = des_pos - meas_pos
+        e = (e + np.pi) % (2 * np.pi) - np.pi
+        self.errors.append(e)
+
+        P = self.Kp * e
+        I = self.Ki * np.sum(self.errors) * self.dt
+        if len(self.errors) > 2:
+            D = self.Kd * (self.errors[-1] - self.errors[-2]) / self.dt
+        else:
+            D = 0.0
+
+        des_tau = des_tau + P + I + D
+        des_tau += self.b * float(np.squeeze(meas_vel))
+        des_tau += self.cf * np.sign(float(np.squeeze(meas_vel)))
+
+        des_tau = np.clip(des_tau, -self.torque_limit, self.torque_limit)
 
         self.counter += 1
 

@@ -299,7 +299,12 @@ class iLQRMPCcppController(AbstractController):
 
         # since this is a pure torque controller,
         # set pos_des and vel_des to None
+        des_tau = self.u_traj[0]
         des_pos = None
         des_vel = None
 
-        return des_pos, des_vel, self.u_traj[0]
+        # des_tau += self.damping * float(np.squeeze(meas_vel))
+        des_tau += self.coulomb_friction * np.sign(float(np.squeeze(meas_vel)))
+        des_tau = np.clip(des_tau, -self.torque_limit, self.torque_limit)
+
+        return des_pos, des_vel, des_tau

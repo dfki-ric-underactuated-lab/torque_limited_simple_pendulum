@@ -15,7 +15,7 @@ from simple_pendulum.utilities.plot import plot_trajectory
 # get the simulator
 torque_limit = 1.5
 mass = 0.57288
-length = 0.5
+length = 0.4
 damping = 0.10
 gravity = 9.81
 coulomb_fric = 0.0
@@ -34,7 +34,8 @@ pendulum = PendulumPlant(
 sim = Simulator(plant=pendulum)
 
 # get the controller
-model_path = "../../../data/models/sac/L0.5/sac_model.zip"
+# model_path = "../../../data/models/sac/L0.5/best_model"
+model_path = "../../../data/models/sac/L0.4/best_model"
 # model_path = "log_data/sac_training/best_model/best_model"
 
 controller = SacController(

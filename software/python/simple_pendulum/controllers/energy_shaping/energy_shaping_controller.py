@@ -3,7 +3,6 @@ Energy Shaping Controller
 =========================
 """
 
-
 # Other imports
 import numpy as np
 
@@ -17,13 +16,17 @@ class EnergyShapingController(AbstractController):
     """
     Controller which swings up the pendulum by regulating its energy.
     """
-    def __init__(self,
-                 mass=1.0,
-                 length=0.5,
-                 damping=0.1,
-                 gravity=9.81,
-                 torque_limit=2.0,
-                 k=1.0):
+
+    def __init__(
+        self,
+        mass=1.0,
+        length=0.5,
+        damping=0.1,
+        gravity=9.81,
+        coulomb_fric=0.0,
+        torque_limit=2.0,
+        k=1.0,
+    ):
         """
         Controller which swings up the pendulum by regulating its energy.
 
@@ -46,16 +49,19 @@ class EnergyShapingController(AbstractController):
         self.m = mass
         self.l = length
         self.b = damping
+        self.cf = coulomb_fric
         self.g = gravity
         self.torque_limit = torque_limit
         self.k = k
-        self.plant = PendulumPlant(mass=mass,
-                                   length=length,
-                                   damping=damping,
-                                   gravity=gravity,
-                                   coulomb_fric=0.0,
-                                   inertia=mass*length**2,
-                                   torque_limit=torque_limit)
+        self.plant = PendulumPlant(
+            mass=mass,
+            length=length,
+            damping=damping,
+            gravity=gravity,
+            coulomb_fric=0.0,
+            inertia=mass * length**2,
+            torque_limit=torque_limit,
+        )
 
     def set_goal(self, x):
         """
@@ -70,8 +76,7 @@ class EnergyShapingController(AbstractController):
         self.goal = [x[0], x[1]]
         self.desired_energy = self.plant.total_energy(x)
 
-    def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0):
+    def get_control_output(self, meas_pos, meas_vel, meas_tau=0, meas_time=0):
         """
         The function to compute the control input for the pendulum actuator
 
@@ -103,12 +108,15 @@ class EnergyShapingController(AbstractController):
         vel = float(np.squeeze(meas_vel))
 
         if np.abs(pos) < 0.05 and np.abs(vel) < 0.05:
-            des_tau = 1.0*self.torque_limit
+            des_tau = 1.0 * self.torque_limit
         else:
             total_energy = self.plant.total_energy([pos, vel])
 
-            des_tau = -self.k*vel*(total_energy - self.desired_energy) + \
-                self.b*vel
+            des_tau = (
+                -self.k * vel * (total_energy - self.desired_energy)
+                + self.b * vel
+                + self.cf * np.sign(vel)
+            )
 
         des_tau = min(des_tau, self.torque_limit)
         des_tau = max(des_tau, -self.torque_limit)
@@ -126,9 +134,20 @@ class EnergyShapingAndLQRController(AbstractController):
     Controller which swings up the pendulum with the energy shaping
     controller and stabilizes the pendulum with the lqr controller.
     """
-    def __init__(self, mass=1.0, length=0.5, damping=0.1, coulomb_fric=0.0,
-                 gravity=9.81, torque_limit=np.inf, k=1.0,
-                 Q=np.diag((10, 1)), R=np.array([[1]]), compute_RoA=False):
+
+    def __init__(
+        self,
+        mass=1.0,
+        length=0.5,
+        damping=0.1,
+        coulomb_fric=0.0,
+        gravity=9.81,
+        torque_limit=np.inf,
+        k=1.0,
+        Q=np.diag((10, 1)),
+        R=np.array([[1]]),
+        compute_RoA=False,
+    ):
         """
         Controller which swings up the pendulum with the energy shaping
         controller and stabilizes the pendulum with the lqr controller.
@@ -165,21 +184,26 @@ class EnergyShapingAndLQRController(AbstractController):
         self.cf = coulomb_fric
         self.g = gravity
 
-        self.energy_shaping_controller = EnergyShapingController(mass=mass,
-                                                                 length=length,
-                                                                 damping=damping,
-                                                                 gravity=gravity,
-                                                                 torque_limit=torque_limit,
-                                                                 k=k)
-        self.lqr_controller = LQRController(mass=mass,
-                                            length=length,
-                                            damping=damping,
-                                            coulomb_fric=coulomb_fric,
-                                            gravity=gravity,
-                                            torque_limit=torque_limit,
-                                            Q=Q,
-                                            R=R,
-                                            compute_RoA=compute_RoA)
+        self.energy_shaping_controller = EnergyShapingController(
+            mass=mass,
+            length=length,
+            damping=damping,
+            gravity=gravity,
+            coulomb_fric=coulomb_fric,
+            torque_limit=torque_limit,
+            k=k,
+        )
+        self.lqr_controller = LQRController(
+            mass=mass,
+            length=length,
+            damping=damping,
+            coulomb_fric=coulomb_fric,
+            gravity=gravity,
+            torque_limit=torque_limit,
+            Q=Q,
+            R=R,
+            compute_RoA=compute_RoA,
+        )
 
         self.active_controller = "none"
         self.swingup_time = None
@@ -197,8 +221,9 @@ class EnergyShapingAndLQRController(AbstractController):
         self.energy_shaping_controller.set_goal(x)
         self.lqr_controller.set_goal(x)
 
-    def get_control_output(self, meas_pos, meas_vel,
-                           meas_tau=0, meas_time=0, verbose=False):
+    def get_control_output(
+        self, meas_pos, meas_vel, meas_tau=0, meas_time=0, verbose=False
+    ):
         """
         The function to compute the control input for the pendulum actuator
 
@@ -229,13 +254,14 @@ class EnergyShapingAndLQRController(AbstractController):
         des_tau : float
             the torque supposed to be applied by the actuator [Nm]
         """
-        des_pos, des_vel, u = self.lqr_controller.get_control_output(meas_pos,
-                                                                     meas_vel)
+        des_pos, des_vel, u = self.lqr_controller.get_control_output(meas_pos, meas_vel)
         th = meas_pos + np.pi
-        th = (th + np.pi) % (2*np.pi) - np.pi
-        if (self.swingup_time is None and
-            np.abs(th) < self.eps[0] and
-            np.abs(meas_vel) < self.eps[1]):
+        th = (th + np.pi) % (2 * np.pi) - np.pi
+        if (
+            self.swingup_time is None
+            and np.abs(th) < self.eps[0]
+            and np.abs(meas_vel) < self.eps[1]
+        ):
             self.swingup_time = meas_time
 
         if u is not None:
@@ -248,8 +274,9 @@ class EnergyShapingAndLQRController(AbstractController):
                 self.active_controller = "EnergyShaping"
                 if verbose:
                     print("Switching to energy shaping control")
-            des_pos, des_vel, u = (self.energy_shaping_controller.
-                                   get_control_output(meas_pos, meas_vel))
+            des_pos, des_vel, u = self.energy_shaping_controller.get_control_output(
+                meas_pos, meas_vel
+            )
         return des_pos, des_vel, u
 
     def get_swingup_time(self):

@@ -33,6 +33,7 @@ class TVLQRController(AbstractController):
         length=0.5,
         damping=0.1,
         gravity=9.81,
+        coulomb_friction=0.0,
         torque_limit=np.inf,
     ):
         """
@@ -62,7 +63,7 @@ class TVLQRController(AbstractController):
         self.m = mass
         self.len = length
         self.b = damping
-        # self.cf = coulomb_fric
+        self.cf = coulomb_friction
         self.g = gravity
         self.inertia = self.m * (self.len) ** 2
 
@@ -221,6 +222,8 @@ class TVLQRController(AbstractController):
 
             des_tau = np.asarray(-self.K.dot(delta_y))[0]
 
+        des_tau += self.b * float(np.squeeze(meas_vel))
+        des_tau += self.cf * np.sign(float(np.squeeze(meas_vel)))
         des_tau = np.clip(des_tau, -self.torque_limit, self.torque_limit)
 
         return des_pos, des_vel, des_tau
